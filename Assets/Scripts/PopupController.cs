@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PopupController : MonoBehaviour
 {
-    public Text Popup;
+    public GameObject Popup;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,12 +21,12 @@ public class PopupController : MonoBehaviour
     {
         if( other.tag == "Player")
         {
-            if (Popup.gameObject.activeInHierarchy)
+            if (Popup.activeInHierarchy)
             {
-                Popup.gameObject.SetActive(false);
+                Popup.SetActive(false);
             } else
             {
-                Popup.gameObject.SetActive(true);
+                Popup.SetActive(true);
             }
         }
     }
