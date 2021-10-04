@@ -5,42 +5,49 @@ using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
-
+    
+    //Scripts
+    public PlayerStats pStats;
 
     //Variable Section
     /////
     //Speed Variables
-    private float minPlayerSpeed = 2f;
-    private float maxPlayerSpeed = 20f;
-    private float curPlayerSpeed;
     private Vector3 vel;
-
-    //Acceleration Variables
-    private float playerAcceleration = .03f;
-
-    //Character Turning /////MAYBE REMOVE WHEN ADD MOUSE CAMERA
-    private float turnSpeed = 100.0f;
- 
 
     //Character Moving
     private CharacterController moveController;
 
-    //Jumping
-    private float jumpPow = 25f;
-    private float gravity = 5.0f;
+    //Jump value
+    private int curJumpNum;
+    private bool jumpPressed;
 
     //Bump physics
     float mass = 5.0F; // defines the character mass
     Vector3 impact = Vector3.zero;
-    /////
     
+    //Camera Variables
+    private Vector3 camRotation;
+    private Transform cam;
+
+    [Range(-45, -15)]
+    public int minAngle = -30;
+    [Range(30, 80)]
+    public int maxAngle = 45;
+    [Range(50, 500)]
+    public int sensitivity = 200;
+    /////
 
     void Awake(){
+        //Initialize Components
         moveController = GetComponent<CharacterController>();
+        pStats = GetComponent<PlayerStats>();
+        Cursor.lockState = CursorLockMode.Locked;
+        //camera transform
+        cam = Camera.main.transform;
     }
 
     void Start(){
-        curPlayerSpeed = 0.0f;
+        InitializeStats();
     }
 
     // Update is called once per frame
@@ -48,6 +55,9 @@ public class PlayerMovement : MonoBehaviour
     {   
         //input controls for movement
         InputController();
+
+        //Controls for camera
+        Rotate();
 
         //if suffiecient impact magnitude is applied then move player
         if (impact.magnitude > 0.2F) moveController.Move(impact * Time.deltaTime);
@@ -59,13 +69,23 @@ public class PlayerMovement : MonoBehaviour
         Respawn();
 
     }
-
+    
+    //REMOVE OR ADJUST ONCE INVENTORY IS IMPLEMENTED
+    //Initializes variables for player when inventory is implemented it would be set there
+    private void InitializeStats(){
+        pStats.MaxVel = 30.0f;
+        pStats.MinVel = 2.0f;
+        pStats.CurVel = 0.0f;
+        pStats.Acc = 0.06f;
+        pStats.JumpPow = 100.0f;
+        pStats.JumpNum = 50;///SET IT LIKE THIS BC OF THE ISSUE WITH ISGROUNDED
+        pStats.Traction = 3.0f;
+        pStats.PlayerGrav= 7.0f;
+    }
 
     //Reads inputs and moves player
     private void InputController(){
         //Keyboard inputs
-        Vector3 turnInput = new Vector3(0, Input.GetAxis("HorizontalCam") ,0 );
-
 
         //Checks if movement keys have been pressed and calculates correct vector
         Vector3 moveX = transform.right * Input.GetAxis("Horizontal") * Time.deltaTime * PlayerSpeed();
@@ -75,17 +95,12 @@ public class PlayerMovement : MonoBehaviour
         //player vector should be under the circumstances
         vel = moveX + moveZ;
 
-        //If space is pressed apply an upwards force to the player
-        if(moveController.isGrounded && Input.GetAxis("Jump") != 0){
-            AddImpact(transform.up, jumpPow);
-        }
+        if(moveController.isGrounded) curJumpNum = 0;
+        //Jump Function
+        Jump();
 
         //Gravity
-        vel.y -= gravity * Time.deltaTime;
-
-        //////UPDATE SO CAMERA IS ROTATED WITH MOUSE/////////
-        //Rotates player with keys
-        transform.rotation *= (Quaternion.Euler(turnInput * Time.deltaTime * turnSpeed));
+        vel.y -= pStats.PlayerGrav * Time.deltaTime;
 
         moveController.Move(vel);
     }
@@ -95,23 +110,23 @@ public class PlayerMovement : MonoBehaviour
     private float PlayerSpeed(){
         //If nothing is pressed speed is 0
         if(Input.GetAxis("Vertical") == 0.0f && Input.GetAxis("Horizontal") == 0.0f){
-            curPlayerSpeed = 0.0f;
-            return curPlayerSpeed; 
+            pStats.CurVel = 0.0f;
+            return pStats.CurVel; 
         }
         //If current speed is below min when pressed set to minimum speed
-        else if(curPlayerSpeed < minPlayerSpeed){
-            curPlayerSpeed = minPlayerSpeed;
-            return minPlayerSpeed;
+        else if(pStats.CurVel < pStats.MinVel){
+            pStats.CurVel = pStats.MinVel;
+            return pStats.MinVel;
         }
         // while the speed is below max speed slowly increase it
-        else if((curPlayerSpeed >= minPlayerSpeed) && (curPlayerSpeed < maxPlayerSpeed)){
-            curPlayerSpeed += playerAcceleration;
-            return curPlayerSpeed + playerAcceleration;  
+        else if((pStats.CurVel >= pStats.MinVel) && (pStats.CurVel < pStats.MaxVel)){
+            pStats.CurVel += pStats.Acc;
+            return pStats.CurVel;  
         }
         //If the players speed is above or equal to max speed set speed to max
         else{
-            curPlayerSpeed = maxPlayerSpeed;
-            return maxPlayerSpeed;
+            pStats.CurVel = pStats.MaxVel;
+            return pStats.CurVel;
         }
     }
 
@@ -122,10 +137,42 @@ public class PlayerMovement : MonoBehaviour
         impact += dir.normalized * force / mass;
     }
 
+    //Jump Function
+    private void Jump(){
+        //If space is pressed apply an upwards force to the player
+        if(Input.GetAxis("Jump") != 0 && !jumpPressed && curJumpNum < pStats.JumpNum){
+            AddImpact(transform.up, pStats.JumpPow);
+            curJumpNum++;
+            jumpPressed = true;
+        }
+        
+        //NEEDS TO BE MASSIVELY CHANGE LIKELY USE RAYCAST TO CHECK IF ACTUALLY ON GROUND
+        //CANNOT USE CHARACTERCONTROLLER.ISGROUNDED IT IS UNRELIABLE
+        //If grounded no jumps have been used
+        if(moveController.isGrounded) curJumpNum = 0;
+
+        //If space isn't being pressed then jump is false
+        if(Input.GetAxis("Jump")==0) jumpPressed = false;
+    }
+
+    //Camera
+    private void Rotate()
+    {
+        transform.Rotate(Vector3.up * sensitivity * Time.deltaTime * Input.GetAxis("Mouse X"));
+
+        camRotation.x -= Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
+        camRotation.x = Mathf.Clamp(camRotation.x, minAngle, maxAngle);
+
+        cam.localEulerAngles = camRotation;
+    }
+
+    //REMOVE WHEN UNNECCESARY
     //Respawns player if they fall below a certain point
     private void Respawn(){
         if(transform.position.y < -1){
             transform.position = new Vector3(1f, 1f, 1f);
         }
     }
+
+    
 }
