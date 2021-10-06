@@ -14,7 +14,6 @@ public class PlayerMovement : MonoBehaviour
     //Speed Variables
     private Vector3 moveZ;
     private Vector3 moveX;
-    private Vector3 moveY;
     private Vector3 vel;
     private Vector3 driftVel;
     
@@ -42,6 +41,14 @@ public class PlayerMovement : MonoBehaviour
     public int maxAngle = 45;
     [Range(50, 500)]
     public int sensitivity = 200;
+
+    //Blink Variables
+    private LineRenderer beam;
+    private Vector3 origin;
+    private Vector3 endPoint;
+    private Vector3 mousePos;
+    private RaycastHit hit;
+    private Camera Cam;
     /////
 
     void Awake(){
@@ -49,8 +56,14 @@ public class PlayerMovement : MonoBehaviour
         moveController = GetComponent<CharacterController>();
         pStats = GetComponent<PlayerStats>();
         Cursor.lockState = CursorLockMode.Locked;
+
+        beam = gameObject.AddComponent<LineRenderer>();
+        beam.startWidth = 0.2f;
+        beam.endWidth = 0.2f;
+
         //camera transform
         cam = Camera.main.transform;
+        Cam = Camera.main;
     }
 
     void Start(){
@@ -75,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
 
         //Checks if player should respawn
         Respawn();
-
+        Blink();
     }
     
     //REMOVE OR ADJUST ONCE INVENTORY IS IMPLEMENTED
@@ -167,6 +180,8 @@ public class PlayerMovement : MonoBehaviour
         if(Input.GetAxis("Jump")==0) jumpPressed = false;
     }
 
+
+
     //Camera
     private void Rotate()
     {
@@ -178,11 +193,71 @@ public class PlayerMovement : MonoBehaviour
         cam.localEulerAngles = camRotation;
     }
 
+
+
     //REMOVE WHEN UNNECCESARY
     //Respawns player if they fall below a certain point
     private void Respawn(){
         if(transform.position.y < -1){
             transform.position = new Vector3(1f, 1f, 1f);
+        }
+    }
+
+
+
+    //Might adjust
+    private void Blink(){
+        if (Input.GetMouseButton(1)){
+            // Finding the origin and end point of laser.
+            origin = transform.position + transform.forward * transform.lossyScale.z;
+
+            // Finding mouse pos in 3D space.
+            mousePos = Input.mousePosition;
+            mousePos.z = 20f;
+            endPoint = Cam.ScreenToWorldPoint(mousePos);
+
+            // Find direction of beam.
+            Vector3 dir = endPoint - origin;
+            dir.Normalize();
+
+            // Are we hitting any colliders?
+            if (Physics.Raycast(origin, dir, out hit, 20f)){
+                // If yes, then set endpoint to hit-point.
+                endPoint = hit.point;
+            }
+
+            // Set end point of laser.
+            beam.SetPosition(0, origin);
+            beam.SetPosition(1, endPoint);
+            // Draw the laser!
+            beam.enabled = true;
+            /*Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+            RaycastHit raycastHit;
+
+            if (Physics.Raycast(ray, out raycastHit, 5.0f)){
+            LineRenderer.SetPosition(1, raycastHit.point);
+            }*/
+
+        }
+
+        else if(!Input.GetMouseButton(1) && beam.enabled == true){
+            beam.enabled = false;
+            //disable character controller for a brief second for teleportation
+            //gameObject.GetComponent<CharacterController>().enabled = false;
+            //get
+            Vector3 bump = new Vector3(0, .5f, 0);
+            //if teleporting due to hit to object, bump them a bit outside normal
+            if(hit.point != null) {
+                Debug.Log("warp");
+                transform.position = endPoint + hit.normal * 1.25f;
+
+            }
+            //if teleporting in the air or something, just spawn at endpoint
+            else{
+
+                transform.position = endPoint;
+            }
+            //reenable character controller
         }
     }
 
