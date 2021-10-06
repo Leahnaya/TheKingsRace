@@ -12,7 +12,12 @@ public class PlayerMovement : MonoBehaviour
     //Variable Section
     /////
     //Speed Variables
+    private Vector3 moveZ;
+    private Vector3 moveX;
+    private Vector3 moveY;
     private Vector3 vel;
+    private Vector3 driftVel;
+    
 
     //Character Moving
     private CharacterController moveController;
@@ -24,6 +29,8 @@ public class PlayerMovement : MonoBehaviour
     //Bump physics
     float mass = 5.0F; // defines the character mass
     Vector3 impact = Vector3.zero;
+
+
     
     //Camera Variables
     private Vector3 camRotation;
@@ -59,6 +66,7 @@ public class PlayerMovement : MonoBehaviour
         //Controls for camera
         Rotate();
 
+
         //if suffiecient impact magnitude is applied then move player
         if (impact.magnitude > 0.2F) moveController.Move(impact * Time.deltaTime);
 
@@ -80,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
         pStats.JumpPow = 100.0f;
         pStats.JumpNum = 50;///SET IT LIKE THIS BC OF THE ISSUE WITH ISGROUNDED
         pStats.Traction = 3.0f;
-        pStats.PlayerGrav= 7.0f;
+        pStats.PlayerGrav= 7.5f;
     }
 
     //Reads inputs and moves player
@@ -88,21 +96,25 @@ public class PlayerMovement : MonoBehaviour
         //Keyboard inputs
 
         //Checks if movement keys have been pressed and calculates correct vector
-        Vector3 moveX = transform.right * Input.GetAxis("Horizontal") * Time.deltaTime * PlayerSpeed();
-        Vector3 moveZ = transform.forward * Input.GetAxis("Vertical") * Time.deltaTime * PlayerSpeed();
+        moveX = transform.right * Input.GetAxis("Horizontal") * Time.deltaTime * PlayerSpeed();
+        moveZ = transform.forward * Input.GetAxis("Vertical") * Time.deltaTime * PlayerSpeed();
         
         //Adds vectors based on movement keys and other conditions to check what the
         //player vector should be under the circumstances
         vel = moveX + moveZ;
 
+        vel.y -=  pStats.PlayerGrav * Time.deltaTime;
+
+        driftVel = Vector3.Lerp(driftVel, vel, 1.8f*Time.deltaTime);
         if(moveController.isGrounded) curJumpNum = 0;
         //Jump Function
         Jump();
 
         //Gravity
-        vel.y -= pStats.PlayerGrav * Time.deltaTime;
+        //moveY -=  transform.up * pStats.PlayerGrav * Time.deltaTime;
 
-        moveController.Move(vel);
+
+        moveController.Move(driftVel);
     }
     
 
