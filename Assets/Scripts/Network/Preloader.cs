@@ -10,7 +10,10 @@ public class Preloader : MonoBehaviour {
     void Start() {
         netManager = GetComponentInParent<NetworkManager>();
 
-        if (Application.isEditor) return;
+        if (Application.isEditor) {
+            // Swap to Title Screen (as client) while in the editor
+            SceneManager.LoadScene(1);
+        }
 
         var args = GetCommandlineArgs();
 
@@ -22,12 +25,12 @@ public class Preloader : MonoBehaviour {
 
                 // Swap to the lobby scene to await players
                 NetworkSceneManager.SwitchScene("Lobby");
-            }
+            } 
+        } else {
+            // If not command line arguments
+            // Swap to Title Screen (as client)
+            SceneManager.LoadScene(1);
         }
-
-        // If not a dedicated server
-        // Swap to Title Screen (as client)
-        SceneManager.LoadScene("TitleScene");
     }
 
     private Dictionary<string, string> GetCommandlineArgs() {
