@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
-    
+
     //Scripts
     public PlayerStats pStats;
 
@@ -24,6 +24,17 @@ public class PlayerMovement : MonoBehaviour
     //Bump physics
     float mass = 5.0F; // defines the character mass
     Vector3 impact = Vector3.zero;
+
+    //Wallrunning
+    public float minimumWallrunningHeight = 1.75f;
+    public float maximumDistanceToWall = 0.75f;
+    private Vector3[] directions = new Vector3[]{
+        Vector3.right,
+        Vector3.right+Vector3.forward,
+        Vector3.forward,
+        Vector3.left+Vector3.forward,
+        Vector3.left
+    };
     
     //Camera Variables
     private Vector3 camRotation;
@@ -100,7 +111,7 @@ public class PlayerMovement : MonoBehaviour
         Jump();
 
         //Gravity
-        vel.y -= pStats.PlayerGrav * Time.deltaTime;
+        vel.y -= Gravity();
 
         moveController.Move(vel);
     }
@@ -174,5 +185,30 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    
+    //Gravity Function for adjusting y-vel due to wallrun/glide/etc
+    private float Gravity(){
+        //Wallrunning
+        if (!moveController.isGrounded && Input.GetAxisRaw("Vertical") != 0) { //If in the air, and moving forward
+            RaycastHit hit;
+            Physics.Raycast(moveController.transform.position, Vector3.down, out hit);
+            if (hit.distance > minimumWallrunningHeight) //If distance from player to ground is > min ground height
+            {
+                foreach (Vector3 direction in directions)
+                {      //For each direction we can wallrun in
+                    Ray ray = new Ray(moveController.transform.position, direction); //Cast a Ray to see if we are by a wall
+                    if (Physics.Raycast(ray, out hit, maximumDistanceToWall)) //If the ray hits a wallrun wall
+                    {
+                        if (hit.collider.tag == "WallRun")
+                        {
+                            return 0; //Don't fall down
+                        }
+                    }
+                }
+            }        
+        }
+        //If gliding 
+            //Go down slowly
+        //Else normal gravity
+        return pStats.PlayerGrav * Time.deltaTime;
+    }
 }
