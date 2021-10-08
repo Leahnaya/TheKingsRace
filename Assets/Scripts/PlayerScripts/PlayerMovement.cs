@@ -63,16 +63,14 @@ public class PlayerMovement : MonoBehaviour
 
         //camera transform
         cam = Camera.main.transform;
-        Cam = Camera.main;
+        Cam = Camera.main; //RENAME WHEN CLEANING UP BLINK
     }
 
     void Start(){
-        InitializeStats();
     }
 
     // Update is called once per frame
-    void FixedUpdate()
-    {   
+    void FixedUpdate(){   
         //input controls for movement
         InputController();
 
@@ -90,18 +88,9 @@ public class PlayerMovement : MonoBehaviour
         Respawn();
         Blink();
     }
-    
-    //REMOVE OR ADJUST ONCE INVENTORY IS IMPLEMENTED
-    //Initializes variables for player when inventory is implemented it would be set there
-    private void InitializeStats(){
-        pStats.MaxVel = 30.0f;
-        pStats.MinVel = 2.0f;
-        pStats.CurVel = 0.0f;
-        pStats.Acc = 0.06f;
-        pStats.JumpPow = 100.0f;
-        pStats.JumpNum = 50;///SET IT LIKE THIS BC OF THE ISSUE WITH ISGROUNDED
-        pStats.Traction = 3.0f;
-        pStats.PlayerGrav= 7.5f;
+
+    void Update(){
+        if(moveController.isGrounded) curJumpNum = 0;
     }
 
     //Reads inputs and moves player
@@ -116,16 +105,12 @@ public class PlayerMovement : MonoBehaviour
         //player vector should be under the circumstances
         vel = moveX + moveZ;
 
+        //Gravity
         vel.y -=  pStats.PlayerGrav * Time.deltaTime;
 
-        driftVel = Vector3.Lerp(driftVel, vel, 1.8f*Time.deltaTime);
-        if(moveController.isGrounded) curJumpNum = 0;
+        driftVel = Vector3.Lerp(driftVel, vel, pStats.Traction*Time.deltaTime);
         //Jump Function
         Jump();
-
-        //Gravity
-        //moveY -=  transform.up * pStats.PlayerGrav * Time.deltaTime;
-
 
         moveController.Move(driftVel);
     }
@@ -205,7 +190,8 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-    //Might adjust
+    //ADJUST SO DISTANCE IS DETERMINED BY SCROLL WHEEL
+    //blinks the player forwards
     private void Blink(){
         if (Input.GetMouseButton(1)){
             // Finding the origin and end point of laser.
@@ -248,7 +234,6 @@ public class PlayerMovement : MonoBehaviour
             Vector3 bump = new Vector3(0, .5f, 0);
             //if teleporting due to hit to object, bump them a bit outside normal
             if(hit.point != null) {
-                Debug.Log("warp");
                 transform.position = endPoint + hit.normal * 1.25f;
 
             }

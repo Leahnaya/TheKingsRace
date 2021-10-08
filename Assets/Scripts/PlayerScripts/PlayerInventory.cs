@@ -4,15 +4,27 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    [SerializeField] List<Item> items;
+    public PlayerStats pStats;
+    
+    public bool AddItem(Item item){
+        items.Add(item);
+        return true;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public bool RemoveItem(Item item){
+        if(items.Remove(item)){
+            return true;
+        }
+        return false;
     }
+
+    void Awake(){
+        pStats = GetComponent<PlayerStats>();
+        foreach (Item item in items){
+            item.Equip(pStats);
+        }
+    }
+
+
 }
