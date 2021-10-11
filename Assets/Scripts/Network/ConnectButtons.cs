@@ -1,11 +1,13 @@
 using MLAPI;
+using MLAPI.SceneManagement;
+using MLAPI.Transports.UNET;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ConnectButtons : MonoBehaviour {
 
-    private NetworkManager netManager;
+    private UNetTransport transport;
 
     public GameObject ErrorPanel;
     public Text ErrorText;
@@ -16,8 +18,8 @@ public class ConnectButtons : MonoBehaviour {
         // Make sure the Error Panel is not enabled to start
         ErrorPanel.SetActive(false);
 
-        // Find the network manager that was created during the preloader scene
-        netManager = FindObjectOfType<NetworkManager>();
+        // Find the UNetTransport object that is associated with the NetworkManager
+        transport = NetworkManager.Singleton.GetComponent<UNetTransport>();
     }
 
     // Connect to the dedicated server
@@ -28,8 +30,8 @@ public class ConnectButtons : MonoBehaviour {
 
     // Host a private server
     public void HostPrivateServer() {
-        // TODO: Host a private server
-        ThrowError("Host Private Server Not Implemented Yet!");
+        NetworkManager.Singleton.StartHost();
+        NetworkSceneManager.SwitchScene("Lobby");
     }
 
     // Connect to a private server via IP Address
@@ -44,8 +46,17 @@ public class ConnectButtons : MonoBehaviour {
 
         // IP Address is valid - Attempt to connect
 
-        // TODO: Attempt to connect to host at ip address
-        ThrowError("Connecting to Private Server Not Implemented Yet!\nValid IP Address: " + ipAddress);
+        // Set the connection address to be equal to the ip address entered into the input field
+        transport.ConnectAddress = ipAddress;
+
+        // Set the password to connect with
+        NetworkManager.Singleton.NetworkConfig.ConnectionData = System.Text.Encoding.ASCII.GetBytes("kingsrace");
+
+        // Start the client on the address
+        NetworkManager.Singleton.StartClient();
+
+        // TODO: I think it properly connects to the lobby but double check.
+        // TODO: have an error catch if can't connec to that IP
     }
 
     private void ThrowError(string errorMsg) {

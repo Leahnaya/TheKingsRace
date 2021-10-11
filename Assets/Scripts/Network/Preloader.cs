@@ -5,10 +5,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Preloader : MonoBehaviour {
-    private NetworkManager netManager;
 
     void Start() {
-        netManager = GetComponentInParent<NetworkManager>();
+        NetworkManager.Singleton.ConnectionApprovalCallback += ApprovalCheck;
 
         if (Application.isEditor) {
             // Swap to Title Screen (as client) while in the editor
@@ -21,7 +20,7 @@ public class Preloader : MonoBehaviour {
         if (args.TryGetValue("-mlapi", out string mlapiValue)) { 
             if (mlapiValue == "server") {
                 // Start the server
-                netManager.StartServer();
+                NetworkManager.Singleton.StartServer();
 
                 // Swap to the lobby scene to await players
                 NetworkSceneManager.SwitchScene("Lobby");
@@ -31,6 +30,20 @@ public class Preloader : MonoBehaviour {
             // Swap to Title Screen (as client)
             SceneManager.LoadScene(1);
         }
+    }
+
+    private void ApprovalCheck(byte[] connectionData, ulong clientID, NetworkManager.ConnectionApprovedDelegate callback) {
+
+        bool approve = false;
+
+        // Validate the connection password
+        string password = System.Text.Encoding.ASCII.GetString(connectionData);
+        if (password == "kingsrace") {
+            approve = true;
+        }
+
+        // Vec 3 is position
+        callback(true, null, approve, new Vector3(0, 10, 0), Quaternion.identity);
     }
 
     private Dictionary<string, string> GetCommandlineArgs() {
