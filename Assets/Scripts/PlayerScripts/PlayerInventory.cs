@@ -4,15 +4,46 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    //List of items
+    [SerializeField] List<Item> items;
+
+    //Scripts
+    public PlayerStats pStats;
+    public InventoryManager invMan;
+    
+    public bool AddItem(Item item){
+        items.Add(item);
+        return true;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public bool AddSpecialItem<T>(T itemCandidate) { // Unless we don't want the four special items to be handled by inventory/inventory manager?
+        if (itemCandidate is Item) {
+            items.Add(itemCandidate as Item);
+        }
+        return true;
     }
+
+
+    public bool RemoveItem(Item item){
+        if(items.Remove(item)){
+            return true;
+        }
+        return false;
+    }
+
+    void Awake(){
+        pStats = GetComponent<PlayerStats>();
+        invMan = GetComponent<InventoryManager>();//////UPDATE WHEN THIS IS NO LONGER ATTACHED TO THE PLAYER
+    }
+
+    void Start(){
+        AddItem(invMan.ItemList[0]);
+        AddItem(invMan.ItemList[1]);
+        foreach (Item item in items){
+            Debug.Log(item.name);
+            item.Equip(pStats);
+        }
+    }
+
+
 }
