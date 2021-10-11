@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour
 {
     //Maximum possible player speed
-    private float maxVel = 30.0f;
+    private float maxVel = 25.0f;
     public float MaxVel{
         get{ return maxVel; }
         set{ maxVel = value; }
@@ -26,7 +26,7 @@ public class PlayerStats : MonoBehaviour
     }
 
     //Player Jump power
-    private float acc = 0.06f;
+    private float acc = 0.1f;
     public float Acc{
         get{ return acc; }
         set{ acc = value; }
@@ -40,7 +40,7 @@ public class PlayerStats : MonoBehaviour
     }
 
     //Players Number of Jumps
-    private int jumpNum = 60; ////// UPDATE TO 2 WHEN THE JUMP ISSUE IS FIXED
+    private int jumpNum = 2; ////// UPDATE TO 2 WHEN THE JUMP ISSUE IS FIXED
     public int JumpNum{
         get{ return jumpNum; }
         set{ jumpNum = value; }

@@ -17,7 +17,6 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 vel;
     private Vector3 driftVel;
     
-
     //Character Moving
     private CharacterController moveController;
 
@@ -25,15 +24,15 @@ public class PlayerMovement : MonoBehaviour
     private int curJumpNum;
     private bool jumpPressed;
 
-    //Bump physics
-    float mass = 5.0F; // defines the character mass
-    Vector3 impact = Vector3.zero;
+    //Jump physics
+    private float mass = 5.0F; // defines the character mass
+    private Vector3 impact = Vector3.zero;
+    private float distToGround;
 
-
-    
     //Camera Variables
+    private LayerMask ignoreP;
     private Vector3 camRotation;
-    private Transform cam;
+    private Camera cam;
 
     [Range(-45, -15)]
     public int minAngle = -30;
@@ -48,7 +47,6 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 endPoint;
     private Vector3 mousePos;
     private RaycastHit hit;
-    private Camera Cam;
     /////
 
     void Awake(){
@@ -56,17 +54,21 @@ public class PlayerMovement : MonoBehaviour
         moveController = GetComponent<CharacterController>();
         pStats = GetComponent<PlayerStats>();
         Cursor.lockState = CursorLockMode.Locked;
+        ignoreP = LayerMask.GetMask("Player");
 
         beam = gameObject.AddComponent<LineRenderer>();
         beam.startWidth = 0.2f;
         beam.endWidth = 0.2f;
 
         //camera transform
-        cam = Camera.main.transform;
-        Cam = Camera.main; //RENAME WHEN CLEANING UP BLINK
+        cam = Camera.main;
     }
 
+
+
     void Start(){
+        distToGround = GetComponent<Collider>().bounds.extents.y;
+
     }
 
     // Update is called once per frame
@@ -87,11 +89,10 @@ public class PlayerMovement : MonoBehaviour
         //Checks if player should respawn
         Respawn();
         Blink();
+
     }
 
-    void Update(){
-        if(moveController.isGrounded) curJumpNum = 0;
-    }
+
 
     //Reads inputs and moves player
     private void InputController(){
@@ -113,8 +114,9 @@ public class PlayerMovement : MonoBehaviour
         Jump();
 
         moveController.Move(driftVel);
-    }
-    
+    } 
+
+
 
     //Calculates speed current player needs to be going
     private float PlayerSpeed(){
@@ -140,6 +142,8 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+
+
     //Applies impact in a direction with the given force
     public void AddImpact(Vector3 dir, float force){
         dir.Normalize();
@@ -147,10 +151,12 @@ public class PlayerMovement : MonoBehaviour
         impact += dir.normalized * force / mass;
     }
 
+
+
     //Jump Function
     private void Jump(){
         //If space is pressed apply an upwards force to the player
-        if(Input.GetAxis("Jump") != 0 && !jumpPressed && curJumpNum < pStats.JumpNum){
+        if(Input.GetAxis("Jump") != 0 && !jumpPressed && curJumpNum+1 < pStats.JumpNum){
             AddImpact(transform.up, pStats.JumpPow);
             curJumpNum++;
             jumpPressed = true;
@@ -159,13 +165,18 @@ public class PlayerMovement : MonoBehaviour
         //NEEDS TO BE MASSIVELY CHANGE LIKELY USE RAYCAST TO CHECK IF ACTUALLY ON GROUND
         //CANNOT USE CHARACTERCONTROLLER.ISGROUNDED IT IS UNRELIABLE
         //If grounded no jumps have been used
-        if(moveController.isGrounded) curJumpNum = 0;
+        if(IsGrounded()){
+            curJumpNum = 0;
+        }
 
         //If space isn't being pressed then jump is false
         if(Input.GetAxis("Jump")==0) jumpPressed = false;
     }
 
-
+    //Improved IsGrounded
+    private bool IsGrounded(){
+        return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f, ~ignoreP);
+    }
 
     //Camera
     private void Rotate()
@@ -175,7 +186,7 @@ public class PlayerMovement : MonoBehaviour
         camRotation.x -= Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
         camRotation.x = Mathf.Clamp(camRotation.x, minAngle, maxAngle);
 
-        cam.localEulerAngles = camRotation;
+        cam.transform.localEulerAngles = camRotation;
     }
 
 
@@ -200,7 +211,7 @@ public class PlayerMovement : MonoBehaviour
             // Finding mouse pos in 3D space.
             mousePos = Input.mousePosition;
             mousePos.z = 20f;
-            endPoint = Cam.ScreenToWorldPoint(mousePos);
+            endPoint = cam.ScreenToWorldPoint(mousePos);
 
             // Find direction of beam.
             Vector3 dir = endPoint - origin;
