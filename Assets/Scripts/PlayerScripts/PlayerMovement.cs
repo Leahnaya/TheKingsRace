@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
-    
+
     //Scripts
     public PlayerStats pStats;
 
@@ -28,6 +28,21 @@ public class PlayerMovement : MonoBehaviour
     private float mass = 5.0F; // defines the character mass
     private Vector3 impact = Vector3.zero;
     private float distToGround;
+    //Bump physics
+    float mass = 5.0F; // defines the character mass
+    Vector3 impact = Vector3.zero;
+
+    //Wallrunning
+    private WallRun wallRun;
+
+    //Ground Check
+    public bool isGrounded { get; private set; } //Better custom is grounded 
+    public float groundCheckDistance = 0.05f; //how far away from the ground to not be considered grounded
+    private float lastTimeJumped = 0f; //Last time the player jumped
+    const float jumpGroundingPreventionTime = 0.2f; // delay in checking if we are grounded after a jump
+    const float groundCheckDistanceInAir = 0.07f; //How close we have to get to ground to start checking for grounded again
+    public LayerMask groundCheckLayers = -1; //Physics layers checked to consider the player grounded
+
 
     //Camera Variables
     private LayerMask ignoreP;
@@ -61,7 +76,11 @@ public class PlayerMovement : MonoBehaviour
         beam.endWidth = 0.2f;
 
         //camera transform
-        cam = Camera.main;
+        cam = Camera.main.transform;
+        Cam = Camera.main; //RENAME WHEN CLEANING UP BLINK
+
+        //Wallrun
+        wallRun = gameObject.GetComponent<WallRun>();
     }
 
 
@@ -96,6 +115,8 @@ public class PlayerMovement : MonoBehaviour
 
     //Reads inputs and moves player
     private void InputController(){
+        //Check if player is grounded before each frame
+        GroundCheck();
         //Keyboard inputs
 
         //Checks if movement keys have been pressed and calculates correct vector
@@ -107,7 +128,7 @@ public class PlayerMovement : MonoBehaviour
         vel = moveX + moveZ;
 
         //Gravity
-        vel.y -=  pStats.PlayerGrav * Time.deltaTime;
+        Gravity();
 
         driftVel = Vector3.Lerp(driftVel, vel, pStats.Traction*Time.deltaTime);
         //Jump Function
@@ -119,7 +140,7 @@ public class PlayerMovement : MonoBehaviour
 
 
     //Calculates speed current player needs to be going
-    private float PlayerSpeed(){
+    public float PlayerSpeed(){
         //If nothing is pressed speed is 0
         if(Input.GetAxis("Vertical") == 0.0f && Input.GetAxis("Horizontal") == 0.0f){
             pStats.CurVel = 0.0f;
@@ -161,7 +182,9 @@ public class PlayerMovement : MonoBehaviour
             curJumpNum++;
             jumpPressed = true;
         }
-        
+
+        lastTimeJumped = Time.time;
+
         //NEEDS TO BE MASSIVELY CHANGE LIKELY USE RAYCAST TO CHECK IF ACTUALLY ON GROUND
         //CANNOT USE CHARACTERCONTROLLER.ISGROUNDED IT IS UNRELIABLE
         //If grounded no jumps have been used
@@ -173,9 +196,21 @@ public class PlayerMovement : MonoBehaviour
         if(Input.GetAxis("Jump")==0) jumpPressed = false;
     }
 
-    //Improved IsGrounded
-    private bool IsGrounded(){
-        return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f, ~ignoreP);
+    public bool GetJumpPressed() {
+        return jumpPressed;
+    }
+
+    public Camera GetPlayerCamera() { 
+        return Cam; 
+    }
+
+    public void AddPlayerVelocity(Vector3 additiveVelocity) {
+        vel += additiveVelocity;
+    }
+
+    public void SetPlayerVelocity(Vector3 newVelocity)
+    {
+        vel = newVelocity;
     }
 
     //Camera
@@ -199,7 +234,62 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    //Gravity Function for adjusting y-vel due to wallrun/glide/etc
+    private void Gravity(){
+        //Normal Gravity
+        vel.y -= pStats.PlayerGrav * Time.deltaTime; 
+        //Wallrunning
+        if (pStats.HasWallrun) { wallRun.WallRunRoutine(); } //adjusted later if we are wallrunning
+        //If gliding 
+            //Go down slowly
+    }
 
+    void GroundCheck()
+    {
+        // Make sure that the ground check distance while already in air is very small, to prevent suddenly snapping to ground
+        float chosenGroundCheckDistance = isGrounded ? (moveController.skinWidth + groundCheckDistance) : groundCheckDistanceInAir;
+
+        // reset values before the ground check
+        isGrounded = false;
+        Vector3 groundNormal = Vector3.up;
+
+        // only try to detect ground if it's been a short amount of time since last jump; otherwise we may snap to the ground instantly after we try jumping
+        if (Time.time >= lastTimeJumped + jumpGroundingPreventionTime)
+        {
+            // if we're grounded, collect info about the ground normal with a downward capsule cast representing our character capsule
+            if (Physics.CapsuleCast(GetCapsuleBottomHemisphere(), GetCapsuleTopHemisphere(moveController.height), moveController.radius, Vector3.down, out RaycastHit hit, chosenGroundCheckDistance, groundCheckLayers, QueryTriggerInteraction.Ignore))
+            {
+                // storing the upward direction for the surface found
+                groundNormal = hit.normal;
+
+                // Only consider this a valid ground hit if the ground normal goes in the same direction as the character up
+                // and if the slope angle is lower than the character controller's limit
+                if (Vector3.Dot(hit.normal, transform.up) > 0f && IsNormalUnderSlopeLimit(groundNormal))
+                {
+                    isGrounded = true;
+
+                    // handle snapping to the ground
+                    if (hit.distance > moveController.skinWidth)
+                    {
+                        moveController.Move(Vector3.down * hit.distance);
+                    }
+                }
+            }
+        }
+    }
+
+    private bool IsNormalUnderSlopeLimit(Vector3 normal){  // Returns true if the slope angle represented by the given normal is under the slope angle limit of the character controller
+        return Vector3.Angle(transform.up, normal) <= moveController.slopeLimit;
+    }
+
+    private Vector3 GetCapsuleBottomHemisphere(){  // Gets the center point of the bottom hemisphere of the character controller capsule    
+        return transform.position + (transform.up * moveController.radius);
+    }
+
+    private Vector3 GetCapsuleTopHemisphere(float atHeight){  // Gets the center point of the top hemisphere of the character controller capsule    
+
+        return transform.position + (transform.up * (atHeight - moveController.radius));
+    }
 
     //ADJUST SO DISTANCE IS DETERMINED BY SCROLL WHEEL
     //blinks the player forwards
