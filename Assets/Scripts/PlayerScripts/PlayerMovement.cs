@@ -28,9 +28,7 @@ public class PlayerMovement : MonoBehaviour
     private float mass = 5.0F; // defines the character mass
     private Vector3 impact = Vector3.zero;
     private float distToGround;
-    //Bump physics
-    float mass = 5.0F; // defines the character mass
-    Vector3 impact = Vector3.zero;
+
 
     //Wallrunning
     private WallRun wallRun;
@@ -76,8 +74,7 @@ public class PlayerMovement : MonoBehaviour
         beam.endWidth = 0.2f;
 
         //camera transform
-        cam = Camera.main.transform;
-        Cam = Camera.main; //RENAME WHEN CLEANING UP BLINK
+        cam = Camera.main;
 
         //Wallrun
         wallRun = gameObject.GetComponent<WallRun>();
@@ -188,9 +185,9 @@ public class PlayerMovement : MonoBehaviour
         //NEEDS TO BE MASSIVELY CHANGE LIKELY USE RAYCAST TO CHECK IF ACTUALLY ON GROUND
         //CANNOT USE CHARACTERCONTROLLER.ISGROUNDED IT IS UNRELIABLE
         //If grounded no jumps have been used
-        if(IsGrounded()){
-            curJumpNum = 0;
-        }
+        // if(IsGrounded()){
+        //     curJumpNum = 0;
+        // }
 
         //If space isn't being pressed then jump is false
         if(Input.GetAxis("Jump")==0) jumpPressed = false;
@@ -201,7 +198,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     public Camera GetPlayerCamera() { 
-        return Cam; 
+        return cam; 
     }
 
     public void AddPlayerVelocity(Vector3 additiveVelocity) {
