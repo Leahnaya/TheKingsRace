@@ -30,16 +30,17 @@ public class PlayerMovement : MonoBehaviour
     Vector3 impact = Vector3.zero;
 
     //Wallrunning
-    public float minimumWallrunningHeight = 1.75f;
-    public float maximumDistanceToWall = 0.75f;
-    private Vector3[] directions = new Vector3[]{
-        Vector3.right,
-        Vector3.right+Vector3.forward,
-        Vector3.forward,
-        Vector3.left+Vector3.forward,
-        Vector3.left
-    };
-    
+    private WallRun wallRun;
+
+    //Ground Check
+    public bool isGrounded { get; private set; } //Better custom is grounded 
+    public float groundCheckDistance = 0.05f; //how far away from the ground to not be considered grounded
+    private float lastTimeJumped = 0f; //Last time the player jumped
+    const float jumpGroundingPreventionTime = 0.2f; // delay in checking if we are grounded after a jump
+    const float groundCheckDistanceInAir = 0.07f; //How close we have to get to ground to start checking for grounded again
+    public LayerMask groundCheckLayers = -1; //Physics layers checked to consider the player grounded
+
+
     //Camera Variables
     private Vector3 camRotation;
     private Transform cam;
@@ -73,6 +74,9 @@ public class PlayerMovement : MonoBehaviour
         //camera transform
         cam = Camera.main.transform;
         Cam = Camera.main; //RENAME WHEN CLEANING UP BLINK
+
+        //Wallrun
+        wallRun = gameObject.GetComponent<WallRun>();
     }
 
     void Start(){
@@ -104,6 +108,8 @@ public class PlayerMovement : MonoBehaviour
 
     //Reads inputs and moves player
     private void InputController(){
+        //Check if player is grounded before each frame
+        GroundCheck();
         //Keyboard inputs
 
         //Checks if movement keys have been pressed and calculates correct vector
@@ -115,21 +121,18 @@ public class PlayerMovement : MonoBehaviour
         vel = moveX + moveZ;
 
         //Gravity
-        vel.y -=  pStats.PlayerGrav * Time.deltaTime;
+        Gravity();
 
         driftVel = Vector3.Lerp(driftVel, vel, pStats.Traction*Time.deltaTime);
         //Jump Function
         Jump();
-
-        //Gravity
-        vel.y -= Gravity();
 
         moveController.Move(driftVel);
     }
     
 
     //Calculates speed current player needs to be going
-    private float PlayerSpeed(){
+    public float PlayerSpeed(){
         //If nothing is pressed speed is 0
         if(Input.GetAxis("Vertical") == 0.0f && Input.GetAxis("Horizontal") == 0.0f){
             pStats.CurVel = 0.0f;
@@ -167,7 +170,9 @@ public class PlayerMovement : MonoBehaviour
             curJumpNum++;
             jumpPressed = true;
         }
-        
+
+        lastTimeJumped = Time.time;
+
         //NEEDS TO BE MASSIVELY CHANGE LIKELY USE RAYCAST TO CHECK IF ACTUALLY ON GROUND
         //CANNOT USE CHARACTERCONTROLLER.ISGROUNDED IT IS UNRELIABLE
         //If grounded no jumps have been used
@@ -177,7 +182,22 @@ public class PlayerMovement : MonoBehaviour
         if(Input.GetAxis("Jump")==0) jumpPressed = false;
     }
 
+    public bool GetJumpPressed() {
+        return jumpPressed;
+    }
 
+    public Camera GetPlayerCamera() { 
+        return Cam; 
+    }
+
+    public void AddPlayerVelocity(Vector3 additiveVelocity) {
+        vel += additiveVelocity;
+    }
+
+    public void SetPlayerVelocity(Vector3 newVelocity)
+    {
+        vel = newVelocity;
+    }
 
     //Camera
     private void Rotate()
@@ -201,32 +221,61 @@ public class PlayerMovement : MonoBehaviour
     }
 
     //Gravity Function for adjusting y-vel due to wallrun/glide/etc
-    private float Gravity(){
+    private void Gravity(){
+        //Normal Gravity
+        vel.y -= pStats.PlayerGrav * Time.deltaTime; 
         //Wallrunning
-        if (!moveController.isGrounded && Input.GetAxisRaw("Vertical") != 0) { //If in the air, and moving forward
-            RaycastHit hit;
-            Physics.Raycast(moveController.transform.position, Vector3.down, out hit);
-            if (hit.distance > minimumWallrunningHeight) //If distance from player to ground is > min ground height
-            {
-                foreach (Vector3 direction in directions)
-                {      //For each direction we can wallrun in
-                    Ray ray = new Ray(moveController.transform.position, direction); //Cast a Ray to see if we are by a wall
-                    if (Physics.Raycast(ray, out hit, maximumDistanceToWall)) //If the ray hits a wallrun wall
-                    {
-                        if (hit.collider.tag == "WallRun")
-                        {
-                            return 0; //Don't fall down
-                        }
-                    }
-                }
-            }        
-        }
+        if (pStats.HasWallrun) { wallRun.WallRunRoutine(); } //adjusted later if we are wallrunning
         //If gliding 
             //Go down slowly
-        //Else normal gravity
-        return pStats.PlayerGrav * Time.deltaTime;
     }
 
+    void GroundCheck()
+    {
+        // Make sure that the ground check distance while already in air is very small, to prevent suddenly snapping to ground
+        float chosenGroundCheckDistance = isGrounded ? (moveController.skinWidth + groundCheckDistance) : groundCheckDistanceInAir;
+
+        // reset values before the ground check
+        isGrounded = false;
+        Vector3 groundNormal = Vector3.up;
+
+        // only try to detect ground if it's been a short amount of time since last jump; otherwise we may snap to the ground instantly after we try jumping
+        if (Time.time >= lastTimeJumped + jumpGroundingPreventionTime)
+        {
+            // if we're grounded, collect info about the ground normal with a downward capsule cast representing our character capsule
+            if (Physics.CapsuleCast(GetCapsuleBottomHemisphere(), GetCapsuleTopHemisphere(moveController.height), moveController.radius, Vector3.down, out RaycastHit hit, chosenGroundCheckDistance, groundCheckLayers, QueryTriggerInteraction.Ignore))
+            {
+                // storing the upward direction for the surface found
+                groundNormal = hit.normal;
+
+                // Only consider this a valid ground hit if the ground normal goes in the same direction as the character up
+                // and if the slope angle is lower than the character controller's limit
+                if (Vector3.Dot(hit.normal, transform.up) > 0f && IsNormalUnderSlopeLimit(groundNormal))
+                {
+                    isGrounded = true;
+
+                    // handle snapping to the ground
+                    if (hit.distance > moveController.skinWidth)
+                    {
+                        moveController.Move(Vector3.down * hit.distance);
+                    }
+                }
+            }
+        }
+    }
+
+    private bool IsNormalUnderSlopeLimit(Vector3 normal){  // Returns true if the slope angle represented by the given normal is under the slope angle limit of the character controller
+        return Vector3.Angle(transform.up, normal) <= moveController.slopeLimit;
+    }
+
+    private Vector3 GetCapsuleBottomHemisphere(){  // Gets the center point of the bottom hemisphere of the character controller capsule    
+        return transform.position + (transform.up * moveController.radius);
+    }
+
+    private Vector3 GetCapsuleTopHemisphere(float atHeight){  // Gets the center point of the top hemisphere of the character controller capsule    
+
+        return transform.position + (transform.up * (atHeight - moveController.radius));
+    }
 
     //ADJUST SO DISTANCE IS DETERMINED BY SCROLL WHEEL
     //blinks the player forwards
