@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour
     //Variable Section
     /////
     //Speed Variables
-    private Vector3 vel;
+    public Vector3 vel;
 
     //Character Moving
     private CharacterController moveController;
