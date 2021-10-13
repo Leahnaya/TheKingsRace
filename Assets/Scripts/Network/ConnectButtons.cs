@@ -55,8 +55,7 @@ public class ConnectButtons : MonoBehaviour {
         // Start the client on the address
         NetworkManager.Singleton.StartClient();
 
-        // TODO: I think it properly connects to the lobby but double check.
-        // TODO: have an error catch if can't connec to that IP
+        // TODO: Have to throw an error if can't connect to that IP
     }
 
     private void ThrowError(string errorMsg) {
