@@ -1,6 +1,7 @@
 using MLAPI;
 using MLAPI.SceneManagement;
 using MLAPI.Transports.UNET;
+using System.Collections;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,6 +14,8 @@ public class ConnectButtons : MonoBehaviour {
     public Text ErrorText;
 
     public InputField ipAddressField;
+
+    private int connectionTimeoutTime = 5;
 
     void Start() {
         // Make sure the Error Panel is not enabled to start
@@ -56,6 +59,12 @@ public class ConnectButtons : MonoBehaviour {
         NetworkManager.Singleton.StartClient();
 
         // TODO: Have to throw an error if can't connect to that IP
+    }
+
+    IEnumerator checkIsConnectedClient() {
+        yield return new WaitForSecondsRealtime(connectionTimeoutTime);
+
+        
     }
 
     private void ThrowError(string errorMsg) {
