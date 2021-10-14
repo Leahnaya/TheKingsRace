@@ -37,8 +37,8 @@ public class PlayerInventory : MonoBehaviour
     }
 
     void Start(){
-        AddItem(invMan.ItemList[0]);
-        AddItem(invMan.ItemList[1]);
+        //AddItem(invMan.ItemList[0]);
+       // AddItem(invMan.ItemList[1]);
         foreach (Item item in items){
             Debug.Log(item.name);
             item.Equip(pStats);

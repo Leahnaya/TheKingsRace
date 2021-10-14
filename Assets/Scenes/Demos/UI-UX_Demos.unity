@@ -590,10 +590,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pStats: {fileID: 944325792}
+  vel: {x: 0, y: 0, z: 0}
+  isGrounded: 0
   groundCheckDistance: 0.05
-  groundCheckLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
   minAngle: -15
   maxAngle: 30
   sensitivity: 105
@@ -733,6 +732,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   items: []
   pStats: {fileID: 944325792}
+  invMan: {fileID: 0}
 --- !u!114 &944325795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -753,7 +753,7 @@ MonoBehaviour:
   jumpDuration: 0.25
   wallBouncing: 3
   cameraTransitionDuration: 1
-  wallGravityDownForce: -1
+  wallGravityDownForce: 0
 --- !u!1 &951764787
 GameObject:
   m_ObjectHideFlags: 0
