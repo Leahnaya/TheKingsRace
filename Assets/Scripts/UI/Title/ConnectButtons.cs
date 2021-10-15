@@ -1,8 +1,7 @@
 using MLAPI;
-using MLAPI.SceneManagement;
-using MLAPI.Transports.UNET;
 using System.Collections;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -12,12 +11,11 @@ public class ConnectButtons : MonoBehaviour {
     const string DEDICATED_SERVER_IP = "127.0.0.1";
     const int DEDICATED_SERVER_PORT = 7777;
 
-    private UNetTransport transport;
-
     public GameObject ErrorPanel;
     public Text ErrorText;
 
     public InputField ipAddressField;
+    public TMP_InputField playerNameField;
 
     private int connectionTimeoutTime = 5;
 
@@ -25,30 +23,22 @@ public class ConnectButtons : MonoBehaviour {
         // Make sure the Error Panel is not enabled to start
         ErrorPanel.SetActive(false);
 
-        // Find the UNetTransport object that is associated with the NetworkManager
-        transport = NetworkManager.Singleton.GetComponent<UNetTransport>();
+        PlayerPrefs.GetString("PlayerName");
     }
 
     // Connect to the dedicated server
     public void ConnectDedicatedServer () {
-        // Set the connection address to be equal to the ip address of the dedicated server
-        transport.ConnectAddress = DEDICATED_SERVER_IP;
-        transport.ConnectPort = DEDICATED_SERVER_PORT;
-
-        // Set the password to connect with
-        NetworkManager.Singleton.NetworkConfig.ConnectionData = System.Text.Encoding.ASCII.GetBytes("kingsrace");
-
-        // Start the client on the address
-        NetworkManager.Singleton.StartClient();
-
-        // Run a coroutine to check if the client connects to the server
-        StartCoroutine(checkIsConnectedClient());
+        // Throw an error for now
+        ThrowError("Not implemented yet.");
     }
 
     // Host a private server
     public void HostPrivateServer() {
-        NetworkManager.Singleton.StartHost();
-        NetworkSceneManager.SwitchScene("Lobby");
+        // Set the players name
+        PlayerPrefs.SetString("PlayerName", playerNameField.text);
+
+        // Start a server and join (hosting)
+        GameNetPortal.Instance.StartHost();
     }
 
     // Connect to a private server via IP Address
@@ -64,15 +54,11 @@ public class ConnectButtons : MonoBehaviour {
 
         // IP Address is valid - Attempt to connect
 
-        // Set the connection address to be equal to the ip address entered into the input field
-        transport.ConnectAddress = ipAddress;
-        transport.ConnectPort = port;
+        // Set the players name
+        PlayerPrefs.SetString("PlayerName", playerNameField.text);
 
-        // Set the password to connect with
-        NetworkManager.Singleton.NetworkConfig.ConnectionData = System.Text.Encoding.ASCII.GetBytes("kingsrace");
-
-        // Start the client on the address
-        NetworkManager.Singleton.StartClient();
+        // Start the game client
+        ClientGameNetPortal.Instance.StartClient(ipAddress, port);
 
         // Run a coroutine to check if the client connects to the server
         StartCoroutine(checkIsConnectedClient());

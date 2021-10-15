@@ -7,8 +7,6 @@ using UnityEngine.SceneManagement;
 public class Preloader : MonoBehaviour {
 
     void Start() {
-        NetworkManager.Singleton.ConnectionApprovalCallback += ApprovalCheck;
-
         if (Application.isEditor) {
             // Swap to Title Screen (as client) while in the editor
             SceneManager.LoadScene(1);
@@ -30,20 +28,6 @@ public class Preloader : MonoBehaviour {
             // Swap to Title Screen (as client)
             SceneManager.LoadScene(1);
         }
-    }
-
-    private void ApprovalCheck(byte[] connectionData, ulong clientID, NetworkManager.ConnectionApprovedDelegate callback) {
-
-        bool approve = false;
-
-        // Validate the connection password
-        string password = System.Text.Encoding.ASCII.GetString(connectionData);
-        if (password == "kingsrace") {
-            approve = true;
-        }
-
-        // Vec 3 is position
-        callback(true, null, approve, new Vector3(0, 10, 0), Quaternion.identity);
     }
 
     private Dictionary<string, string> GetCommandlineArgs() {
