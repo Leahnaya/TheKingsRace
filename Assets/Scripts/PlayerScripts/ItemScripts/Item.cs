@@ -48,4 +48,34 @@ public class Item: ScriptableObject {
             p.PlayerGrav += playerGravM;
         }
     }
+
+    public void Unequip(PlayerStats p){
+        if(maxVelM != 0){
+            p.MaxVel -= maxVelM;
+        }
+        if(minVelM != 0){
+            p.MinVel -= minVelM;
+        }
+        if(curVelM != 0){
+            p.CurVel -= curVelM;
+        }
+        if(accM != 0){
+             p.Acc -= accM;
+        }
+        if(jumpPowM != 0){
+             p.JumpPow -= jumpPowM;
+        }
+        if(jumpNumM != 0){
+            p.JumpNum -= jumpNumM;
+        }
+        if(tractionM != 0){
+            p.Traction -= tractionM;
+        }
+        if(kickPowM != 0){
+            p.KickPow -= kickPowM;
+        }
+        if(playerGravM != 0){
+            p.PlayerGrav -= playerGravM;
+        }
+    }
 }

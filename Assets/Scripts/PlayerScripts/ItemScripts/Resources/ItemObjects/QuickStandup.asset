@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d76cac0a7f5ea2a4cadbec8ef3315ec1, type: 3}
   m_Name: QuickStandup
   m_EditorClassIdentifier: 
-  id: 4
-  itemName: QuickStandup
+  id: 1
+  itemName: Quick Standup
   description: Player gets up faster
   maxVelM: 0
   minVelM: 0
