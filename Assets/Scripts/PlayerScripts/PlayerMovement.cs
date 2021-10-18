@@ -69,9 +69,11 @@ public class PlayerMovement : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         ignoreP = LayerMask.GetMask("Player");
 
+
         beam = gameObject.AddComponent<LineRenderer>();
         beam.startWidth = 0.2f;
         beam.endWidth = 0.2f;
+        beam.enabled = false;
 
         //camera transform
         cam = Camera.main;
@@ -326,10 +328,6 @@ public class PlayerMovement : MonoBehaviour
 
         else if(!Input.GetMouseButton(1) && beam.enabled == true){
             beam.enabled = false;
-            //disable character controller for a brief second for teleportation
-            //gameObject.GetComponent<CharacterController>().enabled = false;
-            //get
-            Vector3 bump = new Vector3(0, .5f, 0);
             //if teleporting due to hit to object, bump them a bit outside normal
             if(hit.point != null) {
                 transform.position = endPoint + hit.normal * 1.25f;

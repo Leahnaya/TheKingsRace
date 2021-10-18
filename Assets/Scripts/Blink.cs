@@ -7,7 +7,6 @@ using UnityEngine;
 public class Blink : MonoBehaviour{
 
     // Start is called before the first frame update
-    private LineRenderer beam;
 
     private Camera cam;
     public CharacterController controller;
@@ -21,10 +20,6 @@ public class Blink : MonoBehaviour{
         controller = GetComponent<CharacterController>();
     }
     void Start(){
-        // Grabbed our laser.
-        beam = this.gameObject.AddComponent<LineRenderer>();
-        beam.startWidth = 0.2f;
-        beam.endWidth = 0.2f;
 
         // Grab the main camera.
         cam = Camera.main;
@@ -50,12 +45,6 @@ public class Blink : MonoBehaviour{
                 // If yes, then set endpoint to hit-point.
                 endPoint = hit.point;
             }
-
-            // Set end point of laser.
-            beam.SetPosition(0, origin);
-            beam.SetPosition(1, endPoint);
-            // Draw the laser!
-            beam.enabled = true;
             /*Ray ray = camera.ScreenPointToRay(Input.mousePosition);
             RaycastHit raycastHit;
 
@@ -67,7 +56,6 @@ public class Blink : MonoBehaviour{
 
         }
         if (Input.GetMouseButtonUp(1)){
-            beam.enabled = false;
             //disable character controller for a brief second for teleportation
             //this.gameObject.GetComponent<CharacterController>().enabled = false;
             //get
