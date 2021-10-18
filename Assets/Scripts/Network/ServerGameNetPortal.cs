@@ -87,7 +87,7 @@ public class ServerGameNetPortal : MonoBehaviour {
     {
         gameInProgress = true;
 
-        NetworkSceneManager.SwitchScene("Game");
+        NetworkSceneManager.SwitchScene("Game-Mountain");
     }
 
     public void EndRound()
