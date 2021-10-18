@@ -12,9 +12,10 @@ public class PlayerMovement : MonoBehaviour
     //Variable Section
     /////
     //Speed Variables
+    public Vector3 vel;
+
     private Vector3 moveZ;
     private Vector3 moveX;
-    private Vector3 vel;
     private Vector3 driftVel;
     
     //Character Moving
@@ -66,7 +67,6 @@ public class PlayerMovement : MonoBehaviour
         //Initialize Components
         moveController = GetComponent<CharacterController>();
         pStats = GetComponent<PlayerStats>();
-        Cursor.lockState = CursorLockMode.Locked;
         ignoreP = LayerMask.GetMask("Player");
 
 
@@ -76,37 +76,48 @@ public class PlayerMovement : MonoBehaviour
         beam.enabled = false;
 
         //camera transform
-        cam = Camera.main;
+        cam =  GetComponentInChildren<Camera>();
 
         //Wallrun
-        wallRun = gameObject.GetComponent<WallRun>();
+        //wallRun = gameObject.GetComponent<WallRun>();
     }
 
 
 
     void Start(){
+        Cursor.lockState = CursorLockMode.Locked;
         distToGround = GetComponent<Collider>().bounds.extents.y;
 
     }
 
     // Update is called once per frame
     void FixedUpdate(){   
-        //input controls for movement
-        InputController();
 
         //Controls for camera
         Rotate();
+        
+        if(moveController.enabled == true){
 
+            //input controls for movement
+            InputController();
 
-        //if suffiecient impact magnitude is applied then move player
-        if (impact.magnitude > 0.2F) moveController.Move(impact * Time.deltaTime);
+           //if suffiecient impact magnitude is applied then move player
+            if (impact.magnitude > 0.2F) moveController.Move(impact * Time.deltaTime);
 
-        // consumes the impact energy each cycle:
-        impact = Vector3.Lerp(impact, Vector3.zero, 5*Time.deltaTime);
+            // consumes the impact energy each cycle:
+            impact = Vector3.Lerp(impact, Vector3.zero, 5*Time.deltaTime);
+
+            Blink();
+        }
+        else{
+            Debug.Log("MoveController is either Disabled or wasn't retrieved correctly");
+        }
+        
 
         //Checks if player should respawn
         Respawn();
-        Blink();
+        
+        
 
     }
 
@@ -187,15 +198,15 @@ public class PlayerMovement : MonoBehaviour
         //NEEDS TO BE MASSIVELY CHANGE LIKELY USE RAYCAST TO CHECK IF ACTUALLY ON GROUND
         //CANNOT USE CHARACTERCONTROLLER.ISGROUNDED IT IS UNRELIABLE
         //If grounded no jumps have been used
-        // if(IsGrounded()){
-        //     curJumpNum = 0;
-        // }
+        if(IsGrounded()){
+            curJumpNum = 0;
+        }
 
         //If space isn't being pressed then jump is false
         if(Input.GetAxis("Jump")==0) jumpPressed = false;
     }
 
-    public bool GetJumpPressed() {
+    public bool GetJumpPressed(){
         return jumpPressed;
     }
 
@@ -235,8 +246,32 @@ public class PlayerMovement : MonoBehaviour
 
     //Gravity Function for adjusting y-vel due to wallrun/glide/etc
     private void Gravity(){
-        //Normal Gravity
-        vel.y -= pStats.PlayerGrav * Time.deltaTime; 
+        //Temp Values for Glider
+        float tempTraction = 0.0f;
+        bool tempSet = false;
+
+        //ADD CHECKER FOR GLIDER WHEN FULLY IMPLEMENTED
+        if(jumpPressed && pStats.HasGlider){
+            
+            vel.y -= (pStats.PlayerGrav-18) * Time.deltaTime;
+            if(tempSet == false){
+                tempTraction = pStats.Traction;
+                pStats.Traction = 1.0f;
+                tempSet = true;
+            }
+            
+        }
+        else{
+
+            if(tempSet == true){
+               pStats.Traction = tempTraction;
+               tempSet = false; 
+            }
+
+            //Normal Gravity
+            vel.y -= pStats.PlayerGrav * Time.deltaTime;
+        }
+        
         //Wallrunning
         if (pStats.HasWallrun) { wallRun.WallRunRoutine(); } //adjusted later if we are wallrunning
         //If gliding 
@@ -247,7 +282,6 @@ public class PlayerMovement : MonoBehaviour
     {
         // Make sure that the ground check distance while already in air is very small, to prevent suddenly snapping to ground
         float chosenGroundCheckDistance = isGrounded ? (moveController.skinWidth + groundCheckDistance) : groundCheckDistanceInAir;
-
         // reset values before the ground check
         isGrounded = false;
         Vector3 groundNormal = Vector3.up;
@@ -255,16 +289,19 @@ public class PlayerMovement : MonoBehaviour
         // only try to detect ground if it's been a short amount of time since last jump; otherwise we may snap to the ground instantly after we try jumping
         if (Time.time >= lastTimeJumped + jumpGroundingPreventionTime)
         {
+            Debug.Log("detect ground");
             // if we're grounded, collect info about the ground normal with a downward capsule cast representing our character capsule
             if (Physics.CapsuleCast(GetCapsuleBottomHemisphere(), GetCapsuleTopHemisphere(moveController.height), moveController.radius, Vector3.down, out RaycastHit hit, chosenGroundCheckDistance, groundCheckLayers, QueryTriggerInteraction.Ignore))
             {
+                Debug.Log("Collect info");
                 // storing the upward direction for the surface found
                 groundNormal = hit.normal;
 
                 // Only consider this a valid ground hit if the ground normal goes in the same direction as the character up
                 // and if the slope angle is lower than the character controller's limit
-                if (Vector3.Dot(hit.normal, transform.up) > 0f && IsNormalUnderSlopeLimit(groundNormal))
+                if (Vector3.Dot(hit.normal, transform.up) > 0.0f && IsNormalUnderSlopeLimit(groundNormal))
                 {
+                    Debug.Log("isGrounded");
                     isGrounded = true;
 
                     // handle snapping to the ground
@@ -275,6 +312,11 @@ public class PlayerMovement : MonoBehaviour
                 }
             }
         }
+    }
+
+    //Improved IsGrounded
+    private bool IsGrounded(){
+        return Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f, ~ignoreP);
     }
 
     private bool IsNormalUnderSlopeLimit(Vector3 normal){  // Returns true if the slope angle represented by the given normal is under the slope angle limit of the character controller

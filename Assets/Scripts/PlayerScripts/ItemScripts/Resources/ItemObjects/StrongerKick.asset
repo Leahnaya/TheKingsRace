@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d76cac0a7f5ea2a4cadbec8ef3315ec1, type: 3}
   m_Name: StrongerKick
   m_EditorClassIdentifier: 
-  id: 0
-  itemName: 
-  description: 
+  id: 4
+  itemName: Strong Kick
+  description: Kick Harder
   maxVelM: 0
   minVelM: 0
   curVelM: 0
@@ -25,3 +25,4 @@ MonoBehaviour:
   kickPowM: 30
   recovTimeM: 0
   playerGravM: 0
+  costM: 3
