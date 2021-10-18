@@ -4,45 +4,50 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
+
     //List of items
     [SerializeField] List<Item> items;
 
     //Scripts
     public PlayerStats pStats;
-    public InventoryManager invMan;
     
-    public bool AddItem(Item item){
-        items.Add(item);
-        return true;
+    void Awake(){
+        pStats = GetComponent<PlayerStats>();
+        DontDestroyOnLoad(this.gameObject);
+        
     }
 
-    public bool AddSpecialItem<T>(T itemCandidate) { // Unless we don't want the four special items to be handled by inventory/inventory manager?
+    public void AddItem(Item item, bool ableToAdd){
+        if(!items.Contains(item) && ableToAdd){
+            Debug.Log("Item Added");
+            items.Add(item);
+            item.Equip(pStats);
+        }
+        else if(!ableToAdd && !items.Contains(item)){
+            Debug.Log("Item Cannot Be Added");
+        }
+        else{
+            Debug.Log("Item Removed");
+            RemoveItem(item);
+        }
+        
+    }
+
+    public void AddSpecialItem<T>(T itemCandidate) { // Unless we don't want the four special items to be handled by inventory/inventory manager?
         if (itemCandidate is Item) {
             items.Add(itemCandidate as Item);
         }
-        return true;
     }
 
 
-    public bool RemoveItem(Item item){
+    public void RemoveItem(Item item){
         if(items.Remove(item)){
-            return true;
+            item.Unequip(pStats);
         }
-        return false;
     }
 
-    void Awake(){
-        pStats = GetComponent<PlayerStats>();
-        invMan = GetComponent<InventoryManager>();//////UPDATE WHEN THIS IS NO LONGER ATTACHED TO THE PLAYER
-    }
-
-    void Start(){
-        AddItem(invMan.ItemList[0]);
-        AddItem(invMan.ItemList[1]);
-        foreach (Item item in items){
-            Debug.Log(item.name);
-            item.Equip(pStats);
-        }
+    public List<Item> GetItems(){
+        return items;
     }
 
 
