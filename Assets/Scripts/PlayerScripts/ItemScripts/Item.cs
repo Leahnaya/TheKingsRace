@@ -18,8 +18,9 @@ public class Item: ScriptableObject {
     public float kickPowM;
     public float recovTimeM;
     public float playerGravM;
+    public int costM;
 
-    public void Equip(PlayerStats p){
+    public virtual void Equip(PlayerStats p){
         if(maxVelM != 0){
             p.MaxVel += maxVelM;
         }
@@ -49,7 +50,7 @@ public class Item: ScriptableObject {
         }
     }
 
-    public void Unequip(PlayerStats p){
+    public virtual void Unequip(PlayerStats p){
         if(maxVelM != 0){
             p.MaxVel -= maxVelM;
         }

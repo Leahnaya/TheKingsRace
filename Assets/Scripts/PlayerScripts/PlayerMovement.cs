@@ -64,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Awake(){
         //Initialize Components
-        moveController = GetComponentInChildren<CharacterController>();
+        moveController = GetComponent<CharacterController>();
         pStats = GetComponent<PlayerStats>();
         ignoreP = LayerMask.GetMask("Player");
 
@@ -74,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
         beam.enabled = false;
 
         //camera transform
-        cam = GetComponent<Camera>();
+        cam =  GetComponentInChildren<Camera>();
 
         //Wallrun
         //wallRun = gameObject.GetComponent<WallRun>();
@@ -84,18 +84,16 @@ public class PlayerMovement : MonoBehaviour
 
     void Start(){
         Cursor.lockState = CursorLockMode.Locked;
-        distToGround = GetComponentInChildren<Collider>().bounds.extents.y;
+        distToGround = GetComponent<Collider>().bounds.extents.y;
 
     }
 
     // Update is called once per frame
     void FixedUpdate(){   
-        //input controls for movement
-        InputController();
 
         //Controls for camera
         Rotate();
-
+        
         if(moveController.enabled == true){
 
             //input controls for movement
@@ -206,7 +204,7 @@ public class PlayerMovement : MonoBehaviour
         if(Input.GetAxis("Jump")==0) jumpPressed = false;
     }
 
-    public bool GetJumpPressed() {
+    public bool GetJumpPressed(){
         return jumpPressed;
     }
 
@@ -246,8 +244,32 @@ public class PlayerMovement : MonoBehaviour
 
     //Gravity Function for adjusting y-vel due to wallrun/glide/etc
     private void Gravity(){
-        //Normal Gravity
-        vel.y -= pStats.PlayerGrav * Time.deltaTime; 
+        //Temp Values for Glider
+        float tempTraction = 0.0f;
+        bool tempSet = false;
+
+        //ADD CHECKER FOR GLIDER WHEN FULLY IMPLEMENTED
+        if(jumpPressed && pStats.HasGlider){
+            
+            vel.y -= (pStats.PlayerGrav-18) * Time.deltaTime;
+            if(tempSet == false){
+                tempTraction = pStats.Traction;
+                pStats.Traction = 1.0f;
+                tempSet = true;
+            }
+            
+        }
+        else{
+
+            if(tempSet == true){
+               pStats.Traction = tempTraction;
+               tempSet = false; 
+            }
+
+            //Normal Gravity
+            vel.y -= pStats.PlayerGrav * Time.deltaTime;
+        }
+        
         //Wallrunning
         if (pStats.HasWallrun) { wallRun.WallRunRoutine(); } //adjusted later if we are wallrunning
         //If gliding 

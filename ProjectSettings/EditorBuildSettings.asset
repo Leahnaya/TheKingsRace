@@ -14,4 +14,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Lobby.unity
     guid: 34f80d2f7d044154fbed907ae0df918b
+  - enabled: 1
+    path: Assets/Scenes/Demos/InventorySelection.unity
+    guid: 087e255255a646a4b895d4c7b60e2e3e
+  - enabled: 1
+    path: Assets/Scenes/Demos/MovementScene.unity
+    guid: 4282c79fedd3def4fa3c93c0a77f914f
   m_configObjects: {}

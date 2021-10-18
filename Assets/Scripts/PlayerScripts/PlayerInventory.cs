@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerInventory : MonoBehaviour
 {
+
     //List of items
     [SerializeField] List<Item> items;
 
@@ -12,14 +13,18 @@ public class PlayerInventory : MonoBehaviour
     
     void Awake(){
         pStats = GetComponent<PlayerStats>();
+        DontDestroyOnLoad(this.gameObject);
         
     }
 
-    public void AddItem(Item item){
-        if(!items.Contains(item)){
+    public void AddItem(Item item, bool ableToAdd){
+        if(!items.Contains(item) && ableToAdd){
             Debug.Log("Item Added");
             items.Add(item);
             item.Equip(pStats);
+        }
+        else if(!ableToAdd && !items.Contains(item)){
+            Debug.Log("Item Cannot Be Added");
         }
         else{
             Debug.Log("Item Removed");
@@ -39,6 +44,10 @@ public class PlayerInventory : MonoBehaviour
         if(items.Remove(item)){
             item.Unequip(pStats);
         }
+    }
+
+    public List<Item> GetItems(){
+        return items;
     }
 
 

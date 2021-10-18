@@ -9,20 +9,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d76cac0a7f5ea2a4cadbec8ef3315ec1, type: 3}
-  m_Name: RollerSkates
+  m_Script: {fileID: 11500000, guid: 220c578e08133f54a95a442eb87b3702, type: 3}
+  m_Name: Nitro
   m_EditorClassIdentifier: 
-  id: 2
-  itemName: Roller Skates
-  description: More Slidey But Faster
-  maxVelM: 15
+  id: 10
+  itemName: Nitro
+  description: Boosts player speed
+  maxVelM: 0
   minVelM: 0
   curVelM: 0
-  accM: 0.3
+  accM: 0
   jumpPowM: 0
   jumpNumM: 0
-  tractionM: -2.2
+  tractionM: 0
   kickPowM: 0
   recovTimeM: 0
   playerGravM: 0
   costM: 6
+  hasWallrunM: 0
+  hasBlinkM: 0
+  hasGrappleM: 0
+  hasGliderM: 0
+  hasNitroM: 1
+  hasDashM: 0
+  cooldownM: 0
