@@ -96,8 +96,6 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        //input controls for movement
-        InputController();
 
         //Controls for camera
         Rotate();
@@ -118,9 +116,6 @@ public class PlayerMovement : MonoBehaviour
         else{
             Debug.Log("MoveController is either Disabled or wasn't retrieved correctly");
         }
-        
-        // consumes the impact energy each cycle:
-        impact = Vector3.Lerp(impact, Vector3.zero, 5 * Time.deltaTime);
 
         //Checks if player should respawn
         Respawn();
