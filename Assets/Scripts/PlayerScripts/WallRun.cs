@@ -81,14 +81,14 @@ public class WallRun : MonoBehaviour
             {
                 Vector3 dir = transform.TransformDirection(directions[i]);
                 Physics.Raycast(transform.position, dir, out hits[i], wallMaxDistance);
-                if(hits[i].collider != null)
-                {
-                    Debug.DrawRay(transform.position, dir * hits[i].distance, Color.green);
-                }
-                else
-                {
-                    Debug.DrawRay(transform.position, dir * wallMaxDistance, Color.red);
-                }
+                //if(hits[i].collider != null)
+                //{
+                    //Debug.DrawRay(transform.position, dir * hits[i].distance, Color.green);
+                //}
+                //else
+                //{
+                    //Debug.DrawRay(transform.position, dir * wallMaxDistance, Color.red);
+                //}
             }
 
             if(CanWallRun())
@@ -142,14 +142,14 @@ public class WallRun : MonoBehaviour
             float vertical = Input.GetAxisRaw("Vertical");
             Vector3 alongWall = transform.TransformDirection(Vector3.forward);
 
-            Debug.DrawRay(transform.position, alongWall.normalized * 10, Color.green);
-            Debug.DrawRay(transform.position, lastWallNormal * 10, Color.magenta);
+            //Debug.DrawRay(transform.position, alongWall.normalized * 10, Color.green);
+            //Debug.DrawRay(transform.position, lastWallNormal * 10, Color.magenta);
 
             Vector3 moveToSet = alongWall * vertical * playerMovementController.PlayerSpeed() *Time.deltaTime;// * wallSpeedMultiplier;
             moveToSet.y = 0;
 
             playerMovementController.SetPlayerVelocity(moveToSet);
-            Debug.Log("On Wall");
+            //Debug.Log("On Wall");
             isWallRunning = true;
         }
     }

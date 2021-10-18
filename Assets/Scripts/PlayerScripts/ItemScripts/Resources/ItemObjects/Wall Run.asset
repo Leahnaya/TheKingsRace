@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 220c578e08133f54a95a442eb87b3702, type: 3}
+  m_Name: Wall Run
+  m_EditorClassIdentifier: 
+  id: 6
+  itemName: Wall Run
+  description: Allows player to run on walls
+  maxVelM: 0
+  minVelM: 0
+  curVelM: 0
+  accM: 0
+  jumpPowM: 0
+  jumpNumM: 0
+  tractionM: 0
+  kickPowM: 0
+  recovTimeM: 0
+  playerGravM: 0
+  costM: 4
+  hasWallrunM: 1
+  hasBlinkM: 0
+  hasGrappleM: 0
+  hasGliderM: 0
+  hasNitroM: 0
+  hasDashM: 0
+  cooldownM: 0

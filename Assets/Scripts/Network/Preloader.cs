@@ -5,11 +5,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Preloader : MonoBehaviour {
-    private NetworkManager netManager;
 
     void Start() {
-        netManager = GetComponentInParent<NetworkManager>();
-
         if (Application.isEditor) {
             // Swap to Title Screen (as client) while in the editor
             SceneManager.LoadScene(1);
@@ -21,7 +18,7 @@ public class Preloader : MonoBehaviour {
         if (args.TryGetValue("-mlapi", out string mlapiValue)) { 
             if (mlapiValue == "server") {
                 // Start the server
-                netManager.StartServer();
+                NetworkManager.Singleton.StartServer();
 
                 // Swap to the lobby scene to await players
                 NetworkSceneManager.SwitchScene("Lobby");

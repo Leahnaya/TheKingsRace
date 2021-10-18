@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour
 {
     //Maximum possible player speed
+    [SerializeField]
     private float maxVel = 25.0f;
     public float MaxVel{
         get{ return maxVel; }
@@ -12,6 +13,7 @@ public class PlayerStats : MonoBehaviour
     }
 
     //Minimum possible player speed
+    [SerializeField]
     private float minVel = 2.0f;
     public float MinVel{
         get{ return minVel; }
@@ -19,6 +21,7 @@ public class PlayerStats : MonoBehaviour
     }
     
     //Current player speed
+    [SerializeField]
     private float curVel = 0.0f;
     public float CurVel{
         get{ return curVel; }
@@ -26,6 +29,7 @@ public class PlayerStats : MonoBehaviour
     }
 
     //Player Jump power
+    [SerializeField]
     private float acc = 0.1f;
     public float Acc{
         get{ return acc; }
@@ -33,6 +37,7 @@ public class PlayerStats : MonoBehaviour
     }
 
     //Player Jump power
+    [SerializeField]
     private float jumpPow = 300.0f;
     public float JumpPow{
         get{ return jumpPow; }
@@ -40,6 +45,7 @@ public class PlayerStats : MonoBehaviour
     }
 
     //Players Number of Jumps
+    [SerializeField]
     private int jumpNum = 2; ////// UPDATE TO 2 WHEN THE JUMP ISSUE IS FIXED
     public int JumpNum{
         get{ return jumpNum; }
@@ -47,6 +53,7 @@ public class PlayerStats : MonoBehaviour
     }
 
     //Player Traction
+    [SerializeField]
     private float traction = 3.0f;
     public float Traction{
         get{ return traction; }
@@ -54,13 +61,15 @@ public class PlayerStats : MonoBehaviour
     }
 
     //Player Kick Power
+    [SerializeField]
     private float kickPow;
     public float KickPow{
         get{ return kickPow; }
         set{ kickPow = value; }
     }
 
-    //Player Recovery Time When Knocked Down 
+    //Player Recovery Time When Knocked Down
+    [SerializeField] 
     private float recovTime;
     public float RecovTime{
         get{ return recovTime; }
@@ -69,6 +78,7 @@ public class PlayerStats : MonoBehaviour
 
     //MAY BE UNNECCESARY DEPENDING ON HOW GLIDER TURNS OUT
     //Gravity Affecting the player
+    [SerializeField]
     private float playerGrav = 20.0f;
     public float PlayerGrav{
         get{ return playerGrav; }
@@ -76,6 +86,7 @@ public class PlayerStats : MonoBehaviour
     }
 
     //If The Player Has Blink
+    [SerializeField]
     private bool hasBlink = false;
     public bool HasBlink{
         get{ return hasBlink; }
@@ -83,6 +94,7 @@ public class PlayerStats : MonoBehaviour
     }
 
     //If The Player Has Glider
+    [SerializeField]
     private bool hasGlider = false;
     public bool HasGlider{
         get{ return hasGlider; }
@@ -90,6 +102,7 @@ public class PlayerStats : MonoBehaviour
     }
 
     //If The Player Has Grapple
+    [SerializeField]
     private bool hasGrapple = false;
     public bool HasGrapple{
         get{ return hasGrapple; }
@@ -97,9 +110,33 @@ public class PlayerStats : MonoBehaviour
     }
 
     //If The Player Has Wallrun
+    [SerializeField]
     private bool hasWallrun = false;
     public bool HasWallrun{
         get{ return hasWallrun; }
         set{ hasWallrun = value; }
+    }
+
+    //If The Player Has Nitro
+    [SerializeField]
+    private bool hasNitro = false;
+    public bool HasNitro{
+        get{ return hasNitro; }
+        set{ hasNitro = value; }
+    }
+
+    //If The Player Has Dash
+    [SerializeField]
+    private bool hasDash = false;
+    public bool HasDash{
+        get{ return hasDash; }
+        set{ hasDash = value; }
+    }
+
+    [SerializeField]
+    private int playerPoints = 15;
+    public int PlayerPoints{
+        get{ return playerPoints; }
+        set{ playerPoints = value; }
     }
 }

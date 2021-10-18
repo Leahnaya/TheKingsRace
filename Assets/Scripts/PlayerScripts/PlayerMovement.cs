@@ -17,7 +17,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 moveZ;
     private Vector3 moveX;
     private Vector3 driftVel;
-    
+
     //Character Moving
     private CharacterController moveController;
 
@@ -35,12 +35,13 @@ public class PlayerMovement : MonoBehaviour
     private WallRun wallRun;
 
     //Ground Check
-    public bool isGrounded { get; private set; } //Better custom is grounded 
+    public bool isGrounded; //Better custom is grounded 
     public float groundCheckDistance = 0.05f; //how far away from the ground to not be considered grounded
     private float lastTimeJumped = 0f; //Last time the player jumped
     const float jumpGroundingPreventionTime = 0.2f; // delay in checking if we are grounded after a jump
     const float groundCheckDistanceInAir = 0.07f; //How close we have to get to ground to start checking for grounded again
-    public LayerMask groundCheckLayers = -1; //Physics layers checked to consider the player grounded
+    private Ray groundRay;
+    private RaycastHit groundHit;
 
 
     //Camera Variables
@@ -63,56 +64,71 @@ public class PlayerMovement : MonoBehaviour
     private RaycastHit hit;
     /////
 
-    void Awake(){
+    void Awake()
+    {
         //Initialize Components
         moveController = GetComponent<CharacterController>();
         pStats = GetComponent<PlayerStats>();
-        Cursor.lockState = CursorLockMode.Locked;
         ignoreP = LayerMask.GetMask("Player");
+
 
         beam = gameObject.AddComponent<LineRenderer>();
         beam.startWidth = 0.2f;
         beam.endWidth = 0.2f;
+        beam.enabled = false;
 
         //camera transform
-        cam = Camera.main;
+        cam =  GetComponentInChildren<Camera>();
 
         //Wallrun
-        wallRun = gameObject.GetComponent<WallRun>();
+        //wallRun = gameObject.GetComponent<WallRun>();
     }
 
 
 
-    void Start(){
-        distToGround = GetComponent<Collider>().bounds.extents.y;
 
+    void Start()
+    {
+        distToGround = GetComponent<Collider>().bounds.extents.y;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
-    void FixedUpdate(){   
-        //input controls for movement
-        InputController();
+    void FixedUpdate()
+    {
 
         //Controls for camera
         Rotate();
+        
+        if(moveController.enabled == true){
 
+            //input controls for movement
+            InputController();
 
-        //if suffiecient impact magnitude is applied then move player
-        if (impact.magnitude > 0.2F) moveController.Move(impact * Time.deltaTime);
+           //if suffiecient impact magnitude is applied then move player
+            if (impact.magnitude > 0.2F) moveController.Move(impact * Time.deltaTime);
 
-        // consumes the impact energy each cycle:
-        impact = Vector3.Lerp(impact, Vector3.zero, 5*Time.deltaTime);
+            // consumes the impact energy each cycle:
+            impact = Vector3.Lerp(impact, Vector3.zero, 5*Time.deltaTime);
+
+            Blink();
+        }
+        else{
+            Debug.Log("MoveController is either Disabled or wasn't retrieved correctly");
+        }
 
         //Checks if player should respawn
         Respawn();
-        Blink();
+        
+        
 
     }
 
 
 
     //Reads inputs and moves player
-    private void InputController(){
+    private void InputController()
+    {
         //Check if player is grounded before each frame
         GroundCheck();
         //Keyboard inputs
@@ -120,7 +136,7 @@ public class PlayerMovement : MonoBehaviour
         //Checks if movement keys have been pressed and calculates correct vector
         moveX = transform.right * Input.GetAxis("Horizontal") * Time.deltaTime * PlayerSpeed();
         moveZ = transform.forward * Input.GetAxis("Vertical") * Time.deltaTime * PlayerSpeed();
-        
+
         //Adds vectors based on movement keys and other conditions to check what the
         //player vector should be under the circumstances
         vel = moveX + moveZ;
@@ -128,34 +144,39 @@ public class PlayerMovement : MonoBehaviour
         //Gravity
         Gravity();
 
-        driftVel = Vector3.Lerp(driftVel, vel, pStats.Traction*Time.deltaTime);
+        driftVel = Vector3.Lerp(driftVel, vel, pStats.Traction * Time.deltaTime);
         //Jump Function
         Jump();
 
         moveController.Move(driftVel);
-    } 
+    }
 
 
 
     //Calculates speed current player needs to be going
-    public float PlayerSpeed(){
+    public float PlayerSpeed()
+    {
         //If nothing is pressed speed is 0
-        if(Input.GetAxis("Vertical") == 0.0f && Input.GetAxis("Horizontal") == 0.0f){
+        if (Input.GetAxis("Vertical") == 0.0f && Input.GetAxis("Horizontal") == 0.0f)
+        {
             pStats.CurVel = 0.0f;
-            return pStats.CurVel; 
+            return pStats.CurVel;
         }
         //If current speed is below min when pressed set to minimum speed
-        else if(pStats.CurVel < pStats.MinVel){
+        else if (pStats.CurVel < pStats.MinVel)
+        {
             pStats.CurVel = pStats.MinVel;
             return pStats.MinVel;
         }
         // while the speed is below max speed slowly increase it
-        else if((pStats.CurVel >= pStats.MinVel) && (pStats.CurVel < pStats.MaxVel)){
+        else if ((pStats.CurVel >= pStats.MinVel) && (pStats.CurVel < pStats.MaxVel))
+        {
             pStats.CurVel += pStats.Acc;
-            return pStats.CurVel;  
+            return pStats.CurVel;
         }
         //If the players speed is above or equal to max speed set speed to max
-        else{
+        else
+        {
             pStats.CurVel = pStats.MaxVel;
             return pStats.CurVel;
         }
@@ -164,7 +185,8 @@ public class PlayerMovement : MonoBehaviour
 
 
     //Applies impact in a direction with the given force
-    public void AddImpact(Vector3 dir, float force){
+    public void AddImpact(Vector3 dir, float force)
+    {
         dir.Normalize();
         if (dir.y < 0) dir.y = -dir.y; // reflect down force on the ground
         impact += dir.normalized * force / mass;
@@ -173,9 +195,11 @@ public class PlayerMovement : MonoBehaviour
 
 
     //Jump Function
-    private void Jump(){
+    private void Jump()
+    {
         //If space is pressed apply an upwards force to the player
-        if(Input.GetAxis("Jump") != 0 && !jumpPressed && curJumpNum+1 < pStats.JumpNum){
+        if (Input.GetAxis("Jump") != 0 && !jumpPressed && curJumpNum + 1 < pStats.JumpNum)
+        {
             AddImpact(transform.up, pStats.JumpPow);
             curJumpNum++;
             jumpPressed = true;
@@ -186,23 +210,25 @@ public class PlayerMovement : MonoBehaviour
         //NEEDS TO BE MASSIVELY CHANGE LIKELY USE RAYCAST TO CHECK IF ACTUALLY ON GROUND
         //CANNOT USE CHARACTERCONTROLLER.ISGROUNDED IT IS UNRELIABLE
         //If grounded no jumps have been used
-        // if(IsGrounded()){
-        //     curJumpNum = 0;
-        // }
+        if(isGrounded){
+             curJumpNum = 0;
+         }
 
         //If space isn't being pressed then jump is false
-        if(Input.GetAxis("Jump")==0) jumpPressed = false;
+        if (Input.GetAxis("Jump") == 0) jumpPressed = false;
     }
 
-    public bool GetJumpPressed() {
+    public bool GetJumpPressed(){
         return jumpPressed;
     }
 
-    public Camera GetPlayerCamera() { 
-        return cam; 
+    public Camera GetPlayerCamera()
+    {
+        return cam;
     }
 
-    public void AddPlayerVelocity(Vector3 additiveVelocity) {
+    public void AddPlayerVelocity(Vector3 additiveVelocity)
+    {
         vel += additiveVelocity;
     }
 
@@ -226,73 +252,76 @@ public class PlayerMovement : MonoBehaviour
 
     //REMOVE WHEN UNNECCESARY
     //Respawns player if they fall below a certain point
-    private void Respawn(){
-        if(transform.position.y < -1){
-            transform.position = new Vector3(1f, 1f, 1f);
+    private void Respawn()
+    {
+        if (transform.position.y < -1)
+        {
+            transform.position = new Vector3(1f, 3f, 1f);
         }
     }
 
     //Gravity Function for adjusting y-vel due to wallrun/glide/etc
     private void Gravity(){
-        //Normal Gravity
-        vel.y -= pStats.PlayerGrav * Time.deltaTime; 
+        //Temp Values for Glider
+        float tempTraction = 0.0f;
+        bool tempSet = false;
+
+        //ADD CHECKER FOR GLIDER WHEN FULLY IMPLEMENTED
+        if(jumpPressed && pStats.HasGlider){
+            
+            vel.y -= (pStats.PlayerGrav-18) * Time.deltaTime;
+            if(tempSet == false){
+                tempTraction = pStats.Traction;
+                pStats.Traction = 1.0f;
+                tempSet = true;
+            }
+            
+        }
+        else{
+
+            if(tempSet == true){
+               pStats.Traction = tempTraction;
+               tempSet = false; 
+            }
+
+            //Normal Gravity
+            vel.y -= pStats.PlayerGrav * Time.deltaTime;
+        }
+        
         //Wallrunning
         if (pStats.HasWallrun) { wallRun.WallRunRoutine(); } //adjusted later if we are wallrunning
-        //If gliding 
-            //Go down slowly
+                                                             //If gliding 
+                                                             //Go down slowly
     }
 
     void GroundCheck()
     {
         // Make sure that the ground check distance while already in air is very small, to prevent suddenly snapping to ground
         float chosenGroundCheckDistance = isGrounded ? (moveController.skinWidth + groundCheckDistance) : groundCheckDistanceInAir;
-
         // reset values before the ground check
         isGrounded = false;
-        Vector3 groundNormal = Vector3.up;
-
-        // only try to detect ground if it's been a short amount of time since last jump; otherwise we may snap to the ground instantly after we try jumping
-        if (Time.time >= lastTimeJumped + jumpGroundingPreventionTime)
+        groundRay = new Ray(moveController.transform.position, Vector3.down);
+        if (Physics.Raycast(groundRay, out groundHit, moveController.height + groundCheckDistance)) //&& Time.time >= lastTimeJumped + jumpGroundingPreventionTime)  // only try to detect ground if it's been a short amount of time since last jump; otherwise we may snap to the ground instantly after we try jumping
         {
-            // if we're grounded, collect info about the ground normal with a downward capsule cast representing our character capsule
-            if (Physics.CapsuleCast(GetCapsuleBottomHemisphere(), GetCapsuleTopHemisphere(moveController.height), moveController.radius, Vector3.down, out RaycastHit hit, chosenGroundCheckDistance, groundCheckLayers, QueryTriggerInteraction.Ignore))
+            // Only consider this a valid ground hit if the ground normal goes in the same direction as the character up
+            if (Vector3.Dot(groundHit.normal, transform.up) > 0f)
             {
-                // storing the upward direction for the surface found
-                groundNormal = hit.normal;
-
-                // Only consider this a valid ground hit if the ground normal goes in the same direction as the character up
-                // and if the slope angle is lower than the character controller's limit
-                if (Vector3.Dot(hit.normal, transform.up) > 0f && IsNormalUnderSlopeLimit(groundNormal))
+                isGrounded = true;
+                // handle snapping to the ground
+                if (groundHit.distance > moveController.skinWidth)
                 {
-                    isGrounded = true;
-
-                    // handle snapping to the ground
-                    if (hit.distance > moveController.skinWidth)
-                    {
-                        moveController.Move(Vector3.down * hit.distance);
-                    }
+                    moveController.Move(Vector3.down * groundHit.distance);
                 }
             }
         }
     }
 
-    private bool IsNormalUnderSlopeLimit(Vector3 normal){  // Returns true if the slope angle represented by the given normal is under the slope angle limit of the character controller
-        return Vector3.Angle(transform.up, normal) <= moveController.slopeLimit;
-    }
-
-    private Vector3 GetCapsuleBottomHemisphere(){  // Gets the center point of the bottom hemisphere of the character controller capsule    
-        return transform.position + (transform.up * moveController.radius);
-    }
-
-    private Vector3 GetCapsuleTopHemisphere(float atHeight){  // Gets the center point of the top hemisphere of the character controller capsule    
-
-        return transform.position + (transform.up * (atHeight - moveController.radius));
-    }
-
     //ADJUST SO DISTANCE IS DETERMINED BY SCROLL WHEEL
     //blinks the player forwards
-    private void Blink(){
-        if (Input.GetMouseButton(1)){
+    private void Blink()
+    {
+        if (Input.GetMouseButton(1))
+        {
             // Finding the origin and end point of laser.
             origin = transform.position + transform.forward * transform.lossyScale.z;
 
@@ -306,7 +335,8 @@ public class PlayerMovement : MonoBehaviour
             dir.Normalize();
 
             // Are we hitting any colliders?
-            if (Physics.Raycast(origin, dir, out hit, 20f)){
+            if (Physics.Raycast(origin, dir, out hit, 20f))
+            {
                 // If yes, then set endpoint to hit-point.
                 endPoint = hit.point;
             }
@@ -325,19 +355,18 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
-        else if(!Input.GetMouseButton(1) && beam.enabled == true){
+        else if (!Input.GetMouseButton(1) && beam.enabled == true)
+        {
             beam.enabled = false;
-            //disable character controller for a brief second for teleportation
-            //gameObject.GetComponent<CharacterController>().enabled = false;
-            //get
-            Vector3 bump = new Vector3(0, .5f, 0);
             //if teleporting due to hit to object, bump them a bit outside normal
-            if(hit.point != null) {
+            if (hit.point != null)
+            {
                 transform.position = endPoint + hit.normal * 1.25f;
 
             }
             //if teleporting in the air or something, just spawn at endpoint
-            else{
+            else
+            {
 
                 transform.position = endPoint;
             }
@@ -345,5 +374,5 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    
+
 }
