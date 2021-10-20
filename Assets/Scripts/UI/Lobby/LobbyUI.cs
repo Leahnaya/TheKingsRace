@@ -3,6 +3,7 @@ using MLAPI;
 using MLAPI.Connection;
 using MLAPI.Messaging;
 using MLAPI.NetworkVariable.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,6 +12,7 @@ public class LobbyUI : NetworkBehaviour {
     [Header("References")]
     [SerializeField] private LobbyPlayerCard[] lobbyPlayerCards;
     [SerializeField] private Button startGameButton;
+    [SerializeField] private TMP_Text lobbyStateText;
 
     private NetworkList<LobbyPlayerState> lobbyPlayers = new NetworkList<LobbyPlayerState>();
 
@@ -51,6 +53,7 @@ public class LobbyUI : NetworkBehaviour {
         // Make sure there is 3 players in the lobby
         if (lobbyPlayers.Count != 3)
         {
+            lobbyStateText.text = "Need 3 Players To Begin!";
             return false;
         }
 
@@ -60,8 +63,29 @@ public class LobbyUI : NetworkBehaviour {
         {
             if (!player.IsReady)
             {
+                lobbyStateText.text = "All Players Must Ready Up To Begin!";
                 return false;
             }
+        }
+
+        return true;
+    }
+
+    private bool AreRolesFilled() {
+        int runnerCount = 0;
+        int kingCount = 0;
+        foreach (var player in lobbyPlayers) {
+            // Check how many of each player
+            if (player.IsKing) {
+                kingCount++;
+            } else {
+                runnerCount++;
+            }
+        }
+
+        // Verify counts
+        if (runnerCount != 2 || kingCount != 1) {
+            return false;
         }
 
         return true;
@@ -76,6 +100,7 @@ public class LobbyUI : NetworkBehaviour {
         lobbyPlayers.Add(new LobbyPlayerState(
             clientId,
             playerData.Value.PlayerName,
+            false,
             false
         ));
     }
@@ -102,7 +127,22 @@ public class LobbyUI : NetworkBehaviour {
                 lobbyPlayers[i] = new LobbyPlayerState(
                     lobbyPlayers[i].ClientId,
                     lobbyPlayers[i].PlayerName,
-                    !lobbyPlayers[i].IsReady
+                    !lobbyPlayers[i].IsReady,
+                    lobbyPlayers[i].IsKing
+                );
+            }
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void SwapTeamsServerRpc(ServerRpcParams serverRpcParams = default) { 
+        for (int i = 0; i < lobbyPlayers.Count; i++) { 
+            if (lobbyPlayers[i].ClientId == serverRpcParams.Receive.SenderClientId) {
+                lobbyPlayers[i] = new LobbyPlayerState(
+                    lobbyPlayers[i].ClientId,
+                    lobbyPlayers[i].PlayerName,
+                    lobbyPlayers[i].IsReady,
+                    !lobbyPlayers[i].IsKing
                 );
             }
         }
@@ -113,7 +153,7 @@ public class LobbyUI : NetworkBehaviour {
     {
         if (serverRpcParams.Receive.SenderClientId != NetworkManager.Singleton.LocalClientId) { return; }
 
-        if (!IsEveryoneReady()) { return; }
+        if (!IsEveryoneReady() && !AreRolesFilled()) { return; }
 
         ServerGameNetPortal.Instance.StartGame();
     }
@@ -133,8 +173,11 @@ public class LobbyUI : NetworkBehaviour {
         StartGameServerRpc();
     }
 
-    private void HandleLobbyPlayersStateChanged(NetworkListEvent<LobbyPlayerState> lobbyState)
-    {
+    public void OnSwapTeamClicked() {
+        SwapTeamsServerRpc();
+    }
+
+    private void HandleLobbyPlayersStateChanged(NetworkListEvent<LobbyPlayerState> lobbyState) { 
         for (int i = 0; i < lobbyPlayerCards.Length; i++)
         {
             if (lobbyPlayers.Count > i)
@@ -149,7 +192,46 @@ public class LobbyUI : NetworkBehaviour {
 
         if(IsHost)
         {
-            startGameButton.interactable = IsEveryoneReady();
+            if (IsEveryoneReady() && AreRolesFilled()) {
+                startGameButton.interactable = true;
+            } else {
+                startGameButton.interactable = false;
+            }
+        }
+
+        UpdateLobbyStateText();
+    }
+
+    private void UpdateLobbyStateText() {
+
+        if (lobbyPlayers.Count != 3) {
+            lobbyStateText.text = "Need 3 Players to Begin!";
+            return;
+        }
+
+        int runnerCount = 0;
+        int kingCount = 0;
+        foreach (var player in lobbyPlayers) {
+            // Check how many of each player
+            if (player.IsKing) {
+                kingCount++;
+            } else {
+                runnerCount++;
+            }
+        }
+
+        if (IsEveryoneReady()) {
+
+            // Verify counts
+            if (runnerCount != 2 || kingCount != 1) {
+                lobbyStateText.text = "Need 2 Runners and 1 King!";
+                return;
+            }
+
+            lobbyStateText.text = "All Players Ready!";
+        }
+        else {
+            lobbyStateText.text = "All Players Need to Ready Up!";
         }
     }
 }

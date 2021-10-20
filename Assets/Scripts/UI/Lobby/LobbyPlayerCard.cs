@@ -14,10 +14,20 @@ public class LobbyPlayerCard : MonoBehaviour {
     [SerializeField] private Image selectedCharacterImage;
     [SerializeField] private Toggle isReadyToggle;
 
+    [Header("Images")]
+    [SerializeField] private Sprite kingSprite;
+    [SerializeField] private Sprite runnerSprite;
+
     public void UpdateDisplay(LobbyPlayerState lobbyPlayerState)
     {
         playerDisplayNameText.text = lobbyPlayerState.PlayerName;
         isReadyToggle.isOn = lobbyPlayerState.IsReady;
+
+        if (lobbyPlayerState.IsKing) {
+            selectedCharacterImage.sprite = kingSprite;
+        } else {
+            selectedCharacterImage.sprite = runnerSprite;
+        }
 
         waitingForPlayerPanel.SetActive(false);
         playerDataPanel.SetActive(true);
