@@ -81,7 +81,7 @@ public class PlayerMovement : MonoBehaviour
         cam =  GetComponentInChildren<Camera>();
 
         //Wallrun
-        //wallRun = gameObject.GetComponent<WallRun>();
+        wallRun = gameObject.GetComponent<WallRun>();
     }
 
 
@@ -118,7 +118,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Checks if player should respawn
-        Respawn();
+        //Respawn();
         
         
 
@@ -235,6 +235,11 @@ public class PlayerMovement : MonoBehaviour
     public void SetPlayerVelocity(Vector3 newVelocity)
     {
         vel = newVelocity;
+    }
+
+    public void decrementCurrentJumpNumber()
+    {
+        curJumpNum--;
     }
 
     //Camera
