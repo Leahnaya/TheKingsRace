@@ -57,8 +57,6 @@ public class LobbyUI : NetworkBehaviour {
             return false;
         }
 
-        // TODO: Need to add a check to make sure that 2 are runners and 1 is king
-
         foreach (var player in lobbyPlayers)
         {
             if (!player.IsReady)
@@ -136,14 +134,25 @@ public class LobbyUI : NetworkBehaviour {
 
     [ServerRpc(RequireOwnership = false)]
     private void SwapTeamsServerRpc(ServerRpcParams serverRpcParams = default) { 
-        for (int i = 0; i < lobbyPlayers.Count; i++) { 
-            if (lobbyPlayers[i].ClientId == serverRpcParams.Receive.SenderClientId) {
+        for (int i = 0; i < lobbyPlayers.Count; i++) {
+            ulong senderClientID = serverRpcParams.Receive.SenderClientId;
+            // Update the lobby state that controls that player's data
+            if (lobbyPlayers[i].ClientId == senderClientID) {
                 lobbyPlayers[i] = new LobbyPlayerState(
                     lobbyPlayers[i].ClientId,
                     lobbyPlayers[i].PlayerName,
                     lobbyPlayers[i].IsReady,
                     !lobbyPlayers[i].IsKing
                 );
+
+                // Update the server's player data as well
+                if (ServerGameNetPortal.Instance.clientIdToGuid.TryGetValue(senderClientID, out string clientGuid)) {
+                    ServerGameNetPortal.Instance.clientData[clientGuid] = new PlayerData(
+                        ServerGameNetPortal.Instance.clientData[clientGuid].PlayerName,
+                        ServerGameNetPortal.Instance.clientData[clientGuid].ClientId,
+                        lobbyPlayers[i].IsKing
+                    );
+                }
             }
         }
     }

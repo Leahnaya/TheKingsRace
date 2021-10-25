@@ -13,11 +13,15 @@ public class ServerGameNetPortal : MonoBehaviour {
     [Header("Settings")]
     [SerializeField] private int maxPlayers = 3;
 
+    [Header("Prefabs")]
+    [SerializeField] private GameObject runnerPrefab;
+    [SerializeField] private GameObject kingPrefab;
+
     public static ServerGameNetPortal Instance => instance;
     private static ServerGameNetPortal instance;
 
-    private Dictionary<string, PlayerData> clientData;
-    private Dictionary<ulong, string> clientIdToGuid;
+    public Dictionary<string, PlayerData> clientData;
+    public Dictionary<ulong, string> clientIdToGuid;
     private Dictionary<ulong, int> clientSceneMap;
     private bool gameInProgress;
 
@@ -102,6 +106,7 @@ public class ServerGameNetPortal : MonoBehaviour {
         Vector3[] runnersSpawnPoints;
         Vector3 kingSpawnPoint;
 
+        // Get the spawn points for the level
         switch (gameLevelLoaded) {
             default:
             case 0:
@@ -109,14 +114,33 @@ public class ServerGameNetPortal : MonoBehaviour {
                 kingSpawnPoint = SpawnPoints.Instance.getKingSpawnPoint(gameLevelLoaded);
                 break;
         }
-        
+
         // Spawn in the players, but make sure the character controllers are diabled
+        int runnerSpawnIndex = 0;
+        foreach (PlayerData pData in clientData.Values) {
+            // Spawn in the prefab for the player based on king or runner
+            GameObject go = null;
+            if (pData.IsKing) {
+                go = Instantiate(runnerPrefab, kingSpawnPoint, Quaternion.identity);
+                
+            } else {
+                go = Instantiate(runnerPrefab, runnersSpawnPoints[runnerSpawnIndex], Quaternion.identity);
+            }
+            
+            // Disable the character controller
+            go.GetComponent<CharacterController>().enabled = false;
+            go.GetComponent<CapsuleCollider>().enabled = true;
+
+            // Spawn the player on network and assign the owner
+            go.GetComponent<NetworkObject>().Spawn();
+            go.GetComponent<NetworkObject>().ChangeOwnership(pData.ClientId);
+        }
 
         // Perform the intro cutscene camera movement
 
         // Do a 3.2.1 countdown or ask team what we want to do here
 
-        // Re-enable the character controllers
+        // Re-enable the character controllers and disable the capsulecollider
 
         // Start the game timer
     }
