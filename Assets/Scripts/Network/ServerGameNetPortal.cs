@@ -121,15 +121,15 @@ public class ServerGameNetPortal : MonoBehaviour {
             // Spawn in the prefab for the player based on king or runner
             GameObject go = null;
             if (pData.IsKing) {
-                go = Instantiate(runnerPrefab, kingSpawnPoint, Quaternion.identity);
+                go = Instantiate(kingPrefab, kingSpawnPoint, Quaternion.identity);
                 
             } else {
                 go = Instantiate(runnerPrefab, runnersSpawnPoints[runnerSpawnIndex], Quaternion.identity);
             }
             
             // Disable the character controller
-            go.GetComponent<CharacterController>().enabled = false;
-            go.GetComponent<CapsuleCollider>().enabled = true;
+            //go.GetComponent<CharacterController>().enabled = false;
+            //go.GetComponent<CapsuleCollider>().enabled = true;
 
             // Spawn the player on network and assign the owner
             go.GetComponent<NetworkObject>().Spawn();

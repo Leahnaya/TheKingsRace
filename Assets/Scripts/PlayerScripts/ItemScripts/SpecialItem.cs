@@ -13,7 +13,7 @@ public class SpecialItem : Item
     public bool hasNitroM;
     public bool hasDashM;
     public float cooldownM;
-    public MonoScript scriptM;
+    //public MonoScript scriptM;
 
     public override void Equip(PlayerStats p, GameObject player){
         if(maxVelM != 0){
@@ -61,9 +61,9 @@ public class SpecialItem : Item
         if(hasDashM != false){
             p.HasDash = hasDashM;
         }
-        if(scriptM != null){
+        /*if(scriptM != null){
             player.AddComponent(scriptM.GetClass());
-        }
+        }*/
     }
 
     public override void Unequip(PlayerStats p, GameObject player){
@@ -112,9 +112,9 @@ public class SpecialItem : Item
         if(hasDashM != false){
             p.HasDash = false;
         }
-        if(scriptM != null){
+        /*if(scriptM != null){
             Destroy(player.GetComponent(scriptM.GetClass()));
-        }
+        }*/
     }
 }
 
