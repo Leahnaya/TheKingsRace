@@ -59,6 +59,7 @@ public class PlayerMovement : MonoBehaviour
     //Ragdoll variables
     private Vector3 hit;
     private Rigidbody rB;
+    private CapsuleCollider capCol;
     private bool firstHit = false;
     private bool heldDown = false;
     private Vector3 prevRot;
@@ -69,11 +70,13 @@ public class PlayerMovement : MonoBehaviour
         //Initialize Components
         moveController = GetComponent<CharacterController>();
         rB = GetComponent<Rigidbody>();
+        capCol = GetComponent<CapsuleCollider>();
         pStats = GetComponent<PlayerStats>();
 
         //camera transform
         cam =  GetComponentInChildren<Camera>();
 
+        capCol.enabled = false;
         //Wallrun
         //wallRun = gameObject.GetComponent<WallRun>();
     }
@@ -104,7 +107,6 @@ public class PlayerMovement : MonoBehaviour
         }
         else{
 
-            //if suffiecient impact magnitude is applied then move player
             if (rB.velocity.magnitude < 0.2f){ 
         
                 firstHit = false;
@@ -118,14 +120,13 @@ public class PlayerMovement : MonoBehaviour
             //Debug.LogWarning("MoveController is either Disabled or wasn't retrieved correctly");
         }
 
-        //TESTING RAGDOLL STUFF NEEDS SOME WORk
-        /*
+        //TESTING RAGDOLL STUFF NEEDS SOME WORK
+        
         if (Input.GetMouseButton(1) && heldDown == false){
-            Debug.Log("yup");
-            getHit(new Vector3(1,1,1), 2000);
+            getHit(new Vector3(vel.x, 0, vel.z), 30);
             heldDown = true;
         }
-        */
+        
 
         if(!Input.GetMouseButton(1)){
             heldDown = false;
@@ -338,18 +339,20 @@ public class PlayerMovement : MonoBehaviour
         if(firstHit == false){
             EnableRagdoll();
             dir.Normalize();
-            rB.AddForce(dir * force);
+            rB.AddForce(dir * force, ForceMode.Impulse);
             firstHit = true;
         }
     }
     private void EnableRagdoll(){
             prevRot = transform.localEulerAngles;
+            capCol.enabled = true;
             moveController.enabled = false;
             rB.isKinematic = false;
             rB.detectCollisions = true;
     }
 
     private void DisableRagdoll(){
+            capCol.enabled = false;
             moveController.enabled = true;
             rB.isKinematic = true;
             rB.detectCollisions = false;
