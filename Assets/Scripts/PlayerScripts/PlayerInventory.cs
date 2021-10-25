@@ -21,7 +21,7 @@ public class PlayerInventory : MonoBehaviour
         if(!items.Contains(item) && ableToAdd){
             Debug.Log("Item Added");
             items.Add(item);
-            item.Equip(pStats);
+            item.Equip(pStats, this.gameObject);
         }
         else if(!ableToAdd && !items.Contains(item)){
             Debug.Log("Item Cannot Be Added");
@@ -42,7 +42,7 @@ public class PlayerInventory : MonoBehaviour
 
     public void RemoveItem(Item item){
         if(items.Remove(item)){
-            item.Unequip(pStats);
+            item.Unequip(pStats, this.gameObject);
         }
     }
 

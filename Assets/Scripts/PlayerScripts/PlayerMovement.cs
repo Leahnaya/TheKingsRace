@@ -24,12 +24,13 @@ public class PlayerMovement : MonoBehaviour
     //Jump value
     private int curJumpNum;
     private bool jumpPressed;
+    bool tempSet = false;
+    float tempTraction = 0.0f;
 
     //Jump physics
     private float mass = 5.0F; // defines the character mass
     private Vector3 impact = Vector3.zero;
     private float distToGround;
-
 
     //Wallrunning
     private WallRun wallRun;
@@ -43,7 +44,6 @@ public class PlayerMovement : MonoBehaviour
     private Ray groundRay;
     private RaycastHit groundHit;
 
-
     //Camera Variables
     private LayerMask ignoreP;
     private Vector3 camRotation;
@@ -56,26 +56,20 @@ public class PlayerMovement : MonoBehaviour
     [Range(50, 500)]
     public int sensitivity = 200;
 
-    //Blink Variables
-    private LineRenderer beam;
-    private Vector3 origin;
-    private Vector3 endPoint;
-    private Vector3 mousePos;
-    private RaycastHit hit;
-    /////
+    //Ragdoll variables
+    private Vector3 hit;
+    private Rigidbody rB;
+    private bool firstHit = false;
+    private bool heldDown = false;
+    private Vector3 prevRot;
+    private Vector3 hitForce;
 
     void Awake()
     {
         //Initialize Components
         moveController = GetComponent<CharacterController>();
+        rB = GetComponent<Rigidbody>();
         pStats = GetComponent<PlayerStats>();
-        ignoreP = LayerMask.GetMask("Player");
-
-
-        beam = gameObject.AddComponent<LineRenderer>();
-        beam.startWidth = 0.2f;
-        beam.endWidth = 0.2f;
-        beam.enabled = false;
 
         //camera transform
         cam =  GetComponentInChildren<Camera>();
@@ -83,9 +77,6 @@ public class PlayerMovement : MonoBehaviour
         //Wallrun
         //wallRun = gameObject.GetComponent<WallRun>();
     }
-
-
-
 
     void Start()
     {
@@ -98,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
     {
 
         //Controls for camera
-        Rotate();
+        Rotation();
         
         if(moveController.enabled == true){
 
@@ -110,11 +101,34 @@ public class PlayerMovement : MonoBehaviour
 
             // consumes the impact energy each cycle:
             impact = Vector3.Lerp(impact, Vector3.zero, 5*Time.deltaTime);
-
-            Blink();
         }
         else{
-            Debug.Log("MoveController is either Disabled or wasn't retrieved correctly");
+
+            //if suffiecient impact magnitude is applied then move player
+            if (rB.velocity.magnitude < 0.2f){ 
+        
+                firstHit = false;
+                DisableRagdoll();
+            }   
+
+            //Gravity without moveController
+            vel.y -= pStats.PlayerGrav * Time.deltaTime;
+            rB.AddForce(new Vector3(0,vel.y,0));
+            
+            //Debug.LogWarning("MoveController is either Disabled or wasn't retrieved correctly");
+        }
+
+        //TESTING RAGDOLL STUFF NEEDS SOME WORk
+        /*
+        if (Input.GetMouseButton(1) && heldDown == false){
+            Debug.Log("yup");
+            getHit(new Vector3(1,1,1), 2000);
+            heldDown = true;
+        }
+        */
+
+        if(!Input.GetMouseButton(1)){
+            heldDown = false;
         }
 
         //Checks if player should respawn
@@ -207,8 +221,6 @@ public class PlayerMovement : MonoBehaviour
 
         lastTimeJumped = Time.time;
 
-        //NEEDS TO BE MASSIVELY CHANGE LIKELY USE RAYCAST TO CHECK IF ACTUALLY ON GROUND
-        //CANNOT USE CHARACTERCONTROLLER.ISGROUNDED IT IS UNRELIABLE
         //If grounded no jumps have been used
         if(isGrounded){
              curJumpNum = 0;
@@ -218,6 +230,9 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetAxis("Jump") == 0) jumpPressed = false;
     }
 
+
+
+    //PlayerScript
     public bool GetJumpPressed(){
         return jumpPressed;
     }
@@ -237,8 +252,10 @@ public class PlayerMovement : MonoBehaviour
         vel = newVelocity;
     }
 
-    //Camera
-    private void Rotate()
+
+
+    //Camera and Player Rotation
+    private void Rotation()
     {
         transform.Rotate(Vector3.up * sensitivity * Time.deltaTime * Input.GetAxis("Mouse X"));
 
@@ -260,13 +277,12 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+
+
     //Gravity Function for adjusting y-vel due to wallrun/glide/etc
     private void Gravity(){
-        //Temp Values for Glider
-        float tempTraction = 0.0f;
-        bool tempSet = false;
 
-        //ADD CHECKER FOR GLIDER WHEN FULLY IMPLEMENTED
+        //Gliding
         if(jumpPressed && pStats.HasGlider){
             
             vel.y -= (pStats.PlayerGrav-18) * Time.deltaTime;
@@ -275,7 +291,6 @@ public class PlayerMovement : MonoBehaviour
                 pStats.Traction = 1.0f;
                 tempSet = true;
             }
-            
         }
         else{
 
@@ -287,12 +302,14 @@ public class PlayerMovement : MonoBehaviour
             //Normal Gravity
             vel.y -= pStats.PlayerGrav * Time.deltaTime;
         }
-        
+
         //Wallrunning
         if (pStats.HasWallrun) { wallRun.WallRunRoutine(); } //adjusted later if we are wallrunning
                                                              //If gliding 
                                                              //Go down slowly
     }
+
+
 
     void GroundCheck()
     {
@@ -316,62 +333,27 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    //ADJUST SO DISTANCE IS DETERMINED BY SCROLL WHEEL
-    //blinks the player forwards
-    private void Blink()
-    {
-        if (Input.GetMouseButton(1))
-        {
-            // Finding the origin and end point of laser.
-            origin = transform.position + transform.forward * transform.lossyScale.z;
-
-            // Finding mouse pos in 3D space.
-            mousePos = Input.mousePosition;
-            mousePos.z = 20f;
-            endPoint = cam.ScreenToWorldPoint(mousePos);
-
-            // Find direction of beam.
-            Vector3 dir = endPoint - origin;
+    //Ragdoll Functions
+    private void getHit(Vector3 dir, float force){
+        if(firstHit == false){
+            EnableRagdoll();
             dir.Normalize();
-
-            // Are we hitting any colliders?
-            if (Physics.Raycast(origin, dir, out hit, 20f))
-            {
-                // If yes, then set endpoint to hit-point.
-                endPoint = hit.point;
-            }
-
-            // Set end point of laser.
-            beam.SetPosition(0, origin);
-            beam.SetPosition(1, endPoint);
-            // Draw the laser!
-            beam.enabled = true;
-            /*Ray ray = camera.ScreenPointToRay(Input.mousePosition);
-            RaycastHit raycastHit;
-
-            if (Physics.Raycast(ray, out raycastHit, 5.0f)){
-            LineRenderer.SetPosition(1, raycastHit.point);
-            }*/
-
+            rB.AddForce(dir * force);
+            firstHit = true;
         }
+    }
+    private void EnableRagdoll(){
+            prevRot = transform.localEulerAngles;
+            moveController.enabled = false;
+            rB.isKinematic = false;
+            rB.detectCollisions = true;
+    }
 
-        else if (!Input.GetMouseButton(1) && beam.enabled == true)
-        {
-            beam.enabled = false;
-            //if teleporting due to hit to object, bump them a bit outside normal
-            if (hit.point != null)
-            {
-                transform.position = endPoint + hit.normal * 1.25f;
-
-            }
-            //if teleporting in the air or something, just spawn at endpoint
-            else
-            {
-
-                transform.position = endPoint;
-            }
-            //reenable character controller
-        }
+    private void DisableRagdoll(){
+            moveController.enabled = true;
+            rB.isKinematic = true;
+            rB.detectCollisions = false;
+            transform.localEulerAngles = prevRot;
     }
 
 

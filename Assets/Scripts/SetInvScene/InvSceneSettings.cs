@@ -23,7 +23,7 @@ public class InvSceneSettings : MonoBehaviour
         pointText = GameObject.Find("PlayerPoints").GetComponentInChildren<Text>();
         pInv = player1.GetComponent<PlayerInventory>();
         player1.GetComponent<PlayerMovement>().enabled = false;
-        player1.transform.GetChild(0).gameObject.SetActive(false);
+        player1.transform.Find("PlayerCam").gameObject.SetActive(false);
 
         invMan = GetComponent<InventoryManager>();
     }
@@ -50,8 +50,9 @@ public class InvSceneSettings : MonoBehaviour
                 iOpt.name = item.itemName;
                 iOpt.transform.SetParent(GameObject.Find("Items").transform);
                 iOpt.transform.localScale = new Vector3(1.5f,1.5f,1.5f);
-                iOpt.GetComponent<Button>().onClick.AddListener(delegate{pInv.AddItem(item, UpdatePoints(item.costM, item));});
-                iOpt.GetComponentInChildren<Text>().text = item.itemName;
+                iOpt.GetComponent<Button>().onClick.AddListener(delegate{pInv.AddItem(item, UpdateObject(item.costM, item, iOpt));});
+                iOpt.transform.Find("Name").GetComponent<Text>().text = item.itemName;
+                iOpt.transform.Find("Cost").GetComponent<Text>().text = item.costM.ToString();
 
                 //iOpt.GetComponentInChildren<Image>() = item.image; // IMPLEMENT WHEN ITEM OBJECT CONTAIN IMAGE REFERENCE
                 index++;
@@ -63,15 +64,17 @@ public class InvSceneSettings : MonoBehaviour
         
     }
 
-    private bool UpdatePoints(int itemCost, Item item){
+    private bool UpdateObject(int itemCost, Item item, GameObject button){
         if(pInv.GetItems().Contains(item)){
             pointsLeft += itemCost;
             pointText.text = "Points Left: " + pointsLeft;
+            button.GetComponent<Image>().color = new Color(1,1,1);
             return true;
         }
         else if(!pInv.GetItems().Contains(item) && (pointsLeft - itemCost) >= 0){
             pointsLeft -= itemCost;
             pointText.text = "Points Left: " + pointsLeft;
+            button.GetComponent<Image>().color = new Color(.5f,.5f,.5f);
             return true;
         }
         else{
