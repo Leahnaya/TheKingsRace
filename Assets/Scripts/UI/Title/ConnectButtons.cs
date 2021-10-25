@@ -37,6 +37,12 @@ public class ConnectButtons : MonoBehaviour {
         // Set the players name
         PlayerPrefs.SetString("PlayerName", playerNameField.text);
 
+        // Validate player name
+        if (!ValidatePlayerName(playerNameField.text)) {
+            ThrowError("Invalid Player Name! Please enter a new player name and try again!");
+            return;
+        }
+
         // Start a server and join (hosting)
         GameNetPortal.Instance.StartHost();
     }
@@ -56,6 +62,12 @@ public class ConnectButtons : MonoBehaviour {
 
         // Set the players name
         PlayerPrefs.SetString("PlayerName", playerNameField.text);
+
+        // Validate player name
+        if (!ValidatePlayerName(playerNameField.text)) {
+            ThrowError("Invalid Player Name! Please enter a new player name and try again!");
+            return;
+        }
 
         // Start the game client
         ClientGameNetPortal.Instance.StartClient(ipAddress, port);
@@ -85,6 +97,17 @@ public class ConnectButtons : MonoBehaviour {
         ErrorText.text = "";
 
         ErrorPanel.SetActive(false);
+    }
+
+    private bool ValidatePlayerName(string name) {
+
+        // Check for empty string
+        if (name == "" || name == " ") {
+            return false;
+        }
+
+        // Return true if no issues with name
+        return true;
     }
 
     // Method by: Habib (Stack Overflow)

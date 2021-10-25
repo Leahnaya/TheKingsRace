@@ -25,6 +25,8 @@ public class ServerGameNetPortal : MonoBehaviour {
 
     private GameNetPortal gameNetPortal;
 
+    private int gameLevelLoaded = -1;
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -87,7 +89,36 @@ public class ServerGameNetPortal : MonoBehaviour {
     {
         gameInProgress = true;
 
+        // Load the mountain level.  Can add code to swap which level here
+        gameLevelLoaded = 0;
         NetworkSceneManager.SwitchScene("Game-Mountain");
+
+        // Start the round
+        BeginRound();
+    }
+
+    // Code to handle the beginning of round logic where we do the camera movement and spawning in players
+    public void BeginRound() {
+        Vector3[] runnersSpawnPoints;
+        Vector3 kingSpawnPoint;
+
+        switch (gameLevelLoaded) {
+            default:
+            case 0:
+                runnersSpawnPoints = SpawnPoints.Instance.getRunnerSpawnPoints(gameLevelLoaded);
+                kingSpawnPoint = SpawnPoints.Instance.getKingSpawnPoint(gameLevelLoaded);
+                break;
+        }
+        
+        // Spawn in the players, but make sure the character controllers are diabled
+
+        // Perform the intro cutscene camera movement
+
+        // Do a 3.2.1 countdown or ask team what we want to do here
+
+        // Re-enable the character controllers
+
+        // Start the game timer
     }
 
     public void EndRound()
