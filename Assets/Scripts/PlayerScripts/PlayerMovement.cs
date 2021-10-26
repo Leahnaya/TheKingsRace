@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using MLAPI;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : NetworkBehaviour
 {
 
     //Scripts
@@ -84,12 +85,23 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         distToGround = GetComponent<Collider>().bounds.extents.y;
+
+        // Don't do movement unless this is the local player controlling it
+        // Otherwise we let the server handle moving us
+        if (!IsLocalPlayer) { return; }
+
+        // Don't lock the cursor multiple times if this isn't the local player
+        // Also don't want to lock the cursor for the king
+        // That is why this is after the LocalPlayer check
         Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        // Don't do movement unless this is the local player controlling it
+        // Otherwise we let the server handle moving us
+        if (!IsLocalPlayer) { return; }
 
         //Controls for camera
         Rotation();

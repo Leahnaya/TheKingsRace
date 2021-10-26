@@ -14,8 +14,8 @@ public class ServerGameNetPortal : MonoBehaviour {
     [SerializeField] private int maxPlayers = 3;
 
     [Header("Prefabs")]
-    [SerializeField] private GameObject runnerPrefab;
-    [SerializeField] private GameObject kingPrefab;
+    [SerializeField] private NetworkObject runnerPrefab;
+    [SerializeField] private NetworkObject kingPrefab;
 
     public static ServerGameNetPortal Instance => instance;
     private static ServerGameNetPortal instance;
@@ -119,28 +119,31 @@ public class ServerGameNetPortal : MonoBehaviour {
         int runnerSpawnIndex = 0;
         foreach (PlayerData pData in clientData.Values) {
             // Spawn in the prefab for the player based on king or runner
-            GameObject go = null;
+            NetworkObject go = null;
             if (pData.IsKing) {
-                go = Instantiate(kingPrefab, kingSpawnPoint, Quaternion.identity);
+                //go = Instantiate(kingPrefab, kingSpawnPoint, Quaternion.identity);
                 
             } else {
                 go = Instantiate(runnerPrefab, runnersSpawnPoints[runnerSpawnIndex], Quaternion.identity);
+
+                // Increment the runner spawn index
+                runnerSpawnIndex++;
             }
-            
-            // Disable the character controller
+
+            // Disable the character controllers and camera
             //go.GetComponent<CharacterController>().enabled = false;
             //go.GetComponent<CapsuleCollider>().enabled = true;
+            //go.GetComponent<Camera>().enabled = false;
 
             // Spawn the player on network and assign the owner
-            go.GetComponent<NetworkObject>().Spawn();
-            go.GetComponent<NetworkObject>().ChangeOwnership(pData.ClientId);
+            go.SpawnAsPlayerObject(pData.ClientId);
         }
 
         // Perform the intro cutscene camera movement
 
         // Do a 3.2.1 countdown or ask team what we want to do here
 
-        // Re-enable the character controllers and disable the capsulecollider
+        // Re-enable the character controllers and disable the capsulecollider, and remove the main camera, and activate the local cameras
 
         // Start the game timer
     }

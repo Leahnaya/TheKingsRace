@@ -360,8 +360,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxPlayers: 3
-  runnerPrefab: {fileID: 7188906082087890184, guid: a9840baa4cc526b44bfef27c6fea042a, type: 3}
-  kingPrefab: {fileID: 7758200544476425999, guid: 31aeb41a00441214ca42c9eb5647395e, type: 3}
+  runnerPrefab: {fileID: 1292213096936070766, guid: a9840baa4cc526b44bfef27c6fea042a, type: 3}
+  kingPrefab: {fileID: 7758200544476425993, guid: 31aeb41a00441214ca42c9eb5647395e, type: 3}
 --- !u!114 &1566574284
 MonoBehaviour:
   m_ObjectHideFlags: 0
