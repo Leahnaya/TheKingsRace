@@ -212,7 +212,7 @@ MonoBehaviour:
   runnerSpawnPoints:
   - {x: 0, y: 2, z: 0}
   - {x: 2, y: 2, z: 2}
-  kingSpawnPoint: {x: 5, y: 7, z: 5}
+  kingSpawnPoint: {x: -2, y: 2, z: -2}
 --- !u!1 &1494071116
 GameObject:
   m_ObjectHideFlags: 0
@@ -283,7 +283,7 @@ MonoBehaviour:
     NetworkPrefabs:
     - Prefab: {fileID: 7188906082087890184, guid: a9840baa4cc526b44bfef27c6fea042a, type: 3}
       PlayerPrefab: 0
-    - Prefab: {fileID: 7758200544476425999, guid: 31aeb41a00441214ca42c9eb5647395e, type: 3}
+    - Prefab: {fileID: 6649144231394212716, guid: 31aeb41a00441214ca42c9eb5647395e, type: 3}
       PlayerPrefab: 0
     PlayerPrefabHash:
       id: 0
@@ -361,7 +361,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxPlayers: 3
   runnerPrefab: {fileID: 1292213096936070766, guid: a9840baa4cc526b44bfef27c6fea042a, type: 3}
-  kingPrefab: {fileID: 7758200544476425993, guid: 31aeb41a00441214ca42c9eb5647395e, type: 3}
+  kingPrefab: {fileID: 6649144231394212676, guid: 31aeb41a00441214ca42c9eb5647395e, type: 3}
 --- !u!114 &1566574284
 MonoBehaviour:
   m_ObjectHideFlags: 0

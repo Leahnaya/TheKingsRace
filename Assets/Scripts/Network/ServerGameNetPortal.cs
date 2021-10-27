@@ -121,14 +121,14 @@ public class ServerGameNetPortal : MonoBehaviour {
             // Spawn in the prefab for the player based on king or runner
             NetworkObject go = null;
             if (pData.IsKing) {
-                //go = Instantiate(kingPrefab, kingSpawnPoint, Quaternion.identity);
-                
+                go = Instantiate(kingPrefab, kingSpawnPoint, Quaternion.identity);
+
             } else {
                 go = Instantiate(runnerPrefab, runnersSpawnPoints[runnerSpawnIndex], Quaternion.identity);
 
                 // Increment the runner spawn index
                 runnerSpawnIndex++;
-            }
+            }               
 
             // Disable the character controllers and camera
             //go.GetComponent<CharacterController>().enabled = false;
