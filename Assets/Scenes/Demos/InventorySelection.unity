@@ -388,6 +388,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemOptPrefab: {fileID: 8447329698821624902, guid: 51a78c57dc85625428c8f1e6448d113f, type: 3}
+  moveScripts: []
 --- !u!114 &526839288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -501,6 +502,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 623466146960117777, guid: a9840baa4cc526b44bfef27c6fea042a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1006370620272136424, guid: a9840baa4cc526b44bfef27c6fea042a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1121632309457683679, guid: a9840baa4cc526b44bfef27c6fea042a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1122837021074491360, guid: a9840baa4cc526b44bfef27c6fea042a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1602186932439279558, guid: a9840baa4cc526b44bfef27c6fea042a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3454731726544993114, guid: a9840baa4cc526b44bfef27c6fea042a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4910425103423673310, guid: a9840baa4cc526b44bfef27c6fea042a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7188906082087890177, guid: a9840baa4cc526b44bfef27c6fea042a, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -548,6 +577,14 @@ PrefabInstance:
     - target: {fileID: 7188906082087890184, guid: a9840baa4cc526b44bfef27c6fea042a, type: 3}
       propertyPath: m_Name
       value: PlayerPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 7442108947324986527, guid: a9840baa4cc526b44bfef27c6fea042a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7623511089535041046, guid: a9840baa4cc526b44bfef27c6fea042a, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a9840baa4cc526b44bfef27c6fea042a, type: 3}

@@ -62,7 +62,7 @@ public class PlayerStats : MonoBehaviour
     }
 
     //Player Recovery Time When Knocked Down
-    private float recovTime;
+    private float recovTime = 5;
     public float RecovTime{
         get{ return recovTime; }
         set{ recovTime = value; }

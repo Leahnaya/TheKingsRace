@@ -62,6 +62,8 @@ public class PlayerMovement : MonoBehaviour
     private CapsuleCollider capCol;
     private bool firstHit = false;
     private bool heldDown = false;
+    private bool beginRagTimer = false;
+    private float ragTime; 
     private Vector3 prevRot;
     private Vector3 hitForce;
 
@@ -78,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
 
         capCol.enabled = false;
         //Wallrun
-        //wallRun = gameObject.GetComponent<WallRun>();
+        wallRun = gameObject.GetComponent<WallRun>();
     }
 
     void Start()
@@ -90,7 +92,7 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-
+        
         //Controls for camera
         Rotation();
         
@@ -107,7 +109,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else{
 
-            if (rB.velocity.magnitude < 0.2f){ 
+            if (RagdollTimer() == 0){ 
         
                 firstHit = false;
                 DisableRagdoll();
@@ -258,12 +260,15 @@ public class PlayerMovement : MonoBehaviour
     //Camera and Player Rotation
     private void Rotation()
     {
-        transform.Rotate(Vector3.up * sensitivity * Time.deltaTime * Input.GetAxis("Mouse X"));
+        Vector3 lastCamPos = new Vector3(0,0,0);
+        if(moveController.enabled){
+            transform.Rotate(Vector3.up * sensitivity * Time.deltaTime * Input.GetAxis("Mouse X"));
 
-        camRotation.x -= Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
-        camRotation.x = Mathf.Clamp(camRotation.x, minAngle, maxAngle);
+            camRotation.x -= Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
+            camRotation.x = Mathf.Clamp(camRotation.x, minAngle, maxAngle);
 
-        cam.transform.localEulerAngles = camRotation;
+            cam.transform.localEulerAngles = camRotation;
+        }
     }
 
 
@@ -344,20 +349,40 @@ public class PlayerMovement : MonoBehaviour
         }
     }
     private void EnableRagdoll(){
-            prevRot = transform.localEulerAngles;
-            capCol.enabled = true;
-            moveController.enabled = false;
-            rB.isKinematic = false;
-            rB.detectCollisions = true;
+        ragTime = pStats.RecovTime;
+        prevRot = transform.localEulerAngles;
+        capCol.enabled = true;
+        moveController.enabled = false;
+        rB.isKinematic = false;
+        rB.detectCollisions = true;
     }
 
     private void DisableRagdoll(){
-            capCol.enabled = false;
-            moveController.enabled = true;
-            rB.isKinematic = true;
-            rB.detectCollisions = false;
-            transform.localEulerAngles = prevRot;
+        capCol.enabled = false;
+        moveController.enabled = true;
+        rB.isKinematic = true;
+        rB.detectCollisions = false;
+        transform.localEulerAngles = prevRot;
     }
+
+    //When to begin the ragdoll timer
+    private float RagdollTimer(){
+        if(beginRagTimer == false){
+            beginRagTimer = Physics.Raycast(transform.position, -Vector3.up, distToGround + 0.1f);
+        }
+
+        else if(ragTime <= 0){
+            ragTime = 0;
+            beginRagTimer = false;
+        }
+
+        if(beginRagTimer == true){
+            ragTime -= Time.deltaTime;
+        }
+
+        return ragTime;
+    }
+    
 
 
 }

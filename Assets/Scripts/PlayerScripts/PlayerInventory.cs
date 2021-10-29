@@ -30,7 +30,6 @@ public class PlayerInventory : MonoBehaviour
             Debug.Log("Item Removed");
             RemoveItem(item);
         }
-        
     }
 
     public void AddSpecialItem<T>(T itemCandidate) { // Unless we don't want the four special items to be handled by inventory/inventory manager?

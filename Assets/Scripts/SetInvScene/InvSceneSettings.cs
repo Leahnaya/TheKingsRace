@@ -29,9 +29,14 @@ public class InvSceneSettings : MonoBehaviour
     }
 
     void Start(){
+        player1.GetComponent<CapsuleCollider>().enabled = true;
         InitializeItemB();
         pointsLeft = pStats.PlayerPoints;
         pointText.text = "Points Left: " + pointsLeft;
+    }
+
+    void FixedUpdate(){
+        itemToEnable();
     }
 
     private void InitializeItemB(){
@@ -82,8 +87,26 @@ public class InvSceneSettings : MonoBehaviour
         }
     }
 
+
+    //Enables Script on player
+    //NEEDS TO BE CLEANED UP AND IMPROVED
+    public void itemToEnable(){
+        if(pStats.HasBlink != player1.GetComponent<Blink>().enabled)
+            player1.GetComponent<Blink>().enabled = pStats.HasBlink;
+        if(pStats.HasDash != player1.GetComponent<Dash>().enabled)
+            player1.GetComponent<Dash>().enabled = pStats.HasDash;
+        if(pStats.HasWallrun != player1.GetComponent<WallRun>().enabled)
+            player1.GetComponent<WallRun>().enabled = pStats.HasWallrun;
+        if(pStats.HasGrapple != player1.GetComponent<GrapplingHook>().enabled)
+            player1.GetComponent<GrapplingHook>().enabled = pStats.HasGrapple;
+        if(pStats.HasNitro != player1.GetComponent<Nitro>().enabled)
+            player1.GetComponent<Nitro>().enabled = pStats.HasNitro;
+        
+    }
+
     public void nextScene(){
         player1.GetComponent<PlayerMovement>().enabled = true;
+        player1.GetComponent<CapsuleCollider>().enabled = false;
         player1.transform.GetChild(0).gameObject.SetActive(true);
         SceneManager.LoadScene (SceneManager.GetActiveScene().buildIndex + 1);
     }
