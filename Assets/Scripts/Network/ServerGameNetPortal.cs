@@ -16,8 +16,8 @@ public class ServerGameNetPortal : MonoBehaviour {
     public static ServerGameNetPortal Instance => instance;
     private static ServerGameNetPortal instance;
 
-    private Dictionary<string, PlayerData> clientData;
-    private Dictionary<ulong, string> clientIdToGuid;
+    public Dictionary<string, PlayerData> clientData;
+    public Dictionary<ulong, string> clientIdToGuid;
     private Dictionary<ulong, int> clientSceneMap;
     private bool gameInProgress;
 
@@ -87,7 +87,8 @@ public class ServerGameNetPortal : MonoBehaviour {
     {
         gameInProgress = true;
 
-        NetworkSceneManager.SwitchScene("Game");
+        // Load the mountain level.  Can add code to swap which level here
+        NetworkSceneManager.SwitchScene("Game-Mountain");
     }
 
     public void EndRound()

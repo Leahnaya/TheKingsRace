@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using MLAPI;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : NetworkBehaviour
 {
 
     //Scripts
@@ -18,18 +19,22 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 moveX;
     private Vector3 driftVel;
 
+    //Player prefab
+    private GameObject parentObj;
+
     //Character Moving
     private CharacterController moveController;
 
     //Jump value
     private int curJumpNum;
     private bool jumpPressed;
+    bool tempSet = false;
+    float tempTraction = 0.0f;
 
     //Jump physics
     private float mass = 5.0F; // defines the character mass
     private Vector3 impact = Vector3.zero;
     private float distToGround;
-
 
     //Wallrunning
     private WallRun wallRun;
@@ -43,7 +48,6 @@ public class PlayerMovement : MonoBehaviour
     private Ray groundRay;
     private RaycastHit groundHit;
 
-
     //Camera Variables
     private LayerMask ignoreP;
     private Vector3 camRotation;
@@ -56,49 +60,68 @@ public class PlayerMovement : MonoBehaviour
     [Range(50, 500)]
     public int sensitivity = 200;
 
-    //Blink Variables
-    private LineRenderer beam;
-    private Vector3 origin;
-    private Vector3 endPoint;
-    private Vector3 mousePos;
-    private RaycastHit hit;
-    /////
+    //Ragdoll variables
+    private Vector3 hit;
+    private Rigidbody rB;
+    private CapsuleCollider capCol;
+    private bool firstHit = false;
+    private bool heldDown = false;
+    private bool beginRagTimer = false;
+    private float ragTime; 
+    private Vector3 prevRot;
+    private Vector3 hitForce;
+
+    //Slide Variables
+    private bool isSliding = false;
+    private float originalTraction;
+    private RaycastHit ray;
+    private Vector3 up;
+    private bool qDown;
+
+    //Kick Variables
 
     void Awake()
     {
         //Initialize Components
         moveController = GetComponent<CharacterController>();
+        rB = GetComponent<Rigidbody>();
+        capCol = GetComponent<CapsuleCollider>();
         pStats = GetComponent<PlayerStats>();
-        ignoreP = LayerMask.GetMask("Player");
-
-
-        beam = gameObject.AddComponent<LineRenderer>();
-        beam.startWidth = 0.2f;
-        beam.endWidth = 0.2f;
-        beam.enabled = false;
+        parentObj = transform.parent.gameObject;
 
         //camera transform
-        cam =  GetComponentInChildren<Camera>();
+        cam =  parentObj.GetComponentInChildren<Camera>();
 
+        capCol.enabled = false;
         //Wallrun
-        //wallRun = gameObject.GetComponent<WallRun>();
+        wallRun = gameObject.GetComponent<WallRun>();
+        up = this.gameObject.GetComponentInParent<Transform>().up;
     }
-
-
-
 
     void Start()
     {
         distToGround = GetComponent<Collider>().bounds.extents.y;
+
+        // Don't do movement unless this is the local player controlling it
+        // Otherwise we let the server handle moving us
+        if (!IsLocalPlayer) { return; }
+
+        // Don't lock the cursor multiple times if this isn't the local player
+        // Also don't want to lock the cursor for the king
+        // That is why this is after the LocalPlayer check
         Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        // Don't do movement unless this is the local player controlling it
+        // Otherwise we let the server handle moving us
+        if (!IsLocalPlayer) { return; }
 
+        
         //Controls for camera
-        Rotate();
+        Rotation();
         
         if(moveController.enabled == true){
 
@@ -110,18 +133,39 @@ public class PlayerMovement : MonoBehaviour
 
             // consumes the impact energy each cycle:
             impact = Vector3.Lerp(impact, Vector3.zero, 5*Time.deltaTime);
-
-            Blink();
         }
         else{
-            Debug.Log("MoveController is either Disabled or wasn't retrieved correctly");
+
+            if (RagdollTimer() == 0){ 
+        
+                firstHit = false;
+                DisableRagdoll();
+            }   
+
+            //Gravity without moveController
+            vel.y -= pStats.PlayerGrav * Time.deltaTime;
+            rB.AddForce(new Vector3(0,vel.y,0));
+            
+            //Debug.LogWarning("MoveController is either Disabled or wasn't retrieved correctly");
+        }
+
+        //TESTING RAGDOLL STUFF NEEDS SOME WORK
+        //Checks if player should respawn
+        //Respawn();
+        
+        if (Input.GetMouseButton(1) && heldDown == false){
+            getHit(new Vector3(vel.x, 0, vel.z), 30);
+            heldDown = true;
+        }
+        
+
+        if(!Input.GetMouseButton(1)){
+            heldDown = false;
         }
 
         //Checks if player should respawn
         Respawn();
         
-        
-
     }
 
 
@@ -145,9 +189,13 @@ public class PlayerMovement : MonoBehaviour
         Gravity();
 
         driftVel = Vector3.Lerp(driftVel, vel, pStats.Traction * Time.deltaTime);
+
+        //Moving outside basic wasd
         //Jump Function
         Jump();
-
+        //Slide Function
+        Slide();
+        
         moveController.Move(driftVel);
     }
 
@@ -157,7 +205,7 @@ public class PlayerMovement : MonoBehaviour
     public float PlayerSpeed()
     {
         //If nothing is pressed speed is 0
-        if (Input.GetAxis("Vertical") == 0.0f && Input.GetAxis("Horizontal") == 0.0f)
+        if ((Input.GetAxis("Vertical") == 0.0f && Input.GetAxis("Horizontal") == 0.0f) || isSliding)
         {
             pStats.CurVel = 0.0f;
             return pStats.CurVel;
@@ -198,7 +246,7 @@ public class PlayerMovement : MonoBehaviour
     private void Jump()
     {
         //If space is pressed apply an upwards force to the player
-        if (Input.GetAxis("Jump") != 0 && !jumpPressed && curJumpNum + 1 < pStats.JumpNum)
+        if (Input.GetAxis("Jump") != 0 && !jumpPressed && curJumpNum + 1 < pStats.JumpNum && !isSliding)
         {
             AddImpact(transform.up, pStats.JumpPow);
             curJumpNum++;
@@ -207,8 +255,6 @@ public class PlayerMovement : MonoBehaviour
 
         lastTimeJumped = Time.time;
 
-        //NEEDS TO BE MASSIVELY CHANGE LIKELY USE RAYCAST TO CHECK IF ACTUALLY ON GROUND
-        //CANNOT USE CHARACTERCONTROLLER.ISGROUNDED IT IS UNRELIABLE
         //If grounded no jumps have been used
         if(isGrounded){
              curJumpNum = 0;
@@ -218,6 +264,9 @@ public class PlayerMovement : MonoBehaviour
         if (Input.GetAxis("Jump") == 0) jumpPressed = false;
     }
 
+
+
+    //PlayerScript
     public bool GetJumpPressed(){
         return jumpPressed;
     }
@@ -237,15 +286,33 @@ public class PlayerMovement : MonoBehaviour
         vel = newVelocity;
     }
 
-    //Camera
-    private void Rotate()
+
+
+    //Camera and Player Rotation
+    public void decrementCurrentJumpNumber()
     {
-        transform.Rotate(Vector3.up * sensitivity * Time.deltaTime * Input.GetAxis("Mouse X"));
+        curJumpNum--;
+    }
+
+    //Camera
+    private void Rotation()
+    {
+        Vector3 lastCamPos = new Vector3(0,0,0);
+        Vector3 rotOffset = transform.localEulerAngles; 
+        if(moveController.enabled){
+        transform.parent.Rotate(Vector3.up * sensitivity * Time.deltaTime * Input.GetAxis("Mouse X"));
+
 
         camRotation.x -= Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
         camRotation.x = Mathf.Clamp(camRotation.x, minAngle, maxAngle);
 
         cam.transform.localEulerAngles = camRotation;
+        }
+        /*
+        else{
+            cam.transform.localEulerAngles = cam.transform.localEulerAngles - rotOffset;
+        }
+        */
     }
 
 
@@ -260,13 +327,12 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+
+
     //Gravity Function for adjusting y-vel due to wallrun/glide/etc
     private void Gravity(){
-        //Temp Values for Glider
-        float tempTraction = 0.0f;
-        bool tempSet = false;
 
-        //ADD CHECKER FOR GLIDER WHEN FULLY IMPLEMENTED
+        //Gliding
         if(jumpPressed && pStats.HasGlider){
             
             vel.y -= (pStats.PlayerGrav-18) * Time.deltaTime;
@@ -275,7 +341,6 @@ public class PlayerMovement : MonoBehaviour
                 pStats.Traction = 1.0f;
                 tempSet = true;
             }
-            
         }
         else{
 
@@ -287,12 +352,14 @@ public class PlayerMovement : MonoBehaviour
             //Normal Gravity
             vel.y -= pStats.PlayerGrav * Time.deltaTime;
         }
-        
+
         //Wallrunning
         if (pStats.HasWallrun) { wallRun.WallRunRoutine(); } //adjusted later if we are wallrunning
                                                              //If gliding 
                                                              //Go down slowly
     }
+
+
 
     void GroundCheck()
     {
@@ -316,63 +383,101 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    //ADJUST SO DISTANCE IS DETERMINED BY SCROLL WHEEL
-    //blinks the player forwards
-    private void Blink()
-    {
-        if (Input.GetMouseButton(1))
-        {
-            // Finding the origin and end point of laser.
-            origin = transform.position + transform.forward * transform.lossyScale.z;
-
-            // Finding mouse pos in 3D space.
-            mousePos = Input.mousePosition;
-            mousePos.z = 20f;
-            endPoint = cam.ScreenToWorldPoint(mousePos);
-
-            // Find direction of beam.
-            Vector3 dir = endPoint - origin;
+    //Ragdoll Functions
+    private void getHit(Vector3 dir, float force){
+        if(firstHit == false){
+            EnableRagdoll();
             dir.Normalize();
-
-            // Are we hitting any colliders?
-            if (Physics.Raycast(origin, dir, out hit, 20f))
-            {
-                // If yes, then set endpoint to hit-point.
-                endPoint = hit.point;
-            }
-
-            // Set end point of laser.
-            beam.SetPosition(0, origin);
-            beam.SetPosition(1, endPoint);
-            // Draw the laser!
-            beam.enabled = true;
-            /*Ray ray = camera.ScreenPointToRay(Input.mousePosition);
-            RaycastHit raycastHit;
-
-            if (Physics.Raycast(ray, out raycastHit, 5.0f)){
-            LineRenderer.SetPosition(1, raycastHit.point);
-            }*/
-
-        }
-
-        else if (!Input.GetMouseButton(1) && beam.enabled == true)
-        {
-            beam.enabled = false;
-            //if teleporting due to hit to object, bump them a bit outside normal
-            if (hit.point != null)
-            {
-                transform.position = endPoint + hit.normal * 1.25f;
-
-            }
-            //if teleporting in the air or something, just spawn at endpoint
-            else
-            {
-
-                transform.position = endPoint;
-            }
-            //reenable character controller
+            rB.AddForce(dir * force, ForceMode.Impulse);
+            firstHit = true;
         }
     }
+    private void EnableRagdoll(){
+        ragTime = pStats.RecovTime;
+        prevRot = transform.localEulerAngles;
+        capCol.enabled = true;
+        moveController.enabled = false;
+        rB.isKinematic = false;
+        rB.detectCollisions = true;
+    }
 
+    private void DisableRagdoll(){
+        capCol.enabled = false;
+        moveController.enabled = true;
+        rB.isKinematic = true;
+        rB.detectCollisions = false;
+        transform.localEulerAngles = prevRot;
+    }
+
+    //When to begin the ragdoll timer
+    private float RagdollTimer(){
+        if(beginRagTimer == false){
+            beginRagTimer = Physics.Raycast(transform.position, -Vector3.up, distToGround + 1f);
+        }
+
+        else if(ragTime <= 0){
+            ragTime = 0;
+            beginRagTimer = false;
+        }
+
+        if(beginRagTimer == true){
+            ragTime -= Time.deltaTime;
+        }
+
+        return ragTime;
+    }
+    
+    //Slide Function
+    private void Slide(){
+        if (Input.GetKey(KeyCode.Q)){
+            qDown = true;
+            if (isSliding == false){
+                originalTraction = pStats.Traction;
+                this.gameObject.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x - 90, this.transform.eulerAngles.y, this.transform.eulerAngles.z);
+                isSliding = true;
+                moveController.height = 1.0f;
+                pStats.Traction = 0.01f;
+          
+            }
+            pStats.Traction += .02f;
+        }
+        else{
+            qDown = false;
+        }
+        //NOTE: potentialy change this to only allow player back up if there is nothing above them
+        if (qDown == false && isSliding == true) {
+            //if nothing is above the object, stop slidding
+            if (Physics.Raycast(this.gameObject.transform.position, up, out ray, 5f) == false)
+            {
+                this.gameObject.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x + 90, this.transform.eulerAngles.y, this.transform.eulerAngles.z);
+                isSliding = false;
+                moveController.height = 2.0f;
+                pStats.Traction = originalTraction;
+
+            }
+            else{
+                Debug.Log("Object above you");
+
+            }
+        }
+        //if button is not held down, and still slidding (if they let go but something was above them) check to see if something is still above them, if not 
+        else if (Input.GetKey(KeyCode.Q) == false && isSliding==true){
+            //if nothing is above the object, stop slidding
+            if (Physics.Raycast(this.gameObject.transform.position, up, out ray, 5f) == false)
+            {
+                this.gameObject.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x - 90, this.transform.eulerAngles.y, this.transform.eulerAngles.z);
+                isSliding = false;
+                moveController.height = 2.0f;
+                pStats.Traction = originalTraction;
+
+            }
+            else
+            {
+                Debug.Log("Object above you");
+
+            }
+
+        }
+    }
 
 }

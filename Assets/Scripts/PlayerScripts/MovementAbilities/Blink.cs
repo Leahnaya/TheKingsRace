@@ -10,26 +10,42 @@ public class Blink : MonoBehaviour{
 
     private Camera cam;
     public CharacterController controller;
+    //Blink Variables
+    private LineRenderer beam;
     private Vector3 origin;
     private Vector3 endPoint;
     private Vector3 mousePos;
     private RaycastHit hit;
 
+    LayerMask ignoreP;
+    /////
+
     private void Awake()
     {
+        beam = gameObject.AddComponent<LineRenderer>();
+        beam.startWidth = 0.2f;
+        beam.endWidth = 0.2f;
+        beam.enabled = false;
+
+        ignoreP = LayerMask.GetMask("Player");
+
         controller = GetComponent<CharacterController>();
     }
     void Start(){
 
         // Grab the main camera.
-        cam = Camera.main;
+        //camera transform
+        cam =  GetComponentInChildren<Camera>();
     }
 
-    private void Update(){
-        if (Input.GetMouseButton(1)){
-
+    //ADJUST SO DISTANCE IS DETERMINED BY SCROLL WHEEL
+    //blinks the player forwards
+    private void BlinkMove()
+    {
+        if (Input.GetMouseButton(1))
+        {
             // Finding the origin and end point of laser.
-            origin = this.transform.position + this.transform.forward * this.transform.lossyScale.z;
+            origin = transform.position + transform.forward * transform.lossyScale.z;
 
             // Finding mouse pos in 3D space.
             mousePos = Input.mousePosition;
@@ -41,43 +57,43 @@ public class Blink : MonoBehaviour{
             dir.Normalize();
 
             // Are we hitting any colliders?
-            if (Physics.Raycast(origin, dir, out hit, 20f)){
+            if (Physics.Raycast(origin, dir, out hit, 20f))
+            {
                 // If yes, then set endpoint to hit-point.
                 endPoint = hit.point;
             }
+
+            // Set end point of laser.
+            beam.SetPosition(0, origin);
+            beam.SetPosition(1, endPoint);
+            // Draw the laser!
+            beam.enabled = true;
             /*Ray ray = camera.ScreenPointToRay(Input.mousePosition);
             RaycastHit raycastHit;
 
             if (Physics.Raycast(ray, out raycastHit, 5.0f)){
-                LineRenderer.SetPosition(1, raycastHit.point);
+            LineRenderer.SetPosition(1, raycastHit.point);
             }*/
 
-
-
         }
-        if (Input.GetMouseButtonUp(1)){
-            //disable character controller for a brief second for teleportation
-            //this.gameObject.GetComponent<CharacterController>().enabled = false;
-            //get
-            Vector3 bump = new Vector3(0, .5f, 0);
+
+        else if (!Input.GetMouseButton(1) && beam.enabled == true)
+        {
+            beam.enabled = false;
             //if teleporting due to hit to object, bump them a bit outside normal
-            if(hit.point != null) {
+            if (hit.point != null)
+            {
                 transform.position = endPoint + hit.normal * 1.25f;
+
             }
             //if teleporting in the air or something, just spawn at endpoint
             else
             {
+
                 transform.position = endPoint;
             }
             //reenable character controller
-            //this.gameObject.GetComponent<CharacterController>().enabled = true;
         }
-    }
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-       
-
     }
     
 }

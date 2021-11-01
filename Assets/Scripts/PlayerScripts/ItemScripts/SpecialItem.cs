@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 [CreateAssetMenu]
 public class SpecialItem : Item
@@ -12,8 +13,8 @@ public class SpecialItem : Item
     public bool hasNitroM;
     public bool hasDashM;
     public float cooldownM;
-
-    public override void Equip(PlayerStats p){
+    
+    public override void Equip(PlayerStats p, GameObject player){
         if(maxVelM != 0){
             p.MaxVel += maxVelM;
         }
@@ -61,7 +62,7 @@ public class SpecialItem : Item
         }
     }
 
-    public override void Unequip(PlayerStats p){
+    public override void Unequip(PlayerStats p, GameObject player){
         if(maxVelM != 0){
             p.MaxVel -= maxVelM;
         }
@@ -89,24 +90,25 @@ public class SpecialItem : Item
         if(playerGravM != 0){
             p.PlayerGrav -= playerGravM;
         }
-        if(hasWallrunM != true){
-            p.HasWallrun = hasWallrunM;
+        if(hasWallrunM != false){
+            p.HasWallrun = false;
         }
-        if(hasBlinkM != true){
-            p.HasBlink = hasBlinkM;
+        if(hasBlinkM != false){
+            p.HasBlink = false;
         }
-        if(hasGrappleM != true){
-            p.HasGrapple = hasGrappleM;
+        if(hasGrappleM != false){
+            p.HasGrapple = false;
         }
-        if(hasGliderM != true){
-            p.HasGlider = hasGliderM;
+        if(hasGliderM != false){
+            p.HasGlider = false;
         }
-        if(hasNitroM != true){
-            p.HasNitro = hasNitroM;
+        if(hasNitroM != false){
+            p.HasNitro = false;
         }
-        if(hasDashM != true){
-            p.HasDash = hasDashM;
+        if(hasDashM != false){
+            p.HasDash = false;
         }
+
     }
 }
 

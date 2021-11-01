@@ -13,7 +13,7 @@ public class PlayerInventory : MonoBehaviour
     
     void Awake(){
         pStats = GetComponent<PlayerStats>();
-        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(transform.parent.gameObject);
         
     }
 
@@ -21,7 +21,7 @@ public class PlayerInventory : MonoBehaviour
         if(!items.Contains(item) && ableToAdd){
             Debug.Log("Item Added");
             items.Add(item);
-            item.Equip(pStats);
+            item.Equip(pStats, this.gameObject);
         }
         else if(!ableToAdd && !items.Contains(item)){
             Debug.Log("Item Cannot Be Added");
@@ -30,7 +30,6 @@ public class PlayerInventory : MonoBehaviour
             Debug.Log("Item Removed");
             RemoveItem(item);
         }
-        
     }
 
     public void AddSpecialItem<T>(T itemCandidate) { // Unless we don't want the four special items to be handled by inventory/inventory manager?
@@ -42,7 +41,7 @@ public class PlayerInventory : MonoBehaviour
 
     public void RemoveItem(Item item){
         if(items.Remove(item)){
-            item.Unequip(pStats);
+            item.Unequip(pStats, this.gameObject);
         }
     }
 
