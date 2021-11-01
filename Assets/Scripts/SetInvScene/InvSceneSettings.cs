@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class InvSceneSettings : MonoBehaviour
 {
+    GameObject pPar;
     GameObject player1;
     PlayerInventory pInv;
     public GameObject itemOptPrefab;
@@ -18,12 +19,13 @@ public class InvSceneSettings : MonoBehaviour
 
     // Start is called before the first frame update
     void Awake(){
-        player1 = GameObject.Find("PlayerPrefab");
+        pPar = GameObject.Find("PlayerPrefab");
+        player1 = pPar.transform.Find("PlayerModel").gameObject;
         pStats = player1.GetComponent<PlayerStats>();
         pointText = GameObject.Find("PlayerPoints").GetComponentInChildren<Text>();
         pInv = player1.GetComponent<PlayerInventory>();
         player1.GetComponent<PlayerMovement>().enabled = false;
-        player1.transform.Find("PlayerCam").gameObject.SetActive(false);
+        pPar.transform.Find("PlayerCam").gameObject.SetActive(false);
 
         invMan = GetComponent<InventoryManager>();
     }
@@ -107,7 +109,7 @@ public class InvSceneSettings : MonoBehaviour
     public void nextScene(){
         player1.GetComponent<PlayerMovement>().enabled = true;
         player1.GetComponent<CapsuleCollider>().enabled = false;
-        player1.transform.GetChild(0).gameObject.SetActive(true);
+        pPar.transform.GetChild(0).gameObject.SetActive(true);
         SceneManager.LoadScene (SceneManager.GetActiveScene().buildIndex + 1);
     }
 

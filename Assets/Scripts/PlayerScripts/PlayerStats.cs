@@ -26,7 +26,7 @@ public class PlayerStats : MonoBehaviour
         set{ curVel = value; }
     }
 
-    //Player Jump power
+    //Player Acceleration
     private float acc = 0.1f;
     public float Acc{
         get{ return acc; }
@@ -62,7 +62,7 @@ public class PlayerStats : MonoBehaviour
     }
 
     //Player Recovery Time When Knocked Down
-    private float recovTime = 5;
+    private float recovTime = 3.0f;
     public float RecovTime{
         get{ return recovTime; }
         set{ recovTime = value; }
@@ -112,7 +112,7 @@ public class PlayerStats : MonoBehaviour
     }
 
     //If The Player Has Dash
-    private bool hasDash = false;
+    private bool hasDash;
     public bool HasDash{
         get{ return hasDash; }
         set{ hasDash = value; }
@@ -124,12 +124,21 @@ public class PlayerStats : MonoBehaviour
         set{ playerPoints = value; }
     }
 
-    // void Update(){
-    //     VariableValidation();
-    // }
+    void Update(){
+        VariableValidation();
+    }
 
-    // void VariableValidation(){
-    //    Debug.Assert((playerPoints != null && playerPoints > 0), "Not valid value"); 
-    // }
+    void VariableValidation(){
+        Debug.Assert((maxVel >= 0), "maxVel cannot be below zero");
+        Debug.Assert((minVel >= 0), "minVel cannot be below zero"); 
+        Debug.Assert((curVel >= 0), "curVel cannot be below zero");
+        Debug.Assert((jumpPow >= 0), "jumpPow cannot be below zero"); 
+        Debug.Assert((jumpNum >= 2), "jumpNum cannot be below zero"); 
+        Debug.Assert((traction >= 0), "traction cannot be below zero"); 
+        //Debug.Assert((kickPow >= 0), "Playerpoints cannot be below zero"); 
+        Debug.Assert((recovTime >= 0), "recovTime cannot be below zero"); 
+        Debug.Assert((playerGrav >= 0), "playerGrav cannot be below zero"); 
+        Debug.Assert((playerPoints >= 0), "Playerpoints cannot be below zero");
+    }
     
 }

@@ -388,7 +388,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemOptPrefab: {fileID: 8447329698821624902, guid: 51a78c57dc85625428c8f1e6448d113f, type: 3}
-  moveScripts: []
 --- !u!114 &526839288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -526,8 +525,20 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3772338269032432186, guid: a9840baa4cc526b44bfef27c6fea042a, type: 3}
+      propertyPath: m_Height
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4910425103423673310, guid: a9840baa4cc526b44bfef27c6fea042a, type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7061360697648900808, guid: a9840baa4cc526b44bfef27c6fea042a, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7061360697648900808, guid: a9840baa4cc526b44bfef27c6fea042a, type: 3}
+      propertyPath: m_IsKinematic
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7188906082087890177, guid: a9840baa4cc526b44bfef27c6fea042a, type: 3}
@@ -585,6 +596,14 @@ PrefabInstance:
     - target: {fileID: 7623511089535041046, guid: a9840baa4cc526b44bfef27c6fea042a, type: 3}
       propertyPath: m_Enabled
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8956701063868523892, guid: a9840baa4cc526b44bfef27c6fea042a, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8956701063868523892, guid: a9840baa4cc526b44bfef27c6fea042a, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a9840baa4cc526b44bfef27c6fea042a, type: 3}

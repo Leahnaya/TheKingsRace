@@ -13,7 +13,7 @@ public class PlayerInventory : MonoBehaviour
     
     void Awake(){
         pStats = GetComponent<PlayerStats>();
-        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(transform.parent.gameObject);
         
     }
 
