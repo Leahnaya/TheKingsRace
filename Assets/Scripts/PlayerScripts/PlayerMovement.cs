@@ -104,7 +104,7 @@ public class PlayerMovement : NetworkBehaviour
 
         // Don't do movement unless this is the local player controlling it
         // Otherwise we let the server handle moving us
-        if (!IsLocalPlayer) { return; }
+        //if (!IsLocalPlayer) { return; }
 
         // Don't lock the cursor multiple times if this isn't the local player
         // Also don't want to lock the cursor for the king
@@ -117,7 +117,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         // Don't do movement unless this is the local player controlling it
         // Otherwise we let the server handle moving us
-        if (!IsLocalPlayer) { return; }
+        //if (!IsLocalPlayer) { return; }
 
         
         //Controls for camera
@@ -153,10 +153,10 @@ public class PlayerMovement : NetworkBehaviour
         //Checks if player should respawn
         //Respawn();
         
-        if (Input.GetMouseButton(1) && heldDown == false){
-            getHit(new Vector3(vel.x, 0, vel.z), 30);
-            heldDown = true;
-        }
+        //if (Input.GetMouseButton(1) && heldDown == false){
+        //    getHit(new Vector3(vel.x, 0, vel.z), 30);
+        //    heldDown = true;
+        //}
         
 
         if(!Input.GetMouseButton(1)){
@@ -164,7 +164,7 @@ public class PlayerMovement : NetworkBehaviour
         }
 
         //Checks if player should respawn
-        Respawn();
+        //Respawn();
         
     }
 
