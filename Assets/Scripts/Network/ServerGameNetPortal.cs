@@ -13,10 +13,6 @@ public class ServerGameNetPortal : MonoBehaviour {
     [Header("Settings")]
     [SerializeField] private int maxPlayers = 3;
 
-    [Header("Prefabs")]
-    [SerializeField] private NetworkObject runnerPrefab;
-    [SerializeField] private NetworkObject kingPrefab;
-
     public static ServerGameNetPortal Instance => instance;
     private static ServerGameNetPortal instance;
 
