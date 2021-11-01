@@ -95,7 +95,6 @@ public class PlayerMovement : NetworkBehaviour
         capCol.enabled = false;
         //Wallrun
         wallRun = gameObject.GetComponent<WallRun>();
-
         up = this.gameObject.GetComponentInParent<Transform>().up;
     }
 
@@ -151,6 +150,8 @@ public class PlayerMovement : NetworkBehaviour
         }
 
         //TESTING RAGDOLL STUFF NEEDS SOME WORK
+        //Checks if player should respawn
+        //Respawn();
         
         if (Input.GetMouseButton(1) && heldDown == false){
             getHit(new Vector3(vel.x, 0, vel.z), 30);
@@ -288,6 +289,12 @@ public class PlayerMovement : NetworkBehaviour
 
 
     //Camera and Player Rotation
+    public void decrementCurrentJumpNumber()
+    {
+        curJumpNum--;
+    }
+
+    //Camera
     private void Rotation()
     {
         Vector3 lastCamPos = new Vector3(0,0,0);
