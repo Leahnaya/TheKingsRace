@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 //Mote: This should be refactored at some point
 public class Slide : MonoBehaviour{
-    //this may be deprecated at some poiint later in development if we start ussing a rigid bod
+
     public Camera playerCam;
     private bool isSliding = false;
     private CharacterController charController;
@@ -11,10 +11,7 @@ public class Slide : MonoBehaviour{
     private float orignalTraction;
     private RaycastHit ray;
     private Vector3 up;
-    // Start is called before the first frame update
-    void Start(){
-        
-    }
+
     private void Awake(){
         charController = this.gameObject.GetComponentInParent<CharacterController>();
         playerStats = this.gameObject.GetComponentInParent<PlayerStats>();

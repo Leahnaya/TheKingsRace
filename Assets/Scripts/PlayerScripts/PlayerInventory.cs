@@ -13,7 +13,7 @@ public class PlayerInventory : MonoBehaviour
     
     void Awake(){
         pStats = GetComponent<PlayerStats>();
-        DontDestroyOnLoad(this.gameObject);
+        DontDestroyOnLoad(transform.parent.gameObject);
         
     }
 
@@ -30,7 +30,6 @@ public class PlayerInventory : MonoBehaviour
             Debug.Log("Item Removed");
             RemoveItem(item);
         }
-        
     }
 
     public void AddSpecialItem<T>(T itemCandidate) { // Unless we don't want the four special items to be handled by inventory/inventory manager?
