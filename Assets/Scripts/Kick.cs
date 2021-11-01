@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Kick : MonoBehaviour
 {
-    private float kickForce = 50f;
+    private float kickForce = 100f;
     // Start is called before the first frame update
     void Start(){
     }
