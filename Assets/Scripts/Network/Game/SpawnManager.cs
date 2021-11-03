@@ -56,7 +56,6 @@ public class SpawnManager : NetworkBehaviour {
     // Spawn in each player
     [ServerRpc(RequireOwnership = false)]
     public void SpawnPlayerServerRpc(ulong clientId) {
-        Debug.Log("Called by player " + clientId);
         // Get the player data for the player calling the spawn
         if (ServerGameNetPortal.Instance.clientIdToGuid.TryGetValue(clientId, out string clientGuid)) {
             if (ServerGameNetPortal.Instance.clientData.TryGetValue(clientGuid, out PlayerData playerData)) {
@@ -74,10 +73,5 @@ public class SpawnManager : NetworkBehaviour {
                 }
             }
         }
-
-        // Disable the character controllers and camera
-        //go.GetComponent<CharacterController>().enabled = false;
-        //go.GetComponent<CapsuleCollider>().enabled = true;
-        //go.GetComponent<Camera>().enabled = false;
     }
 }

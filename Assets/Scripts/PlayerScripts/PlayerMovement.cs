@@ -165,10 +165,7 @@ public class PlayerMovement : NetworkBehaviour
 
         //Checks if player should respawn
         Respawn();
-        
     }
-
-
 
     //Reads inputs and moves player
     private void InputController()
@@ -235,6 +232,8 @@ public class PlayerMovement : NetworkBehaviour
     //Applies impact in a direction with the given force
     public void AddImpact(Vector3 dir, float force)
     {
+        if (!IsLocalPlayer) { return; }
+
         dir.Normalize();
         if (dir.y < 0) dir.y = -dir.y; // reflect down force on the ground
         impact += dir.normalized * force / mass;

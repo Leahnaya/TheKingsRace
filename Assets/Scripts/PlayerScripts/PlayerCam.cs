@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using MLAPI;
 using UnityEngine;
 
-public class PlayerCam : MonoBehaviour
+public class PlayerCam : NetworkBehaviour
 {
     public GameObject player;
 
@@ -16,6 +17,8 @@ public class PlayerCam : MonoBehaviour
 
     void Update ()
     {
+        if (!IsLocalPlayer) { return; }
+
         offset = transform.parent.forward * rad.magnitude;
         transform.position = new Vector3((player.transform.position.x - offset.x),((player.transform.position.y - offset.y)+2),(player.transform.position.z - offset.z));
         

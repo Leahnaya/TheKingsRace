@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using MLAPI;
 using UnityEngine;
 
 
-public class Dash : MonoBehaviour{
+public class Dash : NetworkBehaviour {
     public Vector3 moveDirection;
  
     public const float maxDashTime = 1.0f;
@@ -20,6 +21,8 @@ public class Dash : MonoBehaviour{
 
     //UPDATE CHECK FOR MOVEMENT ONLY WHEN DASHING
     void FixedUpdate(){
+        if (!IsLocalPlayer) { return; }
+
         if (Input.GetKeyDown(KeyCode.E))
         {
             currentDashTime = 0;                

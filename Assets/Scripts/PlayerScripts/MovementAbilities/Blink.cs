@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using MLAPI;
 using UnityEngine;
 
 
 
-public class Blink : MonoBehaviour{
+public class Blink : NetworkBehaviour {
 
     // Start is called before the first frame update
 
@@ -42,6 +43,8 @@ public class Blink : MonoBehaviour{
     //blinks the player forwards
     private void BlinkMove()
     {
+        if (!IsLocalPlayer) { return; }
+
         if (Input.GetMouseButton(1))
         {
             // Finding the origin and end point of laser.
