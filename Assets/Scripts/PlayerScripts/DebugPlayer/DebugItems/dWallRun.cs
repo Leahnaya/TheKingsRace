@@ -1,10 +1,10 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Linq;
 using MLAPI;
 using UnityEngine.Rendering;
 
 [RequireComponent (typeof(PlayerMovement))]
-public class WallRun : NetworkBehaviour
+public class dWallRun : NetworkBehaviour
 {
 
     public float wallMaxDistance = 1;
@@ -68,7 +68,7 @@ public class WallRun : NetworkBehaviour
     public void WallRunRoutine()
     {  
 
-        //if (!IsLocalPlayer) { return; }
+        if (!IsLocalPlayer) { return; }
 
         isWallRunning = false;
 

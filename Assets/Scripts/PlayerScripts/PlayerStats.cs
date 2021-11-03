@@ -55,7 +55,7 @@ public class PlayerStats : MonoBehaviour
     }
 
     //Player Kick Power
-    private float kickPow;
+    private float kickPow = 100.0f;
     public float KickPow{
         get{ return kickPow; }
         set{ kickPow = value; }

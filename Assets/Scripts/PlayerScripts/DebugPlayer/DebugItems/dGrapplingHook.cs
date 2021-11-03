@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using MLAPI;
 using UnityEngine;
 
-public class GrapplingHook : NetworkBehaviour
+public class dGrapplingHook : NetworkBehaviour
 {
     public float maxGrappleDistance = 25;
 
@@ -23,8 +23,8 @@ public class GrapplingHook : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (!IsLocalPlayer) { return; }
-
+        if (!IsLocalPlayer) { return; }
+        
         if (Input.GetKeyDown(KeyCode.E)) //If grapple button is hit
         {
             if (!isGrappled) //If we are not grappling

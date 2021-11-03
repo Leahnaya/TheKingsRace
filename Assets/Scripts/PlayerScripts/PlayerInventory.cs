@@ -32,12 +32,6 @@ public class PlayerInventory : MonoBehaviour
         }
     }
 
-    public void AddSpecialItem<T>(T itemCandidate) { // Unless we don't want the four special items to be handled by inventory/inventory manager?
-        if (itemCandidate is Item) {
-            items.Add(itemCandidate as Item);
-        }
-    }
-
 
     public void RemoveItem(Item item){
         if(items.Remove(item)){
