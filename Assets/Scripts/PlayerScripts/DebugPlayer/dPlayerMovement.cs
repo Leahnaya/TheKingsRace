@@ -51,7 +51,7 @@ public class dPlayerMovement : NetworkBehaviour
     //Camera Variables
     private LayerMask ignoreP;
     private Vector3 camRotation;
-    private Camera cam;
+    public Camera cam;
 
     [Range(-45, -15)]
     public int minAngle = -30;
@@ -89,9 +89,6 @@ public class dPlayerMovement : NetworkBehaviour
         pStats = GetComponent<PlayerStats>();
         parentObj = transform.parent.gameObject;
 
-        //camera transform
-        cam =  parentObj.GetComponentInChildren<Camera>();
-
         capCol.enabled = false;
         //Wallrun
         wallRun = gameObject.GetComponent<WallRun>();
@@ -123,7 +120,10 @@ public class dPlayerMovement : NetworkBehaviour
 
         
         //Controls for camera
-        Rotation();
+        if(cam.enabled){
+          Rotation();  
+        }
+        else Debug.Log("Cam Disabled");
         
         
         //Allow Movement when moveController is enabled

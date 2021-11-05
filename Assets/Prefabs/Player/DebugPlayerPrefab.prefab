@@ -216,7 +216,6 @@ GameObject:
   - component: {fileID: 471283137481508403}
   - component: {fileID: 5784126162129930074}
   - component: {fileID: 1818923263116056088}
-  - component: {fileID: 7009009384233397507}
   m_Layer: 3
   m_Name: PlayerModel
   m_TagString: Untagged
@@ -438,6 +437,7 @@ MonoBehaviour:
   vel: {x: 0, y: 0, z: 0}
   isGrounded: 0
   groundCheckDistance: 0.05
+  cam: {fileID: 4654986889578046791}
   minAngle: -30
   maxAngle: 45
   sensitivity: 200
@@ -516,25 +516,6 @@ MonoBehaviour:
   wallBouncing: 3
   cameraTransitionDuration: 1
   wallGravityDownForce: 20
---- !u!114 &7009009384233397507
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3607330906377400225}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22ae0d31c49624d4fb9990f2f5f72fd9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pStats: {fileID: 0}
-  vel: {x: 0, y: 0, z: 0}
-  isGrounded: 0
-  groundCheckDistance: 0.05
-  minAngle: -30
-  maxAngle: 45
-  sensitivity: 200
 --- !u!1 &5633209979457551608
 GameObject:
   m_ObjectHideFlags: 0

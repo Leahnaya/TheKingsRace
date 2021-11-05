@@ -3,7 +3,7 @@ using System.Linq;
 using MLAPI;
 using UnityEngine.Rendering;
 
-[RequireComponent (typeof(PlayerMovement))]
+[RequireComponent (typeof(dPlayerMovement))]
 public class dWallRun : NetworkBehaviour
 {
 
