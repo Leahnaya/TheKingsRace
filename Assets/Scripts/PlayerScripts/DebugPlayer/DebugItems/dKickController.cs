@@ -64,7 +64,7 @@ public class dKickController : NetworkBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (!IsLocalPlayer) { return; }
+        //if (!IsLocalPlayer) { return; }
         Collider myCollider = collision.contacts[0].thisCollider;
         if (collision.transform.CompareTag("kickable") && myCollider == leg.GetComponent<Collider>()){
             Vector3 direction = this.transform.forward;

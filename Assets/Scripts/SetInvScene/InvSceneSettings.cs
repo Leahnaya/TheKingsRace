@@ -19,12 +19,12 @@ public class InvSceneSettings : MonoBehaviour
 
     // Start is called before the first frame update
     void Awake(){
-        pPar = GameObject.Find("PlayerPrefab");
+        pPar = GameObject.Find("DebugPlayerPrefab");
         player1 = pPar.transform.Find("PlayerModel").gameObject;
         pStats = player1.GetComponent<PlayerStats>();
         pointText = GameObject.Find("PlayerPoints").GetComponentInChildren<Text>();
         pInv = player1.GetComponent<PlayerInventory>();
-        player1.GetComponent<PlayerMovement>().enabled = false;
+        player1.GetComponent<dPlayerMovement>().enabled = false;
         pPar.transform.Find("PlayerCam").gameObject.SetActive(false);
 
         invMan = GetComponent<InventoryManager>();
@@ -93,21 +93,21 @@ public class InvSceneSettings : MonoBehaviour
     //Enables Script on player
     //NEEDS TO BE CLEANED UP AND IMPROVED
     public void itemToEnable(){
-        if(pStats.HasBlink != player1.GetComponent<Blink>().enabled)
-            player1.GetComponent<Blink>().enabled = pStats.HasBlink;
-        if(pStats.HasDash != player1.GetComponent<Dash>().enabled)
-            player1.GetComponent<Dash>().enabled = pStats.HasDash;
-        if(pStats.HasWallrun != player1.GetComponent<WallRun>().enabled)
-            player1.GetComponent<WallRun>().enabled = pStats.HasWallrun;
-        if(pStats.HasGrapple != player1.GetComponent<GrapplingHook>().enabled)
-            player1.GetComponent<GrapplingHook>().enabled = pStats.HasGrapple;
+        if(pStats.HasBlink != player1.GetComponent<dBlink>().enabled)
+            player1.GetComponent<dBlink>().enabled = pStats.HasBlink;
+        if(pStats.HasDash != player1.GetComponent<dDash>().enabled)
+            player1.GetComponent<dDash>().enabled = pStats.HasDash;
+        if(pStats.HasWallrun != player1.GetComponent<dWallRun>().enabled)
+            player1.GetComponent<dWallRun>().enabled = pStats.HasWallrun;
+        if(pStats.HasGrapple != player1.GetComponent<dGrapplingHook>().enabled)
+            player1.GetComponent<dGrapplingHook>().enabled = pStats.HasGrapple;
         if(pStats.HasNitro != player1.GetComponent<Nitro>().enabled)
             player1.GetComponent<Nitro>().enabled = pStats.HasNitro;
         
     }
 
     public void nextScene(){
-        player1.GetComponent<PlayerMovement>().enabled = true;
+        player1.GetComponent<dPlayerMovement>().enabled = true;
         player1.GetComponent<CapsuleCollider>().enabled = false;
         pPar.transform.GetChild(0).gameObject.SetActive(true);
         SceneManager.LoadScene (SceneManager.GetActiveScene().buildIndex + 1);

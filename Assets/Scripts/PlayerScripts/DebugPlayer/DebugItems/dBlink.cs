@@ -43,7 +43,7 @@ public class dBlink : NetworkBehaviour{
     //blinks the player forwards
     private void BlinkMove()
     {
-        if (!IsLocalPlayer) { return; }
+        //if (!IsLocalPlayer) { return; }
 
         if (Input.GetMouseButton(1))
         {

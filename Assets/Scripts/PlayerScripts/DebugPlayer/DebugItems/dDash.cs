@@ -21,7 +21,7 @@ public class dDash : NetworkBehaviour{
 
     //UPDATE CHECK FOR MOVEMENT ONLY WHEN DASHING
     void FixedUpdate(){
-        if (!IsLocalPlayer) { return; }
+        //if (!IsLocalPlayer) { return; }
 
         if (Input.GetKeyDown(KeyCode.E))
         {
