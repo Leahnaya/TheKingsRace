@@ -101,7 +101,10 @@ public class PlayerMovement : NetworkBehaviour
 
         // Don't do movement unless this is the local player controlling it
         // Otherwise we let the server handle moving us
+<<<<<<< HEAD
 
+=======
+>>>>>>> Particles
         //if (!IsLocalPlayer) { return; }
 
         // Don't lock the cursor multiple times if this isn't the local player
@@ -152,12 +155,16 @@ public class PlayerMovement : NetworkBehaviour
             //Debug.LogWarning("MoveController is either Disabled or wasn't retrieved correctly");
         }
 
-        //TEMP FOR TESTING RAGDOLL
-        //Right Click to ragdoll the player
-        if (Input.GetMouseButton(1) && heldDown == false){
-            getHit(new Vector3(vel.x, 0, vel.z), 30);
-            heldDown = true;
-        }
+        //TESTING RAGDOLL STUFF NEEDS SOME WORK
+        //Checks if player should respawn
+        //Respawn();
+        
+        //if (Input.GetMouseButton(1) && heldDown == false){
+        //    getHit(new Vector3(vel.x, 0, vel.z), 30);
+        //    heldDown = true;
+        //}
+        
+
         if(!Input.GetMouseButton(1)){
             heldDown = false;
         }
