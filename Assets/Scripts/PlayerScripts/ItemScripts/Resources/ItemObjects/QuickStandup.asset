@@ -23,6 +23,6 @@ MonoBehaviour:
   jumpNumM: 0
   tractionM: 0
   kickPowM: 0
-  recovTimeM: 20
+  recovTimeM: -1.5
   playerGravM: 0
   costM: 5

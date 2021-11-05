@@ -4,7 +4,7 @@ using MLAPI;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlayerMovement : NetworkBehaviour
+public class dPlayerMovement : NetworkBehaviour
 {
 
     //Scripts
@@ -92,6 +92,7 @@ public class PlayerMovement : NetworkBehaviour
         capCol.enabled = false;
         //Wallrun
         wallRun = gameObject.GetComponent<WallRun>();
+
         up = this.gameObject.GetComponentInParent<Transform>().up;
     }
 
@@ -102,7 +103,7 @@ public class PlayerMovement : NetworkBehaviour
         // Don't do movement unless this is the local player controlling it
         // Otherwise we let the server handle moving us
 
-        //if (!IsLocalPlayer) { return; }
+        if (!IsLocalPlayer) { return; }
 
         // Don't lock the cursor multiple times if this isn't the local player
         // Also don't want to lock the cursor for the king
@@ -115,7 +116,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         // Don't do movement unless this is the local player controlling it
         // Otherwise we let the server handle moving us
-        //if (!IsLocalPlayer) { return; }
+        if (!IsLocalPlayer) { return; }
 
         
         //Controls for camera
@@ -237,7 +238,8 @@ public class PlayerMovement : NetworkBehaviour
     //Apply Impact for when force needs to be applied without ragdolling
     public void AddImpact(Vector3 dir, float force)
     {
-        //if (!IsLocalPlayer) { return; }
+        
+        if (!IsLocalPlayer) { return; }
 
         dir.Normalize();
         if (dir.y < 0) dir.y = -dir.y; // reflect down force on the ground
@@ -293,12 +295,6 @@ public class PlayerMovement : NetworkBehaviour
 
 
     //Camera and Player Rotation
-    public void decrementCurrentJumpNumber()
-    {
-        curJumpNum--;
-    }
-
-    //Camera
     private void Rotation()
     {
         Vector3 lastCamPos = new Vector3(0,0,0);

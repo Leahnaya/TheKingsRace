@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using MLAPI;
 using UnityEngine;
 
-public class PlayerCam : NetworkBehaviour
+public class dPlayCam : NetworkBehaviour
 {
     public GameObject player;
 
@@ -17,7 +17,7 @@ public class PlayerCam : NetworkBehaviour
 
     void Update ()
     {
-        //if (!IsLocalPlayer) { return; }
+        if (!IsLocalPlayer) { return; }
 
         offset = transform.parent.forward * rad.magnitude;
         transform.position = new Vector3((player.transform.position.x - offset.x),((player.transform.position.y - offset.y)+2),(player.transform.position.z - offset.z));

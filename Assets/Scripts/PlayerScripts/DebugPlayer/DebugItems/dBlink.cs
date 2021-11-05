@@ -5,7 +5,7 @@ using UnityEngine;
 
 
 
-public class Blink : NetworkBehaviour{
+public class dBlink : NetworkBehaviour{
 
     // Start is called before the first frame update
 
@@ -43,7 +43,6 @@ public class Blink : NetworkBehaviour{
     //blinks the player forwards
     private void BlinkMove()
     {
-
         if (!IsLocalPlayer) { return; }
 
         if (Input.GetMouseButton(1))

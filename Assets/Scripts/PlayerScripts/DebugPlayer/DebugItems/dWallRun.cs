@@ -1,10 +1,10 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Linq;
 using MLAPI;
 using UnityEngine.Rendering;
 
-[RequireComponent (typeof(PlayerMovement))]
-public class WallRun : NetworkBehaviour
+[RequireComponent (typeof(dPlayerMovement))]
+public class dWallRun : NetworkBehaviour
 {
 
     public float wallMaxDistance = 1;
@@ -33,7 +33,6 @@ public class WallRun : NetworkBehaviour
     float elapsedTimeSinceWallAttach = 0;
     float elapsedTimeSinceWallDetatch = 0;
     bool jumping;
-    private bool regainedJump = false;
 
     bool isPlayergrounded() => playerMovementController.isGrounded;
 
@@ -69,7 +68,7 @@ public class WallRun : NetworkBehaviour
     public void WallRunRoutine()
     {  
 
-        //if (!IsLocalPlayer) { return; }
+        if (!IsLocalPlayer) { return; }
 
         isWallRunning = false;
 
@@ -116,17 +115,11 @@ public class WallRun : NetworkBehaviour
             elapsedTimeSinceWallDetatch = 0;
             elapsedTimeSinceWallAttach += Time.deltaTime;
             playerMovementController.AddPlayerVelocity((Vector3.down * wallGravityDownForce * Time.deltaTime));
-            if (elapsedTimeSinceWallAttach > 0.125f && regainedJump == false)//Allows players to always jump off of walls
-            {
-                regainedJump = true;
-                playerMovementController.decrementCurrentJumpNumber();
-            }
         }
         else
         {   
             elapsedTimeSinceWallAttach = 0;
             elapsedTimeSinceWallDetatch += Time.deltaTime;
-            regainedJump = false;
         }
     }
 
@@ -158,9 +151,8 @@ public class WallRun : NetworkBehaviour
 
             Vector3 moveToSet = alongWall * vertical * playerMovementController.PlayerSpeed() *Time.deltaTime;// * wallSpeedMultiplier;
             moveToSet.y = 0;
-            Vector3 cancelDrop = new Vector3(0, 0.01f, 0);
+
             playerMovementController.SetPlayerVelocity(moveToSet);
-            playerMovementController.AddPlayerVelocity(cancelDrop);
             //Debug.Log("On Wall");
             isWallRunning = true;
         }

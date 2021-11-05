@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using MLAPI;
 using UnityEngine;
 
-public class KickController : NetworkBehaviour
+public class dKickController : NetworkBehaviour
 {
     //Important, may want to change blink code to only work for trigger collider 
     // so that the player doesn't teleport to their leg
@@ -64,7 +64,7 @@ public class KickController : NetworkBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        //if (!IsLocalPlayer) { return; }
+        if (!IsLocalPlayer) { return; }
         Collider myCollider = collision.contacts[0].thisCollider;
         if (collision.transform.CompareTag("kickable") && myCollider == leg.GetComponent<Collider>()){
             Vector3 direction = this.transform.forward;
