@@ -1,10 +1,13 @@
 using System;
+using System.Collections;
 using MLAPI;
 using MLAPI.Connection;
 using MLAPI.Messaging;
+using MLAPI.NetworkVariable;
 using MLAPI.NetworkVariable.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class LobbyUI : NetworkBehaviour {
@@ -13,8 +16,10 @@ public class LobbyUI : NetworkBehaviour {
     [SerializeField] private LobbyPlayerCard[] lobbyPlayerCards;
     [SerializeField] private Button startGameButton;
     [SerializeField] private TMP_Text lobbyStateText;
+    [SerializeField] private TMP_Text hostIpAddressText;
 
     private NetworkList<LobbyPlayerState> lobbyPlayers = new NetworkList<LobbyPlayerState>();
+    private NetworkVariable<String> hostIpAddress = new NetworkVariable<String>();
 
     public override void NetworkStart()
     {
@@ -34,6 +39,9 @@ public class LobbyUI : NetworkBehaviour {
             {
                 HandleClientConnected(client.ClientId);
             }
+
+            // Get/Set the ip of the host
+            StartCoroutine(GetIPAddress());
         }
     }
 
@@ -242,5 +250,33 @@ public class LobbyUI : NetworkBehaviour {
         else {
             lobbyStateText.text = "All Players Need to Ready Up!";
         }
+    }
+
+    //Taken from Goodgulf
+    IEnumerator GetIPAddress() {
+        UnityWebRequest www = UnityWebRequest.Get("http://checkip.dyndns.org");
+        yield return www.SendWebRequest();
+
+        if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError) {
+            hostIpAddress.Value = "Host IP: Network Error";
+        } else {
+            string result = www.downloadHandler.text;
+
+            // This results in a string similar to this: <html><head><title>Current IP Check</title></head><body>Current IP Address: 123.123.123.123</body></html>
+            // where 123.123.123.123 is your external IP Address.
+            //  Debug.Log("" + result);
+
+            string[] a = result.Split(':'); // Split into two substrings -> one before : and one after. 
+            string a2 = a[1].Substring(1);  // Get the substring after the :
+            string[] a3 = a2.Split('<');    // Now split to the first HTML tag after the IP address.
+            string a4 = a3[0];              // Get the substring before the tag.
+
+            Debug.Log("External IP Address = " + a4);
+            hostIpAddress.Value = "Host IP: " + a4;
+        }
+    }
+
+    void Update() {
+        hostIpAddressText.text = hostIpAddress.Value;
     }
 }

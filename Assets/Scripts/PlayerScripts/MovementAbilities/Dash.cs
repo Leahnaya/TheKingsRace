@@ -4,7 +4,7 @@ using MLAPI;
 using UnityEngine;
 
 
-public class Dash : NetworkBehaviour{
+public class Dash : NetworkBehaviour {
     public Vector3 moveDirection;
  
     public const float maxDashTime = 1.0f;
@@ -21,8 +21,7 @@ public class Dash : NetworkBehaviour{
 
     //UPDATE CHECK FOR MOVEMENT ONLY WHEN DASHING
     void FixedUpdate(){
-
-        //if (!IsLocalPlayer) { return; }
+        if (!IsLocalPlayer) { return; }
 
         if (Input.GetKeyDown(KeyCode.E))
         {

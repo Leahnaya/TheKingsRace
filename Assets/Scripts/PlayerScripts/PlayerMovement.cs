@@ -165,10 +165,7 @@ public class PlayerMovement : NetworkBehaviour
         //TEMP FOR TESTING
         //Checks if player should respawn
         Respawn();
-        
     }
-
-
 
     //Reads inputs and moves player
     private void InputController()
@@ -237,7 +234,7 @@ public class PlayerMovement : NetworkBehaviour
     //Apply Impact for when force needs to be applied without ragdolling
     public void AddImpact(Vector3 dir, float force)
     {
-        //if (!IsLocalPlayer) { return; }
+        if (!IsLocalPlayer) { return; }
 
         dir.Normalize();
         if (dir.y < 0) dir.y = -dir.y; // reflect down force on the ground
