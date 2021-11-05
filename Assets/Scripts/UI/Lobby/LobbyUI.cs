@@ -23,6 +23,9 @@ public class LobbyUI : NetworkBehaviour {
 
     public override void NetworkStart()
     {
+        // Unlock the player cursor if they get sent back here after a match
+        Cursor.lockState = CursorLockMode.None;
+
         if (IsClient)
         {
             lobbyPlayers.OnListChanged += HandleLobbyPlayersStateChanged;
