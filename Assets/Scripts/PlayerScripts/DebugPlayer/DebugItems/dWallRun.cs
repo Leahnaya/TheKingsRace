@@ -21,7 +21,7 @@ public class dWallRun : NetworkBehaviour
     public float wallGravityDownForce = 20f;
 
     [Space]
-    PlayerMovement playerMovementController;
+    dPlayerMovement playerMovementController;
 
     Vector3[] directions;
     RaycastHit[] hits;
@@ -53,7 +53,7 @@ public class dWallRun : NetworkBehaviour
 
     void Start()
     {
-        playerMovementController = GetComponent<PlayerMovement>();
+        playerMovementController = GetComponent<dPlayerMovement>();
 
          directions = new Vector3[]{ 
             Vector3.right, 

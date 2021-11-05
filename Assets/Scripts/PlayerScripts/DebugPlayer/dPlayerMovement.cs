@@ -37,7 +37,7 @@ public class dPlayerMovement : NetworkBehaviour
     private float distToGround;
 
     //Wallrunning
-    private WallRun wallRun;
+    private dWallRun wallRun;
 
     //Ground Check
     public bool isGrounded; //Better custom is grounded 
@@ -91,7 +91,7 @@ public class dPlayerMovement : NetworkBehaviour
 
         capCol.enabled = false;
         //Wallrun
-        wallRun = gameObject.GetComponent<WallRun>();
+        wallRun = gameObject.GetComponent<dWallRun>();
 
         up = this.gameObject.GetComponentInParent<Transform>().up;
     }
@@ -239,7 +239,7 @@ public class dPlayerMovement : NetworkBehaviour
     public void AddImpact(Vector3 dir, float force)
     {
         
-        if (!IsLocalPlayer) { return; }
+        //if (!IsLocalPlayer) { return; }
 
         dir.Normalize();
         if (dir.y < 0) dir.y = -dir.y; // reflect down force on the ground
