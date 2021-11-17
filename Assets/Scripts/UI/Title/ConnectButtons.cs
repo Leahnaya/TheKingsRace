@@ -24,6 +24,9 @@ public class ConnectButtons : MonoBehaviour {
         ErrorPanel.SetActive(false);
 
         PlayerPrefs.GetString("PlayerName");
+
+        // Unlock the player cursor if they got sent back to the title screen from in game
+        Cursor.lockState = CursorLockMode.None;
     }
 
     // Connect to the dedicated server

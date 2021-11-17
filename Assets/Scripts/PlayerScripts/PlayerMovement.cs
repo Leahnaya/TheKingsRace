@@ -101,7 +101,7 @@ public class PlayerMovement : NetworkBehaviour
 
         // Don't do movement unless this is the local player controlling it
         // Otherwise we let the server handle moving us
-        //if (!IsLocalPlayer) { return; }
+        if (!IsLocalPlayer) { return; }
 
         // Don't lock the cursor multiple times if this isn't the local player
         // Also don't want to lock the cursor for the king
@@ -114,7 +114,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         // Don't do movement unless this is the local player controlling it
         // Otherwise we let the server handle moving us
-        //if (!IsLocalPlayer) { return; }
+        if (!IsLocalPlayer) { return; }
 
         
         //Controls for camera
