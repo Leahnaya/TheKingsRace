@@ -133,9 +133,9 @@ public class PlayerStats : MonoBehaviour
         Debug.Assert((minVel >= 0), "minVel cannot be below zero"); 
         Debug.Assert((curVel >= 0), "curVel cannot be below zero");
         Debug.Assert((jumpPow >= 0), "jumpPow cannot be below zero"); 
-        Debug.Assert((jumpNum >= 2), "jumpNum cannot be below zero"); 
+        Debug.Assert((jumpNum >= 2), "jumpNum cannot be below 2"); 
         Debug.Assert((traction >= 0), "traction cannot be below zero"); 
-        //Debug.Assert((kickPow >= 0), "Playerpoints cannot be below zero"); 
+        Debug.Assert((kickPow >= 0), "Playerpoints cannot be below zero"); 
         Debug.Assert((recovTime >= 0), "recovTime cannot be below zero"); 
         Debug.Assert((playerGrav >= 0), "playerGrav cannot be below zero"); 
         Debug.Assert((playerPoints >= 0), "Playerpoints cannot be below zero");

@@ -41,7 +41,6 @@ public class dWallRun : NetworkBehaviour
     bool CanWallRun()
     {
         float verticalAxis = Input.GetAxisRaw("Vertical");
-        
         return !isPlayergrounded() && verticalAxis > 0 && VerticalCheck();
     }
 
@@ -155,6 +154,7 @@ public class dWallRun : NetworkBehaviour
             playerMovementController.SetPlayerVelocity(moveToSet);
             //Debug.Log("On Wall");
             isWallRunning = true;
+            Debug.Log("Is Wallrunning");
         }
     }
 
