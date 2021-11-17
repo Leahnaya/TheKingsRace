@@ -78,7 +78,8 @@ public class dPlayerMovement : NetworkBehaviour
     private Vector3 up;
     private bool qDown;
 
-    //Kick Variables
+    //Blink
+    private dBlink blink;
 
     void Awake()
     {
@@ -92,6 +93,8 @@ public class dPlayerMovement : NetworkBehaviour
         capCol.enabled = false;
         //Wallrun
         wallRun = gameObject.GetComponent<dWallRun>();
+
+        blink = gameObject.GetComponent<dBlink>();
 
         up = this.gameObject.GetComponentInParent<Transform>().up;
     }
@@ -155,12 +158,16 @@ public class dPlayerMovement : NetworkBehaviour
 
         //TEMP FOR TESTING RAGDOLL
         //Right Click to ragdoll the player
-        if (Input.GetMouseButton(1) && heldDown == false){
-            getHit(new Vector3(vel.x, 0, vel.z), 30);
-            heldDown = true;
-        }
-        if(!Input.GetMouseButton(1)){
-            heldDown = false;
+        // if (Input.GetMouseButton(1) && heldDown == false){
+        //     getHit(new Vector3(vel.x, 0, vel.z), 30);
+        //     heldDown = true;
+        // }
+        // if(!Input.GetMouseButton(1)){
+        //     heldDown = false;
+        // }
+
+        if(pStats.HasBlink == true){
+            blink.BlinkMove();
         }
 
         //TEMP FOR TESTING

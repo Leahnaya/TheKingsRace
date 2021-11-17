@@ -815,6 +815,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4367973138255890080, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
+      propertyPath: cam
+      value: 
+      objectReference: {fileID: 2127720128}
     - target: {fileID: 5633209979457551608, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
       propertyPath: m_Name
       value: DebugPlayerPrefab
@@ -1380,3 +1384,8 @@ RectTransform:
   m_AnchoredPosition: {x: 283, y: -71}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!20 &2127720128 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 4654986889578046791, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
+  m_PrefabInstance: {fileID: 885603619}
+  m_PrefabAsset: {fileID: 0}

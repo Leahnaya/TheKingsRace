@@ -9,7 +9,7 @@ public class dBlink : NetworkBehaviour{
 
     // Start is called before the first frame update
 
-    private Camera cam;
+    public Camera cam;
     public CharacterController controller;
     //Blink Variables
     private LineRenderer beam;
@@ -36,12 +36,11 @@ public class dBlink : NetworkBehaviour{
 
         // Grab the main camera.
         //camera transform
-        cam =  GetComponentInChildren<Camera>();
     }
 
     //ADJUST SO DISTANCE IS DETERMINED BY SCROLL WHEEL
     //blinks the player forwards
-    private void BlinkMove()
+    public void BlinkMove()
     {
         //if (!IsLocalPlayer) { return; }
 

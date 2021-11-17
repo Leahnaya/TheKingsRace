@@ -46,22 +46,30 @@ public class InvSceneSettings : MonoBehaviour
         if(itemOptPrefab != null){
             foreach(Item item in invMan.ItemList){
                 
+                //Positioning Buttons
                 if(index < 5){
                     position = new Vector3(((index)),3,0);
                 }
                 else{
                     position = new Vector3(((index-5)),2,0);
                 }
+
+                //Creates Button
                 var iOpt = Instantiate(itemOptPrefab, position, Quaternion.identity);
 
+                //Uses Item Variables to update button
                 iOpt.name = item.itemName;
                 iOpt.transform.SetParent(GameObject.Find("Items").transform);
                 iOpt.transform.localScale = new Vector3(1.5f,1.5f,1.5f);
+
+                //Button Adds item if it can
                 iOpt.GetComponent<Button>().onClick.AddListener(delegate{pInv.AddItem(item, UpdateObject(item.costM, item, iOpt));});
+
+                //Changes Button Texts
                 iOpt.transform.Find("Name").GetComponent<Text>().text = item.itemName;
                 iOpt.transform.Find("Cost").GetComponent<Text>().text = item.costM.ToString();
-
                 //iOpt.GetComponentInChildren<Image>() = item.image; // IMPLEMENT WHEN ITEM OBJECT CONTAIN IMAGE REFERENCE
+
                 index++;
             }
         }
@@ -72,19 +80,27 @@ public class InvSceneSettings : MonoBehaviour
     }
 
     private bool UpdateObject(int itemCost, Item item, GameObject button){
+
         if(pInv.GetItems().Contains(item)){
+            //Player can remove the item
             pointsLeft += itemCost;
             pointText.text = "Points Left: " + pointsLeft;
             button.GetComponent<Image>().color = new Color(1,1,1);
+
             return true;
         }
+
         else if(!pInv.GetItems().Contains(item) && (pointsLeft - itemCost) >= 0){
+            //Player can add the item
             pointsLeft -= itemCost;
             pointText.text = "Points Left: " + pointsLeft;
             button.GetComponent<Image>().color = new Color(.5f,.5f,.5f);
+
             return true;
         }
+
         else{
+            //Player cannot add or remove the item
             return false;
         }
     }

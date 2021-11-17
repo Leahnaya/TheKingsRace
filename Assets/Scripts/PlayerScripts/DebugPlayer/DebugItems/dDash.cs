@@ -22,21 +22,22 @@ public class dDash : NetworkBehaviour{
     //UPDATE CHECK FOR MOVEMENT ONLY WHEN DASHING
     void FixedUpdate(){
         //if (!IsLocalPlayer) { return; }
-
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            currentDashTime = 0;                
+        if(characterController.enabled == true){
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                currentDashTime = 0;                
+            }
+            if(currentDashTime < maxDashTime)
+            {
+                moveDirection = transform.forward * dashDistance;
+                currentDashTime += dashStoppingSpeed;
+            }
+            else
+            {
+                moveDirection = Vector3.zero;
+            }
+            characterController.Move(moveDirection * Time.deltaTime * dashSpeed);
         }
-        if(currentDashTime < maxDashTime)
-        {
-            moveDirection = transform.forward * dashDistance;
-            currentDashTime += dashStoppingSpeed;
-        }
-        else
-        {
-            moveDirection = Vector3.zero;
-        }
-        characterController.Move(moveDirection * Time.deltaTime * dashSpeed);
     }
 
 }
