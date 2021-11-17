@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using MLAPI;
 using UnityEngine;
 
-public class PlayerInventory : MonoBehaviour
+public class PlayerInventory : NetworkBehaviour
 {
 
     //List of items
@@ -12,20 +13,13 @@ public class PlayerInventory : MonoBehaviour
     public PlayerStats pStats;
     
     void Awake(){
-        pStats = GetComponent<PlayerStats>();
-        DontDestroyOnLoad(transform.parent.gameObject);
-        
+        pStats = GetComponent<PlayerStats>();     
     }
-
-    //Add item to player Inventory
-    public void AddItem(Item item, bool ableToAdd){
+    
+    public void UpdateInventory(Item item, bool ableToAdd){
         if(!items.Contains(item) && ableToAdd){
             Debug.Log("Item Added");
-
-            //Add item to player inventroy list
-            items.Add(item);
-            //Equip item
-            item.Equip(pStats, this.gameObject);
+            AddItem(item);
         }
         else if(!ableToAdd && !items.Contains(item)){
             //Item cannot be added
@@ -36,6 +30,30 @@ public class PlayerInventory : MonoBehaviour
             Debug.Log("Item Removed");
             RemoveItem(item);
         }
+    }
+
+    public void UpdateEquips(){
+        foreach(Item item in items){
+            item.Equip(pStats, this.gameObject);
+        }
+    }
+
+    //Add item to player Inventory
+    public void AddItem(Item item){
+
+        //Adds and equips Item if it can
+        items.Add(item);
+
+        item.Equip(pStats, this.gameObject);
+        
+    }
+
+    //Add item to player Inventory
+    public void AddItemNetwork(Item item){
+
+        //Adds and equips Item if it can
+        items.Add(item);
+        
     }
 
     //Remove Item player inv

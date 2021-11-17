@@ -41,7 +41,7 @@ public class PlayerStats : MonoBehaviour
     }
 
     //Players Number of Jumps
-    private int jumpNum = 2; ////// UPDATE TO 2 WHEN THE JUMP ISSUE IS FIXED
+    private int jumpNum = 2;
     public int JumpNum{
         get{ return jumpNum; }
         set{ jumpNum = value; }

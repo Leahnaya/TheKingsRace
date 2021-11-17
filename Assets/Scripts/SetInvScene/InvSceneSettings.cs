@@ -63,7 +63,7 @@ public class InvSceneSettings : MonoBehaviour
                 iOpt.transform.localScale = new Vector3(1.5f,1.5f,1.5f);
 
                 //Button Adds item if it can
-                iOpt.GetComponent<Button>().onClick.AddListener(delegate{pInv.AddItem(item, UpdateObject(item.costM, item, iOpt));});
+                iOpt.GetComponent<Button>().onClick.AddListener(delegate{pInv.UpdateInventory(item, UpdateObject(item.costM, item, iOpt));});
 
                 //Changes Button Texts
                 iOpt.transform.Find("Name").GetComponent<Text>().text = item.itemName;

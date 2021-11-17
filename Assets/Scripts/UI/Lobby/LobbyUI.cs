@@ -169,6 +169,23 @@ public class LobbyUI : NetworkBehaviour {
     }
 
     [ServerRpc(RequireOwnership = false)]
+    private void UpdatePlayerInventoryServerRpc(String item, ServerRpcParams serverRpcParams = default)
+    {
+        ulong senderClientID = serverRpcParams.Receive.SenderClientId;
+    //     if (ServerGameNetPortal.Instance.clientIdToGuid.TryGetValue(senderClientID, out string clientGuid)) {
+    //                 ServerGameNetPortal.Instance.clientData[clientGuid].pInv.AddItemNetwork(item);
+    // }
+    }
+
+    // public void EquipItems(String item, bool ableToAdd){
+    //     //Update the Local player Inventory
+    //     FindObjectOfType<PlayerInventory>().UpdateInventory(item, ableToAdd);
+        
+    //     //Call the server RPC
+    //     UpdatePlayerInventoryServerRpc(item);
+    // }
+
+    [ServerRpc(RequireOwnership = false)]
     private void StartGameServerRpc(ServerRpcParams serverRpcParams = default)
     {
         if (serverRpcParams.Receive.SenderClientId != NetworkManager.Singleton.LocalClientId) { return; }
