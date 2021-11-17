@@ -18,8 +18,8 @@ public class CoolDown : MonoBehaviour
                 if(temp.cooldownM == 0 || I.GetType() != typeof(SpecialItem)){
                    Debug.Log("Item not fully intialized");
                    //throw assert
-                   Debug.Assert(temp.cooldownM == 0);
-                   Debug.Assert(I.GetType() != typeof(SpecialItem));
+                   Debug.Assert(temp.cooldownM != 0);
+                   Debug.Assert(I.GetType() == typeof(SpecialItem));
 
                 }
                 specialItems.Add(temp);
