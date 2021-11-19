@@ -291,7 +291,6 @@ public class LobbyUI : NetworkBehaviour {
             string[] a3 = a2.Split('<');    // Now split to the first HTML tag after the IP address.
             string a4 = a3[0];              // Get the substring before the tag.
 
-            Debug.Log("External IP Address = " + a4);
             hostIpAddress.Value = "Host IP: " + a4;
         }
     }

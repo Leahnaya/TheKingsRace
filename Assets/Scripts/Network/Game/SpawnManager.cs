@@ -21,7 +21,6 @@ public class SpawnManager : NetworkBehaviour {
         InitSpawnPoints();
 
         if (IsHost) {
-            Debug.Log("Host spawn");
             // Get the player data for the host player
             if (ServerGameNetPortal.Instance.clientIdToGuid.TryGetValue(NetworkManager.Singleton.LocalClientId, out string clientGuid)) {
                 if (ServerGameNetPortal.Instance.clientData.TryGetValue(clientGuid, out PlayerData playerData)) {
