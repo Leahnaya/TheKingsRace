@@ -7,7 +7,7 @@ using UnityEngine.Rendering;
 public class dWallRun : NetworkBehaviour
 {
 
-    public float wallMaxDistance = 1;
+    public float wallMaxDistance = 5;
     public float wallSpeedMultiplier = 1.2f;
     public float minimumHeight = 1.2f;
     public float maxAngleRoll = 20;

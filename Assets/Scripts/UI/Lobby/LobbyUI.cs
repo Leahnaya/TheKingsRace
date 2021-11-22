@@ -174,12 +174,14 @@ public class LobbyUI : NetworkBehaviour {
         ulong senderClientID = serverRpcParams.Receive.SenderClientId;
         if (ServerGameNetPortal.Instance.clientIdToGuid.TryGetValue(senderClientID, out string clientGuid)) {
                     ServerGameNetPortal.Instance.clientData[clientGuid].pInv.UpdateItemNetwork(itemName, add);
+                    print("Item in Network updated");
         }
     }
 
     public void EquipItems(Item item, bool ableToAdd){
         //Update the Local player Inventory
         int added = FindObjectOfType<PlayerInventory>().UpdateInventory(item, ableToAdd);
+        FindObjectOfType<PlayerInventory>().UpdateItemNetwork(item.name, added);
 
         //Server RPC Update player Inventory
         UpdatePlayerInventoryServerRpc(item.name, added);

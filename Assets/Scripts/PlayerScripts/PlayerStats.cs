@@ -98,7 +98,7 @@ public class PlayerStats : MonoBehaviour
     }
 
     //If The Player Has Wallrun
-    private bool hasWallrun = false;
+    private bool hasWallrun = true;
     public bool HasWallrun{
         get{ return hasWallrun; }
         set{ hasWallrun = value; }
