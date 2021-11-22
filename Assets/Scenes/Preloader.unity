@@ -285,6 +285,8 @@ MonoBehaviour:
       PlayerPrefab: 0
     - Prefab: {fileID: 6649144231394212716, guid: 31aeb41a00441214ca42c9eb5647395e, type: 3}
       PlayerPrefab: 0
+    - Prefab: {fileID: 1867892282630666222, guid: 7c3682087ff9b234cb9abf6a8fa941b5, type: 3}
+      PlayerPrefab: 0
     PlayerPrefabHash:
       id: 0
     CreatePlayerPrefab: 0
@@ -360,8 +362,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxPlayers: 3
-  runnerPrefab: {fileID: 1292213096936070766, guid: a9840baa4cc526b44bfef27c6fea042a, type: 3}
-  kingPrefab: {fileID: 6649144231394212676, guid: 31aeb41a00441214ca42c9eb5647395e, type: 3}
 --- !u!114 &1566574284
 MonoBehaviour:
   m_ObjectHideFlags: 0

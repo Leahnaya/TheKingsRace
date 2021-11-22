@@ -1,10 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using MLAPI;
+using MLAPI.Messaging;
 using UnityEngine;
 
 public class GameHandler : NetworkBehaviour
 {
+    public Transform coundownUI;
+
+    private static GameObject _countdownUI;
+
     // Start is called before the first frame update
     void Start() {
         StartCoroutine(introCutscene());
@@ -32,10 +37,22 @@ public class GameHandler : NetworkBehaviour
             }
         }
 
-        //TODO: Do a 3.2.1 countdown
+        // Spawn the 3.2.1 coundown object
+        if (IsHost) {
+            SpawnCountdownServerRpc();
+        }
+
+        yield return new WaitForSecondsRealtime(5f);
+
+        // Despawn the 3.2.1 coundown object
+        if (IsHost) {
+            DespawnCountdownServerRpc();
+        }
 
         // Re-enable the player movement
-        localPlayer.GetComponentInChildren<PlayerMovement>().enabled = true;
+        if (localPlayer.GetComponentInChildren<PlayerMovement>() != null) {
+            localPlayer.GetComponentInChildren<PlayerMovement>().enabled = true;
+        }
 
         //TODO: Start the game timer
     }
@@ -52,5 +69,17 @@ public class GameHandler : NetworkBehaviour
 
         // Couldn't find child with tag
         return null;
+    }
+
+    [ServerRpc]
+    private void SpawnCountdownServerRpc(ServerRpcParams serverRpcParams = default) {
+        _countdownUI = Instantiate(coundownUI, Vector3.zero, Quaternion.identity).gameObject;
+        _countdownUI.GetComponent<NetworkObject>().Spawn();
+    }
+
+    [ServerRpc]
+    private void DespawnCountdownServerRpc(ServerRpcParams serverRpcParams = default) {
+        _countdownUI.GetComponent<NetworkObject>().Despawn();
+        Destroy(_countdownUI);
     }
 }
