@@ -7,8 +7,10 @@ using UnityEngine;
 public class GameHandler : NetworkBehaviour
 {
     public Transform coundownUI;
+    public Transform playerHUD;
 
     private static GameObject _countdownUI;
+    private static GameObject _playerHUD;
 
     // Start is called before the first frame update
     void Start() {
@@ -54,7 +56,10 @@ public class GameHandler : NetworkBehaviour
             localPlayer.GetComponentInChildren<PlayerMovement>().enabled = true;
         }
 
-        //TODO: Start the game timer
+        // Start the game timer and spawn HUDs
+        if (IsHost) {
+            SpawnPlayerHUDServerRpc();
+        }
     }
 
     // Only works for 1st generation children
@@ -81,5 +86,12 @@ public class GameHandler : NetworkBehaviour
     private void DespawnCountdownServerRpc(ServerRpcParams serverRpcParams = default) {
         _countdownUI.GetComponent<NetworkObject>().Despawn();
         Destroy(_countdownUI);
+    }
+
+    [ServerRpc]
+    private void SpawnPlayerHUDServerRpc(ServerRpcParams serverRpcParams = default)
+    {
+        _playerHUD = Instantiate(playerHUD, Vector3.zero, Quaternion.identity).gameObject;
+        _playerHUD.GetComponent<NetworkObject>().Spawn();
     }
 }
