@@ -44,7 +44,7 @@ public class InvSceneSettings : MonoBehaviour
     private void InitializeItemB(){
         int index = 0;
         if(itemOptPrefab != null){
-            foreach(Item item in invMan.ItemList){
+            foreach(var item in invMan.ItemDict){
                 
                 //Positioning Buttons
                 if(index < 5){
@@ -58,16 +58,16 @@ public class InvSceneSettings : MonoBehaviour
                 var iOpt = Instantiate(itemOptPrefab, position, Quaternion.identity);
 
                 //Uses Item Variables to update button
-                iOpt.name = item.itemName;
+                iOpt.name = item.Value.itemName;
                 iOpt.transform.SetParent(GameObject.Find("Items").transform);
                 iOpt.transform.localScale = new Vector3(1.5f,1.5f,1.5f);
 
                 //Button Adds item if it can
-                iOpt.GetComponent<Button>().onClick.AddListener(delegate{pInv.UpdateInventory(item, UpdateObject(item.costM, item, iOpt));});
+                iOpt.GetComponent<Button>().onClick.AddListener(delegate{pInv.UpdateInventory(item.Value, UpdateObject(item.Value.costM, item.Value, iOpt));});
 
                 //Changes Button Texts
-                iOpt.transform.Find("Name").GetComponent<Text>().text = item.itemName;
-                iOpt.transform.Find("Cost").GetComponent<Text>().text = item.costM.ToString();
+                iOpt.transform.Find("Name").GetComponent<Text>().text = item.Value.itemName;
+                iOpt.transform.Find("Cost").GetComponent<Text>().text = item.Value.costM.ToString();
                 //iOpt.GetComponentInChildren<Image>() = item.image; // IMPLEMENT WHEN ITEM OBJECT CONTAIN IMAGE REFERENCE
 
                 index++;
@@ -81,7 +81,7 @@ public class InvSceneSettings : MonoBehaviour
 
     private bool UpdateObject(int itemCost, Item item, GameObject button){
 
-        if(pInv.GetItems().Contains(item)){
+        if(pInv.PlayerItemDict.ContainsKey(item.name)){
             //Player can remove the item
             pointsLeft += itemCost;
             pointText.text = "Points Left: " + pointsLeft;
@@ -90,7 +90,7 @@ public class InvSceneSettings : MonoBehaviour
             return true;
         }
 
-        else if(!pInv.GetItems().Contains(item) && (pointsLeft - itemCost) >= 0){
+        else if(!pInv.PlayerItemDict.ContainsKey(item.name) && (pointsLeft - itemCost) >= 0){
             //Player can add the item
             pointsLeft -= itemCost;
             pointText.text = "Points Left: " + pointsLeft;

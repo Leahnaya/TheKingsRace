@@ -11,15 +11,15 @@ public class CoolDown : MonoBehaviour
     // Start is called before the first frame update
     void Start(){
         //retrieve all items that are special items here
-        foreach(Item I in Inv.GetItems()){
-           if(I.GetType() == typeof(SpecialItem)){
-                SpecialItem temp = (SpecialItem)I;
+        foreach(var I in Inv.PlayerItemDict){
+           if(I.Value.GetType() == typeof(SpecialItem)){
+                SpecialItem temp = (SpecialItem)I.Value;
                 //if not
-                if(temp.cooldownM == 0 || I.GetType() != typeof(SpecialItem)){
+                if(temp.cooldownM == 0 || I.Value.GetType() != typeof(SpecialItem)){
                    Debug.Log("Item not fully intialized");
                    //throw assert
                    Debug.Assert(temp.cooldownM != 0);
-                   Debug.Assert(I.GetType() == typeof(SpecialItem));
+                   Debug.Assert(I.Value.GetType() == typeof(SpecialItem));
 
                 }
                 specialItems.Add(temp);

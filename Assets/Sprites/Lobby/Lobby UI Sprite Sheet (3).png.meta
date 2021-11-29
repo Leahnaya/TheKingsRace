@@ -1,0 +1,348 @@
+fileFormatVersion: 2
+guid: b6de7bf76e94e1d4c88cc0dcece5fa76
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7117595623854331935
+    second: Lobby UI Sprite Sheet (3)_0
+  - first:
+      213: 6732873282585190438
+    second: Lobby UI Sprite Sheet (3)_1
+  - first:
+      213: -5239439350207746736
+    second: Lobby UI Sprite Sheet (3)_2
+  - first:
+      213: 3605005235430332181
+    second: Lobby UI Sprite Sheet (3)_3
+  - first:
+      213: 1072454948872146826
+    second: Lobby UI Sprite Sheet (3)_4
+  - first:
+      213: 1490524940242357431
+    second: Lobby UI Sprite Sheet (3)_5
+  - first:
+      213: -4147658829597351816
+    second: Lobby UI Sprite Sheet (3)_6
+  - first:
+      213: -5580551949002514898
+    second: Lobby UI Sprite Sheet (3)_7
+  - first:
+      213: 6145135073042095763
+    second: Lobby UI Sprite Sheet (3)_8
+  - first:
+      213: 4029959312350550928
+    second: Lobby UI Sprite Sheet (3)_9
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Lobby UI Sprite Sheet (3)_0
+      rect:
+        serializedVersion: 2
+        x: 1509
+        y: 3122
+        width: 1161
+        height: 995
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e7a941ad78393d90800000000000000
+      internalID: -7117595623854331935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobby UI Sprite Sheet (3)_1
+      rect:
+        serializedVersion: 2
+        x: 2837
+        y: 2988
+        width: 1080
+        height: 1079
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62065360498ff6d50800000000000000
+      internalID: 6732873282585190438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobby UI Sprite Sheet (3)_2
+      rect:
+        serializedVersion: 2
+        x: 4064
+        y: 3026
+        width: 989
+        height: 965
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05de9a4bba5c947b0800000000000000
+      internalID: -5239439350207746736
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobby UI Sprite Sheet (3)_3
+      rect:
+        serializedVersion: 2
+        x: 5180
+        y: 2980
+        width: 909
+        height: 1062
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5179f37592d870230800000000000000
+      internalID: 3605005235430332181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobby UI Sprite Sheet (3)_4
+      rect:
+        serializedVersion: 2
+        x: 1530
+        y: 1516
+        width: 1164
+        height: 1176
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8f4229081022ee00800000000000000
+      internalID: 1072454948872146826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobby UI Sprite Sheet (3)_5
+      rect:
+        serializedVersion: 2
+        x: 2871
+        y: 1591
+        width: 1069
+        height: 1096
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7bc810839886fa410800000000000000
+      internalID: 1490524940242357431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobby UI Sprite Sheet (3)_6
+      rect:
+        serializedVersion: 2
+        x: 4048
+        y: 1575
+        width: 1063
+        height: 1103
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 870665c054e8076c0800000000000000
+      internalID: -4147658829597351816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobby UI Sprite Sheet (3)_7
+      rect:
+        serializedVersion: 2
+        x: 1514
+        y: 170
+        width: 1181
+        height: 1102
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2e5715c195ed82b0800000000000000
+      internalID: -5580551949002514898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobby UI Sprite Sheet (3)_8
+      rect:
+        serializedVersion: 2
+        x: 2852
+        y: 325
+        width: 1130
+        height: 1049
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39ed7756ac7e74550800000000000000
+      internalID: 6145135073042095763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobby UI Sprite Sheet (3)_9
+      rect:
+        serializedVersion: 2
+        x: 4208
+        y: 512
+        width: 978
+        height: 970
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09b9ee794aa4de730800000000000000
+      internalID: 4029959312350550928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 3c639d39d66b6a1499ef6e57ae45ad8d
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

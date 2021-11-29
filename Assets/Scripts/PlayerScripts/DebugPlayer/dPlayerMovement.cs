@@ -344,7 +344,7 @@ public class dPlayerMovement : NetworkBehaviour
                 tempSet = true;
             }
         }
-        else{
+        else if(!jumpPressed && pStats.HasGlider){
 
             if(tempSet == true){
                pStats.Traction = tempTraction;
@@ -356,7 +356,7 @@ public class dPlayerMovement : NetworkBehaviour
         }
 
         //Wallrunning
-        if (pStats.HasWallrun) { wallRun.WallRunRoutine(); } //adjusted later if we are wallrunning
+        else if (pStats.HasWallrun) { wallRun.WallRunRoutine(); } //adjusted later if we are wallrunning
                                                              //If gliding 
                                                              //Go down slowly
     }
@@ -386,7 +386,7 @@ public class dPlayerMovement : NetworkBehaviour
     }
 
     //Ragdoll Functions
-    private void getHit(Vector3 dir, float force){
+    private void GetHit(Vector3 dir, float force){
         if(firstHit == false){
             EnableRagdoll();
             dir.Normalize();
