@@ -9,16 +9,16 @@ public class dWallRun : NetworkBehaviour
 
     public float wallMaxDistance = 5;
     public float wallSpeedMultiplier = 1.2f;
-    public float minimumHeight = 1.2f;
+    public float minimumHeight = .1f;
     public float maxAngleRoll = 20;
     [Range(0.0f, 1.0f)]
     public float normalizedAngleThreshold = 0.1f;
     
-    public float jumpDuration = 1;
+    public float jumpDuration = .02f;
     public float wallBouncing = 3;
     public float cameraTransitionDuration = 1;
 
-    public float wallGravityDownForce = 20f;
+    public float wallGravityDownForce = 5f;
 
     [Space]
     dPlayerMovement playerMovementController;
@@ -65,11 +65,12 @@ public class dWallRun : NetworkBehaviour
 
 
     public void WallRunRoutine()
-    {  
-
+    { 
         //if (!IsLocalPlayer) { return; }
 
         isWallRunning = false;
+
+        hits = new RaycastHit[directions.Length];
 
         if(playerMovementController.GetJumpPressed())
         {
@@ -78,24 +79,22 @@ public class dWallRun : NetworkBehaviour
 
         if(CanAttach())
         {
-            hits = new RaycastHit[directions.Length];
-
             for(int i=0; i<directions.Length; i++)
             {
                 Vector3 dir = transform.TransformDirection(directions[i]);
                 Physics.Raycast(transform.position, dir, out hits[i], wallMaxDistance);
-                //if(hits[i].collider != null)
-                //{
-                    //Debug.DrawRay(transform.position, dir * hits[i].distance, Color.green);
-                //}
-                //else
-                //{
-                    //Debug.DrawRay(transform.position, dir * wallMaxDistance, Color.red);
-                //}
+                if(hits[i].collider != null)
+                {
+                    Debug.DrawRay(transform.position, dir * hits[i].distance, Color.green);
+                }
+                else
+                {
+                    Debug.DrawRay(transform.position, dir * wallMaxDistance, Color.red);
+                }
             }
 
             if(CanWallRun())
-            {   
+            {
                 hits = hits.ToList().Where(h => h.collider != null).OrderBy(h => h.distance).ToArray();
                 if(hits.Length > 0)
                 {
@@ -119,6 +118,7 @@ public class dWallRun : NetworkBehaviour
         {   
             elapsedTimeSinceWallAttach = 0;
             elapsedTimeSinceWallDetatch += Time.deltaTime;
+            playerMovementController.AddPlayerVelocity((Vector3.down * playerMovementController.pStats.PlayerGrav * Time.deltaTime));
         }
     }
 
@@ -141,20 +141,23 @@ public class dWallRun : NetworkBehaviour
         float d = Vector3.Dot(hit.normal, Vector3.up);
         if(d >= -normalizedAngleThreshold && d <= normalizedAngleThreshold)
         {
-            // Vector3 alongWall = Vector3.Cross(hit.normal, Vector3.up);
+            Vector3 alongWall = Vector3.Cross(hit.normal, Vector3.up);
             float vertical = Input.GetAxisRaw("Vertical");
-            Vector3 alongWall = transform.TransformDirection(Vector3.forward);
+            //Vector3 alongWall = transform.TransformDirection(Vector3.forward);
 
-            //Debug.DrawRay(transform.position, alongWall.normalized * 10, Color.green);
-            //Debug.DrawRay(transform.position, lastWallNormal * 10, Color.magenta);
+            // Debug.DrawRay(transform.position, alongWall.normalized * 10, Color.green);
+            // Debug.DrawRay(transform.position, lastWallNormal * 10, Color.magenta);
 
-            Vector3 moveToSet = alongWall * vertical * playerMovementController.PlayerSpeed() *Time.deltaTime;// * wallSpeedMultiplier;
+            Vector3 moveToSet = alongWall * vertical * playerMovementController.PlayerSpeed() * Time.deltaTime;// * wallSpeedMultiplier;
+            Vector3 velNorm = playerMovementController.vel;
+            velNorm.Normalize();
+            moveToSet = new Vector3(moveToSet.x * -velNorm.x, moveToSet.y, moveToSet.z * -velNorm.z);
             moveToSet.y = 0;
+            
 
             playerMovementController.SetPlayerVelocity(moveToSet);
-            //Debug.Log("On Wall");
+            Debug.Log(moveToSet);
             isWallRunning = true;
-            Debug.Log("Is Wallrunning");
         }
     }
 
@@ -169,18 +172,6 @@ public class dWallRun : NetworkBehaviour
         }
         return 0;
     }
-
-    public float GetCameraRoll() //Cause camera to roll when wall running - call to this is player movement
-    {
-        float dir = CalculateSide();
-        float cameraAngle = playerMovementController.GetPlayerCamera().transform.eulerAngles.z;
-        float targetAngle = 0;
-        if(dir != 0)
-        {
-            targetAngle = Mathf.Sign(dir) * maxAngleRoll;
-        }
-        return Mathf.LerpAngle(cameraAngle, targetAngle, Mathf.Max(elapsedTimeSinceWallAttach, elapsedTimeSinceWallDetatch) / cameraTransitionDuration);
-    } 
 
     public Vector3 GetWallJumpDirection() //Add call in jump where if we are wallrunning and jump, the jump vector is multiplied by this
     {

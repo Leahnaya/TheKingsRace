@@ -344,7 +344,7 @@ public class dPlayerMovement : NetworkBehaviour
                 tempSet = true;
             }
         }
-        else{
+        else if(!jumpPressed && pStats.HasGlider){
 
             if(tempSet == true){
                pStats.Traction = tempTraction;
@@ -356,7 +356,7 @@ public class dPlayerMovement : NetworkBehaviour
         }
 
         //Wallrunning
-        if (pStats.HasWallrun) { wallRun.WallRunRoutine(); } //adjusted later if we are wallrunning
+        else if (pStats.HasWallrun) { wallRun.WallRunRoutine(); } //adjusted later if we are wallrunning
                                                              //If gliding 
                                                              //Go down slowly
     }
