@@ -1,0 +1,33 @@
+{
+    "name": "GamePadControlls",
+    "maps": [
+        {
+            "name": "Runner",
+            "id": "5b72a223-d8e7-4904-bda9-b7bc5bf92850",
+            "actions": [
+                {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "bd111e05-cd62-4634-ac88-eb948971f528",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "9fde690f-bb27-4b3c-a7e4-4354283ff9da",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

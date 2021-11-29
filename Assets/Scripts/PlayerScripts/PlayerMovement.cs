@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using MLAPI;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class PlayerMovement : NetworkBehaviour
 {
-
+    //Controller object
+    new GamePadControlls controler;
     //Scripts
     public PlayerStats pStats;
 
@@ -88,7 +90,10 @@ public class PlayerMovement : NetworkBehaviour
         capCol = GetComponent<CapsuleCollider>();
         pStats = GetComponent<PlayerStats>();
         parentObj = transform.parent.gameObject;
+        controler = new GamePadControlls();
+        controler.Runner.Enable();
 
+        Debug.Log(controler.Runner.enabled);
         //camera transform
         cam =  parentObj.GetComponentInChildren<Camera>();
 
@@ -246,7 +251,7 @@ public class PlayerMovement : NetworkBehaviour
     private void Jump()
     {
         //If space is pressed apply an upwards force to the player
-        if (Input.GetAxis("Jump") != 0 && !jumpPressed && curJumpNum + 1 < pStats.JumpNum && !isSliding)
+        if ((Input.GetAxis("Jump") != 0) && !jumpPressed && curJumpNum + 1 < pStats.JumpNum && !isSliding)
         {
             AddImpact(transform.up, pStats.JumpPow);
             curJumpNum++;
