@@ -370,7 +370,7 @@ public class PlayerMovement : NetworkBehaviour
     }
 
     //Ragdoll Functions
-    private void GetHit(Vector3 dir, float force){
+    public void GetHit(Vector3 dir, float force){
         if(firstHit == false){
             EnableRagdoll();
             dir.Normalize();

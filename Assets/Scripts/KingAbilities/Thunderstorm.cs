@@ -79,7 +79,7 @@ public class Thunderstorm : MonoBehaviour
             ZAP_COUNTDOWN -= Time.fixedDeltaTime;
             if(ZAP_COUNTDOWN >= 0)
             {
-                playerController.getHit(down, 100); //Needs to be tested if force is appropriate
+                playerController.GetHit(down, 100); //Needs to be tested if force is appropriate
                 ZAP_COUNTDOWN = 5.0f;
             }
         }
