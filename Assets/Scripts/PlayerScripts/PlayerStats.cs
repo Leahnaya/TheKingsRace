@@ -84,7 +84,7 @@ public class PlayerStats : MonoBehaviour
     }
 
     //If The Player Has Glider
-    private bool hasGlider = false;
+    private bool hasGlider = true;
     public bool HasGlider{
         get{ return hasGlider; }
         set{ hasGlider = value; }

@@ -172,7 +172,7 @@ public class dPlayerMovement : NetworkBehaviour
 
         //TEMP FOR TESTING
         //Checks if player should respawn
-        Respawn();
+        //Respawn();
         
     }
 
