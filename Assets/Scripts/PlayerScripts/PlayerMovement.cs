@@ -114,7 +114,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         // Don't do movement unless this is the local player controlling it
         // Otherwise we let the server handle moving us
-        //if (!IsLocalPlayer) { return; }
+        if (!IsLocalPlayer) { return; }
 
         
         //Controls for camera
