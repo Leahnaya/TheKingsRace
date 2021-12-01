@@ -279,6 +279,7 @@ MonoBehaviour:
     - TitleScene
     - Lobby
     - Game-Mountain
+    - PostGame
     AllowRuntimeSceneChanges: 0
     NetworkPrefabs:
     - Prefab: {fileID: 7188906082087890184, guid: a9840baa4cc526b44bfef27c6fea042a, type: 3}

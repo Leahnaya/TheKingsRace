@@ -46,6 +46,28 @@ public class LobbyUI : NetworkBehaviour {
             // Get/Set the ip of the host
             StartCoroutine(GetIPAddress());
         }
+
+        // Reset the variables for IsReady and IsKing
+        if (IsHost) {
+            for (int i = 0; i < lobbyPlayers.Count; i++) {
+                // Update the lobby player cards states
+                lobbyPlayers[i] = new LobbyPlayerState(
+                    lobbyPlayers[i].ClientId,
+                    lobbyPlayers[i].PlayerName,
+                    false,
+                    false
+                );
+
+                // Update the server's player data as well
+                if (ServerGameNetPortal.Instance.clientIdToGuid.TryGetValue(lobbyPlayers[i].ClientId, out string clientGuid)) {
+                    ServerGameNetPortal.Instance.clientData[clientGuid] = new PlayerData(
+                        ServerGameNetPortal.Instance.clientData[clientGuid].PlayerName,
+                        ServerGameNetPortal.Instance.clientData[clientGuid].ClientId,
+                        false
+                    );
+                }
+            }
+        }
     }
 
     private void OnDestroy()

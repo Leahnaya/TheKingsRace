@@ -1,4 +1,6 @@
 using MLAPI;
+using MLAPI.Messaging;
+using MLAPI.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -37,7 +39,7 @@ public class PlayerHUD : NetworkBehaviour
     }
 
     IEnumerator RaceTimeCountdown() {
-        for (int i = raceTimer; i > 0; i--) {
+        for (int i = raceTimer; i >= 0; i--) {
             int minutes = i / 60;
             int seconds = i % 60;
 
@@ -50,8 +52,12 @@ public class PlayerHUD : NetworkBehaviour
 
         // Only have the host call the server RPC to it is only done once
         if (IsHost) {
-            //TODO: WRITE WIN/LOSS CONDITIONAL
-            //TODO: Call server RPC for win loss stuff
+            EndRoundServerRPC();
         }
+    }
+
+    [ServerRpc]
+    private void EndRoundServerRPC() {
+        NetworkSceneManager.SwitchScene("PostGame");
     }
 }
