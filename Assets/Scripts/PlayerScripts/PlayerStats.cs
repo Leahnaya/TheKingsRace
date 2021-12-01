@@ -91,7 +91,7 @@ public class PlayerStats : MonoBehaviour
     }
 
     //If The Player Has Grapple
-    private bool hasGrapple = false;
+    private bool hasGrapple = true;
     public bool HasGrapple{
         get{ return hasGrapple; }
         set{ hasGrapple = value; }

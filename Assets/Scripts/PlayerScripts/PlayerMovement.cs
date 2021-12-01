@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using MLAPI;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.InputSystem;
 
 public class PlayerMovement : NetworkBehaviour
 {
     //Controller object
-    new GamePadControlls controler;
     //Scripts
     public PlayerStats pStats;
 
@@ -90,8 +88,8 @@ public class PlayerMovement : NetworkBehaviour
         capCol = GetComponent<CapsuleCollider>();
         pStats = GetComponent<PlayerStats>();
         parentObj = transform.parent.gameObject;
-        controler = new GamePadControlls();
-        controler.Runner.Enable();
+  
+
 
         capCol.enabled = false;
         //Wallrun
@@ -295,13 +293,30 @@ public class PlayerMovement : NetworkBehaviour
         Vector3 lastCamPos = new Vector3(0,0,0);
         Vector3 rotOffset = transform.localEulerAngles; 
         if(moveController.enabled){
-        transform.parent.Rotate(Vector3.up * sensitivity * Time.deltaTime * Input.GetAxis("Mouse X"));
+          
 
+            //if input is received from Mouse X
+            if (Input.GetAxis("Mouse X") != 0){
+                transform.parent.Rotate(Vector3.up * sensitivity * Time.deltaTime * Input.GetAxis("Mouse X"));
+            }
+            //if input is received from right analog stick (horizontal)
+            else if(Input.GetAxis("HorizontalCam") != 0){
+                transform.parent.Rotate(Vector3.up * sensitivity * Time.deltaTime * Input.GetAxis("HorizontalCam"));
+            }
 
-        camRotation.x -= Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
-        camRotation.x = Mathf.Clamp(camRotation.x, minAngle, maxAngle);
-
-        cam.transform.localEulerAngles = camRotation;
+            //if input is if input is received from Mouse Y
+            if (Input.GetAxis("Mouse Y") != 0)
+            {
+                camRotation.x -= Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
+                camRotation.x = Mathf.Clamp(camRotation.x, minAngle, maxAngle);
+                cam.transform.localEulerAngles = camRotation;
+            }
+            //if input is received from right analog stick (vertical)
+            else if (Input.GetAxis("VerticalTurn") != 0){
+                camRotation.x -= Input.GetAxis("VerticalTurn") * sensitivity * Time.deltaTime;
+                camRotation.x = Mathf.Clamp(camRotation.x, minAngle, maxAngle);
+                cam.transform.localEulerAngles = camRotation;
+            }
         }
     }
 
@@ -419,7 +434,7 @@ public class PlayerMovement : NetworkBehaviour
     
     //Slide Function
     private void Slide(){
-        if (Input.GetKey(KeyCode.Q)){
+        if (Input.GetKey(KeyCode.JoystickButton1) || Input.GetKey(KeyCode.Q)){
             qDown = true;
             if (isSliding == false){
                 originalTraction = pStats.Traction;

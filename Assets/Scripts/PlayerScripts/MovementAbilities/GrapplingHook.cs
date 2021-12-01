@@ -34,7 +34,7 @@ public class GrapplingHook : NetworkBehaviour
     {
         //if (!IsLocalPlayer) { return; }
 
-        if (Input.GetKeyDown(KeyCode.E)) //If grapple button is hit
+        if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.JoystickButton2)) //If grapple button is hit
         {
             if (!isGrappled) //If we are not grappling
             {
@@ -59,8 +59,8 @@ public class GrapplingHook : NetworkBehaviour
         if (isGrappled)
         {
             Debug.DrawRay(gameObject.transform.position, (hookPoint.transform.position - gameObject.transform.position)); //Visual of line
-            
-            if (Input.GetKey(KeyCode.LeftShift)) //Extend hook
+
+            if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.JoystickButton4)) //Extend hook
             {
                 ropeLength += climbRate * Time.deltaTime;
                 if (ropeLength > maxGrappleDistance)
@@ -69,7 +69,7 @@ public class GrapplingHook : NetworkBehaviour
                 }
                 //Debug.Log(ropeLength.ToString());
             }
-            if (Input.GetKey(KeyCode.RightShift)) // Retract Hook
+            if (Input.GetKey(KeyCode.RightShift) || Input.GetKey(KeyCode.JoystickButton5)) // Retract Hook
             {
                 ropeLength -= climbRate * Time.deltaTime;
                 if (ropeLength < 5)
