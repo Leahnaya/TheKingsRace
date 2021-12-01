@@ -18,6 +18,8 @@ public class SpawnManager : NetworkBehaviour {
 
     // Spawn in the players on load
     void Start() {
+        runnersSpawned = 0;
+
         InitSpawnPoints();
 
         if (IsHost) {
@@ -27,11 +29,11 @@ public class SpawnManager : NetworkBehaviour {
                     if (playerData.IsKing) {
                         // Spawn as king
                         _king = Instantiate(kingPrefab, kingSpawnPoint, Quaternion.identity).gameObject;
-                        _king.GetComponent<NetworkObject>().SpawnAsPlayerObject(NetworkManager.Singleton.LocalClientId);
+                        _king.GetComponent<NetworkObject>().SpawnAsPlayerObject(NetworkManager.Singleton.LocalClientId, null, true);
                     } else {
                         // Spawn as player
                         _runner = Instantiate(runnerPrefab, runnersSpawnPoints[runnersSpawned], Quaternion.identity).gameObject;
-                        _runner.GetComponent<NetworkObject>().SpawnAsPlayerObject(NetworkManager.Singleton.LocalClientId);
+                        _runner.GetComponent<NetworkObject>().SpawnAsPlayerObject(NetworkManager.Singleton.LocalClientId, null, true);
 
                         // Increment runners
                         runnersSpawned++;

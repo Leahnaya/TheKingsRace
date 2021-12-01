@@ -1,23 +1,36 @@
 using MLAPI;
+using MLAPI.Messaging;
+using TMPro;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PostGameUI : NetworkBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+public class PostGameUI : NetworkBehaviour {
+
+    [SerializeField] private TMP_Text ReturnToLobbyText;
+    [SerializeField] private int ReturnToLobbyTimer;
+
+    void Start() {
+        ReturnToLobbyText.text = "Returning to the lobby in " + ReturnToLobbyTimer + " seconds...";
+        StartCoroutine(BeginCountdown());
+
+        //todo: do logic to determine and update who won the round
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    IEnumerator BeginCountdown() { 
+        for (int i = ReturnToLobbyTimer; i >= 0; i--) {
+            ReturnToLobbyText.text = "Returning to the lobby in " + i + " seconds...";
+            yield return new WaitForSecondsRealtime(1f);
+        }
+
+        // Have the host return everyone to the lobby
+        if (IsHost) {
+            ReturnToLobbyServerRPC();
+        }
     }
 
-    public void OnReturnToLobbyClicked() { 
-        //TODO: Do it here
+    [ServerRpc]
+    private void ReturnToLobbyServerRPC() {
+        ServerGameNetPortal.Instance.EndRound();
     }
 }

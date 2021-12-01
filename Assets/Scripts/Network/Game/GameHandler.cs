@@ -92,6 +92,6 @@ public class GameHandler : NetworkBehaviour
     private void SpawnPlayerHUDServerRpc(ServerRpcParams serverRpcParams = default)
     {
         _playerHUD = Instantiate(playerHUD, Vector3.zero, Quaternion.identity).gameObject;
-        _playerHUD.GetComponent<NetworkObject>().Spawn();
+        _playerHUD.GetComponent<NetworkObject>().Spawn(null, true);
     }
 }
