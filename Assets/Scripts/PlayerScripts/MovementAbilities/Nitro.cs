@@ -18,19 +18,19 @@ public class Nitro : MonoBehaviour
         driver = FindObjectOfType<CoolDown>();
     }
 
-    // Update is called once per frame
-    void Update(){
-        //once cooldowns are implemented, put this on one (a long one)
-        if (Input.GetKeyDown(KeyCode.LeftShift) && isOnCoolDown == false){
-            playerStats.CurVel = playerStats.MaxVel;
-            StartCoroutine(startCoolDown());
-        }
-    }
-    private IEnumerator startCoolDown(){
-        Debug.Log("start corotine");
-        isOnCoolDown = true;
-        driver.startUICooldown("Nitro");
-        yield return new WaitForSeconds(coolDown);
-        isOnCoolDown = false;
-    }
+    //// Update is called once per frame
+    //void Update(){
+    //    //once cooldowns are implemented, put this on one (a long one)
+    //    if (Input.GetKeyDown(KeyCode.LeftShift) && isOnCoolDown == false){
+    //        playerStats.CurVel = playerStats.MaxVel;
+    //        StartCoroutine(startCoolDown());
+    //    }
+    //}
+    //private IEnumerator startCoolDown(){
+    //    Debug.Log("start corotine");
+    //    isOnCoolDown = true;
+    //    driver.startUICooldown("Nitro");
+    //    yield return new WaitForSeconds(coolDown);
+    //    isOnCoolDown = false;
+    //}
 }

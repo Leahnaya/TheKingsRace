@@ -30,7 +30,7 @@ public class Hail : MonoBehaviour
     void OnTriggerEnter(Collider other) {
         if (other.tag == "Player") {
             GameObject player = other.gameObject;//Turns the collider into a game object
-            float Power = hail.velocity.magnitude * 100;//Finds the power of the hail by using it's velocity and a scaler
+            float Power = hail.velocity.magnitude * 10;//Finds the power of the hail by using it's velocity and a scaler
             //Find the dirrection of launch by finding the direction between the two points of the player and the Hail
             float px = player.transform.position.x;
             float pz = player.transform.position.z;
@@ -38,7 +38,7 @@ public class Hail : MonoBehaviour
             float hz = hail.transform.position.z;
             //Direction pointing away from the center of the Hail
             Vector3 Dir = new Vector3(px - hx, 0, pz - hz);
-            player.GetComponent<PlayerMovement>().AddImpact(Dir, Power); //Ragdolls the player in the direction of the bolder depending on it's speed
+            player.GetComponent<dPlayerMovement>().getHit(Dir, Power); //Ragdolls the player in the direction of the bolder depending on it's speed
         }
     }
 
