@@ -936,22 +936,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1818923263116056088, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
-      propertyPath: jumpDuration
-      value: 0.02
-      objectReference: {fileID: 0}
-    - target: {fileID: 1818923263116056088, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
-      propertyPath: minimumHeight
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1818923263116056088, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
-      propertyPath: wallMaxDistance
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1818923263116056088, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
-      propertyPath: wallGravityDownForce
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 5633209979457551608, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
       propertyPath: m_Name
       value: DebugPlayerPrefab
@@ -999,10 +983,6 @@ PrefabInstance:
     - target: {fileID: 6926740475113451123, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8720404377688450390, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -2.12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}

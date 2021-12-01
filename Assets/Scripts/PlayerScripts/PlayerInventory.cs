@@ -7,7 +7,7 @@ public class PlayerInventory : NetworkBehaviour
 {
 
     //List of items
-    [SerializeField] private Dictionary<string, Item> playerItemDict = new Dictionary<string, Item>();
+    [SerializeField] Dictionary<string, Item> playerItemDict = new Dictionary<string, Item>();
     public Dictionary<string, Item> PlayerItemDict{
         get{ return playerItemDict; }
     }
@@ -18,11 +18,9 @@ public class PlayerInventory : NetworkBehaviour
     }
     //Scripts
     public PlayerStats pStats;
-    public InventoryManager invMan;
     
     void Awake(){
-        pStats = GetComponent<PlayerStats>();
-        invMan =  FindObjectOfType<InventoryManager>();   
+        pStats = GetComponent<PlayerStats>();  
     }
     
     //Adds player Item to a dictionary
@@ -69,14 +67,9 @@ public class PlayerInventory : NetworkBehaviour
     }
 
     //Equips All items in list at start of next scene
-    public void UpdateEquips(){
-        if(invMan != null){
-            foreach(string itemName in networkItemList){
-                invMan.ItemDict[itemName].Equip(pStats, this.gameObject);
-            }
-        }
-        else{
-            Debug.Log("invMan is currently not set or disabled");
+    public void UpdateEquips(List<string> items, Dictionary<string, Item> allItems){
+        foreach(string itemName in items){
+            AddItem(allItems[itemName]);
         }
     }
 

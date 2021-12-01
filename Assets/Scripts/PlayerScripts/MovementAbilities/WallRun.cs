@@ -151,12 +151,32 @@ public class WallRun : NetworkBehaviour
             Vector3 moveToSet = alongWall * vertical * playerMovementController.PlayerSpeed() * Time.deltaTime;// * wallSpeedMultiplier;
             Vector3 velNorm = playerMovementController.vel;
             velNorm.Normalize();
+
             moveToSet = new Vector3(moveToSet.x * -velNorm.x, moveToSet.y, moveToSet.z * -velNorm.z);
+
+            Vector3 moveToSetNorm = moveToSet;
+            moveToSetNorm.Normalize();
+
+            if((moveToSetNorm.x < 0 && velNorm.x > 0)){
+                moveToSet.x = (moveToSet.x * -velNorm.x);
+                Debug.Log("x");
+            }
+            else if((moveToSetNorm.x > 0 && velNorm.x < 0) ){
+                moveToSet.x = (-moveToSet.x * -velNorm.x);
+            }
+
+            if((moveToSetNorm.z < 0 && velNorm.z > 0)){
+                moveToSet.z =  (moveToSet.z * -velNorm.z);
+                Debug.Log("z");
+            }
+            else if((moveToSetNorm.z > 0 && velNorm.z < 0)){
+                moveToSet.z =  (-moveToSet.z * -velNorm.z);
+            }
+
             moveToSet.y = 0;
             
 
             playerMovementController.SetPlayerVelocity(moveToSet);
-            Debug.Log(moveToSet);
             isWallRunning = true;
         }
     }

@@ -291,13 +291,13 @@ public class PlayerMovement : NetworkBehaviour
         Vector3 lastCamPos = new Vector3(0,0,0);
         Vector3 rotOffset = transform.localEulerAngles; 
         if(moveController.enabled){
-        transform.parent.Rotate(Vector3.up * sensitivity * Time.deltaTime * Input.GetAxis("Mouse X"));
+            transform.parent.Rotate(Vector3.up * sensitivity * Time.deltaTime * Input.GetAxis("Mouse X"));
 
 
-        camRotation.x -= Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
-        camRotation.x = Mathf.Clamp(camRotation.x, minAngle, maxAngle);
+            camRotation.x -= Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
+            camRotation.x = Mathf.Clamp(camRotation.x, minAngle, maxAngle);
 
-        cam.transform.localEulerAngles = camRotation;
+            cam.transform.localEulerAngles = camRotation;
         }
     }
 
