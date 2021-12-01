@@ -192,8 +192,6 @@ public class PlayerMovement : NetworkBehaviour
         moveController.Move(driftVel);
     }
 
-
-
     //Calculates speed current player needs to be going
     public float PlayerSpeed()
     {
@@ -452,4 +450,24 @@ public class PlayerMovement : NetworkBehaviour
         }
     }
 
+    public void CancelMomentum()
+    {
+        pStats.CurVel = 0;
+        vel = Vector3.zero;
+        moveX = Vector3.zero;
+        moveZ = Vector3.zero;
+        moveController.enabled = false;
+    }
+
+    private IEnumerator RespawnTimer()
+    {
+        float duration = 2f;
+        float normalizedTime = 0;
+        while (normalizedTime <= 1f)
+        {
+            normalizedTime += Time.deltaTime / duration;
+            yield return null;
+        }
+        moveController.enabled = true;
+    }
 }

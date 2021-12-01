@@ -4,18 +4,14 @@ using UnityEngine;
 
 public class Pitfall : MonoBehaviour
 {
-    // Add a thing where if player touches this we make them respawn cuz they 'fell'
+    public Vector3 RespawnPoint; //Where player will respawn to, set in GUI
 
-
-    // Start is called before the first frame update
-    void Start()
+    private void OnTriggerEnter(Collider other)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (other.CompareTag("Player")) //If runner enters the trigger cancel momentum, disable controls, and move to set respawn point
+        {
+            other.transform.position = RespawnPoint;
+            other.GetComponent<PlayerMovement>().CancelMomentum();
+        }
     }
 }
