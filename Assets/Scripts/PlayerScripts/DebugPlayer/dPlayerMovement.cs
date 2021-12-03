@@ -65,7 +65,7 @@ public class dPlayerMovement : NetworkBehaviour
     private Rigidbody rB;
     private CapsuleCollider capCol;
     private bool firstHit = false;
-    private bool heldDown = false;
+    //private bool heldDown = false; //Variable for testing Ragdoll reenable if needed
     private bool beginRagTimer = false;
     private float ragTime; 
     private Vector3 prevRot;
@@ -262,7 +262,8 @@ public class dPlayerMovement : NetworkBehaviour
         if (Input.GetAxis("Jump") != 0 && !jumpPressed && curJumpNum + 1 < pStats.JumpNum && !isSliding)
         {
             if(wallRun.IsWallRunning()){
-                AddImpact((wallRun.GetWallJumpDirection()), pStats.JumpPow);
+                AddImpact((wallRun.GetWallJumpDirection()), pStats.JumpPow * 1.3f);
+                AddImpact(transform.up, pStats.JumpPow);
             }
             else{
                 AddImpact(transform.up, pStats.JumpPow);
@@ -367,8 +368,6 @@ public class dPlayerMovement : NetworkBehaviour
         else{
             vel.y -= pStats.PlayerGrav * Time.deltaTime;
         }
-                                                             //If gliding 
-                                                             //Go down slowly
     }
 
 

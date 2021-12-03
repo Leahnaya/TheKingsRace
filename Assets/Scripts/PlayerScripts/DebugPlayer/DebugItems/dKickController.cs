@@ -28,8 +28,6 @@ public class dKickController : NetworkBehaviour
     }
 
     void Kick(){
-        //Note: when we merge this into PlayerMovement, we may want to change isgrounded to our 
-        //custom is grounded
         if (Input.GetKeyDown(KeyCode.F) && isKicking == false && characterController.isGrounded == false)
         {
             Debug.Log("dive");
@@ -67,6 +65,9 @@ public class dKickController : NetworkBehaviour
         //if (!IsLocalPlayer) { return; }
         Collider myCollider = collision.contacts[0].thisCollider;
         if (collision.transform.CompareTag("kickable") && myCollider == leg.GetComponent<Collider>()){
+            if(collision.gameObject.GetComponent<Rigidbody>().isKinematic == true){
+                collision.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+            }
             Vector3 direction = this.transform.forward;
             Debug.Log(direction);
             collision.rigidbody.AddForce(direction * pStats.KickPow, ForceMode.Impulse);

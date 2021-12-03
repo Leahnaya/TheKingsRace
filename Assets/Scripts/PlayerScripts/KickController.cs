@@ -62,11 +62,14 @@ public class KickController : NetworkBehaviour
 
     }
 
-    private void OnCollisionEnter(Collision collision)
+  private void OnCollisionEnter(Collision collision)
     {
         //if (!IsLocalPlayer) { return; }
         Collider myCollider = collision.contacts[0].thisCollider;
         if (collision.transform.CompareTag("kickable") && myCollider == leg.GetComponent<Collider>()){
+            if(collision.gameObject.GetComponent<Rigidbody>().isKinematic == true){
+                collision.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+            }
             Vector3 direction = this.transform.forward;
             Debug.Log(direction);
             collision.rigidbody.AddForce(direction * pStats.KickPow, ForceMode.Impulse);

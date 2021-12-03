@@ -55,7 +55,7 @@ public class PlayerStats : MonoBehaviour
     }
 
     //Player Kick Power
-    [SerializeField] private float kickPow = 100.0f;
+    [SerializeField] private float kickPow = 150.0f;
     public float KickPow{
         get{ return kickPow; }
         set{ kickPow = value; }
@@ -68,7 +68,6 @@ public class PlayerStats : MonoBehaviour
         set{ recovTime = value; }
     }
 
-    //MAY BE UNNECCESARY DEPENDING ON HOW GLIDER TURNS OUT
     //Gravity Affecting the player
     [SerializeField] private float playerGrav = 20.0f;
     public float PlayerGrav{

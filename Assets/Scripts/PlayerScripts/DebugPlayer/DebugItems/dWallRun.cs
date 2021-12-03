@@ -7,7 +7,7 @@ using UnityEngine.Rendering;
 public class dWallRun : NetworkBehaviour
 {
 
-    public float wallMaxDistance = 5;
+    public float wallMaxDistance = .8f;
     public float wallSpeedMultiplier = 1.2f;
     public float minimumHeight = .1f;
     public float maxAngleRoll = 20;
@@ -32,7 +32,6 @@ public class dWallRun : NetworkBehaviour
     float elapsedTimeSinceJump = 0;
     float elapsedTimeSinceWallAttach = 0;
     float elapsedTimeSinceWallDetatch = 0;
-    bool attachOnce = false;
     bool jumping;
 
     bool isPlayergrounded() => playerMovementController.isGrounded;
@@ -177,9 +176,8 @@ public class dWallRun : NetworkBehaviour
 
             playerMovementController.SetPlayerVelocity(moveToSet);
             isWallRunning = true;
-            if(!attachOnce && playerMovementController.curJumpNum != 0){
-                playerMovementController.curJumpNum = playerMovementController.curJumpNum - 2 ;
-                attachOnce = true;
+            if(playerMovementController.curJumpNum != 0){
+                playerMovementController.curJumpNum = 0 ;
             }
             
         }
@@ -199,10 +197,6 @@ public class dWallRun : NetworkBehaviour
 
     public Vector3 GetWallJumpDirection() //Add call in jump where if we are wallrunning and jump, the jump vector is multiplied by this
     {
-        if(isWallRunning)
-        {
-            return lastWallNormal * wallBouncing + Vector3.up;
-        }
-        return Vector3.zero;
-    } 
+        return lastWallNormal * wallBouncing + (transform.up);
+    }
 }
