@@ -199,7 +199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 540bda985e7e4b549a804ff06b069af1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  raceTimer: 10
+  raceTimer: 30
   countdown_text: {fileID: 8450380190165699611}
   RunnerHUD: {fileID: 8140722858805320406}
   KingHUD: {fileID: 3634947091672077549}
