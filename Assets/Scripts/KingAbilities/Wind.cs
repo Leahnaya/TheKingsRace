@@ -14,6 +14,6 @@ public class Wind : MonoBehaviour
     // Update is called once per frame
     void OnTriggerStay(Collider other)
     {
-        other.GetComponent<PlayerMovement>().AddImpact(DirWind, 1);
+        other.GetComponent<dPlayerMovement>().AddImpact(DirWind, 1);
     }
 }
