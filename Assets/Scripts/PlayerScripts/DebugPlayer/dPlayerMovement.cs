@@ -26,7 +26,7 @@ public class dPlayerMovement : NetworkBehaviour
     private CharacterController moveController;
 
     //Jump value
-    private int curJumpNum;
+    public int curJumpNum;
     private bool jumpPressed;
     bool tempSet = false;
     float tempTraction = 0.0f;
@@ -65,7 +65,7 @@ public class dPlayerMovement : NetworkBehaviour
     private Rigidbody rB;
     private CapsuleCollider capCol;
     private bool firstHit = false;
-    private bool heldDown = false;
+    //private bool heldDown = false; //Variable for testing Ragdoll reenable if needed
     private bool beginRagTimer = false;
     private float ragTime; 
     private Vector3 prevRot;
@@ -261,7 +261,14 @@ public class dPlayerMovement : NetworkBehaviour
         //If space is pressed apply an upwards force to the player
         if (Input.GetAxis("Jump") != 0 && !jumpPressed && curJumpNum + 1 < pStats.JumpNum && !isSliding)
         {
-            AddImpact(transform.up, pStats.JumpPow);
+            if(wallRun.IsWallRunning()){
+                AddImpact((wallRun.GetWallJumpDirection()), pStats.JumpPow * 1.3f);
+                AddImpact(transform.up, pStats.JumpPow);
+            }
+            else{
+                AddImpact(transform.up, pStats.JumpPow);
+            }
+
             curJumpNum++;
             jumpPressed = true;
         }
@@ -357,8 +364,10 @@ public class dPlayerMovement : NetworkBehaviour
 
         //Wallrunning
         else if (pStats.HasWallrun) { wallRun.WallRunRoutine(); } //adjusted later if we are wallrunning
-                                                             //If gliding 
-                                                             //Go down slowly
+
+        else{
+            vel.y -= pStats.PlayerGrav * Time.deltaTime;
+        }
     }
 
 

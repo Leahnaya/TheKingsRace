@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2718425332668433510}
   - component: {fileID: 2718425332668433513}
   - component: {fileID: 2718425332668433511}
+  - component: {fileID: 8643895533179698638}
   m_Layer: 0
   m_Name: SpawnManager
   m_TagString: Untagged
@@ -63,3 +64,16 @@ MonoBehaviour:
   PrefabHashGenerator: SpawnManager
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
+--- !u!114 &8643895533179698638
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2718425332668433512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66519fc5420181e45850c591aa1179ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allItems: []

@@ -28,7 +28,7 @@ public class PlayerMovement : NetworkBehaviour
     private CharacterController moveController;
 
     //Jump value
-    private int curJumpNum;
+    public int curJumpNum;
     private bool jumpPressed;
     bool tempSet = false;
     float tempTraction = 0.0f;
@@ -67,7 +67,7 @@ public class PlayerMovement : NetworkBehaviour
     private Rigidbody rB;
     private CapsuleCollider capCol;
     private bool firstHit = false;
-    private bool heldDown = false;
+    //private bool heldDown = false;  //Variable for testing ragdoll reenable if needed
     private bool beginRagTimer = false;
     private float ragTime; 
     private Vector3 prevRot;
@@ -241,7 +241,13 @@ public class PlayerMovement : NetworkBehaviour
         //If space is pressed apply an upwards force to the player
         if ((Input.GetAxis("Jump") != 0) && !jumpPressed && curJumpNum + 1 < pStats.JumpNum && !isSliding)
         {
-            AddImpact(transform.up, pStats.JumpPow);
+            if(wallRun.IsWallRunning()){
+                AddImpact((wallRun.GetWallJumpDirection()), pStats.JumpPow * 1.3f);
+                AddImpact(transform.up, pStats.JumpPow);
+            }
+            else{
+                AddImpact(transform.up, pStats.JumpPow);
+            }
             curJumpNum++;
             jumpPressed = true;
         }
@@ -293,13 +299,13 @@ public class PlayerMovement : NetworkBehaviour
         Vector3 lastCamPos = new Vector3(0,0,0);
         Vector3 rotOffset = transform.localEulerAngles; 
         if(moveController.enabled){
-        transform.parent.Rotate(Vector3.up * sensitivity * Time.deltaTime * Input.GetAxis("Mouse X"));
+            transform.parent.Rotate(Vector3.up * sensitivity * Time.deltaTime * Input.GetAxis("Mouse X"));
 
 
-        camRotation.x -= Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
-        camRotation.x = Mathf.Clamp(camRotation.x, minAngle, maxAngle);
+            camRotation.x -= Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
+            camRotation.x = Mathf.Clamp(camRotation.x, minAngle, maxAngle);
 
-        cam.transform.localEulerAngles = camRotation;
+            cam.transform.localEulerAngles = camRotation;
         }
     }
 
@@ -330,7 +336,7 @@ public class PlayerMovement : NetworkBehaviour
                 tempSet = true;
             }
         }
-        else{
+        else if(!jumpPressed && pStats.HasGlider){
 
             if(tempSet == true){
                pStats.Traction = tempTraction;
@@ -342,9 +348,11 @@ public class PlayerMovement : NetworkBehaviour
         }
 
         //Wallrunning
-        if (pStats.HasWallrun) { wallRun.WallRunRoutine(); } //adjusted later if we are wallrunning
-                                                             //If gliding 
-                                                             //Go down slowly
+        else if (pStats.HasWallrun) { wallRun.WallRunRoutine(); } //adjusted later if we are wallrunning
+
+        else{
+            vel.y -= pStats.PlayerGrav * Time.deltaTime;
+        }
     }
 
 

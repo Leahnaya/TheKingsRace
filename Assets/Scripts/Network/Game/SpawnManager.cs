@@ -33,7 +33,9 @@ public class SpawnManager : NetworkBehaviour {
                     } else {
                         // Spawn as player
                         _runner = Instantiate(runnerPrefab, runnersSpawnPoints[runnersSpawned], Quaternion.identity).gameObject;
-                        _runner.GetComponent<NetworkObject>().SpawnAsPlayerObject(NetworkManager.Singleton.LocalClientId, null, true);
+                        //Recreate Inventory
+                        _runner.GetComponentInChildren<PlayerInventory>().UpdateEquips(playerData.pInv.NetworkItemList, this.gameObject.GetComponent<InventoryManager>().ItemDict);
+                        _runner.GetComponent<NetworkObject>().SpawnAsPlayerObject(NetworkManager.Singleton.LocalClientId);
 
                         // Increment runners
                         runnersSpawned++;
@@ -51,6 +53,7 @@ public class SpawnManager : NetworkBehaviour {
         if (SceneManager.GetActiveScene().buildIndex == 3) { // Mountain Level
             runnersSpawnPoints = SpawnPoints.Instance.getRunnerSpawnPoints(0);
             kingSpawnPoint = SpawnPoints.Instance.getKingSpawnPoint(0);
+            
         }
     }
 
@@ -67,6 +70,8 @@ public class SpawnManager : NetworkBehaviour {
                 } else {
                     // Spawn as player
                     _runner = Instantiate(runnerPrefab, runnersSpawnPoints[runnersSpawned], Quaternion.identity).gameObject;
+                    //Recreate Inventory
+                    _runner.GetComponentInChildren<PlayerInventory>().UpdateEquips(playerData.pInv.NetworkItemList, this.gameObject.GetComponent<InventoryManager>().ItemDict);
                     _runner.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId, null, true);
 
                     // Increment runners

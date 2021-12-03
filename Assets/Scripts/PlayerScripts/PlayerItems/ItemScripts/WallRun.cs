@@ -7,7 +7,7 @@ using UnityEngine.Rendering;
 public class WallRun : NetworkBehaviour
 {
 
-    public float wallMaxDistance = 5;
+     public float wallMaxDistance = 5;
     public float wallSpeedMultiplier = 1.2f;
     public float minimumHeight = .1f;
     public float maxAngleRoll = 20;
@@ -83,14 +83,14 @@ public class WallRun : NetworkBehaviour
             {
                 Vector3 dir = transform.TransformDirection(directions[i]);
                 Physics.Raycast(transform.position, dir, out hits[i], wallMaxDistance);
-                // if(hits[i].collider != null)
-                // {
-                //     Debug.DrawRay(transform.position, dir * hits[i].distance, Color.green);
-                // }
-                // else
-                // {
-                //     Debug.DrawRay(transform.position, dir * wallMaxDistance, Color.red);
-                // }
+                if(hits[i].collider != null)
+                {
+                    Debug.DrawRay(transform.position, dir * hits[i].distance, Color.green);
+                }
+                else
+                {
+                    Debug.DrawRay(transform.position, dir * wallMaxDistance, Color.red);
+                }
             }
 
             if(CanWallRun())
@@ -151,13 +151,35 @@ public class WallRun : NetworkBehaviour
             Vector3 moveToSet = alongWall * vertical * playerMovementController.PlayerSpeed() * Time.deltaTime;// * wallSpeedMultiplier;
             Vector3 velNorm = playerMovementController.vel;
             velNorm.Normalize();
+
             moveToSet = new Vector3(moveToSet.x * -velNorm.x, moveToSet.y, moveToSet.z * -velNorm.z);
+
+            Vector3 moveToSetNorm = moveToSet;
+            moveToSetNorm.Normalize();
+
+            if((moveToSetNorm.x < 0 && velNorm.x > 0)){
+                moveToSet.x = (moveToSet.x * -velNorm.x);
+            }
+            else if((moveToSetNorm.x > 0 && velNorm.x < 0) ){
+                moveToSet.x = (-moveToSet.x * -velNorm.x);
+            }
+
+            if((moveToSetNorm.z < 0 && velNorm.z > 0)){
+                moveToSet.z =  (moveToSet.z * -velNorm.z);
+            }
+            else if((moveToSetNorm.z > 0 && velNorm.z < 0)){
+                moveToSet.z =  (-moveToSet.z * -velNorm.z);
+            }
+
             moveToSet.y = 0;
             
 
             playerMovementController.SetPlayerVelocity(moveToSet);
-            Debug.Log(moveToSet);
             isWallRunning = true;
+            if(playerMovementController.curJumpNum != 0){
+                playerMovementController.curJumpNum = 0 ;
+            }
+            
         }
     }
 
@@ -175,10 +197,6 @@ public class WallRun : NetworkBehaviour
 
     public Vector3 GetWallJumpDirection() //Add call in jump where if we are wallrunning and jump, the jump vector is multiplied by this
     {
-        if(isWallRunning)
-        {
-            return lastWallNormal * wallBouncing + Vector3.up;
-        }
-        return Vector3.zero;
+        return lastWallNormal * wallBouncing + (transform.up);
     } 
 }

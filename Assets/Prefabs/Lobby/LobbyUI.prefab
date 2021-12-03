@@ -284,7 +284,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &914205285
 RectTransform:
   m_ObjectHideFlags: 0
@@ -496,7 +496,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1063540716
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2625,12 +2625,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3190317820503267266, guid: 25b0bd1c83713d44ab76eaa07a6357fa, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -104.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3190317820503267266, guid: 25b0bd1c83713d44ab76eaa07a6357fa, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 4237331793813064128, guid: 25b0bd1c83713d44ab76eaa07a6357fa, type: 3}
       propertyPath: m_Name
       value: LobbyPlayerCard (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7093129836083058353, guid: 25b0bd1c83713d44ab76eaa07a6357fa, type: 3}
+      propertyPath: m_IsOn
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25b0bd1c83713d44ab76eaa07a6357fa, type: 3}
@@ -2750,8 +2758,12 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3190317820503267266, guid: 25b0bd1c83713d44ab76eaa07a6357fa, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -105
+      objectReference: {fileID: 0}
+    - target: {fileID: 3190317820503267266, guid: 25b0bd1c83713d44ab76eaa07a6357fa, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 4237331793813064128, guid: 25b0bd1c83713d44ab76eaa07a6357fa, type: 3}
       propertyPath: m_Name
