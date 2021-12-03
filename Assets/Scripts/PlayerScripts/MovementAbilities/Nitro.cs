@@ -7,6 +7,7 @@ public class Nitro : MonoBehaviour
     private PlayerStats playerStats;
     private CoolDown driver;
     private bool isOnCoolDown = false;
+    public SpecialItem nitroItem;
     //this will need to be set from scritable object or something;
     private float coolDown;
 
@@ -29,8 +30,9 @@ public class Nitro : MonoBehaviour
     private IEnumerator startCoolDown(){
         Debug.Log("start corotine");
         isOnCoolDown = true;
-        driver.startUICooldown("Nitro");
-        yield return new WaitForSeconds(coolDown);
+        //driver.startUICooldown("Nitro");
+        yield return new WaitForSeconds(nitroItem.cooldownM);
         isOnCoolDown = false;
+        Debug.Log("end corotine");
     }
 }
