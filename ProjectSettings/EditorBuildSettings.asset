@@ -20,4 +20,5 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PostGame.unity
     guid: f4ce64377389f094f87c07cfa7f940f4
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: 0882d22490679254ba3fa693a71a80e0, type: 2}

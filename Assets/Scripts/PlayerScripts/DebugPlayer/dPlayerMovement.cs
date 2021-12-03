@@ -258,7 +258,7 @@ public class dPlayerMovement : NetworkBehaviour
     //Jump Function
     private void Jump()
     {
-        //If space is pressed apply an upwards force to the player
+        //If space/south gamepad button is pressed apply an upwards force to the player
         if (Input.GetAxis("Jump") != 0 && !jumpPressed && curJumpNum + 1 < pStats.JumpNum && !isSliding)
         {
             if(wallRun.IsWallRunning()){
@@ -280,7 +280,7 @@ public class dPlayerMovement : NetworkBehaviour
              curJumpNum = 0;
          }
 
-        //If space isn't being pressed then jump is false
+        //If space/south face gamepad button isn't being pressed then jump is false
         if (Input.GetAxis("Jump") == 0) jumpPressed = false;
     }
 
@@ -311,16 +311,30 @@ public class dPlayerMovement : NetworkBehaviour
     //Camera and Player Rotation
     private void Rotation()
     {
-        Vector3 lastCamPos = new Vector3(0,0,0);
-        Vector3 rotOffset = transform.localEulerAngles; 
-        if(moveController.enabled){
-        transform.parent.Rotate(Vector3.up * sensitivity * Time.deltaTime * Input.GetAxis("Mouse X"));
+        //if input is received from Mouse X
+        if (Input.GetAxis("Mouse X") != 0)
+        {
+            transform.parent.Rotate(Vector3.up * sensitivity * Time.deltaTime * Input.GetAxis("Mouse X"));
+        }
+        //if input is received from right analog stick (horizontal)
+        else if (Input.GetAxis("HorizontalCam") != 0)
+        {
+            transform.parent.Rotate(Vector3.up * sensitivity * Time.deltaTime * Input.GetAxis("HorizontalCam"));
+        }
 
-
-        camRotation.x -= Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
-        camRotation.x = Mathf.Clamp(camRotation.x, minAngle, maxAngle);
-
-        cam.transform.localEulerAngles = camRotation;
+        //if input is if input is received from Mouse Y
+        if (Input.GetAxis("Mouse Y") != 0)
+        {
+            camRotation.x -= Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
+            camRotation.x = Mathf.Clamp(camRotation.x, minAngle, maxAngle);
+            cam.transform.localEulerAngles = camRotation;
+        }
+        //if input is received from right analog stick (vertical)
+        else if (Input.GetAxis("VerticalTurn") != 0)
+        {
+            camRotation.x -= Input.GetAxis("VerticalTurn") * sensitivity * Time.deltaTime;
+            camRotation.x = Mathf.Clamp(camRotation.x, minAngle, maxAngle);
+            cam.transform.localEulerAngles = camRotation;
         }
     }
 
@@ -440,7 +454,8 @@ public class dPlayerMovement : NetworkBehaviour
     
     //Slide Function
     private void Slide(){
-        if (Input.GetKey(KeyCode.Q)){
+        //if the q button or the east face button on gamepad is held down
+        if (Input.GetKey(KeyCode.JoystickButton1) || Input.GetKey(KeyCode.Q)) {
             qDown = true;
             if (isSliding == false){
                 originalTraction = pStats.Traction;

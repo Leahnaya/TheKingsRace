@@ -10,6 +10,8 @@ public class dDash : NetworkBehaviour{
     public const float maxDashTime = 1.0f;
     public float dashDistance = 10;
     public float dashStoppingSpeed = 0.1f;
+    public SpecialItem dashItem;
+    private bool isOnCoolDown = false;
     float currentDashTime = maxDashTime;
     float dashSpeed = 12;
 
@@ -23,9 +25,10 @@ public class dDash : NetworkBehaviour{
     void FixedUpdate(){
         //if (!IsLocalPlayer) { return; }
         if(characterController.enabled == true){
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E) && isOnCoolDown == false)
             {
-                currentDashTime = 0;                
+                currentDashTime = 0;
+                StartCoroutine(startCoolDown());
             }
             if(currentDashTime < maxDashTime)
             {
@@ -38,6 +41,15 @@ public class dDash : NetworkBehaviour{
             }
             characterController.Move(moveDirection * Time.deltaTime * dashSpeed);
         }
+    }
+
+    private IEnumerator startCoolDown(){
+        Debug.Log("start corotine");
+        isOnCoolDown = true;
+        //driver.startUICooldown("Nitro");
+        yield return new WaitForSeconds(dashItem.cooldownM);
+        isOnCoolDown = false;
+        Debug.Log("end corotine");
     }
 
 }
