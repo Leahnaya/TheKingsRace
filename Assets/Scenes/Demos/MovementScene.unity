@@ -936,6 +936,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1818923263116056088, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
+      propertyPath: wallMaxDistance
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5633209979457551608, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
       propertyPath: m_Name
       value: DebugPlayerPrefab
@@ -983,6 +987,10 @@ PrefabInstance:
     - target: {fileID: 6926740475113451123, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8100520363622627413, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
+      propertyPath: hasWallrun
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}

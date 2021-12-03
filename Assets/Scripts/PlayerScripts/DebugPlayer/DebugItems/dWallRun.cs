@@ -32,6 +32,7 @@ public class dWallRun : NetworkBehaviour
     float elapsedTimeSinceJump = 0;
     float elapsedTimeSinceWallAttach = 0;
     float elapsedTimeSinceWallDetatch = 0;
+    bool attachOnce = false;
     bool jumping;
 
     bool isPlayergrounded() => playerMovementController.isGrounded;
@@ -159,7 +160,6 @@ public class dWallRun : NetworkBehaviour
 
             if((moveToSetNorm.x < 0 && velNorm.x > 0)){
                 moveToSet.x = (moveToSet.x * -velNorm.x);
-                Debug.Log("x");
             }
             else if((moveToSetNorm.x > 0 && velNorm.x < 0) ){
                 moveToSet.x = (-moveToSet.x * -velNorm.x);
@@ -167,7 +167,6 @@ public class dWallRun : NetworkBehaviour
 
             if((moveToSetNorm.z < 0 && velNorm.z > 0)){
                 moveToSet.z =  (moveToSet.z * -velNorm.z);
-                Debug.Log("z");
             }
             else if((moveToSetNorm.z > 0 && velNorm.z < 0)){
                 moveToSet.z =  (-moveToSet.z * -velNorm.z);
@@ -178,6 +177,11 @@ public class dWallRun : NetworkBehaviour
 
             playerMovementController.SetPlayerVelocity(moveToSet);
             isWallRunning = true;
+            if(!attachOnce && playerMovementController.curJumpNum != 0){
+                playerMovementController.curJumpNum = playerMovementController.curJumpNum - 2 ;
+                attachOnce = true;
+            }
+            
         }
     }
 
