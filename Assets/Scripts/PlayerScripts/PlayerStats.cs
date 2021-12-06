@@ -34,7 +34,7 @@ public class PlayerStats : MonoBehaviour
     }
 
     //Player Jump power
-    [SerializeField] private float jumpPow = 300.0f;
+    [SerializeField] private float jumpPow = 25.0f;
     public float JumpPow{
         get{ return jumpPow; }
         set{ jumpPow = value; }
@@ -69,7 +69,7 @@ public class PlayerStats : MonoBehaviour
     }
 
     //Gravity Affecting the player
-    [SerializeField] private float playerGrav = 20.0f;
+    [SerializeField] private float playerGrav = 50.0f;
     public float PlayerGrav{
         get{ return playerGrav; }
         set{ playerGrav = value; }

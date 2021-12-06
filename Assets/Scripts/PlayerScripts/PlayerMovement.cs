@@ -18,6 +18,7 @@ public class PlayerMovement : NetworkBehaviour
     private Vector3 moveZ;
     private Vector3 moveX;
     private Vector3 driftVel;
+    private Vector3 lerpY;
 
     //Player prefab
     private GameObject parentObj;
@@ -27,9 +28,11 @@ public class PlayerMovement : NetworkBehaviour
 
     //Jump value
     public int curJumpNum;
-    private bool jumpPressed;
+    private bool jumpHeld;
     bool tempSet = false;
     float tempTraction = 0.0f;
+    float jumpTimer = 0.2f;
+    float curJumpTimer;
 
     //Jump physics
     private float mass = 5.0F; // defines the character mass
@@ -49,7 +52,6 @@ public class PlayerMovement : NetworkBehaviour
     private RaycastHit groundHit;
 
     //Camera Variables
-    private LayerMask ignoreP;
     private Vector3 camRotation;
     public Camera cam;
 
@@ -95,6 +97,8 @@ public class PlayerMovement : NetworkBehaviour
         //Wallrun
         wallRun = gameObject.GetComponent<WallRun>();
         up = this.gameObject.GetComponentInParent<Transform>().up;
+
+        curJumpTimer = jumpTimer;
     }
 
     void Start()
@@ -174,20 +178,22 @@ public class PlayerMovement : NetworkBehaviour
         //player vector should be under the circumstances
         vel = moveX + moveZ;
 
+        Jump();
         //Gravity
         Gravity();
 
-        //Adds persisting momentum to player
-        driftVel = Vector3.Lerp(driftVel, vel, pStats.Traction * Time.deltaTime);
-
         //Moving outside basic wasd
         //Jump Function
-        Jump();
+        
         //Slide Function
         Slide();
-        
+        Vector3 moveXZ = new Vector3(vel.x, 0, vel.z);
+        driftVel = Vector3.Lerp(driftVel, moveXZ, pStats.Traction * Time.deltaTime);
+
+        Vector3 moveY = new Vector3(0,vel.y,0);
+        lerpY = Vector3.Lerp(lerpY, moveY, 3 * Time.deltaTime);
         //Move Player
-        moveController.Move(driftVel);
+        moveController.Move(driftVel + lerpY);
     }
 
     //Calculates speed current player needs to be going
@@ -236,36 +242,42 @@ public class PlayerMovement : NetworkBehaviour
     //Jump Function
     private void Jump()
     {
-        //If space is pressed apply an upwards force to the player
-        if ((Input.GetAxis("Jump") != 0) && !jumpPressed && curJumpNum + 1 < pStats.JumpNum && !isSliding)
+        //If space/south gamepad button is pressed apply an upwards force to the player
+        if (Input.GetAxis("Jump") != 0 && !jumpHeld && curJumpNum < pStats.JumpNum && !isSliding)
         {
             if(wallRun.IsWallRunning()){
                 AddImpact((wallRun.GetWallJumpDirection()), pStats.JumpPow * 1.3f);
-                AddImpact(transform.up, pStats.JumpPow);
+                vel.y = pStats.JumpPow;
             }
             else{
-                AddImpact(transform.up, pStats.JumpPow);
+                vel.y = pStats.JumpPow;
             }
+
             curJumpNum++;
-            jumpPressed = true;
+            jumpHeld = true;
         }
 
         lastTimeJumped = Time.time;
 
         //If grounded no jumps have been used
-        if(isGrounded){
+        if(isGrounded) curJumpTimer = jumpTimer;
+        else curJumpTimer -= Time.deltaTime;
+
+        if(jumpHeld) curJumpTimer = 0;
+
+        if(curJumpTimer == jumpTimer){
              curJumpNum = 0;
          }
 
-        //If space isn't being pressed then jump is false
-        if (Input.GetAxis("Jump") == 0) jumpPressed = false;
+        //If space/south face gamepad button isn't being pressed then jump is false
+        if (Input.GetAxis("Jump") == 0) jumpHeld = false;
     }
 
 
 
     //PlayerScript
     public bool GetJumpPressed(){
-        return jumpPressed;
+        return jumpHeld;
     }
 
     public Camera GetPlayerCamera()
@@ -342,31 +354,33 @@ public class PlayerMovement : NetworkBehaviour
     private void Gravity(){
 
         //Gliding
-        if(jumpPressed && pStats.HasGlider){
-            
-            vel.y -= (pStats.PlayerGrav-18) * Time.deltaTime;
+        if(jumpHeld && pStats.HasGlider){
+            Debug.Log("x");
+            vel.y -= (pStats.PlayerGrav-40) * Time.deltaTime;
             if(tempSet == false){
                 tempTraction = pStats.Traction;
                 pStats.Traction = 1.0f;
                 tempSet = true;
             }
         }
-        else if(!jumpPressed && pStats.HasGlider){
-
+        else if(!jumpHeld && pStats.HasGlider){
+            Debug.Log("y");
             if(tempSet == true){
                pStats.Traction = tempTraction;
                tempSet = false; 
             }
 
             //Normal Gravity
-            vel.y -= pStats.PlayerGrav * Time.deltaTime;
+            //if coyoteJump is over fall
+            if(curJumpTimer <= 0) vel.y -= pStats.PlayerGrav * Time.deltaTime;
         }
 
         //Wallrunning
         else if (pStats.HasWallrun) { wallRun.WallRunRoutine(); } //adjusted later if we are wallrunning
 
         else{
-            vel.y -= pStats.PlayerGrav * Time.deltaTime;
+            //if coyoteJump is over fall
+            if(curJumpTimer <= 0) vel.y -= pStats.PlayerGrav * Time.deltaTime;
         }
     }
 
@@ -379,7 +393,8 @@ public class PlayerMovement : NetworkBehaviour
         // reset values before the ground check
         isGrounded = false;
         groundRay = new Ray(moveController.transform.position, Vector3.down);
-        if (Physics.Raycast(groundRay, out groundHit, moveController.height + groundCheckDistance)) //&& Time.time >= lastTimeJumped + jumpGroundingPreventionTime)  // only try to detect ground if it's been a short amount of time since last jump; otherwise we may snap to the ground instantly after we try jumping
+
+        if (Physics.Raycast(groundRay, out groundHit, moveController.height + groundCheckDistance) && !jumpHeld ) //&& Time.time >= lastTimeJumped + jumpGroundingPreventionTime)  // only try to detect ground if it's been a short amount of time since last jump; otherwise we may snap to the ground instantly after we try jumping
         {
             // Only consider this a valid ground hit if the ground normal goes in the same direction as the character up
             if (Vector3.Dot(groundHit.normal, transform.up) > 0f)
@@ -388,7 +403,7 @@ public class PlayerMovement : NetworkBehaviour
                 // handle snapping to the ground
                 if (groundHit.distance > moveController.skinWidth)
                 {
-                    moveController.Move(Vector3.down * groundHit.distance);
+                    //moveController.Move(Vector3.down * groundHit.distance);
                 }
             }
         }
