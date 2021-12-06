@@ -8,7 +8,9 @@ public class EndCollider : MonoBehaviour {
 
     // When player collides with the trigger for the end zone
     private void OnTriggerEnter(Collider other) {
-        RunnerFinishedMapServerRPC();
+        if (other.gameObject.transform.parent.gameObject.GetComponent<NetworkObject>().OwnerClientId == NetworkManager.Singleton.LocalClientId) {
+            RunnerFinishedMapServerRPC();
+        }
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -22,7 +24,7 @@ public class EndCollider : MonoBehaviour {
                 // Player found
 
                 // Despawn them
-                character.GetComponent<NetworkObject>().Despawn(true);
+                character.GetComponent<NetworkObject>().Despawn();
 
                 // Update the player data such that Finished is true
                 if (ServerGameNetPortal.Instance.clientIdToGuid.TryGetValue(serverRpcParams.Receive.SenderClientId, out string clientGuid)) {
@@ -56,7 +58,10 @@ public class EndCollider : MonoBehaviour {
 
             foreach (GameObject character in playableCharactersPostRemove) {
                 if (character.name == "PlayerPrefab") {
-                    FindObject(character, "PlayerCam").SetActive(true);
+                    if (FindObject(character, "PlayerCam") == null)
+                    {
+                        Debug.LogError("NULL");
+                    }
                 }
             }
 
