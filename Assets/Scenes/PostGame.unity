@@ -657,6 +657,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ReturnToLobbyText: {fileID: 1246267347}
   ReturnToLobbyTimer: 10
+  HeaderText: {fileID: 482208058}
 --- !u!114 &2036818938
 MonoBehaviour:
   m_ObjectHideFlags: 0
