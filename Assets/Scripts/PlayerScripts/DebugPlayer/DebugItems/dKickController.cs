@@ -41,7 +41,6 @@ public class dKickController : NetworkBehaviour
         }
         //otherwise do ground kick for .3 seconds
         else if ((Input.GetKeyDown(KeyCode.F) || Input.GetAxis("Kick") != 0) && isKicking == false){
-            Debug.Log("kick");
             StartCoroutine(Kicking(.3f));
         }
 
@@ -75,6 +74,9 @@ public class dKickController : NetworkBehaviour
             Vector3 direction = this.transform.forward;
             Debug.Log(direction);
             collision.rigidbody.AddForce(direction * pStats.KickPow, ForceMode.Impulse);
+        }
+        if (collision.transform.CompareTag("destroyable") && myCollider == leg.GetComponent<Collider>()){
+            collision.transform.gameObject.GetComponent<BreakableBlock>().damage(pStats.KickPow);
         }
     }
 
