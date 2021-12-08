@@ -1,10 +1,11 @@
 using MLAPI;
 using MLAPI.Messaging;
+using MLAPI.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EndCollider : MonoBehaviour {
+public class EndCollider : NetworkBehaviour {
 
     // When player collides with the trigger for the end zone
     private void OnTriggerEnter(Collider other) {
@@ -24,7 +25,7 @@ public class EndCollider : MonoBehaviour {
                 // Player found
 
                 // Despawn them
-                character.GetComponent<NetworkObject>().Despawn();
+                character.GetComponent<NetworkObject>().Despawn(true);
 
                 // Update the player data such that Finished is true
                 if (ServerGameNetPortal.Instance.clientIdToGuid.TryGetValue(serverRpcParams.Receive.SenderClientId, out string clientGuid)) {
@@ -51,34 +52,43 @@ public class EndCollider : MonoBehaviour {
         }
 
         if (allFinished) {
-            //todo: if yes -> go to PostGame scene
-
+            // Go to the post game screen
+            NetworkSceneManager.SwitchScene("PostGame");
         } else {
-            GameObject[] playableCharactersPostRemove = GameObject.FindGameObjectsWithTag("Player");
+            // Loop over all characters
+            foreach (GameObject character in playableCharacters) {
+                // Make sure we find the characters that aren't the one that just finished (subsequently calling the rpc)
+                if (character.GetComponent<NetworkObject>().OwnerClientId != serverRpcParams.Receive.SenderClientId) {
+                    // Then grab their GUID
+                    if (ServerGameNetPortal.Instance.clientIdToGuid.TryGetValue(serverRpcParams.Receive.SenderClientId, out string clientGuid)) {
+                        // To verify they aren't the king
+                        if (ServerGameNetPortal.Instance.clientData[clientGuid].IsKing != true) {
+                            // Then call a client rpc to the finished player to enable the camera locally
+                            ClientRpcParams clientRpcParams = new ClientRpcParams {
+                                Send = new ClientRpcSendParams {
+                                    TargetClientIds = new ulong[] { serverRpcParams.Receive.SenderClientId }
+                                }
+                            };
 
-            foreach (GameObject character in playableCharactersPostRemove) {
-                if (character.name == "PlayerPrefab") {
-                    if (FindObject(character, "PlayerCam") == null)
-                    {
-                        Debug.LogError("NULL");
+                            EnableSpectatorCameraClientRPC(character.GetComponent<NetworkObject>().OwnerClientId, clientRpcParams);
+                        }
                     }
                 }
             }
-
-            //todo: update playerhud to also say SPECTATING
         }
     }
 
-    public GameObject FindObject(GameObject parent, string name)
-    {
-        Transform[] trs = parent.GetComponentsInChildren<Transform>(true);
-        foreach (Transform t in trs)
-        {
-            if (t.name == name)
-            {
-                return t.gameObject;
+    [ClientRpc]
+    private void EnableSpectatorCameraClientRPC(ulong otherRunnerClientID, ClientRpcParams clientRpcParams = default) {
+        GameObject[] playableCharacters = GameObject.FindGameObjectsWithTag("Player");
+
+        foreach (GameObject character in playableCharacters) {
+            if (character.GetComponent<NetworkObject>().OwnerClientId == otherRunnerClientID) {
+                GameHandler.FindGameObjectInChildWithTag(character, "PlayerCam").GetComponent<Camera>().enabled = true;
+                GameHandler.FindGameObjectInChildWithTag(character, "PlayerCam").GetComponent<AudioListener>().enabled = true;
             }
         }
-        return null;
+
+        GameObject.FindGameObjectWithTag("RunnerHUD").GetComponent<PlayerHUD>().spectating_text.text = "SPECTATING";
     }
 }

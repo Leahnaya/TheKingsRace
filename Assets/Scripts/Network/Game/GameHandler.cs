@@ -35,7 +35,10 @@ public class GameHandler : NetworkBehaviour
         foreach (GameObject character in playableCharacters) {
             if (character.GetComponent<NetworkObject>().OwnerClientId == NetworkManager.Singleton.LocalClientId) {
                 localPlayer = character;
-                FindGameObjectInChildWithTag(character, "PlayerCam").SetActive(true);
+
+                FindGameObjectInChildWithTag(character, "PlayerCam").GetComponent<Camera>().enabled = true;
+                FindGameObjectInChildWithTag(character, "PlayerCam").GetComponent<AudioListener>().enabled = true;
+                FindGameObjectInChildWithTag(character, "PlayerCam").GetComponent<PlayerCam>().enabled = true;
             }
         }
 
@@ -63,7 +66,7 @@ public class GameHandler : NetworkBehaviour
     }
 
     // Only works for 1st generation children
-    private static GameObject FindGameObjectInChildWithTag(GameObject parent, string tag) {
+    public static GameObject FindGameObjectInChildWithTag(GameObject parent, string tag) {
         Transform t = parent.transform;
 
         for (int i = 0; i < t.childCount; i++) { 
