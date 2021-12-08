@@ -8,6 +8,7 @@ public class Bumper : MonoBehaviour {
     void OnTriggerEnter(Collider other) {
         Debug.Log("Bump!");
         if (other.tag == "Player") {//Checks if the other object is the player
+            Debug.Log("doing thing");
             float DirBumpX = other.GetComponent<dPlayerMovement>().vel.x * -1;//Inverts the Player Velocity x
             float DirBumpZ = other.GetComponent<dPlayerMovement>().vel.z * -1;//Inverts the Player Velocity y
             Vector3 DirBump = new Vector3(DirBumpX, .01f, DirBumpZ);//Creates a direction to launch the player
