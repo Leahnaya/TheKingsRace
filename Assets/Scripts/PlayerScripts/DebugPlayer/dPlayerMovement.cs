@@ -80,6 +80,10 @@ public class dPlayerMovement : NetworkBehaviour
 
     //Blink
     private dBlink blink;
+    
+
+    //Animation controller
+    Animator animator;
 
     void Awake()
     {
@@ -89,6 +93,7 @@ public class dPlayerMovement : NetworkBehaviour
         capCol = GetComponent<CapsuleCollider>();
         pStats = GetComponent<PlayerStats>();
         parentObj = transform.parent.gameObject;
+        animator = GetComponent<Animator>();
 
         capCol.enabled = false;
         //Wallrun
@@ -204,7 +209,21 @@ public class dPlayerMovement : NetworkBehaviour
         Jump();
         //Slide Function
         Slide();
-        
+
+
+        //move animation 
+        //if vel from input is greater than 0, start sprinting animation
+        if (PlayerSpeed() > 0.1)
+        {
+            Debug.Log(driftVel.magnitude);
+            animator.SetBool("isRunning", true);
+        }
+        //if low enough movement from player (this will be still at this value) stop animation
+        else if (driftVel.magnitude < .510f)
+        {
+            animator.SetBool("isRunning", false);
+        }
+
         //Move Player
         moveController.Move(driftVel);
     }
