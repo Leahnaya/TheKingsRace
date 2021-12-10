@@ -6,6 +6,7 @@ sed -i.bak '/Plugins/d' ./gourceLog.temp
 sed -i.bak '/Polybrush/d' ./gourceLog.temp
 sed -i.bak '/TextMesh/d' ./gourceLog.temp
 sed -i.bak '/\.meta/d' ./gourceLog.temp
+sed -i.bak '/Addons/d' ./gourceLog.temp
 mv gourceLog.temp gourceLog.txt
 rm gourceLog.temp.bak
 
@@ -18,13 +19,8 @@ function fix {
 
 # Replace non human readable names with proper ones
 fix "|Seth Berrier|" "|Prof. B|"
-fix "||" "||"
-fix "||" "||"
-fix "||" "||"
-fix "||" "||"
-fix "||" "||"
-fix "||" "||"
-fix "||" "||"
-fix "||" "||"
-fix "||" "||"
-fix "||" "||"
+fix "|Julia|" "|Julia Butenhoff|"
+fix "|Katherine|" "|Katherine Rude|"
+fix "|Melbyj1125|" "|Justin Melby|"
+fix "|Vladdie|" "|Karl Kazinski|"
+fix "|wheatv3015|" "|Vincent Wheat|"

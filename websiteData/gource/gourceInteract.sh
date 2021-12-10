@@ -1,6 +1,6 @@
 # Generate a fresh log
 rm -f gourceLog.txt
-gource --log-format svn --output-custom-log gourceLog.txt ../../
+gource --output-custom-log gourceLog.txt
 source gourceCustomize.sh
 
 # Directly Visualize
