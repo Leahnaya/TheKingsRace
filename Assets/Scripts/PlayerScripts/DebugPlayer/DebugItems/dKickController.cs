@@ -12,12 +12,12 @@ public class dKickController : NetworkBehaviour
     //slightly bad practice, when merging find a better work around
     private bool isDiveKicking = false;
     private CharacterController characterController;
-
+    public dPlayerMovement pMove;
     public PlayerStats pStats;
 
     void Start(){
         pStats = GetComponent<PlayerStats>();
-
+        pMove = GetComponent<dPlayerMovement>();
         characterController = this.gameObject.GetComponent<CharacterController>();
         leg = transform.GetChild(0).gameObject;
         leg.SetActive(false);
@@ -31,7 +31,7 @@ public class dKickController : NetworkBehaviour
         //Note: when we merge this into PlayerMovement, we may want to change isgrounded to our 
         //custom is grounded
         //If F is pressed or gamepad right trigger is pulled
-        if ((Input.GetKeyDown(KeyCode.F) || Input.GetAxis("Kick") != 0) && isKicking == false && characterController.isGrounded == false)
+        if ((Input.GetKeyDown(KeyCode.F) || Input.GetAxis("Kick") != 0) && isKicking == false && pMove.isGrounded == false)
         {
             Debug.Log("dive");
             // if kicking in air, kick until grounded (maybe add some foward momentum if needeD)
@@ -45,7 +45,7 @@ public class dKickController : NetworkBehaviour
         }
 
         //once dive kick touches ground, set back to normal state
-        if (characterController.isGrounded == true && isDiveKicking == true)
+        if (pMove.isGrounded == true && isDiveKicking == true)
         {
             isDiveKicking = false;
             isKicking = false;

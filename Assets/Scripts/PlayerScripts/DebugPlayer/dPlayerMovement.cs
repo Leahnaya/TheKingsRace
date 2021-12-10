@@ -199,13 +199,14 @@ public class dPlayerMovement : NetworkBehaviour
         //if vel from input is greater than 0, start sprinting animation
         if (PlayerSpeed() > 0.1)
         {
-            Debug.Log(driftVel.magnitude);
-            animator.SetBool("isRunning", true);
+            //Debug.Log(driftVel.magnitude);
+            
+            if(animator != null) animator.SetBool("isRunning", true);
         }
         //if low enough movement from player (this will be still at this value) stop animation
         else if (driftVel.magnitude < .510f)
         {
-            animator.SetBool("isRunning", false);
+            if(animator != null) animator.SetBool("isRunning", false);
         }
 
         //Move Player
