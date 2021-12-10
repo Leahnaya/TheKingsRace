@@ -35,7 +35,7 @@ public class SpawnManager : NetworkBehaviour {
                         _runner = Instantiate(runnerPrefab, runnersSpawnPoints[runnersSpawned], Quaternion.identity).gameObject;
                         //Recreate Inventory
                         _runner.GetComponentInChildren<PlayerInventory>().UpdateEquips(playerData.pInv.NetworkItemList, this.gameObject.GetComponent<InventoryManager>().ItemDict);
-                        _runner.GetComponent<NetworkObject>().SpawnAsPlayerObject(NetworkManager.Singleton.LocalClientId);
+                        _runner.GetComponent<NetworkObject>().SpawnAsPlayerObject(NetworkManager.Singleton.LocalClientId, null, true);
 
                         // Increment runners
                         runnersSpawned++;
