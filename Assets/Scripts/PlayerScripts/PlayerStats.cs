@@ -6,14 +6,14 @@ using UnityEngine.Assertions;
 public class PlayerStats : MonoBehaviour
 {
     //Maximum possible player speed
-    [SerializeField] private float maxVel = 25.0f;
+    [SerializeField] private float maxVel = 30.0f;
     public float MaxVel{
         get{ return maxVel; }
         set{ maxVel = value; }
     }
 
     //Minimum possible player speed
-    [SerializeField] private float minVel = 2.0f;
+    [SerializeField] private float minVel = 5.0f;
     public float MinVel{
         get{ return minVel; }
         set{ minVel = value; }
@@ -34,7 +34,7 @@ public class PlayerStats : MonoBehaviour
     }
 
     //Player Jump power
-    [SerializeField] private float jumpPow = 300.0f;
+    [SerializeField] private float jumpPow = 63.0f;
     public float JumpPow{
         get{ return jumpPow; }
         set{ jumpPow = value; }
@@ -69,7 +69,7 @@ public class PlayerStats : MonoBehaviour
     }
 
     //Gravity Affecting the player
-    [SerializeField] private float playerGrav = 20.0f;
+    [SerializeField] private float playerGrav = 200.0f;
     public float PlayerGrav{
         get{ return playerGrav; }
         set{ playerGrav = value; }

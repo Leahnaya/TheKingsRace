@@ -16,13 +16,19 @@ public class dDash : NetworkBehaviour{
     float dashSpeed = 12;
 
     CharacterController characterController;
+    dPlayerMovement pMove;
 
     void Start(){
         characterController = this.gameObject.GetComponent<CharacterController>();
+        pMove = GetComponent<dPlayerMovement>();
     }
 
     //UPDATE CHECK FOR MOVEMENT ONLY WHEN DASHING
     void FixedUpdate(){
+        if(pMove.pStats.HasDash) Dash();
+    }
+
+    void Dash(){
         //if (!IsLocalPlayer) { return; }
         if(characterController.enabled == true){
             if (Input.GetKeyDown(KeyCode.E) && isOnCoolDown == false)

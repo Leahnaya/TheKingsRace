@@ -216,7 +216,7 @@ GameObject:
   - component: {fileID: 1818923263116056088}
   m_Layer: 3
   m_Name: PlayerModel
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -297,6 +297,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: addc2e37ff81c1b4989ec34b6150b4f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxVel: 40
+  minVel: 15
+  curVel: 0
+  acc: 0.01
+  jumpPow: 60
+  jumpNum: 2
+  traction: 3
+  kickPow: 150
+  recovTime: 3
+  playerGrav: 200
+  hasBlink: 0
+  hasGlider: 0
+  hasGrapple: 0
+  hasWallrun: 0
+  hasNitro: 0
+  hasDash: 0
+  playerPoints: 15
 --- !u!114 &7097691538269713306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -311,7 +328,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkItemList: []
   pStats: {fileID: 0}
-  invMan: {fileID: 0}
 --- !u!54 &7058615058147771192
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -422,6 +438,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pStats: {fileID: 0}
   vel: {x: 0, y: 0, z: 0}
+  curJumpNum: 0
+  lowJumpMultiplier: 0.3
+  fallMultiplier: 1.5
   isGrounded: 0
   groundCheckDistance: 0.05
   cam: {fileID: 4654986889578046791}
@@ -440,6 +459,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 813241e4d3933be429c9295081a09142, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pMove: {fileID: 0}
   pStats: {fileID: 0}
 --- !u!114 &471283137481508403
 MonoBehaviour:
@@ -469,6 +489,7 @@ MonoBehaviour:
   moveDirection: {x: 0, y: 0, z: 0}
   dashDistance: 10
   dashStoppingSpeed: 0.1
+  dashItem: {fileID: 11400000, guid: 4399d7276b3edf446ac51c5145539a5e, type: 2}
 --- !u!114 &1818923263116056088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -481,7 +502,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4264f4f7bed1d7499a037436582ed17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallMaxDistance: 5
+  wallMaxDistance: 0.8
   wallSpeedMultiplier: 1.2
   minimumHeight: 0.1
   maxAngleRoll: 20

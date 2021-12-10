@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,20 +7,25 @@ public class Archer : MonoBehaviour
 {
     //current target ponting at
     private Transform target;
-
-    public float rotationSpeed = 10f;
-
-    //range of turrent
+    
+    [Header("Attributes")]
+    //range of turret
     public float range = 20.0f;
 
     //how fast and how much time before the next shot
     public float fireRate = 4.0f;
-    private float shootingCooldown = 2.0f;
+    private float shootingCooldown = 1.0f;
 
+    [Header("Unity Setup Fields")]
     public string runnerTag = "Player"; //tags the player;
 
     public Transform partToRotate;
+    public float rotationSpeed = 10f;
 
+    public GameObject ArrowPrefab;
+    public Transform firePoint;
+
+    [SerializeField] GameObject[] runners;
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +40,7 @@ public class Archer : MonoBehaviour
         //cycles through all enemies within range, the closest one, and sets the target at.
         //not done every frame
         
-        GameObject[] runners = GameObject.FindGameObjectsWithTag(runnerTag);
+        runners = GameObject.FindGameObjectsWithTag(runnerTag);
 
         //temp variable for the shortest distance for an runner
         float shortestDistance = Mathf.Infinity;
@@ -44,6 +50,8 @@ public class Archer : MonoBehaviour
 
         foreach(GameObject runner in runners)
         {
+            //Debug.Log(runners.Length);
+
             float distanceToRunner = Vector3.Distance(transform.position, runner.transform.position);
 
             if(distanceToRunner < shortestDistance)
@@ -55,7 +63,8 @@ public class Archer : MonoBehaviour
 
         if(nearestRunner != null && shortestDistance <= range)
         {
-            target = nearestRunner.transform;
+            target = nearestRunner.transform; //adding in the players rotation and momentum.
+            //leads the shots here
         }
         else
         {
@@ -77,7 +86,31 @@ public class Archer : MonoBehaviour
         Vector3 rotation = Quaternion.Lerp(partToRotate.rotation, lookRotation, Time.deltaTime *rotationSpeed).eulerAngles;
         partToRotate.rotation = Quaternion.Euler (0f, rotation.y, 0f);
         
+
+        if (shootingCooldown <= 0f)
+        {
+            Shoot();
+            shootingCooldown = 1f/ fireRate;
+        }
+
+        shootingCooldown -= Time.deltaTime;
     }
+
+
+    void Shoot()
+    {
+        
+        GameObject arrowGO = (GameObject)Instantiate (ArrowPrefab, firePoint.position, firePoint.rotation);
+        Arrow arrow = arrowGO.GetComponent<Arrow>();
+
+        if (arrow != null)
+        {
+            arrow.Seek(target.position);
+        }
+
+    }
+
+
 
     void OnDrawGizmosSelected()
     {
