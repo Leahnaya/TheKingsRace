@@ -8,7 +8,7 @@ public class KingMove : MonoBehaviour
 
     private Vector3 newPos;
     private Vector3 MountCent = new Vector3(0, 30, -80);
-    private bool RotStr = false;
+    public GameObject Grid;
     // Update is called once per frame
     void Update() {
         float translation = Input.GetAxis("HorizontalCam") * speed;
@@ -18,10 +18,10 @@ public class KingMove : MonoBehaviour
 
         // Move translation along the object's z-axis
         if (transform.position.z <= 61 && transform.position.z >= -80) {
-            transform.Translate(translation, 0, 0);//Is negated to make the Left arrow go left and the right arraow go right
+            transform.Translate(translation, 0, 0);
+            Grid.GetComponent<GridReveal>().DynGridReveal(transform.position.z, translation); //Makes the grid reveal itself as the King moves
             //transform.position = new Vector3(-42, 30, transform.position.z);
             transform.rotation = Quaternion.Euler(0, 90, 0);
-            RotStr = false;
         }
         else if (transform.position.z > 61) {
             transform.position = new Vector3(-42, 30, 61);//Keeps them from going too far left

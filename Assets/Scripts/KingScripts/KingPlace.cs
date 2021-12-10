@@ -29,8 +29,9 @@ public class KingPlace : MonoBehaviour
     public GameObject Block;
     public GameObject Hail;
     public GameObject Slime;
-
+    public GameObject Grid;
     private void PlaceObject(int ID) {
+        Grid.GetComponent<GridReveal>().GridSwitch(true);
         //Switch statement, ID-0 = Block,ID-1 = Hail,ID-2 = Slime
         GameObject Place;
         switch (ID) {//Parses in the button clicked into the right object that the King is placing
