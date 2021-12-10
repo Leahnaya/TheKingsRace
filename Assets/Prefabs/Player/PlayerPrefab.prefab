@@ -107,6 +107,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: addc2e37ff81c1b4989ec34b6150b4f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxVel: 40
+  minVel: 15
+  curVel: 0
+  acc: 0.01
+  jumpPow: 60
+  jumpNum: 2
+  traction: 3
+  kickPow: 150
+  recovTime: 3
+  playerGrav: 200
+  hasBlink: 0
+  hasGlider: 0
+  hasGrapple: 0
+  hasWallrun: 0
+  hasNitro: 0
+  hasDash: 0
+  playerPoints: 15
 --- !u!114 &3725107173017604129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,7 +138,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   networkItemList: []
   pStats: {fileID: 0}
-  invMan: {fileID: 0}
 --- !u!114 &508183713705064073
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,6 +152,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pStats: {fileID: 0}
   vel: {x: 0, y: 0, z: 0}
+  curJumpNum: 0
+  lowJumpMultiplier: 0.3
+  fallMultiplier: 1.5
   isGrounded: 0
   groundCheckDistance: 0.05
   cam: {fileID: 7188906082643956516}
@@ -191,6 +210,7 @@ MonoBehaviour:
   moveDirection: {x: 0, y: 0, z: 0}
   dashDistance: 10
   dashStoppingSpeed: 0.1
+  dashItem: {fileID: 0}
 --- !u!114 &3672942772524564832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,6 +236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c0aad94b3b1332408ef8e7d07f3b321, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pMove: {fileID: 0}
   pStats: {fileID: 0}
 --- !u!114 &2942875262947626129
 MonoBehaviour:

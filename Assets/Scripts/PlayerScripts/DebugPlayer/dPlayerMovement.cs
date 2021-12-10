@@ -109,7 +109,7 @@ public class dPlayerMovement : NetworkBehaviour
 
         //Get parents up direction
         up = GetComponentInParent<Transform>().up;
-
+//
         //Coyote Timer Initialization
         curCoyJumpTimer = coyJumpTimer;
     }
