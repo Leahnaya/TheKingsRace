@@ -953,6 +953,14 @@ PrefabInstance:
       value: DebugPlayerPrefab
       objectReference: {fileID: 0}
     - target: {fileID: 6743056025486776975, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
+      propertyPath: fallMultiplier
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6743056025486776975, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
+      propertyPath: lowJumpMultiplier
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6743056025486776975, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
       propertyPath: groundCheckHitbox.m_Bits
       value: 8
       objectReference: {fileID: 0}
@@ -1001,8 +1009,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8100520363622627413, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
+      propertyPath: acc
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8100520363622627413, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
+      propertyPath: maxVel
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8100520363622627413, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
+      propertyPath: minVel
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8100520363622627413, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
       propertyPath: jumpPow
-      value: 25
+      value: 63
       objectReference: {fileID: 0}
     - target: {fileID: 8100520363622627413, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
       propertyPath: kickPow
@@ -1014,7 +1034,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8100520363622627413, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
       propertyPath: playerGrav
-      value: 50
+      value: 200
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
