@@ -89,6 +89,9 @@ public class PlayerMovement : NetworkBehaviour
     //Blink
     private Blink blink;
 
+    //Animation controller
+    Animator animator;
+
     void Awake()
     {
         //Initialize Player Components
@@ -97,6 +100,7 @@ public class PlayerMovement : NetworkBehaviour
         capCol = GetComponent<CapsuleCollider>(); // Capsule Collider
         capCol.enabled = false;
         parentObj = transform.parent.gameObject;
+        animator = GetComponent<Animator>();
 
         //Initialize Scripts
         pStats = GetComponent<PlayerStats>(); // PlayerStats
@@ -195,6 +199,20 @@ public class PlayerMovement : NetworkBehaviour
 
         //Slide Function
         Slide();
+
+        //move animation 
+        //if vel from input is greater than 0, start sprinting animation
+        if (PlayerSpeed() > 0.1)
+        {
+            //Debug.Log(driftVel.magnitude);
+            
+            if(animator != null) animator.SetBool("isRunning", true);
+        }
+        //if low enough movement from player (this will be still at this value) stop animation
+        else if (driftVel.magnitude < .510f)
+        {
+            if(animator != null) animator.SetBool("isRunning", false);
+        }
 
         //Move Player
         moveController.Move(driftVel + (moveY * Time.deltaTime));
