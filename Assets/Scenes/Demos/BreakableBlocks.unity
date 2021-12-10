@@ -1461,6 +1461,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204dc1e4ca638924caabaa45df29d9d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bumpPower: 30
 --- !u!64 &559406017994361835
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -2647,6 +2648,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204dc1e4ca638924caabaa45df29d9d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bumpPower: 30
 --- !u!64 &1292913823373105706
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3227,6 +3229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204dc1e4ca638924caabaa45df29d9d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bumpPower: 30
 --- !u!4 &1633784409204493250
 Transform:
   m_ObjectHideFlags: 0
@@ -4755,6 +4758,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204dc1e4ca638924caabaa45df29d9d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bumpPower: 30
 --- !u!1 &2379975769262999825
 GameObject:
   m_ObjectHideFlags: 0
@@ -6750,6 +6754,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204dc1e4ca638924caabaa45df29d9d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bumpPower: 30
 --- !u!4 &3358111724565424204
 Transform:
   m_ObjectHideFlags: 0
@@ -8007,6 +8012,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204dc1e4ca638924caabaa45df29d9d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bumpPower: 30
 --- !u!64 &3859418072219438958
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -8469,18 +8475,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 4071070879481108731}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4264f4f7bed1d7499a037436582ed17, type: 3}
+  m_Script: {fileID: 11500000, guid: 22ae0d31c49624d4fb9990f2f5f72fd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallMaxDistance: 0.8
-  wallSpeedMultiplier: 1.2
-  minimumHeight: 0.1
-  maxAngleRoll: 20
-  normalizedAngleThreshold: 0.1
-  jumpDuration: 0.02
-  wallBouncing: 3
-  cameraTransitionDuration: 1
-  wallGravityDownForce: 5
+  pStats: {fileID: 0}
+  vel: {x: 0, y: 0, z: 0}
+  curJumpNum: 0
+  lowJumpMultiplier: 0
+  fallMultiplier: 0
+  isGrounded: 0
+  groundCheckDistance: 0.05
+  cam: {fileID: 0}
+  minAngle: -30
+  maxAngle: 45
+  sensitivity: 200
 --- !u!114 &4071070879481108733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8522,6 +8530,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 813241e4d3933be429c9295081a09142, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pMove: {fileID: 0}
   pStats: {fileID: 0}
 --- !u!114 &4071070879481108736
 MonoBehaviour:
@@ -8538,6 +8547,8 @@ MonoBehaviour:
   pStats: {fileID: 0}
   vel: {x: 0, y: 0, z: 0}
   curJumpNum: 0
+  lowJumpMultiplier: 0.3
+  fallMultiplier: 1.5
   isGrounded: 0
   groundCheckDistance: 0.05
   cam: {fileID: 4654986888731305691}
@@ -8666,16 +8677,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: addc2e37ff81c1b4989ec34b6150b4f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxVel: 25
-  minVel: 2
+  maxVel: 40
+  minVel: 15
   curVel: 0
-  acc: 0.1
-  jumpPow: 300
+  acc: 0.01
+  jumpPow: 60
   jumpNum: 2
   traction: 3
   kickPow: 150
   recovTime: 3
-  playerGrav: 20
+  playerGrav: 200
   hasBlink: 0
   hasGlider: 0
   hasGrapple: 0
@@ -8873,6 +8884,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204dc1e4ca638924caabaa45df29d9d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bumpPower: 30
 --- !u!64 &4118698256197206832
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -9319,6 +9331,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204dc1e4ca638924caabaa45df29d9d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bumpPower: 30
 --- !u!4 &4381723022345044950
 Transform:
   m_ObjectHideFlags: 0
@@ -10250,6 +10263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204dc1e4ca638924caabaa45df29d9d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bumpPower: 30
 --- !u!64 &4792637000415513904
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -12789,6 +12803,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204dc1e4ca638924caabaa45df29d9d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bumpPower: 30
 --- !u!64 &5865247451039076529
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -12962,6 +12977,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204dc1e4ca638924caabaa45df29d9d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bumpPower: 30
 --- !u!64 &5974059696379998534
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -16154,6 +16170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 204dc1e4ca638924caabaa45df29d9d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bumpPower: 30
 --- !u!64 &7881446141704424040
 MeshCollider:
   m_ObjectHideFlags: 0
