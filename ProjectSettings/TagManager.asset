@@ -12,6 +12,7 @@ TagManager:
   - Weather
   - destroyable
   - RunnerHUD
+  - GroundCheck
   layers:
   - Default
   - TransparentFX

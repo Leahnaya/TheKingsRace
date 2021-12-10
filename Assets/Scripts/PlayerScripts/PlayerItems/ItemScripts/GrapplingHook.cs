@@ -32,7 +32,7 @@ public class GrapplingHook : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (!IsLocalPlayer) { return; }
+        if (!IsLocalPlayer) { return; }
 
         if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.JoystickButton2)) //If grapple button is hit
         {

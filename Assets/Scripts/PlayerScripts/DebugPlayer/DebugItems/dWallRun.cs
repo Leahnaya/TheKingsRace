@@ -112,13 +112,11 @@ public class dWallRun : NetworkBehaviour
         {
             elapsedTimeSinceWallDetatch = 0;
             elapsedTimeSinceWallAttach += Time.deltaTime;
-            playerMovementController.AddPlayerVelocity((Vector3.down * wallGravityDownForce * Time.deltaTime));
         }
         else
         {   
             elapsedTimeSinceWallAttach = 0;
             elapsedTimeSinceWallDetatch += Time.deltaTime;
-            playerMovementController.AddPlayerVelocity((Vector3.down * playerMovementController.pStats.PlayerGrav * Time.deltaTime));
         }
     }
 

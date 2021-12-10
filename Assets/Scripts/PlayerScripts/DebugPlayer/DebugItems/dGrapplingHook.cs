@@ -84,9 +84,9 @@ public class dGrapplingHook : NetworkBehaviour
             if (Vector3.Distance(gameObject.transform.position, hookPoint.transform.position) > ropeLength)
             {
                 //Impact Based
-                playerMovement.AddImpact((hookPoint.transform.position - gameObject.transform.position), pStats.PlayerGrav);
+                //playerMovement.AddImpact((hookPoint.transform.position - gameObject.transform.position), pStats.PlayerGrav*2);
                 //Character controller move?
-                //movementController.Move((hookPoint.transform.position - gameObject.transform.position).normalized * ropeLength*Time.deltaTime);
+                movementController.Move((hookPoint.transform.position - gameObject.transform.position).normalized * ropeLength * 10 *Time.deltaTime);
                 //Lerp? or another smoother way? Better physics? Wait until refinement to deal with
             }
         }

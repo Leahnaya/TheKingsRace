@@ -18,6 +18,7 @@ public class dPlayerMovement : NetworkBehaviour
     private Vector3 moveZ;
     private Vector3 moveX;
     private Vector3 driftVel;
+    private Vector3 lerpY;
 
     //Player prefab
     private GameObject parentObj;
@@ -26,12 +27,19 @@ public class dPlayerMovement : NetworkBehaviour
     private CharacterController moveController;
 
     //Jump value
-    public int curJumpNum;
-    private bool jumpPressed;
+    public int curJumpNum; // current Jumps used
+    private bool jumpHeld; // Is jump being held
+    float coyJumpTimer = 0.1f; // Default Coyote Jump time
+    float curCoyJumpTimer; // current Coyote Jump time
+    public float lowJumpMultiplier; // Short jump multiplier
+    public float fallMultiplier; // High Jump Multiplier
+    private float g = 0; // the y velocity
+
+    //Glide Values
     bool tempSet = false;
     float tempTraction = 0.0f;
 
-    //Jump physics
+    //Impact physics
     private float mass = 5.0F; // defines the character mass
     private Vector3 impact = Vector3.zero;
     private float distToGround;
@@ -49,7 +57,6 @@ public class dPlayerMovement : NetworkBehaviour
     private RaycastHit groundHit;
 
     //Camera Variables
-    private LayerMask ignoreP;
     private Vector3 camRotation;
     public Camera cam;
 
@@ -87,21 +94,24 @@ public class dPlayerMovement : NetworkBehaviour
 
     void Awake()
     {
-        //Initialize Components
-        moveController = GetComponent<CharacterController>();
-        rB = GetComponent<Rigidbody>();
-        capCol = GetComponent<CapsuleCollider>();
-        pStats = GetComponent<PlayerStats>();
+        //Initialize Player Components
+        moveController = GetComponent<CharacterController>(); // Character Controller
+        rB = GetComponent<Rigidbody>(); //Rigid Body
+        capCol = GetComponent<CapsuleCollider>(); // Capsule Collider
+        capCol.enabled = false;
         parentObj = transform.parent.gameObject;
         animator = GetComponent<Animator>();
 
-        capCol.enabled = false;
-        //Wallrun
-        wallRun = gameObject.GetComponent<dWallRun>();
+        //Initialize Scripts
+        pStats = GetComponent<PlayerStats>(); // PlayerStats
+        wallRun = GetComponent<dWallRun>(); //Wallrun
+        blink = GetComponent<dBlink>(); //Blink
 
-        blink = gameObject.GetComponent<dBlink>();
+        //Get parents up direction
+        up = GetComponentInParent<Transform>().up;
 
-        up = this.gameObject.GetComponentInParent<Transform>().up;
+        //Coyote Timer Initialization
+        curCoyJumpTimer = coyJumpTimer;
     }
 
     void Start()
@@ -126,58 +136,34 @@ public class dPlayerMovement : NetworkBehaviour
         // Otherwise we let the server handle moving us
         //if (!IsLocalPlayer) { return; }
 
-        
         //Controls for camera
-        if(cam.enabled){
-          Rotation();  
-        }
+        if(cam.enabled) Rotation();  
         else Debug.Log("Cam Disabled");
-        
         
         //Allow Movement when moveController is enabled
         if(moveController.enabled == true){
-
             //input controls for movement
             InputController();
 
-           //if suffiecient impact magnitude is applied then move player
+            //if suffiecient impact magnitude is applied then move player
             if (impact.magnitude > 0.2F) moveController.Move(impact * Time.deltaTime);
 
             // consumes the impact energy each cycle:
             impact = Vector3.Lerp(impact, Vector3.zero, 5*Time.deltaTime);
         }
-        else{
 
-            if (RagdollTimer() == 0){ 
-        
+        //If Character controller is disabled use rigidbody calculations
+        else{
+            //if ragdoll timer is over disable ragdolling
+            if (RagdollTimer() == 0){
                 firstHit = false;
                 DisableRagdoll();
             }   
 
             //Gravity without moveController
-            vel.y -= pStats.PlayerGrav * Time.deltaTime;
-            rB.AddForce(new Vector3(0,vel.y,0));
-            
-            //Debug.LogWarning("MoveController is either Disabled or wasn't retrieved correctly");
+            g -= pStats.PlayerGrav * Time.deltaTime;
+            rB.AddForce(new Vector3(0,g,0));
         }
-
-        //TEMP FOR TESTING RAGDOLL
-        //Right Click to ragdoll the player
-        // if (Input.GetMouseButton(1) && heldDown == false){
-        //     getHit(new Vector3(vel.x, 0, vel.z), 30);
-        //     heldDown = true;
-        // }
-        // if(!Input.GetMouseButton(1)){
-        //     heldDown = false;
-        // }
-
-        if(pStats.HasBlink == true){
-            blink.BlinkMove();
-        }
-
-        //TEMP FOR TESTING
-        //Checks if player should respawn
-        //Respawn();
         
     }
 
@@ -190,7 +176,6 @@ public class dPlayerMovement : NetworkBehaviour
         GroundCheck();
 
         //Keyboard inputs
-
         //Checks if movement keys have been pressed and calculates correct vector
         moveX = transform.right * Input.GetAxis("Horizontal") * Time.deltaTime * PlayerSpeed();
         moveZ = transform.forward * Input.GetAxis("Vertical") * Time.deltaTime * PlayerSpeed();
@@ -198,15 +183,14 @@ public class dPlayerMovement : NetworkBehaviour
         //Adds vectors based on movement keys and other conditions to check what the
         //player vector should be under the circumstances
         vel = moveX + moveZ;
+        Vector3 moveXZ = new Vector3(vel.x, 0, vel.z);
+        driftVel = Vector3.Lerp(driftVel, moveXZ, pStats.Traction * Time.deltaTime);
 
-        //Gravity
-        Gravity();
-
-        driftVel = Vector3.Lerp(driftVel, vel, pStats.Traction * Time.deltaTime);
-
-        //Moving outside basic wasd
-        //Jump Function
+        //Gravity and Jump calculations
+        UpdateGravity();
         Jump();
+        Vector3 moveY = new Vector3(0,g,0);
+
         //Slide Function
         Slide();
 
@@ -225,7 +209,7 @@ public class dPlayerMovement : NetworkBehaviour
         }
 
         //Move Player
-        moveController.Move(driftVel);
+        moveController.Move(driftVel + (moveY * Time.deltaTime));
     }
 
 
@@ -264,9 +248,9 @@ public class dPlayerMovement : NetworkBehaviour
     //Apply Impact for when force needs to be applied without ragdolling
     public void AddImpact(Vector3 dir, float force)
     {
-        
         //if (!IsLocalPlayer) { return; }
 
+        //Normalize direction multiply by force and add it to the impact
         dir.Normalize();
         if (dir.y < 0) dir.y = -dir.y; // reflect down force on the ground
         impact += dir.normalized * force / mass;
@@ -278,82 +262,102 @@ public class dPlayerMovement : NetworkBehaviour
     private void Jump()
     {
         //If space/south gamepad button is pressed apply an upwards force to the player
-        if (Input.GetAxis("Jump") != 0 && !jumpPressed && curJumpNum + 1 < pStats.JumpNum && !isSliding)
+        if (Input.GetAxis("Jump") != 0 && !jumpHeld && curJumpNum < pStats.JumpNum && !isSliding)
         {
             if(wallRun.IsWallRunning()){
-                AddImpact((wallRun.GetWallJumpDirection()), pStats.JumpPow * 1.3f);
-                AddImpact(transform.up, pStats.JumpPow);
+                AddImpact((wallRun.GetWallJumpDirection()), pStats.JumpPow * 20f);
+                g = pStats.JumpPow;
             }
+
             else{
-                AddImpact(transform.up, pStats.JumpPow);
+                g = pStats.JumpPow;
             }
 
             curJumpNum++;
-            jumpPressed = true;
+            jumpHeld = true;
         }
 
+        //Last time Jumped
         lastTimeJumped = Time.time;
 
-        //If grounded no jumps have been used
-        if(isGrounded){
-             curJumpNum = 0;
-         }
+        //If grounded no jumps have been used and coyote Timer is refreshed
+        if(isGrounded && g == 0){
+            curCoyJumpTimer = coyJumpTimer;
+            curJumpNum = 0;
+        } 
+        //else start the coyote timer
+        else curCoyJumpTimer -= Time.deltaTime;
+
+        //if jump is being held coyote timer is zero
+        if(jumpHeld) curCoyJumpTimer = 0;
 
         //If space/south face gamepad button isn't being pressed then jump is false
-        if (Input.GetAxis("Jump") == 0) jumpPressed = false;
+        if (Input.GetAxis("Jump") == 0){
+           jumpHeld = false;
+        }
     }
 
-
-
-    //PlayerScript
+    //Get and update PlayerValues for other scripts
+    //Get jumpHeld
     public bool GetJumpPressed(){
-        return jumpPressed;
+        return jumpHeld;
     }
 
+    //Get player cam
     public Camera GetPlayerCamera()
     {
         return cam;
     }
 
+    //Update Player Velocity
     public void AddPlayerVelocity(Vector3 additiveVelocity)
     {
         vel += additiveVelocity;
     }
 
+    //Set Player Velocity
     public void SetPlayerVelocity(Vector3 newVelocity)
     {
         vel = newVelocity;
     }
 
+    //Reduce player Jump
+    public void decrementCurrentJumpNumber()
+    {
+        curJumpNum--;
+    }
 
 
-    //Camera and Player Rotation
+
+    //Camera and player rotation
     private void Rotation()
     {
-        //if input is received from Mouse X
-        if (Input.GetAxis("Mouse X") != 0)
-        {
-            transform.parent.Rotate(Vector3.up * sensitivity * Time.deltaTime * Input.GetAxis("Mouse X"));
-        }
-        //if input is received from right analog stick (horizontal)
-        else if (Input.GetAxis("HorizontalCam") != 0)
-        {
-            transform.parent.Rotate(Vector3.up * sensitivity * Time.deltaTime * Input.GetAxis("HorizontalCam"));
-        }
+        //If moveController is enabled allow Camera control
+        if(moveController.enabled){
+            //if input is received from Mouse X
+            if (Input.GetAxis("Mouse X") != 0){
+                transform.parent.Rotate(Vector3.up * sensitivity * Time.deltaTime * Input.GetAxis("Mouse X"));
+            }
 
-        //if input is if input is received from Mouse Y
-        if (Input.GetAxis("Mouse Y") != 0)
-        {
-            camRotation.x -= Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
-            camRotation.x = Mathf.Clamp(camRotation.x, minAngle, maxAngle);
-            cam.transform.localEulerAngles = camRotation;
-        }
-        //if input is received from right analog stick (vertical)
-        else if (Input.GetAxis("VerticalTurn") != 0)
-        {
-            camRotation.x -= Input.GetAxis("VerticalTurn") * sensitivity * Time.deltaTime;
-            camRotation.x = Mathf.Clamp(camRotation.x, minAngle, maxAngle);
-            cam.transform.localEulerAngles = camRotation;
+            //if input is received from right analog stick (horizontal)
+            else if(Input.GetAxis("HorizontalCam") != 0){
+                transform.parent.Rotate(Vector3.up * sensitivity * Time.deltaTime * Input.GetAxis("HorizontalCam"));
+            }
+
+            //if input is if input is received from Mouse Y
+            if (Input.GetAxis("Mouse Y") != 0)
+            {
+                camRotation.x -= Input.GetAxis("Mouse Y") * sensitivity * Time.deltaTime;
+                camRotation.x = Mathf.Clamp(camRotation.x, minAngle, maxAngle);
+                cam.transform.localEulerAngles = camRotation;
+            }
+
+            //if input is received from right analog stick (vertical)
+            else if (Input.GetAxis("VerticalTurn") != 0){
+                camRotation.x -= Input.GetAxis("VerticalTurn") * sensitivity * Time.deltaTime;
+                camRotation.x = Mathf.Clamp(camRotation.x, minAngle, maxAngle);
+                cam.transform.localEulerAngles = camRotation;
+            }
         }
     }
 
@@ -363,7 +367,7 @@ public class dPlayerMovement : NetworkBehaviour
     //Respawns player if they fall below a certain point
     private void Respawn()
     {
-        if (transform.position.y < -1)
+        if (transform.position.y < -5)
         {
             transform.position = new Vector3(1f, 3f, 1f);
         }
@@ -371,35 +375,71 @@ public class dPlayerMovement : NetworkBehaviour
 
 
 
-    //Gravity Function for adjusting y-vel due to wallrun/glide/etc
-    private void Gravity(){
+   //Gravity Function for adjusting y-vel due to wallrun/glide/etc
+    private void UpdateGravity(){
 
         //Gliding
-        if(jumpPressed && pStats.HasGlider){
-            
-            vel.y -= (pStats.PlayerGrav-18) * Time.deltaTime;
+        if(pStats.HasGlider && g < 0 && jumpHeld){
+            //Gravity with glider
+            GravityCalculation(10);
+
+            //Set temp values to put traction back to normal
             if(tempSet == false){
                 tempTraction = pStats.Traction;
                 pStats.Traction = 1.0f;
                 tempSet = true;
             }
         }
-        else if(!jumpPressed && pStats.HasGlider){
 
+        //Wallrunning
+        else if (pStats.HasWallrun) {
+            //Run wall run script
+            wallRun.WallRunRoutine();
+
+            //if wallrunning apply different gravity
+            if(wallRun.IsWallRunning()){
+                GravityCalculation(4);
+            }
+
+            //Normal gravity if not wallrunning
+            else{
+                GravityCalculation(pStats.PlayerGrav);
+            }
+        }
+
+        else{
+
+            //if temporary values have been set restore them back to the normal values
             if(tempSet == true){
                pStats.Traction = tempTraction;
                tempSet = false; 
             }
 
-            //Normal Gravity
-            vel.y -= pStats.PlayerGrav * Time.deltaTime;
+            //Normal gravity
+            GravityCalculation(pStats.PlayerGrav);
+        }
+    }
+
+    //Uses Given gravity to apply a downwards force while allowing coyote Jump and short hops
+    private void GravityCalculation(float grav){
+        //apply slight upwards force for jump smoothing when g < 0
+        if(g < 0){
+                g += grav * (fallMultiplier - 1) * Time.deltaTime;
         }
 
-        //Wallrunning
-        else if (pStats.HasWallrun) { wallRun.WallRunRoutine(); } //adjusted later if we are wallrunning
+        //apply smaller upwards force if jump is released early when jumping creating a short jump
+        else if (g > 0 && !Input.GetButton("Jump")){
+                g += grav * (lowJumpMultiplier - 1) * Time.deltaTime;
+        }
 
+        //apply gravity if not grounded and coyote timer is less than 0
+        if(isGrounded == false && curCoyJumpTimer <= 0){
+                g -= grav * Time.deltaTime;
+        }
+
+        //else don't apply gravity
         else{
-            vel.y -= pStats.PlayerGrav * Time.deltaTime;
+                g = 0;
         }
     }
 
@@ -409,10 +449,12 @@ public class dPlayerMovement : NetworkBehaviour
     {
         // Make sure that the ground check distance while already in air is very small, to prevent suddenly snapping to ground
         float chosenGroundCheckDistance = isGrounded ? (moveController.skinWidth + groundCheckDistance) : groundCheckDistanceInAir;
+
         // reset values before the ground check
         isGrounded = false;
         groundRay = new Ray(moveController.transform.position, Vector3.down);
-        if (Physics.Raycast(groundRay, out groundHit, moveController.height + groundCheckDistance)) //&& Time.time >= lastTimeJumped + jumpGroundingPreventionTime)  // only try to detect ground if it's been a short amount of time since last jump; otherwise we may snap to the ground instantly after we try jumping
+
+        if (Physics.Raycast(groundRay, out groundHit, moveController.height + groundCheckDistance) && !jumpHeld ) //&& Time.time >= lastTimeJumped + jumpGroundingPreventionTime)  // only try to detect ground if it's been a short amount of time since last jump; otherwise we may snap to the ground instantly after we try jumping
         {
             // Only consider this a valid ground hit if the ground normal goes in the same direction as the character up
             if (Vector3.Dot(groundHit.normal, transform.up) > 0f)
@@ -484,6 +526,7 @@ public class dPlayerMovement : NetworkBehaviour
                 pStats.Traction = 0.01f;
           
             }
+            transform.Rotate(Vector3.forward * -sensitivity * Time.deltaTime * Input.GetAxis("Mouse X"));
             pStats.Traction += .004f;
         }
         else{
@@ -491,20 +534,40 @@ public class dPlayerMovement : NetworkBehaviour
         }
         //NOTE: potentialy change this to only allow player back up if there is nothing above them
         if (qDown == false && isSliding == true) {
-            //if nothing is above the object, stop slidding
+            //if nothing is above the object, stop sliding
             if (Physics.Raycast(this.gameObject.transform.position, up, out ray, 5f) == false)
             {
-                this.gameObject.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x + 90, this.transform.eulerAngles.y, this.transform.eulerAngles.z);
+                this.gameObject.transform.localEulerAngles = new Vector3(0, 0, 0);
                 isSliding = false;
                 moveController.height = 2.0f;
                 pStats.Traction = originalTraction;
-
             }
             else{
                 Debug.Log("Object above you");
-
+                
             }
         }
+    }
+
+    public void CancelMomentum()
+    {
+        pStats.CurVel = 0;
+        vel = Vector3.zero;
+        moveX = Vector3.zero;
+        moveZ = Vector3.zero;
+        moveController.enabled = false;
+    }
+
+    private IEnumerator RespawnTimer()
+    {
+        float duration = 2f;
+        float normalizedTime = 0;
+        while (normalizedTime <= 1f)
+        {
+            normalizedTime += Time.deltaTime / duration;
+            yield return null;
+        }
+        moveController.enabled = true;
     }
 
 }
