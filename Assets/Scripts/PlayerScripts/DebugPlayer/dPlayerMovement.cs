@@ -204,8 +204,9 @@ public class dPlayerMovement : NetworkBehaviour
             if(animator != null) animator.SetBool("isRunning", true);
         }
         //if low enough movement from player (this will be still at this value) stop animation
-        else if (driftVel.magnitude < .510f)
+        else if (driftVel.magnitude < .05f)
         {
+            driftVel = Vector3.zero;
             if(animator != null) animator.SetBool("isRunning", false);
         }
 
@@ -523,7 +524,14 @@ public class dPlayerMovement : NetworkBehaviour
                 originalTraction = pStats.Traction;
                 this.gameObject.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x - 90, this.transform.eulerAngles.y, this.transform.eulerAngles.z);
                 isSliding = true;
-                moveController.height = 1.0f;
+                //if it can't find the animator (capsul prefab)
+                if (GetComponent<Animator>() == null){
+                    moveController.height = 1.0f;
+                }
+                //if the regular model
+                else {
+                    moveController.height *= .5f;
+                }
                 pStats.Traction = 0.01f;
           
             }
@@ -540,7 +548,16 @@ public class dPlayerMovement : NetworkBehaviour
             {
                 this.gameObject.transform.localEulerAngles = new Vector3(0, 0, 0);
                 isSliding = false;
-                moveController.height = 2.0f;
+                //if it can't find the animator (capsul prefab)
+                if (GetComponent<Animator>() == null)
+                {
+                    moveController.height = 2.0f;
+                }
+                //if the regular model
+                else
+                {
+                    moveController.height *= 2.0f;
+                }
                 pStats.Traction = originalTraction;
             }
             else{

@@ -523,39 +523,63 @@ public class PlayerMovement : NetworkBehaviour
 
         return ragTime;
     }
-    
+
     //Slide Function
-    private void Slide(){
+    private void Slide()
+    {
         //if the q button or the east face button on gamepad is held down
-        if (Input.GetKey(KeyCode.JoystickButton1) || Input.GetKey(KeyCode.Q)) {
+        if (Input.GetKey(KeyCode.JoystickButton1) || Input.GetKey(KeyCode.Q))
+        {
             qDown = true;
-            if (isSliding == false){
+            if (isSliding == false)
+            {
                 originalTraction = pStats.Traction;
                 this.gameObject.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x - 90, this.transform.eulerAngles.y, this.transform.eulerAngles.z);
                 isSliding = true;
-                moveController.height = 1.0f;
+                //if it can't find the animator (capsul prefab)
+                if (GetComponent<Animator>() == null)
+                {
+                    moveController.height = 1.0f;
+                }
+                //if the regular model
+                else
+                {
+                    moveController.height *= .5f;
+                }
                 pStats.Traction = 0.01f;
-          
+
             }
             transform.Rotate(Vector3.forward * -sensitivity * Time.deltaTime * Input.GetAxis("Mouse X"));
             pStats.Traction += .004f;
         }
-        else{
+        else
+        {
             qDown = false;
         }
         //NOTE: potentialy change this to only allow player back up if there is nothing above them
-        if (qDown == false && isSliding == true) {
+        if (qDown == false && isSliding == true)
+        {
             //if nothing is above the object, stop sliding
             if (Physics.Raycast(this.gameObject.transform.position, up, out ray, 5f) == false)
             {
                 this.gameObject.transform.localEulerAngles = new Vector3(0, 0, 0);
                 isSliding = false;
-                moveController.height = 2.0f;
+                //if it can't find the animator (capsul prefab)
+                if (GetComponent<Animator>() == null)
+                {
+                    moveController.height = 2.0f;
+                }
+                //if the regular model
+                else
+                {
+                    moveController.height *= 2.0f;
+                }
                 pStats.Traction = originalTraction;
             }
-            else{
+            else
+            {
                 Debug.Log("Object above you");
-                
+
             }
         }
     }
