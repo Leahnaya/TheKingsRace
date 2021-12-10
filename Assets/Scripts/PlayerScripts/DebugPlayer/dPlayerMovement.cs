@@ -29,7 +29,7 @@ public class dPlayerMovement : NetworkBehaviour
     //Jump value
     public int curJumpNum; // current Jumps used
     private bool jumpHeld; // Is jump being held
-    float coyJumpTimer = 0.2f; // Default Coyote Jump time
+    float coyJumpTimer = 0.1f; // Default Coyote Jump time
     float curCoyJumpTimer; // current Coyote Jump time
     public float lowJumpMultiplier; // Short jump multiplier
     public float fallMultiplier; // High Jump Multiplier
@@ -147,23 +147,18 @@ public class dPlayerMovement : NetworkBehaviour
             impact = Vector3.Lerp(impact, Vector3.zero, 5*Time.deltaTime);
         }
 
-        //TEMP FOR TESTING RAGDOLL
-        //Right Click to ragdoll the player
-        // if (Input.GetMouseButton(1) && heldDown == false){
-        //     getHit(new Vector3(vel.x, 0, vel.z), 30);
-        //     heldDown = true;
-        // }
-        // if(!Input.GetMouseButton(1)){
-        //     heldDown = false;
-        // }
+        //If Character controller is disabled use rigidbody calculations
+        else{
+            //if ragdoll timer is over disable ragdolling
+            if (RagdollTimer() == 0){
+                firstHit = false;
+                DisableRagdoll();
+            }   
 
-        if(pStats.HasBlink == true){
-            blink.BlinkMove();
+            //Gravity without moveController
+            g -= pStats.PlayerGrav * Time.deltaTime;
+            rB.AddForce(new Vector3(0,g,0));
         }
-
-        //TEMP FOR TESTING
-        //Checks if player should respawn
-        //Respawn();
         
     }
 
