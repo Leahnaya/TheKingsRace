@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Bumper : MonoBehaviour {
 
-    public float bumpPower = 80;
+    public float bumpPower = 30;
 
     // Is called whenever something collides with the bumper
     void OnTriggerEnter(Collider objectHit) {
