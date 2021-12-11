@@ -1078,37 +1078,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1818923263116056088, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
-      propertyPath: wallMaxDistance
-      value: 0.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 2782774462923692506, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3607330906377400225, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
     - target: {fileID: 5633209979457551608, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
       propertyPath: m_Name
       value: DebugPlayerPrefab
-      objectReference: {fileID: 0}
-    - target: {fileID: 5784126162129930074, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
-      propertyPath: dashItem
-      value: 
-      objectReference: {fileID: 11400000, guid: 4399d7276b3edf446ac51c5145539a5e, type: 2}
-    - target: {fileID: 6743056025486776975, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
-      propertyPath: fallMultiplier
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6743056025486776975, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
-      propertyPath: lowJumpMultiplier
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6743056025486776975, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
-      propertyPath: groundCheckHitbox.m_Bits
-      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6926740475113451123, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
       propertyPath: m_RootOrder
@@ -1153,34 +1125,6 @@ PrefabInstance:
     - target: {fileID: 6926740475113451123, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8100520363622627413, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
-      propertyPath: acc
-      value: 0.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 8100520363622627413, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
-      propertyPath: maxVel
-      value: 40
-      objectReference: {fileID: 0}
-    - target: {fileID: 8100520363622627413, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
-      propertyPath: minVel
-      value: 15
-      objectReference: {fileID: 0}
-    - target: {fileID: 8100520363622627413, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
-      propertyPath: jumpPow
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 8100520363622627413, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
-      propertyPath: kickPow
-      value: 150
-      objectReference: {fileID: 0}
-    - target: {fileID: 8100520363622627413, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
-      propertyPath: hasWallrun
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8100520363622627413, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
-      propertyPath: playerGrav
-      value: 200
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
@@ -1463,7 +1407,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1405946429}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.5, y: 14.2, z: 10.3}
+  m_LocalPosition: {x: -1.5, y: 23.9, z: 10.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}

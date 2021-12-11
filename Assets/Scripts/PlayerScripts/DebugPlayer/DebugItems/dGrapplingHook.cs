@@ -7,7 +7,7 @@ public class dGrapplingHook : NetworkBehaviour
 {
     public float maxGrappleDistance = 25;
 
-    private bool isGrappled;
+    public bool isGrappled;
     private int hookPointIndex;
     private GameObject hookPoint;
     private GameObject[] hookPoints;
@@ -16,7 +16,8 @@ public class dGrapplingHook : NetworkBehaviour
     private CharacterController movementController;
     private dPlayerMovement playerMovement;
     private PlayerStats pStats;
-    private float ropeLength;
+    private Vector3 hookLerp;
+    public float ropeLength;
     private float climbRate = 5;
 
     // Start is called before the first frame update
@@ -83,12 +84,14 @@ public class dGrapplingHook : NetworkBehaviour
             //Do grappling physics based on hookPoint
             if (Vector3.Distance(gameObject.transform.position, hookPoint.transform.position) > ropeLength)
             {
-                //Impact Based
-                //playerMovement.AddImpact((hookPoint.transform.position - gameObject.transform.position), pStats.PlayerGrav*2);
+                movementController.Move((hookPoint.transform.position - gameObject.transform.position).normalized * Time.deltaTime);
                 //Character controller move?
-                movementController.Move((hookPoint.transform.position - gameObject.transform.position).normalized * ropeLength * 10 *Time.deltaTime);
+                //movementController.Move((hookPoint.transform.position - gameObject.transform.position).normalized * ropeLength * 10 *Time.deltaTime);
                 //Lerp? or another smoother way? Better physics? Wait until refinement to deal with
             }
+        }
+        if(playerMovement.GetJumpPressed()){
+            isGrappled = false;
         }
     }
 
