@@ -7,7 +7,7 @@ public class GridReveal : MonoBehaviour
     private GameObject[] Rows;
     private float TempKingPos = 0;
     private int Index = 0;
-    private int ROSCount = 3;
+    private int ROSCount = 130;
 
     void Start() {
         List<GameObject> RowsList = new List<GameObject>();
@@ -28,6 +28,9 @@ public class GridReveal : MonoBehaviour
 
     //A function for enabling and disabalimg the Visability of the King's Grid as the King Moves
     public void DynGridReveal(float KingPos, float MovDir) {
+        if(KingPos > -670 || KingPos < -2960) { //Cancels out the function if the King is in the valley or the mountain
+            return;
+        }
         if(TempKingPos >= KingPos + 20 || TempKingPos <= KingPos - 20) { //Moves the Grid Everytime is King has moved 20 Units
             TempKingPos = KingPos;
             if (MovDir == 0) {
@@ -42,8 +45,8 @@ public class GridReveal : MonoBehaviour
             }
             else if (MovDir <= 0) { //Moving Left        
                 Rows[Index].SetActive(true);//Activates Rightmost
-                if (Index != 0 + ROSCount) {//Prevents OfB error
-                    Rows[Index - ROSCount].SetActive(false);//Deactivates Leftmost
+                if (Index != 0) {//Prevents OfB error
+                    Rows[Index + ROSCount].SetActive(false);//Deactivates Leftmost
                     Index--;
                 }
             }
