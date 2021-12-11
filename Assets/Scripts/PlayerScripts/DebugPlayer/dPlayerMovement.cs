@@ -166,6 +166,7 @@ public class dPlayerMovement : NetworkBehaviour
             g -= pStats.PlayerGrav * Time.deltaTime;
             rB.AddForce(new Vector3(0,g,0));
         }
+        Respawn();
         
     }
 
@@ -373,7 +374,7 @@ public class dPlayerMovement : NetworkBehaviour
     {
         if (transform.position.y < -5)
         {
-            transform.position = new Vector3(1f, 3f, 1f);
+            TeleportPlayer(new Vector3(0,100,0));
         }
     }
 
@@ -591,8 +592,8 @@ public class dPlayerMovement : NetworkBehaviour
         moveController.enabled = true;
     }
 
-
-    public void TeleportPlayer(){
-        
+    public void TeleportPlayer(Vector3 position, Quaternion rotation = new Quaternion()){
+        transform.position = position;
+        transform.rotation = rotation;
     }
 }
