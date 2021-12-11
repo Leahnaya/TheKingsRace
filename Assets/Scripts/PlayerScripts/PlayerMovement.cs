@@ -580,4 +580,9 @@ public class PlayerMovement : NetworkBehaviour
         }
         moveController.enabled = true;
     }
+
+    public void TeleportPlayer(Vector3 position, Quaternion rotation = new Quaternion()){
+        transform.position = position;
+        transform.rotation = rotation;
+    }
 }
