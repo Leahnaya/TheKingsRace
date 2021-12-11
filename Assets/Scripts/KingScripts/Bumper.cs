@@ -9,7 +9,7 @@ public class Bumper : MonoBehaviour {
     // Is called whenever something collides with the bumper
     void OnTriggerEnter(Collider objectHit) {
         if (objectHit.tag == "Player") {//Checks if the other object is the player
-            dPlayerMovement playerMovement = objectHit.GetComponent<dPlayerMovement>();
+            PlayerMovement playerMovement = objectHit.GetComponent<PlayerMovement>();
 
             float DirBumpX = playerMovement.driftVel.x * -1;//Inverts the Player Velocity x
             float DirBumpY = .1f;
@@ -19,6 +19,7 @@ public class Bumper : MonoBehaviour {
             DirBump = Vector3.Normalize(DirBump);//Normalizes the vector to be used as a bump direction
 
             playerMovement.GetHit(DirBump, bumpPower);
+            //
         }
     }
 }

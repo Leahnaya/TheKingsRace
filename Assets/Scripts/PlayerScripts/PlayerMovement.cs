@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class PlayerMovement : NetworkBehaviour
 {
-    //Controller object
     //Scripts
     public PlayerStats pStats;
 
@@ -17,8 +16,7 @@ public class PlayerMovement : NetworkBehaviour
 
     private Vector3 moveZ;
     private Vector3 moveX;
-    private Vector3 driftVel;
-    private Vector3 lerpY;
+    public Vector3 driftVel;
 
     //Player prefab
     private GameObject parentObj;
@@ -29,11 +27,11 @@ public class PlayerMovement : NetworkBehaviour
     //Jump value
     public int curJumpNum; // current Jumps used
     private bool jumpHeld; // Is jump being held
-    float coyJumpTimer = 0.2f; // Default Coyote Jump time
+    float coyJumpTimer = 0.1f; // Default Coyote Jump time
     float curCoyJumpTimer; // current Coyote Jump time
     public float lowJumpMultiplier; // Short jump multiplier
     public float fallMultiplier; // High Jump Multiplier
-    private float g = 0; // the y velocity
+    public float g = 0; // the y velocity
 
     //Glide Values
     bool tempSet = false;
@@ -43,7 +41,6 @@ public class PlayerMovement : NetworkBehaviour
     private float mass = 5.0F; // defines the character mass
     private Vector3 impact = Vector3.zero;
     private float distToGround;
-
 
     //Wallrunning
     private WallRun wallRun;
@@ -73,14 +70,14 @@ public class PlayerMovement : NetworkBehaviour
     private Rigidbody rB;
     private CapsuleCollider capCol;
     private bool firstHit = false;
-    //private bool heldDown = false;  //Variable for testing ragdoll reenable if needed
+    //private bool heldDown = false; //Variable for testing Ragdoll reenable if needed
     private bool beginRagTimer = false;
     private float ragTime; 
     private Vector3 prevRot;
     private Vector3 hitForce;
 
     //Slide Variables
-    private bool isSliding = false;
+    public bool isSliding = false;
     private float originalTraction;
     private RaycastHit ray;
     private Vector3 up;
@@ -88,6 +85,9 @@ public class PlayerMovement : NetworkBehaviour
 
     //Blink
     private Blink blink;
+
+    private GrapplingHook grapple;
+    
 
     //Animation controller
     Animator animator;
@@ -98,7 +98,7 @@ public class PlayerMovement : NetworkBehaviour
         moveController = GetComponent<CharacterController>(); // Character Controller
         rB = GetComponent<Rigidbody>(); //Rigid Body
         capCol = GetComponent<CapsuleCollider>(); // Capsule Collider
-        capCol.enabled = false;
+        capCol.enabled = true;
         parentObj = transform.parent.gameObject;
         animator = GetComponent<Animator>();
 
@@ -106,15 +106,14 @@ public class PlayerMovement : NetworkBehaviour
         pStats = GetComponent<PlayerStats>(); // PlayerStats
         wallRun = GetComponent<WallRun>(); //Wallrun
         blink = GetComponent<Blink>(); //Blink
+        grapple = GetComponent<GrapplingHook>();
 
         //Get parents up direction
         up = GetComponentInParent<Transform>().up;
-
+//
         //Coyote Timer Initialization
         curCoyJumpTimer = coyJumpTimer;
     }
-
-
 
     void Start()
     {
@@ -122,6 +121,7 @@ public class PlayerMovement : NetworkBehaviour
 
         // Don't do movement unless this is the local player controlling it
         // Otherwise we let the server handle moving us
+
         if (!IsLocalPlayer) { return; }
 
         // Don't lock the cursor multiple times if this isn't the local player
@@ -129,8 +129,6 @@ public class PlayerMovement : NetworkBehaviour
         // That is why this is after the LocalPlayer check
         Cursor.lockState = CursorLockMode.Locked;
     }
-
-
 
     // Update is called once per frame
     void FixedUpdate()
@@ -167,10 +165,8 @@ public class PlayerMovement : NetworkBehaviour
             g -= pStats.PlayerGrav * Time.deltaTime;
             rB.AddForce(new Vector3(0,g,0));
         }
-
-        //TEMP FOR TESTING
-        //Checks if player should respawn
-        //Respawn();
+        Respawn();
+        
     }
 
 
@@ -200,6 +196,7 @@ public class PlayerMovement : NetworkBehaviour
         //Slide Function
         Slide();
 
+
         //move animation 
         //if vel from input is greater than 0, start sprinting animation
         if (PlayerSpeed() > 0.1)
@@ -209,8 +206,9 @@ public class PlayerMovement : NetworkBehaviour
             if(animator != null) animator.SetBool("isRunning", true);
         }
         //if low enough movement from player (this will be still at this value) stop animation
-        else if (driftVel.magnitude < .510f)
+        else if (driftVel.magnitude < .05f)
         {
+            driftVel = Vector3.zero;
             if(animator != null) animator.SetBool("isRunning", false);
         }
 
@@ -229,21 +227,18 @@ public class PlayerMovement : NetworkBehaviour
             pStats.CurVel = 0.0f;
             return pStats.CurVel;
         }
-
         //If current speed is below min when pressed set to minimum speed
         else if (pStats.CurVel < pStats.MinVel)
         {
             pStats.CurVel = pStats.MinVel;
             return pStats.MinVel;
         }
-
         // while the speed is below max speed slowly increase it
         else if ((pStats.CurVel >= pStats.MinVel) && (pStats.CurVel < pStats.MaxVel))
         {
             pStats.CurVel += pStats.Acc;
             return pStats.CurVel;
         }
-
         //If the players speed is above or equal to max speed set speed to max
         else
         {
@@ -257,7 +252,7 @@ public class PlayerMovement : NetworkBehaviour
     //Apply Impact for when force needs to be applied without ragdolling
     public void AddImpact(Vector3 dir, float force)
     {
-        if (!IsLocalPlayer) { return; }
+        //if (!IsLocalPlayer) { return; }
 
         //Normalize direction multiply by force and add it to the impact
         dir.Normalize();
@@ -274,7 +269,7 @@ public class PlayerMovement : NetworkBehaviour
         if (Input.GetAxis("Jump") != 0 && !jumpHeld && curJumpNum < pStats.JumpNum && !isSliding)
         {
             if(wallRun.IsWallRunning()){
-                AddImpact((wallRun.GetWallJumpDirection()), pStats.JumpPow * 20f);
+                AddImpact((wallRun.GetWallJumpDirection()), pStats.JumpPow * 10f);
                 g = pStats.JumpPow;
             }
 
@@ -290,7 +285,7 @@ public class PlayerMovement : NetworkBehaviour
         lastTimeJumped = Time.time;
 
         //If grounded no jumps have been used and coyote Timer is refreshed
-        if(isGrounded){
+        if(isGrounded && g == 0){
             curCoyJumpTimer = coyJumpTimer;
             curJumpNum = 0;
         } 
@@ -300,13 +295,13 @@ public class PlayerMovement : NetworkBehaviour
         //if jump is being held coyote timer is zero
         if(jumpHeld) curCoyJumpTimer = 0;
 
+        if(grapple.isGrappled && curJumpNum == 2) curJumpNum = 1;
+
         //If space/south face gamepad button isn't being pressed then jump is false
         if (Input.GetAxis("Jump") == 0){
            jumpHeld = false;
         }
     }
-
-
 
     //Get and update PlayerValues for other scripts
     //Get jumpHeld
@@ -380,7 +375,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         if (transform.position.y < -5)
         {
-            transform.position = new Vector3(1f, 3f, 1f);
+            TeleportPlayer(new Vector3(0,100,0));
         }
     }
 
@@ -435,22 +430,21 @@ public class PlayerMovement : NetworkBehaviour
     private void GravityCalculation(float grav){
         //apply slight upwards force for jump smoothing when g < 0
         if(g < 0){
-                g += grav * (fallMultiplier - 1) * Time.deltaTime;
+            g += grav * (fallMultiplier - 1) * Time.deltaTime;
         }
 
         //apply smaller upwards force if jump is released early when jumping creating a short jump
         else if (g > 0 && !Input.GetButton("Jump")){
-                g += grav * (lowJumpMultiplier - 1) * Time.deltaTime;
+            g += grav * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
 
         //apply gravity if not grounded and coyote timer is less than 0
-        if((isGrounded == false && curCoyJumpTimer <= 0)){
-                g -= grav * Time.deltaTime;
+        if(isGrounded == false && curCoyJumpTimer <= 0){
+            g -= grav * Time.deltaTime;
         }
-
         //else don't apply gravity
         else{
-                g = 0;
+            g = 0;
         }
     }
 
@@ -472,7 +466,7 @@ public class PlayerMovement : NetworkBehaviour
             {
                 isGrounded = true;
                 // handle snapping to the ground
-                if (groundHit.distance > moveController.skinWidth)
+                if (groundHit.distance > moveController.skinWidth && !grapple.isGrappled)
                 {
                     moveController.Move(Vector3.down * groundHit.distance);
                 }
@@ -504,6 +498,7 @@ public class PlayerMovement : NetworkBehaviour
         rB.isKinematic = true;
         rB.detectCollisions = false;
         transform.localEulerAngles = prevRot;
+        CancelMomentum();
     }
 
     //When to begin the ragdoll timer
@@ -590,7 +585,7 @@ public class PlayerMovement : NetworkBehaviour
         vel = Vector3.zero;
         moveX = Vector3.zero;
         moveZ = Vector3.zero;
-        moveController.enabled = false;
+        driftVel = Vector3.zero;
     }
 
     private IEnumerator RespawnTimer()

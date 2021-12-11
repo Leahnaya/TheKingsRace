@@ -32,7 +32,7 @@ public class dPlayerMovement : NetworkBehaviour
     float curCoyJumpTimer; // current Coyote Jump time
     public float lowJumpMultiplier; // Short jump multiplier
     public float fallMultiplier; // High Jump Multiplier
-    private float g = 0; // the y velocity
+    public float g = 0; // the y velocity
 
     //Glide Values
     bool tempSet = false;
@@ -99,7 +99,7 @@ public class dPlayerMovement : NetworkBehaviour
         moveController = GetComponent<CharacterController>(); // Character Controller
         rB = GetComponent<Rigidbody>(); //Rigid Body
         capCol = GetComponent<CapsuleCollider>(); // Capsule Collider
-        capCol.enabled = false;
+        capCol.enabled = true;
         parentObj = transform.parent.gameObject;
         animator = GetComponent<Animator>();
 
@@ -296,6 +296,8 @@ public class dPlayerMovement : NetworkBehaviour
         //if jump is being held coyote timer is zero
         if(jumpHeld) curCoyJumpTimer = 0;
 
+        if(grapple.isGrappled && curJumpNum == 2) curJumpNum = 1;
+
         //If space/south face gamepad button isn't being pressed then jump is false
         if (Input.GetAxis("Jump") == 0){
            jumpHeld = false;
@@ -438,10 +440,9 @@ public class dPlayerMovement : NetworkBehaviour
         }
 
         //apply gravity if not grounded and coyote timer is less than 0
-        if((isGrounded == false && curCoyJumpTimer <= 0) || (!grapple.isGrappled && isGrounded == false)){
+        if(isGrounded == false && curCoyJumpTimer <= 0){
             g -= grav * Time.deltaTime;
         }
-
         //else don't apply gravity
         else{
             g = 0;
