@@ -66,7 +66,14 @@ public class KingPlace : MonoBehaviour {
                 Place.transform.position = RayCastHit.point;
             }
             if (Input.GetMouseButtonUp(1)) {//Reads the player letting up the right mouse button
-                Instantiate(Place);//Place the object (Snap it up and to Grid)
+                //foreach (Transform child in Grid.gameObject.transform) { //Finds the correct Row the cursor is in (Commented out because it's scuffed AF)
+                    //if (child.transform.position.z >= Place.transform.position.x && child.transform.position.z - 20 <= Place.transform.position.x)
+                    //{
+                       // Debug.Log("Help" + child.transform.position.z);
+                        Instantiate(Place);//Place the object (Snap it up and to Grid)
+                        //break;
+                    //}
+                }
                 Grid.GetComponent<GridReveal>().GridSwitch(false); //Switch off the grid
                 Placing = false;//Stop placing
             }
