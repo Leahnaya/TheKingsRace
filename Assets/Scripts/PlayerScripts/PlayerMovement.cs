@@ -390,9 +390,9 @@ public class PlayerMovement : NetworkBehaviour
     private void UpdateGravity(){
 
         //Gliding
-        if(pStats.HasGlider && g < 0 && jumpHeld){
+        if(pStats.HasGlider && g < 0 && Input.GetButton("Jump")){
             //Gravity with glider
-            GravityCalculation(10);
+            GravityCalculation(6);
 
             //Set temp values to put traction back to normal
             if(tempSet == false){
@@ -444,7 +444,7 @@ public class PlayerMovement : NetworkBehaviour
         }
 
         //apply gravity if not grounded and coyote timer is less than 0
-        if(isGrounded == false && curCoyJumpTimer <= 0){
+        if((isGrounded == false && curCoyJumpTimer <= 0)){
                 g -= grav * Time.deltaTime;
         }
 
