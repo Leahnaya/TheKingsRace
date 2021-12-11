@@ -40,7 +40,7 @@ public class Dash : NetworkBehaviour {
             moveDirection = Vector3.zero;
         }
        
-        characterController.Move(moveDirection * Time.deltaTime * dashSpeed);
+        //characterController.Move(moveDirection * Time.deltaTime * dashSpeed);
     }
 
     private IEnumerator startCoolDown(){
