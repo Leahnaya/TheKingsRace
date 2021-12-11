@@ -1,8 +1,10 @@
+using MLAPI;
+using MLAPI.Messaging;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Boulder : MonoBehaviour
+public class Boulder : NetworkBehaviour
 {
     private Rigidbody boulder;
 
@@ -23,15 +25,29 @@ public class Boulder : MonoBehaviour
         }
     }
 
-    //Coppied from player for easy Boulder Testing/Demonstration
-    void FixedUpdate() {
-        Respawn();
+    public void StartCountdown(int time, Vector3 spawnForce)
+    {
+        StartCoroutine(DespawnCounter(time));
+        AddForceServerRPC(spawnForce);
     }
 
-    private void Respawn()
-    {
-        if (transform.position.y < -1) {
-            transform.position = new Vector3(74.67f, 34.68f, 7.15f);
+    [ServerRpc]
+    private void AddForceServerRPC(Vector3 force) {
+        this.gameObject.GetComponent<Rigidbody>().AddForce(force);
+    }
+
+    IEnumerator DespawnCounter(int time) {
+        for (int i = time; i > 0; i--) {
+            Debug.LogError(i);
+            yield return new WaitForSecondsRealtime(1f);
         }
+
+        // Time's up - Despawn us
+        DespawnBoulderServerRPC();
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void DespawnBoulderServerRPC() {
+        this.gameObject.GetComponent<NetworkObject>().Despawn(true);
     }
 }

@@ -6625,53 +6625,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 370188826}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &372819693
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 372819694}
-  - component: {fileID: 372819695}
-  m_Layer: 0
-  m_Name: Boulder Spawn
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &372819694
+--- !u!4 &372819694 stripped
 Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 8808368135834717660, guid: 0d288120830514244bc113d85efa9b4d, type: 3}
+  m_PrefabInstance: {fileID: 8808368135602473778}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 372819693}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 380, y: 39, z: 370}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 709008595}
-  m_RootOrder: 10
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &372819695
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 372819693}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18d4d5c56acc6924baed02e452b9d1d0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RespawnTimer: 10
-  spawnForce: {x: -4000, y: 0, z: 0}
-  SpawnLocation: {x: 380, y: 40, z: 370}
-  BoulderPrefab: {fileID: 1705285893771051651, guid: 3fd15f10e6c1a07419fdd6bf804b6541, type: 3}
 --- !u!1 &374633642
 GameObject:
   m_ObjectHideFlags: 0
@@ -20858,6 +20816,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DebugPlayerPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 5633209979457551608, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6926740475113451123, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -28596,7 +28558,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!81 &1664207030
 AudioListener:
   m_ObjectHideFlags: 0
@@ -39409,6 +39371,63 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1001 &8808368135602473778
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 709008595}
+    m_Modifications:
+    - target: {fileID: 8808368135834717660, guid: 0d288120830514244bc113d85efa9b4d, type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8808368135834717660, guid: 0d288120830514244bc113d85efa9b4d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 380
+      objectReference: {fileID: 0}
+    - target: {fileID: 8808368135834717660, guid: 0d288120830514244bc113d85efa9b4d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 39
+      objectReference: {fileID: 0}
+    - target: {fileID: 8808368135834717660, guid: 0d288120830514244bc113d85efa9b4d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 370
+      objectReference: {fileID: 0}
+    - target: {fileID: 8808368135834717660, guid: 0d288120830514244bc113d85efa9b4d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8808368135834717660, guid: 0d288120830514244bc113d85efa9b4d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8808368135834717660, guid: 0d288120830514244bc113d85efa9b4d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8808368135834717660, guid: 0d288120830514244bc113d85efa9b4d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8808368135834717660, guid: 0d288120830514244bc113d85efa9b4d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8808368135834717660, guid: 0d288120830514244bc113d85efa9b4d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8808368135834717660, guid: 0d288120830514244bc113d85efa9b4d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8808368135834717663, guid: 0d288120830514244bc113d85efa9b4d, type: 3}
+      propertyPath: m_Name
+      value: Boulder Spawn
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0d288120830514244bc113d85efa9b4d, type: 3}
 --- !u!64 &8898764535877193668
 MeshCollider:
   m_ObjectHideFlags: 0
