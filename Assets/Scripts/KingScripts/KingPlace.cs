@@ -52,14 +52,8 @@ public class KingPlace : MonoBehaviour {
         //Layout the grid
         Grid.GetComponent<GridReveal>().GridSwitch(true);
 
-        //The player selects where on the grid they want to place the object
+        //The player can then see where the object will be placed, reletive to the Grid
         Placing = true;
-        /* Center anchored
-         * Should be "simple" to snap the cursor poistion onto the grid.
-         */
-
-        //The object is placed there
-        //Energy is spent
     }
 
     [SerializeField] private Camera KingCam;
@@ -70,6 +64,11 @@ public class KingPlace : MonoBehaviour {
             Ray Ray = KingCam.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(Ray, out RaycastHit RayCastHit, float.MaxValue, LayerMask)) {
                 Place.transform.position = RayCastHit.point;
+            }
+            if (Input.GetMouseButtonUp(1)) {//Reads the player letting up the right mouse button
+                Instantiate(Place);//Place the object (Snap it up and to Grid)
+                Grid.GetComponent<GridReveal>().GridSwitch(false); //Switch off the grid
+                Placing = false;//Stop placing
             }
         }
     }
