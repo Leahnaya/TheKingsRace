@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class dGrapplingHook : NetworkBehaviour
 {
-    public float maxGrappleDistance = 25;
+   public float maxGrappleDistance = 25;
 
     public bool isGrappled;
     private int hookPointIndex;
@@ -16,14 +16,13 @@ public class dGrapplingHook : NetworkBehaviour
     private CharacterController movementController;
     private dPlayerMovement playerMovement;
     private PlayerStats pStats;
-    private Vector3 hookLerp;
-    public float ropeLength;
+    [SerializeField] private float ropeLength;
     private float climbRate = 5;
 
     // Start is called before the first frame update
     void Start()
     {
-        isGrappled = false;
+        isGrappled = false; 
         hookPoints = GameObject.FindGameObjectsWithTag("HookPoint");
         movementController = gameObject.GetComponent<CharacterController>();
         playerMovement = gameObject.GetComponent<dPlayerMovement>();
@@ -35,7 +34,6 @@ public class dGrapplingHook : NetworkBehaviour
     {
         //if (!IsLocalPlayer) { return; }
 
-        //if E or left face gamepad button is pressed is slightly pressed
         if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.JoystickButton2)) //If grapple button is hit
         {
             if (!isGrappled) //If we are not grappling
@@ -47,7 +45,7 @@ public class dGrapplingHook : NetworkBehaviour
                     ropeLength = Vector3.Distance(gameObject.transform.position, hookPoint.transform.position) + 0.5f;
                     isGrappled = true; //toggle grappling state
                 }
-            }
+            } 
             else //Else we are grappling
             {
                 //physics tear down?
@@ -62,7 +60,6 @@ public class dGrapplingHook : NetworkBehaviour
         {
             Debug.DrawRay(gameObject.transform.position, (hookPoint.transform.position - gameObject.transform.position)); //Visual of line
 
-            //if left shift or left bumper held down
             if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.JoystickButton4)) //Extend hook
             {
                 ropeLength += climbRate * Time.deltaTime;
@@ -82,24 +79,23 @@ public class dGrapplingHook : NetworkBehaviour
                 //Debug.Log(ropeLength.ToString());
             }
             //Do grappling physics based on hookPoint
-            if (Vector3.Distance(gameObject.transform.position, hookPoint.transform.position) > ropeLength)
+            if (Vector3.Distance(gameObject.transform.position, hookPoint.transform.position) > ropeLength )
             {
-                movementController.Move((hookPoint.transform.position - gameObject.transform.position).normalized * Time.deltaTime);
-                //Character controller move?
-                //movementController.Move((hookPoint.transform.position - gameObject.transform.position).normalized * ropeLength * 10 *Time.deltaTime);
-                //Lerp? or another smoother way? Better physics? Wait until refinement to deal with
+                //Impact Based
+                Debug.Log("y");
+                playerMovement.g = 2;
+                movementController.Move((hookPoint.transform.position - gameObject.transform.position) * Time.deltaTime);
+
             }
         }
-        if(playerMovement.GetJumpPressed()){
-            isGrappled = false;
-        }
+        if(playerMovement.GetJumpPressed()) isGrappled = false;
     }
 
     int FindHookPoint()
     {
         float least = maxGrappleDistance;
         int index = -1;
-        for (int i = 0; i < hookPoints.Length; i++)
+        for(int i = 0; i<hookPoints.Length; i++)
         {
             distance = Vector3.Distance(gameObject.transform.position, hookPoints[i].transform.position);
             if (distance <= least)
@@ -109,4 +105,60 @@ public class dGrapplingHook : NetworkBehaviour
         }
         return index;
     }
+    ///////////Hookshot Concept
+    // public float maxGrappleDistance = 25;
+
+    // public bool isGrappled;
+    // private Vector3 hookPoint;
+    // private float distance;
+    // public float propelPower = 100;
+
+    // private CharacterController movementController;
+    // private dPlayerMovement playerMovement;
+    // private PlayerStats pStats;
+    // private Camera cam;
+    // private Vector3 forwardHookLerp;
+    // private Vector3 upwardsHookLerp;
+
+    // // Start is called before the first frame update
+    // void Start()
+    // {
+    //     isGrappled = false;
+    //     movementController = gameObject.GetComponent<CharacterController>();
+    //     playerMovement = gameObject.GetComponent<dPlayerMovement>();
+    //     pStats = gameObject.GetComponent<PlayerStats>();
+    //     cam = playerMovement.cam;
+    // }
+
+    // private void FixedUpdate()
+    // {
+    //     getGrapplePoint();
+    //     //Debug.Log((hookPoint.transform.position - transform.position).normalized);
+    //     if (isGrappled && !Input.GetKeyDown(KeyCode.E))
+    //     {
+    //         //playerMovement.AddImpact((hookPoint - transform.position), propelPower);
+    //         forwardHookLerp = Vector3.Lerp(forwardHookLerp, transform.forward * 50, .03f);
+    //         movementController.Move(forwardHookLerp * Time.deltaTime);
+
+    //         upwardsHookLerp = Vector3.Lerp(upwardsHookLerp, (hookPoint - transform.position).normalized * Vector3.Distance(transform.position, hookPoint) * propelPower, .03f);
+    //         movementController.Move(upwardsHookLerp * Time.deltaTime);
+    //         isGrappled = false;
+    //     }
+    // }
+
+    // private void getGrapplePoint(){
+    //     //if E or left face gamepad button is pressed is slightly pressed
+    //     if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.JoystickButton2)) //If grapple button is hit
+    //     {
+    //         if (!isGrappled) //If we are not grappling
+    //         {
+    //             if(Physics.Raycast(cam.transform.position, cam.transform.forward, out RaycastHit raycastHit)){
+    //                 if(raycastHit.collider.gameObject.transform.tag == "HookPoint"){
+    //                     isGrappled = true;
+    //                     hookPoint = new Vector3 (raycastHit.point.x,raycastHit.point.y,raycastHit.point.z);
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
 }
