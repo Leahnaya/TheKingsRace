@@ -19,6 +19,7 @@ public class Bumper : MonoBehaviour {
             DirBump = Vector3.Normalize(DirBump);//Normalizes the vector to be used as a bump direction
 
             playerMovement.GetHit(DirBump, bumpPower);
+            //
         }
     }
 }
