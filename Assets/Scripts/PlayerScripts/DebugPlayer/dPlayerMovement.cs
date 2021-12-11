@@ -527,7 +527,14 @@ public class dPlayerMovement : NetworkBehaviour
                 originalTraction = pStats.Traction;
                 this.gameObject.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x - 90, this.transform.eulerAngles.y, this.transform.eulerAngles.z);
                 isSliding = true;
-                moveController.height = 1.0f;
+                //if it can't find the animator (capsul prefab)
+                if (GetComponent<Animator>() == null){
+                    moveController.height = 1.0f;
+                }
+                //if the regular model
+                else {
+                    moveController.height *= .5f;
+                }
                 pStats.Traction = 0.01f;
           
             }
@@ -544,7 +551,16 @@ public class dPlayerMovement : NetworkBehaviour
             {
                 this.gameObject.transform.localEulerAngles = new Vector3(0, 0, 0);
                 isSliding = false;
-                moveController.height = 2.0f;
+                //if it can't find the animator (capsul prefab)
+                if (GetComponent<Animator>() == null)
+                {
+                    moveController.height = 2.0f;
+                }
+                //if the regular model
+                else
+                {
+                    moveController.height *= 2.0f;
+                }
                 pStats.Traction = originalTraction;
             }
             else{
