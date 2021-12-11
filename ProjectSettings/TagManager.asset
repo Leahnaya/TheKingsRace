@@ -10,6 +10,9 @@ TagManager:
   - HookPoint
   - Floor
   - Weather
+  - destroyable
+  - RunnerHUD
+  - GroundCheck
   layers:
   - Default
   - TransparentFX
@@ -19,7 +22,6 @@ TagManager:
   - UI
   - Floor
   - Weather
-  - 
   - 
   - 
   - 

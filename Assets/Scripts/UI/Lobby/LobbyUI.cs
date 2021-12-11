@@ -21,6 +21,8 @@ public class LobbyUI : NetworkBehaviour {
     private NetworkList<LobbyPlayerState> lobbyPlayers = new NetworkList<LobbyPlayerState>();
     private NetworkVariable<String> hostIpAddress = new NetworkVariable<String>();
 
+    private string LobbyStatusText = "";
+
     public override void NetworkStart()
     {
         // Unlock the player cursor if they get sent back here after a match
@@ -45,6 +47,8 @@ public class LobbyUI : NetworkBehaviour {
 
             // Get/Set the ip of the host
             StartCoroutine(GetIPAddress());
+
+            UpdateLobbyStateText();
         }
 
         // Reset the variables for IsReady and IsKing
@@ -68,6 +72,11 @@ public class LobbyUI : NetworkBehaviour {
                 }
             }
         }
+    }
+
+    void Start() {
+        ToggleReadyServerRpc(); 
+        ToggleReadyServerRpc();
     }
 
     private void OnDestroy()
@@ -261,13 +270,18 @@ public class LobbyUI : NetworkBehaviour {
             }
         }
 
-        UpdateLobbyStateText();
+        if (IsServer) { 
+            UpdateLobbyStateText();
+        }
     }
 
     private void UpdateLobbyStateText() {
 
         if (lobbyPlayers.Count != 3) {
-            lobbyStateText.text = "Need 3 Players to Begin!";
+            LobbyStatusText = "Need 3 Players to Begin!";
+            if (IsServer) {
+                UpdateLobbyStateTextServerRPC(LobbyStatusText);
+            }
             return;
         }
 
@@ -286,15 +300,33 @@ public class LobbyUI : NetworkBehaviour {
 
             // Verify counts
             if (runnerCount != 2 || kingCount != 1) {
-                lobbyStateText.text = "Need 2 Runners and 1 King!";
+                LobbyStatusText = "Need 2 Runners and 1 King!";
+                if (IsServer) {
+                    UpdateLobbyStateTextServerRPC(LobbyStatusText);
+                }
                 return;
             }
 
-            lobbyStateText.text = "All Players Ready!";
+            LobbyStatusText = "All Players Ready!";
         }
         else {
-            lobbyStateText.text = "All Players Need to Ready Up!";
+            LobbyStatusText = "All Players Need to Ready Up!";
         }
+        
+        if (IsServer) {
+            UpdateLobbyStateTextServerRPC(LobbyStatusText);
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void UpdateLobbyStateTextServerRPC(string stateText) {
+        LobbyStatusText = stateText;
+        UpdateLobbyStateTextClientRPC(stateText);
+    }
+
+    [ClientRpc]
+    private void UpdateLobbyStateTextClientRPC(string stateText) {
+        LobbyStatusText = stateText;
     }
 
     //Taken from Goodgulf
@@ -322,5 +354,6 @@ public class LobbyUI : NetworkBehaviour {
 
     void Update() {
         hostIpAddressText.text = hostIpAddress.Value;
+        lobbyStateText.text = LobbyStatusText;
     }
 }

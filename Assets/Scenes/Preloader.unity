@@ -210,8 +210,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runnerSpawnPoints:
-  - {x: 0, y: 2, z: 0}
-  - {x: 2, y: 2, z: 2}
+  - {x: 725, y: 25, z: 488}
+  - {x: 725, y: 25, z: 500}
   kingSpawnPoint: {x: -2, y: 2, z: -2}
 --- !u!1 &1494071116
 GameObject:
@@ -289,6 +289,8 @@ MonoBehaviour:
     - Prefab: {fileID: 1867892282630666222, guid: 7c3682087ff9b234cb9abf6a8fa941b5, type: 3}
       PlayerPrefab: 0
     - Prefab: {fileID: 2124558898386980576, guid: 19c3c5fda3dc2b54d9275bb39ace73ec, type: 3}
+      PlayerPrefab: 0
+    - Prefab: {fileID: 7903050775825061804, guid: 3ec903bdbf186d042993c4adefa36fb2, type: 3}
       PlayerPrefab: 0
     PlayerPrefabHash:
       id: 0
