@@ -212,9 +212,9 @@ public class dPlayerMovement : NetworkBehaviour
             driftVel = Vector3.zero;
             if(animator != null) animator.SetBool("isRunning", false);
         }
-
         //Move Player
         moveController.Move(driftVel + (moveY * Time.deltaTime));
+        if(grapple.isGrappled) moveController.Move(grapple.forceDirection * Time.deltaTime);
     }
 
 
@@ -270,7 +270,7 @@ public class dPlayerMovement : NetworkBehaviour
         if (Input.GetAxis("Jump") != 0 && !jumpHeld && curJumpNum < pStats.JumpNum && !isSliding)
         {
             if(wallRun.IsWallRunning()){
-                AddImpact((wallRun.GetWallJumpDirection()), pStats.JumpPow * 10f);
+                AddImpact((wallRun.GetWallJumpDirection()), pStats.JumpPow * 8f);
                 g = pStats.JumpPow;
             }
 
@@ -440,7 +440,7 @@ public class dPlayerMovement : NetworkBehaviour
         }
 
         //apply gravity if not grounded and coyote timer is less than 0
-        if(isGrounded == false && curCoyJumpTimer <= 0){
+        if((isGrounded == false && curCoyJumpTimer <= 0) || grapple.isGrappled){
             g -= grav * Time.deltaTime;
         }
         //else don't apply gravity

@@ -33,23 +33,24 @@ public class GrapplingHook : NetworkBehaviour
     void Update()
     {
         if (!IsLocalPlayer) { return; }
-
-        if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.JoystickButton2)) //If grapple button is hit
-        {
-            if (!isGrappled) //If we are not grappling
+        if(pStats.HasGrapple){
+            if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.JoystickButton2)) //If grapple button is hit
             {
-                hookPointIndex = FindHookPoint(); //Find the nearest hook point within max distance
-                if (hookPointIndex != -1) //If there is a hookpoint
+                if (!isGrappled) //If we are not grappling
                 {
-                    hookPoint = hookPoints[hookPointIndex]; //The point we are grappling from
-                    ropeLength = Vector3.Distance(gameObject.transform.position, hookPoint.transform.position) + 0.5f;
-                    isGrappled = true; //toggle grappling state
+                    hookPointIndex = FindHookPoint(); //Find the nearest hook point within max distance
+                    if (hookPointIndex != -1) //If there is a hookpoint
+                    {
+                        hookPoint = hookPoints[hookPointIndex]; //The point we are grappling from
+                        ropeLength = Vector3.Distance(gameObject.transform.position, hookPoint.transform.position) + 0.5f;
+                        isGrappled = true; //toggle grappling state
+                    }
+                } 
+                else //Else we are grappling
+                {
+                    //physics tear down?
+                    isGrappled = false; //toggle grappling state to release
                 }
-            } 
-            else //Else we are grappling
-            {
-                //physics tear down?
-                isGrappled = false; //toggle grappling state to release
             }
         }
     }

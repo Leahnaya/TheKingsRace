@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class KingMove : MonoBehaviour
 {
-    public float speed = 30.0f;
+    public float speed = 240.0f;
 
     private Vector3 newPos;
-    private Vector3 MountCent = new Vector3(0, 30, -80);
-    private bool RotStr = false;
+    private Vector3 MountCent = new Vector3(-4500, 620, 510);
+    public GameObject Grid;
     // Update is called once per frame
     void Update() {
         float translation = Input.GetAxis("HorizontalCam") * speed;
@@ -17,33 +17,28 @@ public class KingMove : MonoBehaviour
         translation *= Time.deltaTime;
 
         // Move translation along the object's z-axis
-        if (transform.position.z <= 61 && transform.position.z >= -80) {
-            transform.Translate(translation, 0, 0);//Is negated to make the Left arrow go left and the right arraow go right
-            //transform.position = new Vector3(-42, 30, transform.position.z);
-            transform.rotation = Quaternion.Euler(0, 90, 0);
-            RotStr = false;
+        if (transform.position.x <= 350 && transform.position.x >= -4500) {
+            transform.Translate(translation, 0, 0);
+            Grid.GetComponent<GridReveal>().DynGridReveal(transform.position.x, translation); //Makes the grid reveal itself as the King moves
+            transform.rotation = Quaternion.Euler(0, 180, 0);
         }
-        else if (transform.position.z > 61) {
-            transform.position = new Vector3(-42, 30, 61);//Keeps them from going too far left
+        else if (transform.position.x > 350) {
+            transform.position = new Vector3(350, 625, 1130);//Keeps them from going too far left
         }
-        else if (transform.position.z < -80) {//Once they rech a certain point they begin to cirlce around the mountain (radius of 42, x^2+(z+80)^2=42^2)
-            float x = transform.position.x;
-            x += translation; //Moves the player's X forward slightly
-            float z = -Mathf.Sqrt((42 * 42) - (x * x)) - 80; //Snaps the player onto a circle that is around the mountain, so the player orbits it smoothly
-            newPos = new Vector3(x, 30, z); //make a Vector3 out of the new X and Z
+        else if (transform.position.x < -4500) {//Once they rech a certain point they begin to cirlce around the mountain (radius of 1050, (x+4500)^2+(z-510)^2=620^2)
+            float z = transform.position.z;
+            z -= translation; //Moves the player's X forward slightly
+            float x = -Mathf.Sqrt((620 * 620) - ((z-510) * (z-510))) - 4500; //Snaps the player onto a circle that is around the mountain, so the player orbits it smoothly
+            newPos = new Vector3(x, 620, z); //make a Vector3 out of the new X and Z
             transform.position = newPos;//Sets the player's new position on the cirlce
             transform.LookAt(MountCent);//Rotates the player as they move along the circumfurance
-            /*if (RotStr == false) {//Rotates the player by 90 degrees once, to make LookAt work properly
-                transform.Rotate(0f, -90f, 0f);
-                RotStr = true;
-            }*/
-            if (x < -42) {//Snaps the player back onto the horizontal track
-                transform.position = new Vector3(-42, 30, -80);
+            if (z > 1130) {//Snaps the player back onto the horizontal track
+                transform.position = new Vector3(-4500, 625, 1130);
             }
         }
         else {//If somehow the player disappears into the void, resets them
             Debug.Log("Aw, Beans");
-            transform.position = new Vector3(-42, 30, 0);
+            transform.position = new Vector3(350, 625, 1130);
         }
     }
 }
