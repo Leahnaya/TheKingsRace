@@ -22,7 +22,7 @@ gource --1920x1080 \
 	gourcelog.txt | \
 ffmpeg  -y -r 30 \
 	-f image2pipe -vcodec ppm \
-	-i - -vcodec libx264 \
-	-pix_fmt yuv420p \
-	-crf 0 -threads 0 \
+	-i - -vcodec libx264 -tune grain \
+	-preset slow -crf 15 \
+  -pix_fmt yuv420p -threads 0 \
 	-bf 0 gourceVideo.mp4

@@ -11,21 +11,15 @@ public class PostGameUI : NetworkBehaviour {
     [SerializeField] private int ReturnToLobbyTimer;
 
     [SerializeField] private TMP_Text HeaderText;
-    private string TEXT;
 
     void Start() {
         ReturnToLobbyText.text = "Returning to the lobby in " + ReturnToLobbyTimer + " seconds...";
         StartCoroutine(BeginCountdown());
 
-        //todo: do logic to determine and update who won the round
         UpdateWinnerTextServerRPC();
     }
 
-    void Update() {
-        HeaderText.text = TEXT;
-    }
-
-    [ServerRpc]
+    [ServerRpc(RequireOwnership = false)]
     private void UpdateWinnerTextServerRPC() {
         List<string> playerFinishedNames = new List<string>();
         string kingName = "";
@@ -65,7 +59,7 @@ public class PostGameUI : NetworkBehaviour {
 
     [ClientRpc]
     private void UpdateWinnerTextClientRPC(string winnerText) {
-        TEXT = winnerText;
+        HeaderText.text = winnerText;
     }
 
     IEnumerator BeginCountdown() { 

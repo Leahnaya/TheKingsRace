@@ -28,14 +28,14 @@ public class SpawnManager : NetworkBehaviour {
                 if (ServerGameNetPortal.Instance.clientData.TryGetValue(clientGuid, out PlayerData playerData)) {
                     if (playerData.IsKing) {
                         // Spawn as king
-                        _king = Instantiate(kingPrefab, kingSpawnPoint, Quaternion.identity).gameObject;
+                        _king = Instantiate(kingPrefab, kingSpawnPoint, Quaternion.Euler(0, 180, 0)).gameObject;
                         _king.GetComponent<NetworkObject>().SpawnAsPlayerObject(NetworkManager.Singleton.LocalClientId, null, true);
                     } else {
                         // Spawn as player
-                        _runner = Instantiate(runnerPrefab, runnersSpawnPoints[runnersSpawned], Quaternion.identity).gameObject;
+                        _runner = Instantiate(runnerPrefab, runnersSpawnPoints[runnersSpawned], Quaternion.Euler(0, -90, 0)).gameObject;
                         //Recreate Inventory
                         _runner.GetComponentInChildren<PlayerInventory>().UpdateEquips(playerData.pInv.NetworkItemList, this.gameObject.GetComponent<InventoryManager>().ItemDict);
-                        _runner.GetComponent<NetworkObject>().SpawnAsPlayerObject(NetworkManager.Singleton.LocalClientId);
+                        _runner.GetComponent<NetworkObject>().SpawnAsPlayerObject(NetworkManager.Singleton.LocalClientId, null, true);
 
                         // Increment runners
                         runnersSpawned++;
@@ -65,11 +65,11 @@ public class SpawnManager : NetworkBehaviour {
             if (ServerGameNetPortal.Instance.clientData.TryGetValue(clientGuid, out PlayerData playerData)) {
                 if (playerData.IsKing) {
                     // Spawn as king
-                    _king = Instantiate(kingPrefab, kingSpawnPoint, Quaternion.identity).gameObject;
+                    _king = Instantiate(kingPrefab, kingSpawnPoint, Quaternion.Euler(0, 180, 0)).gameObject;
                     _king.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId, null, true);
                 } else {
                     // Spawn as player
-                    _runner = Instantiate(runnerPrefab, runnersSpawnPoints[runnersSpawned], Quaternion.identity).gameObject;
+                    _runner = Instantiate(runnerPrefab, runnersSpawnPoints[runnersSpawned], Quaternion.Euler(0, -90, 0)).gameObject;
                     //Recreate Inventory
                     _runner.GetComponentInChildren<PlayerInventory>().UpdateEquips(playerData.pInv.NetworkItemList, this.gameObject.GetComponent<InventoryManager>().ItemDict);
                     _runner.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId, null, true);

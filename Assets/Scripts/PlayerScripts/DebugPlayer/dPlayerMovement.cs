@@ -17,8 +17,7 @@ public class dPlayerMovement : NetworkBehaviour
 
     private Vector3 moveZ;
     private Vector3 moveX;
-    private Vector3 driftVel;
-    private Vector3 lerpY;
+    public Vector3 driftVel;
 
     //Player prefab
     private GameObject parentObj;
@@ -33,7 +32,7 @@ public class dPlayerMovement : NetworkBehaviour
     float curCoyJumpTimer; // current Coyote Jump time
     public float lowJumpMultiplier; // Short jump multiplier
     public float fallMultiplier; // High Jump Multiplier
-    private float g = 0; // the y velocity
+    public float g = 0; // the y velocity
 
     //Glide Values
     bool tempSet = false;
@@ -79,7 +78,7 @@ public class dPlayerMovement : NetworkBehaviour
     private Vector3 hitForce;
 
     //Slide Variables
-    private bool isSliding = false;
+    public bool isSliding = false;
     private float originalTraction;
     private RaycastHit ray;
     private Vector3 up;
@@ -87,6 +86,8 @@ public class dPlayerMovement : NetworkBehaviour
 
     //Blink
     private dBlink blink;
+
+    private dGrapplingHook grapple;
     
 
     //Animation controller
@@ -98,7 +99,7 @@ public class dPlayerMovement : NetworkBehaviour
         moveController = GetComponent<CharacterController>(); // Character Controller
         rB = GetComponent<Rigidbody>(); //Rigid Body
         capCol = GetComponent<CapsuleCollider>(); // Capsule Collider
-        capCol.enabled = false;
+        capCol.enabled = true;
         parentObj = transform.parent.gameObject;
         animator = GetComponent<Animator>();
 
@@ -106,6 +107,7 @@ public class dPlayerMovement : NetworkBehaviour
         pStats = GetComponent<PlayerStats>(); // PlayerStats
         wallRun = GetComponent<dWallRun>(); //Wallrun
         blink = GetComponent<dBlink>(); //Blink
+        grapple = GetComponent<dGrapplingHook>();
 
         //Get parents up direction
         up = GetComponentInParent<Transform>().up;
@@ -164,6 +166,7 @@ public class dPlayerMovement : NetworkBehaviour
             g -= pStats.PlayerGrav * Time.deltaTime;
             rB.AddForce(new Vector3(0,g,0));
         }
+        Respawn();
         
     }
 
@@ -204,8 +207,9 @@ public class dPlayerMovement : NetworkBehaviour
             if(animator != null) animator.SetBool("isRunning", true);
         }
         //if low enough movement from player (this will be still at this value) stop animation
-        else if (driftVel.magnitude < .510f)
+        else if (driftVel.magnitude < .05f)
         {
+            driftVel = Vector3.zero;
             if(animator != null) animator.SetBool("isRunning", false);
         }
 
@@ -266,7 +270,7 @@ public class dPlayerMovement : NetworkBehaviour
         if (Input.GetAxis("Jump") != 0 && !jumpHeld && curJumpNum < pStats.JumpNum && !isSliding)
         {
             if(wallRun.IsWallRunning()){
-                AddImpact((wallRun.GetWallJumpDirection()), pStats.JumpPow * 20f);
+                AddImpact((wallRun.GetWallJumpDirection()), pStats.JumpPow * 10f);
                 g = pStats.JumpPow;
             }
 
@@ -291,6 +295,8 @@ public class dPlayerMovement : NetworkBehaviour
 
         //if jump is being held coyote timer is zero
         if(jumpHeld) curCoyJumpTimer = 0;
+
+        if(grapple.isGrappled && curJumpNum == 2) curJumpNum = 1;
 
         //If space/south face gamepad button isn't being pressed then jump is false
         if (Input.GetAxis("Jump") == 0){
@@ -370,7 +376,7 @@ public class dPlayerMovement : NetworkBehaviour
     {
         if (transform.position.y < -5)
         {
-            transform.position = new Vector3(1f, 3f, 1f);
+            TeleportPlayer(new Vector3(0,100,0));
         }
     }
 
@@ -380,9 +386,9 @@ public class dPlayerMovement : NetworkBehaviour
     private void UpdateGravity(){
 
         //Gliding
-        if(pStats.HasGlider && g < 0 && jumpHeld){
+        if(pStats.HasGlider && g < 0 && Input.GetButton("Jump")){
             //Gravity with glider
-            GravityCalculation(10);
+            GravityCalculation(6);
 
             //Set temp values to put traction back to normal
             if(tempSet == false){
@@ -425,22 +431,21 @@ public class dPlayerMovement : NetworkBehaviour
     private void GravityCalculation(float grav){
         //apply slight upwards force for jump smoothing when g < 0
         if(g < 0){
-                g += grav * (fallMultiplier - 1) * Time.deltaTime;
+            g += grav * (fallMultiplier - 1) * Time.deltaTime;
         }
 
         //apply smaller upwards force if jump is released early when jumping creating a short jump
         else if (g > 0 && !Input.GetButton("Jump")){
-                g += grav * (lowJumpMultiplier - 1) * Time.deltaTime;
+            g += grav * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
 
         //apply gravity if not grounded and coyote timer is less than 0
         if(isGrounded == false && curCoyJumpTimer <= 0){
-                g -= grav * Time.deltaTime;
+            g -= grav * Time.deltaTime;
         }
-
         //else don't apply gravity
         else{
-                g = 0;
+            g = 0;
         }
     }
 
@@ -462,7 +467,7 @@ public class dPlayerMovement : NetworkBehaviour
             {
                 isGrounded = true;
                 // handle snapping to the ground
-                if (groundHit.distance > moveController.skinWidth)
+                if (groundHit.distance > moveController.skinWidth && !grapple.isGrappled)
                 {
                     moveController.Move(Vector3.down * groundHit.distance);
                 }
@@ -494,6 +499,7 @@ public class dPlayerMovement : NetworkBehaviour
         rB.isKinematic = true;
         rB.detectCollisions = false;
         transform.localEulerAngles = prevRot;
+        CancelMomentum();
     }
 
     //When to begin the ragdoll timer
@@ -523,7 +529,14 @@ public class dPlayerMovement : NetworkBehaviour
                 originalTraction = pStats.Traction;
                 this.gameObject.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x - 90, this.transform.eulerAngles.y, this.transform.eulerAngles.z);
                 isSliding = true;
-                moveController.height = 1.0f;
+                //if it can't find the animator (capsul prefab)
+                if (GetComponent<Animator>() == null){
+                    moveController.height = 1.0f;
+                }
+                //if the regular model
+                else {
+                    moveController.height *= .5f;
+                }
                 pStats.Traction = 0.01f;
           
             }
@@ -540,7 +553,16 @@ public class dPlayerMovement : NetworkBehaviour
             {
                 this.gameObject.transform.localEulerAngles = new Vector3(0, 0, 0);
                 isSliding = false;
-                moveController.height = 2.0f;
+                //if it can't find the animator (capsul prefab)
+                if (GetComponent<Animator>() == null)
+                {
+                    moveController.height = 2.0f;
+                }
+                //if the regular model
+                else
+                {
+                    moveController.height *= 2.0f;
+                }
                 pStats.Traction = originalTraction;
             }
             else{
@@ -556,7 +578,7 @@ public class dPlayerMovement : NetworkBehaviour
         vel = Vector3.zero;
         moveX = Vector3.zero;
         moveZ = Vector3.zero;
-        moveController.enabled = false;
+        driftVel = Vector3.zero;
     }
 
     private IEnumerator RespawnTimer()
@@ -571,4 +593,8 @@ public class dPlayerMovement : NetworkBehaviour
         moveController.enabled = true;
     }
 
+    public void TeleportPlayer(Vector3 position, Quaternion rotation = new Quaternion()){
+        transform.position = position;
+        transform.rotation = rotation;
+    }
 }
