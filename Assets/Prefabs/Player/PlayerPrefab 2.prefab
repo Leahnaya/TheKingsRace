@@ -257,7 +257,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxVel: 40
-  minVel: 15
+  minVel: 20
   curVel: 0
   acc: 0.01
   jumpPow: 60
@@ -397,15 +397,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pStats: {fileID: 0}
   vel: {x: 0, y: 0, z: 0}
+  driftVel: {x: 0, y: 0, z: 0}
   curJumpNum: 0
   lowJumpMultiplier: 0.3
   fallMultiplier: 1.5
+  g: 0
   isGrounded: 0
   groundCheckDistance: 0.05
   cam: {fileID: 8073346823032474851}
   minAngle: -30
   maxAngle: 45
   sensitivity: 200
+  isSliding: 0
 --- !u!114 &643107261017207495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -419,6 +422,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxGrappleDistance: 25
+  isGrappled: 0
+  ropeLength: 0
 --- !u!114 &643107261017207494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -448,7 +453,7 @@ MonoBehaviour:
   moveDirection: {x: 0, y: 0, z: 0}
   dashDistance: 10
   dashStoppingSpeed: 0.1
-  dashItem: {fileID: 0}
+  dashItem: {fileID: 11400000, guid: 4399d7276b3edf446ac51c5145539a5e, type: 2}
 --- !u!1 &695157680752675209
 GameObject:
   m_ObjectHideFlags: 0
@@ -1181,7 +1186,7 @@ GameObject:
   - component: {fileID: 1637671170820963385}
   m_Layer: 3
   m_Name: Leg
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -3542,7 +3542,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxVel: 40
-  minVel: 15
+  minVel: 20
   curVel: 0
   acc: 0.01
   jumpPow: 60
@@ -3682,15 +3682,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pStats: {fileID: 0}
   vel: {x: 0, y: 0, z: 0}
+  driftVel: {x: 0, y: 0, z: 0}
   curJumpNum: 0
   lowJumpMultiplier: 0.3
   fallMultiplier: 1.5
+  g: 0
   isGrounded: 0
   groundCheckDistance: 0.05
   cam: {fileID: 2637749574256434612}
   minAngle: -30
   maxAngle: 45
   sensitivity: 200
+  isSliding: 0
 --- !u!114 &6664667533527262096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3718,6 +3721,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxGrappleDistance: 25
+  isGrappled: 0
+  ropeLength: 0
+  forceDirection: {x: 0, y: 0, z: 0}
 --- !u!114 &6664667533527262098
 MonoBehaviour:
   m_ObjectHideFlags: 0
