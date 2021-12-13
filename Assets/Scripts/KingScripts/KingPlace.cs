@@ -49,6 +49,8 @@ public class KingPlace : MonoBehaviour {
                 Place = Slime;
                 break;
         }
+        //Create the object that will follow the Mouse
+        //Instantiate(Place);
         //Layout the grid
         Grid.GetComponent<GridReveal>().GridSwitch(true);
 
@@ -70,10 +72,10 @@ public class KingPlace : MonoBehaviour {
                     //if (child.transform.position.z >= Place.transform.position.x && child.transform.position.z - 20 <= Place.transform.position.x)
                     //{
                        // Debug.Log("Help" + child.transform.position.z);
-                        Instantiate(Place);//Place the object (Snap it up and to Grid)
+                       //Place the object (Snap it up and to Grid)
+                       Instantiate(Place);
                         //break;
                     //}
-                }
                 Grid.GetComponent<GridReveal>().GridSwitch(false); //Switch off the grid
                 Placing = false;//Stop placing
             }
