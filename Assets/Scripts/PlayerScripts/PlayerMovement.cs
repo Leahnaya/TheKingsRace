@@ -252,7 +252,7 @@ public class PlayerMovement : NetworkBehaviour
     //Apply Impact for when force needs to be applied without ragdolling
     public void AddImpact(Vector3 dir, float force)
     {
-        //if (!IsLocalPlayer) { return; }
+        if (!IsLocalPlayer) { return; }
 
         //Normalize direction multiply by force and add it to the impact
         dir.Normalize();
