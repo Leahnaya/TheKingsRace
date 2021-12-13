@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BreakableBlock : MonoBehaviour
 {
-    //kicking power 150 (250 for stornger kick)
+    //kicking power 500 (1000 for stornger kick)
     public float health;
     // Start is called before the first frame update
     void Start(){
@@ -22,7 +22,7 @@ public class BreakableBlock : MonoBehaviour
     }
 
     public void damage(float kickPower){
-        int totalDamage = (int)(kickPower / 50.0);
+        int totalDamage = (int)(kickPower / 100.0);
         health -= totalDamage;
         Debug.Log(health);
         //if item is at 0 health

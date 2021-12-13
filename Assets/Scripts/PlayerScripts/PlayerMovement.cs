@@ -87,7 +87,6 @@ public class PlayerMovement : NetworkBehaviour
     private Blink blink;
 
     private GrapplingHook grapple;
-    
 
     //Animation controller
     Animator animator;
@@ -269,7 +268,7 @@ public class PlayerMovement : NetworkBehaviour
         if (Input.GetAxis("Jump") != 0 && !jumpHeld && curJumpNum < pStats.JumpNum && !isSliding)
         {
             if(wallRun.IsWallRunning()){
-                AddImpact((wallRun.GetWallJumpDirection()), pStats.JumpPow * 10f);
+                AddImpact((wallRun.GetWallJumpDirection()), pStats.JumpPow * 8f);
                 g = pStats.JumpPow;
             }
 
