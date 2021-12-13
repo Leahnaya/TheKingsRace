@@ -65,7 +65,7 @@ public class KickController : NetworkBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        //if (!IsLocalPlayer) { return; }
+        if (!IsLocalPlayer) { return; }
         Collider myCollider = collision.contacts[0].thisCollider;
         if (collision.transform.CompareTag("kickable") && myCollider == leg.GetComponent<Collider>()){
             if(collision.gameObject.GetComponent<Rigidbody>().isKinematic == true){

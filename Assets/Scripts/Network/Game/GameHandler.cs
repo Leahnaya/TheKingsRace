@@ -38,7 +38,9 @@ public class GameHandler : NetworkBehaviour
 
                 FindGameObjectInChildWithTag(character, "PlayerCam").GetComponent<Camera>().enabled = true;
                 FindGameObjectInChildWithTag(character, "PlayerCam").GetComponent<AudioListener>().enabled = true;
-                FindGameObjectInChildWithTag(character, "PlayerCam").GetComponent<PlayerCam>().enabled = true;
+                if (FindGameObjectInChildWithTag(character, "PlayerCam").GetComponent<PlayerCam>() != null) {
+                    FindGameObjectInChildWithTag(character, "PlayerCam").GetComponent<PlayerCam>().enabled = true;
+                }
             }
         }
 
@@ -54,9 +56,14 @@ public class GameHandler : NetworkBehaviour
             DespawnCountdownServerRpc();
         }
 
-        // Re-enable the player movement
+        // Re-enable the runner movement
         if (localPlayer.GetComponentInChildren<PlayerMovement>() != null) {
             localPlayer.GetComponentInChildren<PlayerMovement>().enabled = true;
+        }
+
+        // Re-enable the kings movement
+        if (localPlayer.GetComponent<KingMove>() != null) {
+            localPlayer.GetComponent<KingMove>().enabled = true;
         }
 
         // Start the game timer and spawn HUDs
