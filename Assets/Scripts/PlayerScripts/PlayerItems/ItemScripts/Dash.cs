@@ -16,15 +16,32 @@ public class Dash : NetworkBehaviour {
     float dashSpeed = 12;
 
     CharacterController characterController;
+    PlayerMovement pMove;
 
     void Start(){
-        characterController = this.gameObject.GetComponent<CharacterController>();
+        characterController = GetComponent<CharacterController>();
+        pMove = GetComponent<PlayerMovement>();
     }
 
     //UPDATE CHECK FOR MOVEMENT ONLY WHEN DASHING
     void FixedUpdate(){
         if (!IsLocalPlayer) { return; }
+        if(pMove.pStats.HasDash){
+            DashMovement();
+        }
+        
+    }
 
+    private IEnumerator startCoolDown(){
+        Debug.Log("start corotine");
+        isOnCoolDown = true;
+        //driver.startUICooldown("Nitro");
+        yield return new WaitForSeconds(dashItem.cooldownM);
+        isOnCoolDown = false;
+        Debug.Log("end corotine");
+    }
+
+    private void DashMovement(){
         if (Input.GetKeyDown(KeyCode.E) && isOnCoolDown == false)
         {
             currentDashTime = 0;
@@ -41,15 +58,6 @@ public class Dash : NetworkBehaviour {
         }
        
         characterController.Move(moveDirection * Time.deltaTime * dashSpeed);
-    }
-
-    private IEnumerator startCoolDown(){
-        Debug.Log("start corotine");
-        isOnCoolDown = true;
-        //driver.startUICooldown("Nitro");
-        yield return new WaitForSeconds(dashItem.cooldownM);
-        isOnCoolDown = false;
-        Debug.Log("end corotine");
     }
 
 }
