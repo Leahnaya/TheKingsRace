@@ -3544,11 +3544,11 @@ MonoBehaviour:
   maxVel: 40
   minVel: 20
   curVel: 0
-  acc: 0.01
+  acc: 0.02
   jumpPow: 60
   jumpNum: 2
   traction: 3
-  kickPow: 150
+  kickPow: 500
   recovTime: 3
   playerGrav: 200
   hasBlink: 0
@@ -3684,8 +3684,8 @@ MonoBehaviour:
   vel: {x: 0, y: 0, z: 0}
   driftVel: {x: 0, y: 0, z: 0}
   curJumpNum: 0
-  lowJumpMultiplier: 0.3
-  fallMultiplier: 1.5
+  lowJumpMultiplier: 0.1
+  fallMultiplier: 1.6
   g: 0
   isGrounded: 0
   groundCheckDistance: 0.05
@@ -3752,7 +3752,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4264f4f7bed1d7499a037436582ed17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallMaxDistance: 0.8
+  wallMaxDistance: 3
   wallSpeedMultiplier: 1.2
   minimumHeight: 0.1
   maxAngleRoll: 20

@@ -7,7 +7,7 @@ using UnityEngine.Rendering;
 public class dWallRun : NetworkBehaviour
 {
 
-    public float wallMaxDistance = .8f;
+    public float wallMaxDistance = 3f;
     public float wallSpeedMultiplier = 1.2f;
     public float minimumHeight = .1f;
     public float maxAngleRoll = 20;
@@ -174,8 +174,8 @@ public class dWallRun : NetworkBehaviour
 
             playerMovementController.SetPlayerVelocity(moveToSet);
             isWallRunning = true;
-            if(playerMovementController.curJumpNum != 0){
-                playerMovementController.curJumpNum = 0 ;
+            if(playerMovementController.curJumpNum == playerMovementController.pStats.JumpNum){
+                playerMovementController.curJumpNum = 0;
             }
             
         }

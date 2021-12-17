@@ -299,7 +299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxVel: 40
-  minVel: 15
+  minVel: 20
   curVel: 0
   acc: 0.01
   jumpPow: 60

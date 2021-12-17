@@ -28,6 +28,7 @@ public class dKickController : NetworkBehaviour
     }
 
     void Kick(){
+        //if (!IsLocalPlayer) { return; }
         //Note: when we merge this into PlayerMovement, we may want to change isgrounded to our 
         //custom is grounded
         //If F is pressed or gamepad right trigger is pulled

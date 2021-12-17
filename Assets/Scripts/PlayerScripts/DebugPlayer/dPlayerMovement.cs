@@ -28,6 +28,7 @@ public class dPlayerMovement : NetworkBehaviour
     //Jump value
     public int curJumpNum; // current Jumps used
     private bool jumpHeld; // Is jump being held
+    private bool jumpPressed; // Has Jump been pressed
     float coyJumpTimer = 0.1f; // Default Coyote Jump time
     float curCoyJumpTimer; // current Coyote Jump time
     public float lowJumpMultiplier; // Short jump multiplier
@@ -83,6 +84,7 @@ public class dPlayerMovement : NetworkBehaviour
     private RaycastHit ray;
     private Vector3 up;
     private bool qDown;
+    private float tempCurVel;
 
     //Blink
     private dBlink blink;
@@ -222,6 +224,7 @@ public class dPlayerMovement : NetworkBehaviour
     //Calculates speed current player needs to be going
     public float PlayerSpeed()
     {
+        WallCheck();
         //If nothing is pressed speed is 0
         if ((Input.GetAxis("Vertical") == 0.0f && Input.GetAxis("Horizontal") == 0.0f) || isSliding)
         {
@@ -248,7 +251,10 @@ public class dPlayerMovement : NetworkBehaviour
         }
     }
 
+    private void WallCheck(){
+        //IMPLEMENT A RAYCAST CHECK   
 
+    }
 
     //Apply Impact for when force needs to be applied without ragdolling
     public void AddImpact(Vector3 dir, float force)
@@ -280,6 +286,7 @@ public class dPlayerMovement : NetworkBehaviour
 
             curJumpNum++;
             jumpHeld = true;
+            jumpPressed = true;
         }
 
         //Last time Jumped
@@ -296,11 +303,15 @@ public class dPlayerMovement : NetworkBehaviour
         //if jump is being held coyote timer is zero
         if(jumpHeld) curCoyJumpTimer = 0;
 
-        if(grapple.isGrappled && curJumpNum == 2) curJumpNum = 1;
+        if(grapple.isGrappled && curJumpNum == pStats.JumpNum) curJumpNum = 0;
 
         //If space/south face gamepad button isn't being pressed then jump is false
         if (Input.GetAxis("Jump") == 0){
            jumpHeld = false;
+        }
+
+        if(g < 0){
+            jumpPressed = false;
         }
     }
 
@@ -397,6 +408,11 @@ public class dPlayerMovement : NetworkBehaviour
                 tempSet = true;
             }
         }
+        //if temporary values have been set restore them back to the normal values
+        else if(pStats.HasGlider && g==0 && tempSet == true){
+            pStats.Traction = tempTraction;
+            tempSet = false;
+        }
 
         //Wallrunning
         else if (pStats.HasWallrun) {
@@ -414,13 +430,8 @@ public class dPlayerMovement : NetworkBehaviour
             }
         }
 
+        //Default Gravity
         else{
-
-            //if temporary values have been set restore them back to the normal values
-            if(tempSet == true){
-               pStats.Traction = tempTraction;
-               tempSet = false; 
-            }
 
             //Normal gravity
             GravityCalculation(pStats.PlayerGrav);
@@ -460,7 +471,7 @@ public class dPlayerMovement : NetworkBehaviour
         isGrounded = false;
         groundRay = new Ray(moveController.transform.position, Vector3.down);
 
-        if (Physics.Raycast(groundRay, out groundHit, moveController.height + groundCheckDistance) && !jumpHeld ) //&& Time.time >= lastTimeJumped + jumpGroundingPreventionTime)  // only try to detect ground if it's been a short amount of time since last jump; otherwise we may snap to the ground instantly after we try jumping
+        if (Physics.Raycast(groundRay, out groundHit, moveController.height + groundCheckDistance) && !jumpPressed ) //&& Time.time >= lastTimeJumped + jumpGroundingPreventionTime)  // only try to detect ground if it's been a short amount of time since last jump; otherwise we may snap to the ground instantly after we try jumping
         {
             // Only consider this a valid ground hit if the ground normal goes in the same direction as the character up
             if (Vector3.Dot(groundHit.normal, transform.up) > 0f)
@@ -540,6 +551,7 @@ public class dPlayerMovement : NetworkBehaviour
                 pStats.Traction = 0.01f;
           
             }
+            tempCurVel = driftVel.magnitude * 50f;
             transform.Rotate(Vector3.forward * -sensitivity * Time.deltaTime * Input.GetAxis("Mouse X"));
             pStats.Traction += .004f;
         }
@@ -553,6 +565,7 @@ public class dPlayerMovement : NetworkBehaviour
             {
                 this.gameObject.transform.localEulerAngles = new Vector3(0, 0, 0);
                 isSliding = false;
+                pStats.CurVel = tempCurVel;
                 //if it can't find the animator (capsul prefab)
                 if (GetComponent<Animator>() == null)
                 {
