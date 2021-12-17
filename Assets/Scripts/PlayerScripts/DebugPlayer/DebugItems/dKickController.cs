@@ -28,10 +28,11 @@ public class dKickController : NetworkBehaviour
     }
 
     void Kick(){
+        //if (!IsLocalPlayer) { return; }
         //Note: when we merge this into PlayerMovement, we may want to change isgrounded to our 
         //custom is grounded
         //If F is pressed or gamepad right trigger is pulled
-        if ((Input.GetKeyDown(KeyCode.F) || Input.GetAxis("Kick") != 0) && isKicking == false && pMove.isGrounded == false)
+        if ((Input.GetKeyDown(KeyCode.F) || Input.GetAxis("Kick") != 0) && isKicking == false && pMove.isGrounded == false && pMove.isSliding==false)
         {
             Debug.Log("dive");
             // if kicking in air, kick until grounded (maybe add some foward momentum if needeD)
@@ -40,7 +41,7 @@ public class dKickController : NetworkBehaviour
             leg.SetActive(true);
         }
         //otherwise do ground kick for .3 seconds
-        else if ((Input.GetKeyDown(KeyCode.F) || Input.GetAxis("Kick") != 0) && isKicking == false){
+        else if ((Input.GetKeyDown(KeyCode.F) || Input.GetAxis("Kick") != 0) && isKicking == false && pMove.isSliding==false){
             StartCoroutine(Kicking(.3f));
         }
 

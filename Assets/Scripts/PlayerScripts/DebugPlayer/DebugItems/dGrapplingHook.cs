@@ -41,7 +41,7 @@ public class dGrapplingHook : NetworkBehaviour
     {
         //if (!IsLocalPlayer) { return; }
 
-        if (Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.JoystickButton2)) //If grapple button is hit
+        if ((Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.JoystickButton2)) && pStats.HasGrapple) //If grapple button is hit
         {
             if (!isGrappled) //If we are not grappling
             {
