@@ -170,7 +170,7 @@ public class dWallRun : NetworkBehaviour
             }
 
             moveToSet.y = 0;
-            
+            //
 
             playerMovementController.SetPlayerVelocity(moveToSet);
             isWallRunning = true;

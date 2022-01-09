@@ -33,7 +33,10 @@ public class dPlayerMovement : NetworkBehaviour
     float curCoyJumpTimer; // current Coyote Jump time
     public float lowJumpMultiplier; // Short jump multiplier
     public float fallMultiplier; // High Jump Multiplier
-    public float g = 0; // the y velocity
+
+    //Gravity values
+    public float g = 0; // the y velocity affected by player Grav
+    private float maxG = -100; //The max downwards y velocity or g the player can have
 
     //Glide Values
     bool tempSet = false;
@@ -89,6 +92,7 @@ public class dPlayerMovement : NetworkBehaviour
     //Blink
     private dBlink blink;
 
+    //Grapple
     private dGrapplingHook grapple;
     
 
@@ -190,6 +194,7 @@ public class dPlayerMovement : NetworkBehaviour
         vel = moveX + moveZ;
         Vector3 moveXZ = new Vector3(vel.x, 0, vel.z);
         driftVel = Vector3.Lerp(driftVel, moveXZ, pStats.Traction * Time.deltaTime);
+        if(grapple.isGrappled) driftVel = Vector3.zero;
 
         //Gravity and Jump calculations
         UpdateGravity();
@@ -457,6 +462,11 @@ public class dPlayerMovement : NetworkBehaviour
         //else don't apply gravity
         else{
             g = 0;
+        }
+        
+        //Caps out the players downwards speed
+        if(g < maxG){
+            g = maxG;
         }
     }
 
