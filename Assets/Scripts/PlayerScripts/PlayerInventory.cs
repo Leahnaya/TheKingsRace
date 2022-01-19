@@ -72,6 +72,4 @@ public class PlayerInventory : NetworkBehaviour
             AddItem(allItems[itemName]);
         }
     }
-
-
 }
