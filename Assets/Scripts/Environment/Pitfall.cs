@@ -36,8 +36,6 @@ public class Pitfall : NetworkBehaviour
         // Get all players in the scene
         GameObject[] playableCharacters = GameObject.FindGameObjectsWithTag("Player");
 
-        Debug.LogError("# of players: " + playableCharacters.Length);
-
         // Find our player first
         foreach (GameObject character in playableCharacters)
         {
@@ -50,7 +48,8 @@ public class Pitfall : NetworkBehaviour
                 {
                     character.GetComponent<NetworkObject>().Despawn(true);
                 } catch (SpawnStateException e) {
-                    Debug.Log("Exception");
+                    Debug.LogError("Spawn State Exception Exception:");
+                    Debug.LogError(e);
                     return;
                 }
                 
@@ -113,16 +112,11 @@ public class Pitfall : NetworkBehaviour
         {
             if (character.GetComponent<NetworkObject>().OwnerClientId == clientId)
             {
-                Debug.LogError("Found");
                 GameHandler.FindGameObjectInChildWithTag(character, "PlayerCam").GetComponent<Camera>().enabled = true;
                 GameHandler.FindGameObjectInChildWithTag(character, "PlayerCam").GetComponent<AudioListener>().enabled = true;
                 GameHandler.FindGameObjectInChildWithTag(character, "PlayerCam").GetComponent<PlayerCam>().enabled = true;
 
                 character.GetComponentInChildren<PlayerMovement>().enabled = true;
-            }
-            else
-            {
-                Debug.LogError("Failed to find");
             }
         }
     }
