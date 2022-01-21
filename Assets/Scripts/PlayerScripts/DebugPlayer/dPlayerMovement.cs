@@ -220,8 +220,14 @@ public class dPlayerMovement : NetworkBehaviour
             if(animator != null) animator.SetBool("isRunning", false);
         }
         //Move Player
-        moveController.Move(driftVel + (moveY * Time.deltaTime));
-        if(grapple.isGrappled) moveController.Move(grapple.forceDirection * Time.deltaTime);
+        if(grapple.isGrappled && !isGrounded){
+            moveController.Move(driftVel + ((moveY + grapple.forceDirection) * Time.deltaTime)); 
+        } 
+        else{
+            moveController.Move(driftVel + (moveY * Time.deltaTime));
+        }
+        
+        
     }
 
 

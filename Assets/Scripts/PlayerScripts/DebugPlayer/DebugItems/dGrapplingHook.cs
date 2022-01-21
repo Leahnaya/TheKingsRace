@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class dGrapplingHook : NetworkBehaviour
 {
-    public float maxGrappleDistance = 25;
+    public float maxGrappleDistance = 15;
 
     public bool isGrappled;
     private int hookPointIndex;
@@ -20,6 +20,7 @@ public class dGrapplingHook : NetworkBehaviour
     private float climbRate = 5;
     private Vector3 swingDirection;
     private float swingSpeed = 90;
+    private float swingMom = 0;
 
     Vector3 tensionDirection;
     Vector3 pendulumSideDirection;
@@ -125,9 +126,15 @@ public class dGrapplingHook : NetworkBehaviour
     Vector3 calculateForceDirection(float mass, float g, Vector3 hPoint){
         tensionDirection = (hPoint - transform.position).normalized;
 
-        float inclinationAngle = Vector3.Angle(transform.position - hPoint, -transform.up);
-
-        tensionForce = mass * -g * Mathf.Cos(Mathf.Deg2Rad * inclinationAngle);
+        float inclinationAngle = Vector3.Angle((transform.position - hPoint).normalized, -transform.up);
+    
+        float theta = Mathf.Deg2Rad * inclinationAngle;
+        if(theta <= .3 && swingMom <= 0 && theta > 0){
+            theta -= .05f;
+        }
+        if(theta<0) theta = 0;
+        Debug.Log(theta);
+        tensionForce = mass * -g * Mathf.Cos(theta);
 
         Vector3 fDirection = tensionDirection * tensionForce;
         return fDirection;
