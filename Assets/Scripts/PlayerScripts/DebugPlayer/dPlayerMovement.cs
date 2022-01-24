@@ -194,7 +194,6 @@ public class dPlayerMovement : NetworkBehaviour
         vel = moveX + moveZ;
         Vector3 moveXZ = new Vector3(vel.x, 0, vel.z);
         driftVel = Vector3.Lerp(driftVel, moveXZ, pStats.Traction * Time.deltaTime);
-        if(grapple.isGrappled) driftVel = Vector3.zero;
 
         //Gravity and Jump calculations
         UpdateGravity();
@@ -221,7 +220,7 @@ public class dPlayerMovement : NetworkBehaviour
         }
         //Move Player
         if(grapple.isGrappled && !isGrounded){
-            moveController.Move(driftVel + ((moveY + grapple.forceDirection) * Time.deltaTime)); 
+            moveController.Move(((moveY + grapple.forceDirection) * Time.deltaTime)); 
         } 
         else{
             moveController.Move(driftVel + (moveY * Time.deltaTime));
@@ -237,7 +236,7 @@ public class dPlayerMovement : NetworkBehaviour
     {
         WallCheck();
         //If nothing is pressed speed is 0
-        if ((Input.GetAxis("Vertical") == 0.0f && Input.GetAxis("Horizontal") == 0.0f) || isSliding)
+        if ((Input.GetAxis("Vertical") == 0.0f && Input.GetAxis("Horizontal") == 0.0f) || isSliding ||(grapple.isGrappled && !isGrounded))
         {
             pStats.CurVel = 0.0f;
             return pStats.CurVel;
