@@ -7,7 +7,7 @@ using UnityEngine.Rendering;
 public class WallRun : NetworkBehaviour
 {
 
-    public float wallMaxDistance = 3;
+    public float wallMaxDistance = 3f;
     public float wallSpeedMultiplier = 1.2f;
     public float minimumHeight = .1f;
     public float maxAngleRoll = 20;
@@ -170,7 +170,7 @@ public class WallRun : NetworkBehaviour
             }
 
             moveToSet.y = 0;
-            
+            //
 
             playerMovementController.SetPlayerVelocity(moveToSet);
             isWallRunning = true;
@@ -196,5 +196,5 @@ public class WallRun : NetworkBehaviour
     public Vector3 GetWallJumpDirection() //Add call in jump where if we are wallrunning and jump, the jump vector is multiplied by this
     {
         return lastWallNormal * wallBouncing + (transform.up);
-    } 
+    }
 }

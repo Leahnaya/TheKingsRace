@@ -24,6 +24,7 @@ public class KickController : NetworkBehaviour
     }
 
     void Update(){
+        if (!IsLocalPlayer) { return; }
         Kick();
     }
 
