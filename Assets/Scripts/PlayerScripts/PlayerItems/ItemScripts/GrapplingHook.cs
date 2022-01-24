@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using MLAPI;
 using UnityEngine;
 
-public class dGrapplingHook : NetworkBehaviour
+public class GrapplingHook : NetworkBehaviour
 {
     public float maxGrappleDistance = 15;
 
@@ -47,7 +47,7 @@ public class dGrapplingHook : NetworkBehaviour
         isGrappled = false; 
         hookPoints = GameObject.FindGameObjectsWithTag("HookPoint");
         movementController = gameObject.GetComponent<CharacterController>();
-        playerMovement = gameObject.GetComponent<dPlayerMovement>();
+        playerMovement = gameObject.GetComponent<PlayerMovement>();
         pStats = gameObject.GetComponent<PlayerStats>();
     }
 
@@ -80,6 +80,7 @@ public class dGrapplingHook : NetworkBehaviour
     private void FixedUpdate()
     {
         if (!IsLocalPlayer) { return; }
+        
         if (isGrappled)
         {
             Debug.DrawRay(gameObject.transform.position, (hookPoint.transform.position - gameObject.transform.position)); //Visual of line
@@ -106,7 +107,6 @@ public class dGrapplingHook : NetworkBehaviour
                 //Debug.Log(ropeLength.ToString());
             }
             //Debug.Log(Vector3.Distance(gameObject.transform.position, hookPoint.transform.position));
-            Debug.Log(ropeLength);
             //Calculate tether force direction based on hookpoint
             if (Vector3.Distance(gameObject.transform.position, hookPoint.transform.position) >= ropeLength )
             {
@@ -190,6 +190,7 @@ public class dGrapplingHook : NetworkBehaviour
             oldXZDir = (new Vector3(hookPoint.transform.position.x,0,hookPoint.transform.position.z) - new Vector3(transform.position.x,0,transform.position.z)).normalized;
             Debug.Log("swingback");
         }
+
         curXZDir = (new Vector3(hPoint.x,0,hPoint.z) - new Vector3(transform.position.x,0,transform.position.z)).normalized;
         Debug.DrawRay(transform.position,  momDirection * Time.deltaTime* 100, Color.green);
         return (momDirection * Time.deltaTime * swingMom);
