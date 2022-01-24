@@ -3,7 +3,7 @@ public struct PlayerData {
     public string PlayerName { get; private set; }
     public ulong ClientId { get; private set; }
     public bool IsKing { get; set; }
-    public PlayerInventory pInv{get; set;}
+    public PlayerInventory pInv { get; set; }
 
     public bool Finished { get; set; }
 
