@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Nitro : MonoBehaviour
+public class dNitro : MonoBehaviour
 {
     private PlayerStats playerStats;
     private CoolDown driver;

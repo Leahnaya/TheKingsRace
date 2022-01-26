@@ -202,6 +202,7 @@ GameObject:
   - component: {fileID: 643107261017207494}
   - component: {fileID: 643107261017207493}
   - component: {fileID: 3000149458743537421}
+  - component: {fileID: 8545598182256100239}
   m_Layer: 0
   m_Name: T-Pose
   m_TagString: Player
@@ -407,7 +408,7 @@ MonoBehaviour:
   groundCheckDistance: 0.05
   cam: {fileID: 8073346823032474851}
   minAngle: -30
-  maxAngle: 45
+  maxAngle: 30
   sensitivity: 200
   isSliding: 0
 --- !u!114 &643107261017207495
@@ -476,7 +477,19 @@ MonoBehaviour:
   jumpDuration: 0.02
   wallBouncing: 3
   cameraTransitionDuration: 1
-  wallGravityDownForce: 5
+  wallGravityDownForce: 3
+--- !u!114 &8545598182256100239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 643107261017207491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a8c22589436d2449a89cf3a40b6d252, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &695157680752675209
 GameObject:
   m_ObjectHideFlags: 0

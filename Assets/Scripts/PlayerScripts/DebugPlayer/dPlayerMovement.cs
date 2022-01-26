@@ -288,6 +288,7 @@ public class dPlayerMovement : NetworkBehaviour
             if(wallRun.IsWallRunning()){
                 AddImpact((wallRun.GetWallJumpDirection()), pStats.JumpPow * 8f);
                 g = pStats.JumpPow;
+                curJumpNum = 0;
             }
 
             else{
@@ -409,7 +410,7 @@ public class dPlayerMovement : NetworkBehaviour
         //Gliding
         if(pStats.HasGlider && g < 0 && Input.GetButton("Jump")){
             //Gravity with glider
-            GravityCalculation(6);
+            GravityCalculation(8);
 
             //Set temp values to put traction back to normal
             if(tempSet == false){

@@ -1483,7 +1483,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3039877022422189067}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 44.3, y: 6.52, z: -4}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1950656855408660672}
@@ -3090,7 +3090,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5150911369967604842}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.088, y: 2.45, z: -3.76}
+  m_LocalPosition: {x: 0, y: 3.73, z: -3.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 297879044457584256}
@@ -3486,6 +3486,7 @@ GameObject:
   - component: {fileID: 6664667533527262097}
   - component: {fileID: 6664667533527262098}
   - component: {fileID: 6664667533527262099}
+  - component: {fileID: 2761631967499966007}
   m_Layer: 0
   m_Name: T-Pose
   m_TagString: Player
@@ -3684,14 +3685,14 @@ MonoBehaviour:
   vel: {x: 0, y: 0, z: 0}
   driftVel: {x: 0, y: 0, z: 0}
   curJumpNum: 0
-  lowJumpMultiplier: 0.1
+  lowJumpMultiplier: 0.001
   fallMultiplier: 1.6
   g: 0
   isGrounded: 0
   groundCheckDistance: 0.05
   cam: {fileID: 2637749574256434612}
   minAngle: -30
-  maxAngle: 45
+  maxAngle: 30
   sensitivity: 200
   isSliding: 0
 --- !u!114 &6664667533527262096
@@ -3739,7 +3740,7 @@ MonoBehaviour:
   moveDirection: {x: 0, y: 0, z: 0}
   dashDistance: 10
   dashStoppingSpeed: 0.1
-  dashItem: {fileID: 0}
+  dashItem: {fileID: 11400000, guid: 4399d7276b3edf446ac51c5145539a5e, type: 2}
 --- !u!114 &6664667533527262099
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3760,7 +3761,19 @@ MonoBehaviour:
   jumpDuration: 0.02
   wallBouncing: 3
   cameraTransitionDuration: 1
-  wallGravityDownForce: 5
+  wallGravityDownForce: 3
+--- !u!114 &2761631967499966007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6664667533527262100}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71b2b26f3c822f045b43d4966fb097e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6716225286288627934
 GameObject:
   m_ObjectHideFlags: 0

@@ -161,7 +161,7 @@ MonoBehaviour:
   groundCheckDistance: 0.05
   cam: {fileID: 7188906082643956516}
   minAngle: -30
-  maxAngle: 45
+  maxAngle: 30
   sensitivity: 301
   isSliding: 0
 --- !u!114 &273103334658887749
