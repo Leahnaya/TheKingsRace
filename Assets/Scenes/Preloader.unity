@@ -210,9 +210,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runnerSpawnPoints:
-  - {x: 725, y: 25, z: 488}
-  - {x: 725, y: 25, z: 500}
-  kingSpawnPoint: {x: -2, y: 2, z: -2}
+  - {x: 730.21, y: 26, z: 501}
+  - {x: 730.21, y: 26, z: 494}
+  kingSpawnPoint: {x: 350, y: 625, z: 1130}
 --- !u!1 &1494071116
 GameObject:
   m_ObjectHideFlags: 0
@@ -284,7 +284,7 @@ MonoBehaviour:
     NetworkPrefabs:
     - Prefab: {fileID: 7188906082087890184, guid: a9840baa4cc526b44bfef27c6fea042a, type: 3}
       PlayerPrefab: 0
-    - Prefab: {fileID: 6649144231394212716, guid: 31aeb41a00441214ca42c9eb5647395e, type: 3}
+    - Prefab: {fileID: 8183403963968820413, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
       PlayerPrefab: 0
     - Prefab: {fileID: 1867892282630666222, guid: 7c3682087ff9b234cb9abf6a8fa941b5, type: 3}
       PlayerPrefab: 0
@@ -293,6 +293,10 @@ MonoBehaviour:
     - Prefab: {fileID: 7903050775825061804, guid: 3ec903bdbf186d042993c4adefa36fb2, type: 3}
       PlayerPrefab: 0
     - Prefab: {fileID: 8778111956603343863, guid: 0e50603b66fe968418894499e023ec03, type: 3}
+      PlayerPrefab: 0
+    - Prefab: {fileID: 8808368135834717663, guid: 0d288120830514244bc113d85efa9b4d, type: 3}
+      PlayerPrefab: 0
+    - Prefab: {fileID: 1705285893771051652, guid: 3fd15f10e6c1a07419fdd6bf804b6541, type: 3}
       PlayerPrefab: 0
     PlayerPrefabHash:
       id: 0

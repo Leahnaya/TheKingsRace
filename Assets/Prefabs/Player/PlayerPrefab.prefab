@@ -39,7 +39,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4814433541978696327}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 3.15, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 9039284905748829538}
@@ -108,13 +108,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxVel: 40
-  minVel: 15
+  minVel: 20
   curVel: 0
   acc: 0.01
   jumpPow: 60
   jumpNum: 2
   traction: 3
-  kickPow: 150
+  kickPow: 500
   recovTime: 3
   playerGrav: 200
   hasBlink: 0
@@ -152,15 +152,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pStats: {fileID: 0}
   vel: {x: 0, y: 0, z: 0}
+  driftVel: {x: 0, y: 0, z: 0}
   curJumpNum: 0
-  lowJumpMultiplier: 0.3
-  fallMultiplier: 1.5
+  lowJumpMultiplier: 0.1
+  fallMultiplier: 1.6
+  g: 0
   isGrounded: 0
   groundCheckDistance: 0.05
   cam: {fileID: 7188906082643956516}
   minAngle: -30
   maxAngle: 45
   sensitivity: 301
+  isSliding: 0
 --- !u!114 &273103334658887749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -186,15 +189,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 535009eaa735a4c4e95c6fc270e32741, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallMaxDistance: 1
+  wallMaxDistance: 3
   wallSpeedMultiplier: 1.2
-  minimumHeight: 1.2
+  minimumHeight: 0.1
   maxAngleRoll: 20
   normalizedAngleThreshold: 0.1
-  jumpDuration: 1
+  jumpDuration: 0.02
   wallBouncing: 3
   cameraTransitionDuration: 1
-  wallGravityDownForce: 20
+  wallGravityDownForce: 5
 --- !u!114 &4323471435859684389
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,7 +213,7 @@ MonoBehaviour:
   moveDirection: {x: 0, y: 0, z: 0}
   dashDistance: 10
   dashStoppingSpeed: 0.1
-  dashItem: {fileID: 0}
+  dashItem: {fileID: 11400000, guid: 4399d7276b3edf446ac51c5145539a5e, type: 2}
 --- !u!114 &3672942772524564832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -224,6 +227,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxGrappleDistance: 25
+  isGrappled: 0
+  ropeLength: 0
+  forceDirection: {x: 0, y: 0, z: 0}
 --- !u!114 &2356773567935625033
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -265,7 +271,7 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 3
 --- !u!136 &3772338269032432186
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -371,7 +377,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7188906082087890184}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 1.8, z: -0.2}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7188906082643956518}
@@ -424,7 +430,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7188906082643956521}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.6, z: -4}
+  m_LocalPosition: {x: 0, y: 4.5, z: -8.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7188906082087890177}
@@ -461,7 +467,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 255
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -635,5 +641,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 3.0057147, y: 2.5707598, z: 1}
+  m_Center: {x: 0.3520529, y: 0.13156563, z: 0}

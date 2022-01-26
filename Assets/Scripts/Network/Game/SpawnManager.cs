@@ -1,3 +1,6 @@
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using MLAPI;
 using MLAPI.Messaging;
 using UnityEngine;
@@ -70,13 +73,48 @@ public class SpawnManager : NetworkBehaviour {
                 } else {
                     // Spawn as player
                     _runner = Instantiate(runnerPrefab, runnersSpawnPoints[runnersSpawned], Quaternion.Euler(0, -90, 0)).gameObject;
-                    //Recreate Inventory
-                    _runner.GetComponentInChildren<PlayerInventory>().UpdateEquips(playerData.pInv.NetworkItemList, this.gameObject.GetComponent<InventoryManager>().ItemDict);
                     _runner.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId, null, true);
 
                     // Increment runners
                     runnersSpawned++;
+
+                    // Tell the client to apply the inventory to its player
+                    string itemsAsString = string.Join(",", playerData.pInv.NetworkItemList);
+                    StartCoroutine(ApplyInventoryToClient(clientId, itemsAsString));
                 }
+            }
+        }
+    }
+
+    // Give a slight delay to allow spawning to complete
+    IEnumerator ApplyInventoryToClient(ulong clientID, string itemsAsString)
+    {
+        yield return new WaitForSecondsRealtime(1f);
+
+        ClientRpcParams clientRpcParams = new ClientRpcParams
+        {
+            Send = new ClientRpcSendParams
+            {
+                TargetClientIds = new ulong[] { clientID }
+            }
+        };
+
+        ApplyInventoryClientRPC(clientID, itemsAsString, clientRpcParams);
+    }
+
+    [ClientRpc]
+    private void ApplyInventoryClientRPC(ulong clientID, string itemsAsString, ClientRpcParams clientRpcParams = default) {
+        
+
+        GameObject[] playableCharacters = GameObject.FindGameObjectsWithTag("Player");
+
+        // Loop over the characters
+        foreach (GameObject character in playableCharacters) {
+            // Find the local player
+            if (character.GetComponent<NetworkObject>().OwnerClientId == clientID) {
+                List<string> itemList = itemsAsString.Split(',').ToList();
+
+                character.GetComponentInChildren<PlayerInventory>().UpdateEquips(itemList, this.gameObject.GetComponent<InventoryManager>().ItemDict);
             }
         }
     }

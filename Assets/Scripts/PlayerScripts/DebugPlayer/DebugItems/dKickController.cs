@@ -28,10 +28,11 @@ public class dKickController : NetworkBehaviour
     }
 
     void Kick(){
+        //if (!IsLocalPlayer) { return; }
         //Note: when we merge this into PlayerMovement, we may want to change isgrounded to our 
         //custom is grounded
         //If F is pressed or gamepad right trigger is pulled
-        if ((Input.GetKeyDown(KeyCode.F) || Input.GetAxis("Kick") != 0) && isKicking == false && pMove.isGrounded == false)
+        if ((Input.GetKeyDown(KeyCode.F) || Input.GetAxis("Kick") != 0) && isKicking == false && pMove.isGrounded == false && pMove.isSliding==false)
         {
             Debug.Log("dive");
             // if kicking in air, kick until grounded (maybe add some foward momentum if needeD)
@@ -40,7 +41,7 @@ public class dKickController : NetworkBehaviour
             leg.SetActive(true);
         }
         //otherwise do ground kick for .3 seconds
-        else if ((Input.GetKeyDown(KeyCode.F) || Input.GetAxis("Kick") != 0) && isKicking == false){
+        else if ((Input.GetKeyDown(KeyCode.F) || Input.GetAxis("Kick") != 0) && isKicking == false && pMove.isSliding==false){
             StartCoroutine(Kicking(.3f));
         }
 
@@ -59,6 +60,7 @@ public class dKickController : NetworkBehaviour
         leg.SetActive(true);
         yield return new WaitForSeconds(waitTime);
         isKicking = false;
+        leg.GetComponent<Collider>().isTrigger = false;
         leg.SetActive(false);
 
     }
@@ -74,6 +76,7 @@ public class dKickController : NetworkBehaviour
             Vector3 direction = this.transform.forward;
             Debug.Log(direction);
             collision.rigidbody.AddForce(direction * pStats.KickPow, ForceMode.Impulse);
+            leg.GetComponent<Collider>().isTrigger = true;
         }
         if (collision.transform.CompareTag("destroyable") && myCollider == leg.GetComponent<Collider>()){
             collision.transform.gameObject.GetComponent<BreakableBlock>().damage(pStats.KickPow);
