@@ -1596,33 +1596,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1950656855408660672, guid: 6adb8bcc65ee3a54da64d7c65225f219, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -4.11
-      objectReference: {fileID: 0}
     - target: {fileID: 3039877022422189067, guid: 6adb8bcc65ee3a54da64d7c65225f219, type: 3}
       propertyPath: m_Name
       value: DebugPlayerPrefab 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6664667533527261801, guid: 6adb8bcc65ee3a54da64d7c65225f219, type: 3}
-      propertyPath: jumpPow
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 6664667533527261801, guid: 6adb8bcc65ee3a54da64d7c65225f219, type: 3}
-      propertyPath: hasNitro
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6664667533527261801, guid: 6adb8bcc65ee3a54da64d7c65225f219, type: 3}
-      propertyPath: hasGlider
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6664667533527261801, guid: 6adb8bcc65ee3a54da64d7c65225f219, type: 3}
-      propertyPath: hasWallrun
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6664667533527261807, guid: 6adb8bcc65ee3a54da64d7c65225f219, type: 3}
-      propertyPath: minAngle
-      value: -18
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6adb8bcc65ee3a54da64d7c65225f219, type: 3}
