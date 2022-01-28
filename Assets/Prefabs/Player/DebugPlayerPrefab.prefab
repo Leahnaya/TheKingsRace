@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2556153648277679257}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2, y: 2.85, z: -4}
+  m_LocalPosition: {x: 0, y: 4.6, z: -8.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6926740475113451123}
@@ -229,8 +229,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3607330906377400225}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.12, y: 1.25, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 3.15, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2731864384567516644}
@@ -300,8 +300,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxVel: 40
-  minVel: 20
+  minVel: 15
   curVel: 0
+  hardCapMaxVel: 60
   acc: 0.01
   jumpPow: 60
   jumpNum: 2
@@ -442,14 +443,14 @@ MonoBehaviour:
   vel: {x: 0, y: 0, z: 0}
   driftVel: {x: 0, y: 0, z: 0}
   curJumpNum: 0
-  lowJumpMultiplier: 0.3
-  fallMultiplier: 1.5
+  lowJumpMultiplier: 0.0001
+  fallMultiplier: 1.6
   g: 0
   isGrounded: 0
   groundCheckDistance: 0.05
   cam: {fileID: 4654986889578046791}
   minAngle: -30
-  maxAngle: 45
+  maxAngle: 30
   sensitivity: 200
   isSliding: 0
 --- !u!114 &4788888989419098570
@@ -510,15 +511,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4264f4f7bed1d7499a037436582ed17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallMaxDistance: 0.8
-  wallSpeedMultiplier: 1.2
+  wallMaxDistance: 1
+  wallSpeedMultiplier: 1.5
   minimumHeight: 0.1
   maxAngleRoll: 20
   normalizedAngleThreshold: 0.1
   jumpDuration: 0.02
   wallBouncing: 3
   cameraTransitionDuration: 1
-  wallGravityDownForce: 3
+  wallGravityDownForce: 2.8
 --- !u!120 &384692328
 LineRenderer:
   m_ObjectHideFlags: 0

@@ -39,7 +39,6 @@ public class EndCollider : NetworkBehaviour {
             }
         }
         
-        //todo: Check if all runners are finished
         bool allFinished = true;
         foreach (PlayerData pData in ServerGameNetPortal.Instance.clientData.Values) { 
             // Make sure we don't check the king, since the value of Finished will always be false
@@ -60,7 +59,7 @@ public class EndCollider : NetworkBehaviour {
                 // Make sure we find the characters that aren't the one that just finished (subsequently calling the rpc)
                 if (character.GetComponent<NetworkObject>().OwnerClientId != serverRpcParams.Receive.SenderClientId) {
                     // Then grab their GUID
-                    if (ServerGameNetPortal.Instance.clientIdToGuid.TryGetValue(serverRpcParams.Receive.SenderClientId, out string clientGuid)) {
+                    if (ServerGameNetPortal.Instance.clientIdToGuid.TryGetValue(character.GetComponent<NetworkObject>().OwnerClientId, out string clientGuid)) {
                         // To verify they aren't the king
                         if (ServerGameNetPortal.Instance.clientData[clientGuid].IsKing != true) {
                             // Then call a client rpc to the finished player to enable the camera locally

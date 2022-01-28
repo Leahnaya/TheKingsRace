@@ -33,7 +33,10 @@ public class dPlayerMovement : NetworkBehaviour
     float curCoyJumpTimer; // current Coyote Jump time
     public float lowJumpMultiplier; // Short jump multiplier
     public float fallMultiplier; // High Jump Multiplier
-    public float g = 0; // the y velocity
+
+    //Gravity values
+    public float g = 0; // the y velocity affected by player Grav
+    private float maxG = -100; //The max downwards y velocity or g the player can have
 
     //Glide Values
     bool tempSet = false;
@@ -89,6 +92,7 @@ public class dPlayerMovement : NetworkBehaviour
     //Blink
     private dBlink blink;
 
+    //Grapple
     private dGrapplingHook grapple;
     
 
@@ -215,8 +219,14 @@ public class dPlayerMovement : NetworkBehaviour
             if(animator != null) animator.SetBool("isRunning", false);
         }
         //Move Player
-        moveController.Move(driftVel + (moveY * Time.deltaTime));
-        if(grapple.isGrappled) moveController.Move(grapple.forceDirection * Time.deltaTime);
+        if(grapple.isGrappled && !isGrounded){
+            moveController.Move(((moveY + grapple.forceDirection) * Time.deltaTime)); 
+        } 
+        else{
+            moveController.Move(driftVel + (moveY * Time.deltaTime));
+        }
+        
+        
     }
 
 
@@ -226,7 +236,7 @@ public class dPlayerMovement : NetworkBehaviour
     {
         WallCheck();
         //If nothing is pressed speed is 0
-        if ((Input.GetAxis("Vertical") == 0.0f && Input.GetAxis("Horizontal") == 0.0f) || isSliding)
+        if ((Input.GetAxis("Vertical") == 0.0f && Input.GetAxis("Horizontal") == 0.0f) || isSliding ||(grapple.isGrappled && !isGrounded))
         {
             pStats.CurVel = 0.0f;
             return pStats.CurVel;
@@ -244,10 +254,15 @@ public class dPlayerMovement : NetworkBehaviour
             return pStats.CurVel;
         }
         //If the players speed is above or equal to max speed set speed to max
-        else
+        else if (pStats.CurVel >= pStats.MaxVel)
         {
             pStats.CurVel = pStats.MaxVel;
             return pStats.CurVel;
+
+        }
+        else{
+            Debug.Log("Something has gone wrong with the PlayerSpeed()");
+            return -1;
         }
     }
 
@@ -276,8 +291,9 @@ public class dPlayerMovement : NetworkBehaviour
         if (Input.GetAxis("Jump") != 0 && !jumpHeld && curJumpNum < pStats.JumpNum && !isSliding)
         {
             if(wallRun.IsWallRunning()){
-                AddImpact((wallRun.GetWallJumpDirection()), pStats.JumpPow * 8f);
+                AddImpact((wallRun.GetWallJumpDirection()), pStats.JumpPow * 8.5f);
                 g = pStats.JumpPow;
+                curJumpNum = 0;
             }
 
             else{
@@ -399,7 +415,7 @@ public class dPlayerMovement : NetworkBehaviour
         //Gliding
         if(pStats.HasGlider && g < 0 && Input.GetButton("Jump")){
             //Gravity with glider
-            GravityCalculation(6);
+            GravityCalculation(8);
 
             //Set temp values to put traction back to normal
             if(tempSet == false){
@@ -421,7 +437,7 @@ public class dPlayerMovement : NetworkBehaviour
 
             //if wallrunning apply different gravity
             if(wallRun.IsWallRunning()){
-                GravityCalculation(4);
+                GravityCalculation(2);
             }
 
             //Normal gravity if not wallrunning
@@ -458,6 +474,11 @@ public class dPlayerMovement : NetworkBehaviour
         else{
             g = 0;
         }
+        
+        //Caps out the players downwards speed
+        if(g < maxG){
+            g = maxG;
+        }
     }
 
 
@@ -488,6 +509,7 @@ public class dPlayerMovement : NetworkBehaviour
 
     //Ragdoll Functions
     public void GetHit(Vector3 dir, float force){
+        //if (!IsLocalPlayer) { return; }
         if(firstHit == false){
             EnableRagdoll();
             dir.Normalize();

@@ -18,7 +18,7 @@ public class dWallRun : NetworkBehaviour
     public float wallBouncing = 3;
     public float cameraTransitionDuration = 1;
 
-    public float wallGravityDownForce = 5f;
+    public float wallGravityDownForce = 2.8f;
 
     [Space]
     dPlayerMovement playerMovementController;
@@ -170,7 +170,7 @@ public class dWallRun : NetworkBehaviour
             }
 
             moveToSet.y = 0;
-            
+            //
 
             playerMovementController.SetPlayerVelocity(moveToSet);
             isWallRunning = true;
