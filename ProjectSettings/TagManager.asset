@@ -13,6 +13,7 @@ TagManager:
   - destroyable
   - RunnerHUD
   - GroundCheck
+  - ArcherTarget
   layers:
   - Default
   - TransparentFX
@@ -24,7 +25,6 @@ TagManager:
   - Weather
   - Grid
   - Grappleable
-  - 
   - 
   - 
   - 
