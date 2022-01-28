@@ -286,7 +286,7 @@ public class PlayerMovement : NetworkBehaviour
         if (Input.GetAxis("Jump") != 0 && !jumpHeld && curJumpNum < pStats.JumpNum && !isSliding)
         {
             if(wallRun.IsWallRunning()){
-                AddImpact((wallRun.GetWallJumpDirection()), pStats.JumpPow * 8f);
+                AddImpact((wallRun.GetWallJumpDirection()), pStats.JumpPow * 8.5f);
                 g = pStats.JumpPow;
             }
 
@@ -390,7 +390,6 @@ public class PlayerMovement : NetworkBehaviour
     }
 
 
-
     //REMOVE WHEN UNNECCESARY
     //Respawns player if they fall below a certain point
     private void Respawn()
@@ -409,7 +408,7 @@ public class PlayerMovement : NetworkBehaviour
         //Gliding
         if(pStats.HasGlider && g < 0 && Input.GetButton("Jump")){
             //Gravity with glider
-            GravityCalculation(6);
+            GravityCalculation(8);
 
             //Set temp values to put traction back to normal
             if(tempSet == false){
@@ -431,7 +430,7 @@ public class PlayerMovement : NetworkBehaviour
 
             //if wallrunning apply different gravity
             if(wallRun.IsWallRunning()){
-                GravityCalculation(4);
+                GravityCalculation(2);
             }
 
             //Normal gravity if not wallrunning

@@ -254,10 +254,15 @@ public class dPlayerMovement : NetworkBehaviour
             return pStats.CurVel;
         }
         //If the players speed is above or equal to max speed set speed to max
-        else
+        else if (pStats.CurVel >= pStats.MaxVel)
         {
             pStats.CurVel = pStats.MaxVel;
             return pStats.CurVel;
+
+        }
+        else{
+            Debug.Log("Something has gone wrong with the PlayerSpeed()");
+            return -1;
         }
     }
 
@@ -286,7 +291,7 @@ public class dPlayerMovement : NetworkBehaviour
         if (Input.GetAxis("Jump") != 0 && !jumpHeld && curJumpNum < pStats.JumpNum && !isSliding)
         {
             if(wallRun.IsWallRunning()){
-                AddImpact((wallRun.GetWallJumpDirection()), pStats.JumpPow * 8f);
+                AddImpact((wallRun.GetWallJumpDirection()), pStats.JumpPow * 8.5f);
                 g = pStats.JumpPow;
                 curJumpNum = 0;
             }
@@ -432,7 +437,7 @@ public class dPlayerMovement : NetworkBehaviour
 
             //if wallrunning apply different gravity
             if(wallRun.IsWallRunning()){
-                GravityCalculation(4);
+                GravityCalculation(2);
             }
 
             //Normal gravity if not wallrunning
@@ -504,6 +509,7 @@ public class dPlayerMovement : NetworkBehaviour
 
     //Ragdoll Functions
     public void GetHit(Vector3 dir, float force){
+        //if (!IsLocalPlayer) { return; }
         if(firstHit == false){
             EnableRagdoll();
             dir.Normalize();

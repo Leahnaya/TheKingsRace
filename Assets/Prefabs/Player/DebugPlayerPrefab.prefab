@@ -301,6 +301,7 @@ MonoBehaviour:
   maxVel: 40
   minVel: 15
   curVel: 0
+  hardCapMaxVel: 60
   acc: 0.01
   jumpPow: 60
   jumpNum: 2
@@ -510,14 +511,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   wallMaxDistance: 1
-  wallSpeedMultiplier: 1.2
+  wallSpeedMultiplier: 1.5
   minimumHeight: 0.1
   maxAngleRoll: 20
   normalizedAngleThreshold: 0.1
   jumpDuration: 0.02
   wallBouncing: 3
   cameraTransitionDuration: 1
-  wallGravityDownForce: 3
+  wallGravityDownForce: 2.8
 --- !u!120 &384692328
 LineRenderer:
   m_ObjectHideFlags: 0

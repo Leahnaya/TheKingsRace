@@ -7,6 +7,7 @@ public class dNitro : MonoBehaviour
     private PlayerStats playerStats;
     private CoolDown driver;
     private bool isOnCoolDown = false;
+    private bool isNitroing = false;
     //this will need to be set from scritable object or something;
     private float coolDown;
 
@@ -22,7 +23,13 @@ public class dNitro : MonoBehaviour
         //once cooldowns are implemented, put this on one (a long one)
         if (Input.GetKeyDown(KeyCode.LeftShift) && isOnCoolDown == false && playerStats.HasNitro)
         {
-            playerStats.CurVel = playerStats.MaxVel;
+            if(playerStats.CurVel < playerStats.HardCapMaxVel){
+                playerStats.CurVel += playerStats.Acc * 10;
+            }
+            else if(playerStats.CurVel > playerStats.HardCapMaxVel){
+                playerStats.CurVel = playerStats.HardCapMaxVel;
+            }
+            
             StartCoroutine(startCoolDown());
         }
     }
