@@ -111,7 +111,7 @@ MonoBehaviour:
   maxVel: 40
   minVel: 20
   curVel: 0
-  hardCapMaxVel: 0
+  hardCapMaxVel: 60
   acc: 0.01
   jumpPow: 60
   jumpNum: 2
