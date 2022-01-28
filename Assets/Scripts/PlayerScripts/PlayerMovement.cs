@@ -503,6 +503,7 @@ public class PlayerMovement : NetworkBehaviour
 
     //Ragdoll Functions
     public void GetHit(Vector3 dir, float force){
+        if (!IsLocalPlayer) { return; }
         if(firstHit == false){
             EnableRagdoll();
             dir.Normalize();

@@ -110,6 +110,7 @@ MonoBehaviour:
   maxVel: 40
   minVel: 20
   curVel: 0
+  hardCapMaxVel: 0
   acc: 0.01
   jumpPow: 60
   jumpNum: 2
@@ -197,7 +198,7 @@ MonoBehaviour:
   jumpDuration: 0.02
   wallBouncing: 3
   cameraTransitionDuration: 1
-  wallGravityDownForce: 5
+  wallGravityDownForce: 2.8
 --- !u!114 &4323471435859684389
 MonoBehaviour:
   m_ObjectHideFlags: 0

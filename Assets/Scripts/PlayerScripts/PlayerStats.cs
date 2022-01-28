@@ -5,7 +5,7 @@ using UnityEngine.Assertions;
 
 public class PlayerStats : MonoBehaviour
 {
-    //Maximum possible player speed
+    //Soft cap max speed a player can achieve they can achieve this speed by running
     [SerializeField] private float maxVel = 30.0f;
     public float MaxVel{
         get{ return maxVel; }
@@ -24,6 +24,13 @@ public class PlayerStats : MonoBehaviour
     public float CurVel{
         get{ return curVel; }
         set{ curVel = value; }
+    }
+
+    //The absolute max speed a player can achieve through boosts or momentum increases will disipate down to soft cap
+    [SerializeField] private float hardCapMaxVel;
+    public float HardCapMaxVel{
+        get{ return hardCapMaxVel; }
+        set{ hardCapMaxVel = value; }
     }
 
     //Player Acceleration
