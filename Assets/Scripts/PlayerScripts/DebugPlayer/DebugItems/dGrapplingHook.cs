@@ -64,7 +64,7 @@ public class dGrapplingHook : NetworkBehaviour
                 if (hookPointIndex != -1) //If there is a hookpoint
                 {
                     hookPoint = hookPoints[hookPointIndex]; //The point we are grappling from
-                    ropeLength = Vector3.Distance(gameObject.transform.position, hookPoint.transform.position) + 0.5f;
+                    ropeLength = Vector3.Distance(gameObject.transform.position, hookPoint.transform.position);
                     oldXZDir = (new Vector3(hookPoint.transform.position.x,0,hookPoint.transform.position.z) - new Vector3(transform.position.x,0,transform.position.z)).normalized;
                     curXZDir = (new Vector3(hookPoint.transform.position.x,0,hookPoint.transform.position.z) - new Vector3(transform.position.x,0,transform.position.z)).normalized;
                     isGrappled = true; //toggle grappling state
@@ -73,6 +73,7 @@ public class dGrapplingHook : NetworkBehaviour
             else //Else we are grappling
             {
                 isGrappled = false; //toggle grappling state to release
+                playerMovement.g = 0;
             }
         }
     }
@@ -108,11 +109,15 @@ public class dGrapplingHook : NetworkBehaviour
             //Debug.Log(Vector3.Distance(gameObject.transform.position, hookPoint.transform.position));
             Debug.Log(ropeLength);
             //Calculate tether force direction based on hookpoint
-            if (Vector3.Distance(gameObject.transform.position, hookPoint.transform.position) >= ropeLength )
+            if (Vector3.Distance(gameObject.transform.position, hookPoint.transform.position) > ropeLength )
             {
                 
-                forceDirection = calculateForceDirection(1, playerMovement.g+.01f, hookPoint.transform.position);
+                forceDirection = calculateForceDirection(1, playerMovement.g+.01f, hookPoint.transform.position) + ropeLengthOffset(hookPoint.transform.position, Vector3.Distance(gameObject.transform.position, hookPoint.transform.position));
+                
 
+            }
+            else{
+                forceDirection = Vector3.zero;
             }
 
             //apply special swing movement when aerial
@@ -209,11 +214,24 @@ public class dGrapplingHook : NetworkBehaviour
         //Swing direction based on player input
         swingDirection = Vector3.Cross(tensionDirection, ((transform.right * -inputVert) + (transform.forward * inputHor))).normalized;
 
+
         //NEED TO ADD SWINGSPEED EASING
         //Swing movement with swing speed added
         Vector3 swingMovement = (swingDirection * Time.deltaTime * maxSwingSpeed);
         
 
         return (swingMovement);
+    }
+
+    Vector3 ropeLengthOffset(Vector3 hPoint, float curDistance){
+        
+        //How powerful our offset movement has to be
+        float offsetPower = ((curDistance - ropeLength) * 10f);
+
+        //The direction we need to apply force to offset when the rope gets lengthened beyond the necessary point
+        Vector3 tenDirOffset = (hPoint - transform.position).normalized;
+ 
+
+        return tenDirOffset * offsetPower;
     }
 }
