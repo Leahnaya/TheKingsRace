@@ -1,4 +1,5 @@
 using MLAPI;
+using MLAPI.Messaging;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,8 +21,10 @@ public class Archer : NetworkBehaviour
     [Header("Unity Setup Fields")]
     public float rotationSpeed = 10f;
 
-    public GameObject ArrowPrefab;
+    public Transform ArrowPrefab;
     public Transform firePoint;
+
+    private GameObject arrowInScene;
 
     // Start is called before the first frame update
     void Start() {
@@ -85,27 +88,27 @@ public class Archer : NetworkBehaviour
         this.gameObject.transform.rotation = Quaternion.Euler (0f, rotation.y, 0f);
         
         // Actually shoot it
-        // TODO: Network this part
-        /*
-        if (shootingCooldown <= 0f)
-        {
-            Shoot();
+        
+        if (shootingCooldown <= 0f) {
+            ShootArrowServerRPC();
             shootingCooldown = 1f/ fireRate;
         }
 
         shootingCooldown -= Time.deltaTime;
-        */
     }
 
-
-    void Shoot() {
-        
+    [ServerRpc(RequireOwnership = false)]
+    private void ShootArrowServerRPC() {
+        arrowInScene = Instantiate(ArrowPrefab, firePoint.position, firePoint.rotation).gameObject;
+        arrowInScene.GetComponent<NetworkObject>().Spawn(null, true);
+        arrowInScene.GetComponent<Arrow>().Seek(target.position);
+        /*
         GameObject arrowGO = Instantiate(ArrowPrefab, firePoint.position, firePoint.rotation).gameObject;
         Arrow arrow = arrowGO.GetComponent<Arrow>();
 
         if (arrow != null) {
             arrow.Seek(target.position);
-        }
+        }*/
     }
 
 

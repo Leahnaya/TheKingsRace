@@ -1,17 +1,15 @@
-using System.Numerics;
-using System.Runtime.CompilerServices;
+using MLAPI;
+using MLAPI.Messaging;
 using UnityEngine;
 
-public class Arrow : MonoBehaviour
-{
-    private UnityEngine.Vector3 target;
-    private bool isLive=false;
+public class Arrow : NetworkBehaviour {
+    private Vector3 target;
+    private bool isLive = false;
 
     public float speed = 90f;
 
     //finds targed
-    public void Seek(UnityEngine.Vector3 _target)
-    {
+    public void Seek(UnityEngine.Vector3 _target) {
         //can also do effects, speed on the bullet, damage amount, etc.
         target = _target;
         isLive = true;
@@ -20,23 +18,25 @@ public class Arrow : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (target == null)
-        {
-            //Destroy(gameObject);
-            return;
-        }
-        if (isLive)
-        {
-            UnityEngine.Vector3 dir = target - transform.position;
+        // Only move the arrow on the host
+        if (!IsHost) { return; }
+
+        // This keeps the static arrows from moving without a target
+        if (target == null) { return; }
+
+        // The arrow is allowed to move towards a target
+        if (isLive) {
+            // Find the direction to fire in
+            Vector3 dir = target - transform.position;
             
-            //distance 
+            // Calculate distance
             float distanceThisFrame = speed * Time.deltaTime;
 
 
-            //checking from current distance to current target
-            if (dir.magnitude <= distanceThisFrame)
-            {
-                HitTarget();
+            // Checking from current distance to current target
+            if (dir.magnitude <= distanceThisFrame) {
+                // NOT SURE IF THIS CALC ^ WORKS AS INTENDED
+                HitTargetServerRPC();
                 return;
             }
 
@@ -46,14 +46,15 @@ public class Arrow : MonoBehaviour
         }
     }
 
-    //logic for hitting something
-    void HitTarget()
-    {
-        isLive=false;
-        Destroy(gameObject);
+    // Arrow has connected with something
+    [ServerRpc]
+    private void HitTargetServerRPC() {
+        isLive = false;
+
+        // Do the hit logic
+
+        // Despawn the arrow
+        this.gameObject.GetComponent<NetworkObject>().Despawn(true);
     }
-
-
-
 
 }

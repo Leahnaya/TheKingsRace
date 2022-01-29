@@ -492,12 +492,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   range: 250
   fireRate: 4
-  runnerTag: Player
-  partToRotate: {fileID: 6313754771726110875}
   rotationSpeed: 10
-  ArrowPrefab: {fileID: 26604539265034264, guid: 0e61ec06fdabb014bb1868596534f8b7, type: 3}
+  ArrowPrefab: {fileID: 26604539265034267, guid: 0e61ec06fdabb014bb1868596534f8b7, type: 3}
   firePoint: {fileID: 4784627841241590487}
-  runners: []
 --- !u!114 &8721692118063281005
 MonoBehaviour:
   m_ObjectHideFlags: 0
