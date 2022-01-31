@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.45042813, g: 0.5004341, b: 0.5752089, a: 1}
+  m_IndirectSpecularColor: {r: 0.45042783, g: 0.50043404, b: 0.5752084, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -9782,7 +9782,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c342edd8126e1449a50220a14c9333e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Inv: {fileID: 0}
+  stats: {fileID: 0}
   uiPrebab: {fileID: 2234979236645149946, guid: 757a136ec05bee247970d9f727f6b5f2, type: 3}
 --- !u!114 &358007096
 MonoBehaviour:
@@ -57219,6 +57219,7 @@ MonoBehaviour:
   maxGrappleDistance: 25
   isGrappled: 0
   ropeLength: 0
+  forceDirection: {x: 0, y: 0, z: 0}
 --- !u!1001 &1043847406924501847
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -59178,6 +59179,7 @@ MonoBehaviour:
   maxVel: 25
   minVel: 2
   curVel: 0
+  hardCapMaxVel: 60
   acc: 0.1
   jumpPow: 300
   jumpNum: 2
@@ -59289,6 +59291,10 @@ PrefabInstance:
     - target: {fileID: 8183403963968820413, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
       propertyPath: m_Name
       value: King
+      objectReference: {fileID: 0}
+    - target: {fileID: 8183403964090928733, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
