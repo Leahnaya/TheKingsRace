@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class LobbyItems : MonoBehaviour
 {
@@ -15,7 +16,8 @@ public class LobbyItems : MonoBehaviour
 
     private PlayerStats pStats;
 
-    InventoryManager invMan; 
+    InventoryManager invMan;
+    public Tooltip tooltip;
     Vector3 position;
     private int pointsLeft;
 
@@ -27,6 +29,7 @@ public class LobbyItems : MonoBehaviour
         player = pPar.transform.Find("PlayerModel").gameObject;
         pStats = player.GetComponent<PlayerStats>();
         glueGooSlider = GameObject.Find("GlueGoo").GetComponent<Slider>();
+        tooltip = GameObject.Find("ItemTooltip").GetComponent<Tooltip>();
         lobbyUI = this.gameObject.GetComponent<LobbyUI>();
         pInv = player.GetComponent<PlayerInventory>();
         player.GetComponent<PlayerMovement>().enabled = false;
@@ -69,11 +72,24 @@ public class LobbyItems : MonoBehaviour
 
                 //Button Adds item if it can
                 iOpt.GetComponent<Button>().onClick.AddListener(delegate{lobbyUI.EquipItems(item.Value, UpdateObject(item.Value.costM, item.Value, iOpt));});
+                
+                //On Hover display tooltip on exit disable
+                EventTrigger.Entry tooltipEntry = new EventTrigger.Entry();
+                EventTrigger.Entry tooltipExit = new EventTrigger.Entry();
+
+                tooltipEntry.eventID = EventTriggerType.PointerEnter;
+                tooltipExit.eventID = EventTriggerType.PointerExit;
+
+                tooltipEntry.callback.AddListener((data) => {tooltip.ShowTooltip(item.Value.description);});
+                tooltipExit.callback.AddListener((data) => {tooltip.HideTooltip();});
+
+                iOpt.GetComponent<EventTrigger>().triggers.Add(tooltipEntry);
+                iOpt.GetComponent<EventTrigger>().triggers.Add(tooltipExit);
 
                 //Changes Button Texts
                 iOpt.transform.Find("Name").GetComponent<Text>().text = item.Value.itemName;
                 iOpt.transform.Find("Cost").GetComponent<Text>().text = item.Value.costM.ToString();
-                //iOpt.GetComponentInChildren<Image>() = item.image; // IMPLEMENT WHEN ITEM OBJECT CONTAIN IMAGE REFERENCE
+                iOpt.transform.Find("ItemImg").GetComponent<Image>().sprite = item.Value.itemSprite; // IMPLEMENT WHEN ITEM OBJECT CONTAIN IMAGE REFERENCE
 
                 index++;
             }
