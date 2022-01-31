@@ -33,7 +33,7 @@ public class dDash : NetworkBehaviour{
     void DashPlayer(){
         //if (!IsLocalPlayer) { return; }
         if(characterController.enabled == true){
-            if (Input.GetKeyDown(KeyCode.E) && isOnCoolDown == false)
+            if (Input.GetKeyDown(KeyCode.R) && isOnCoolDown == false)
             {
                 currentDashTime = 0;
                 StartCoroutine(startCoolDown());
