@@ -34202,6 +34202,14 @@ PrefabInstance:
       propertyPath: nitroItem
       value: 
       objectReference: {fileID: 11400000, guid: b91f668477f6b3244b3fea3204e6cd87, type: 2}
+    - target: {fileID: 8100520363622627413, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
+      propertyPath: hasDash
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8100520363622627413, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
+      propertyPath: hasNitro
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 362ca97b75c291a47ab81d628a81f440, type: 3}
 --- !u!1 &1457776488
@@ -40048,7 +40056,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Inv: {fileID: 348746306}
-  uiPrebab: {fileID: 2234979236645149946, guid: 757a136ec05bee247970d9f727f6b5f2, type: 3}
+  uiPrebab: {fileID: 5756063885148329735, guid: 8150580546fbb0d48bcd414238e2be89, type: 3}
 --- !u!1 &1734064827
 GameObject:
   m_ObjectHideFlags: 0

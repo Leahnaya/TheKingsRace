@@ -5,26 +5,19 @@ using UnityEngine;
 
 public class CoolDown : MonoBehaviour
 {
-    public PlayerInventory Inv;
-    private List<SpecialItem> specialItems = new List<SpecialItem>();
+    //used to check if the playr has abillities
+    public PlayerStats stats;
     public GameObject uiPrebab; 
     // Start is called before the first frame update
     void Start(){
-        //retrieve all items that are special items here
-        foreach(var I in Inv.PlayerItemDict){
-           if(I.Value.GetType() == typeof(SpecialItem)){
-                SpecialItem temp = (SpecialItem)I.Value;
-                //if not
-                if(temp.cooldownM == 0 || I.Value.GetType() != typeof(SpecialItem)){
-                   Debug.Log("Item not fully intialized");
-                   //throw assert
-                   Debug.Assert(temp.cooldownM != 0);
-                   Debug.Assert(I.Value.GetType() == typeof(SpecialItem));
-
-                }
-                specialItems.Add(temp);
-            }
+    //check if player has abillity
+        if(stats.HasNitro == true){
+            GameObject temp = Instantiate(uiPrebab);
+            temp.transform.SetParent(this.gameObject.transform);
+            temp.name = "Nitro";
         }
+          
+    }
       //set up ui elements for special items 
       for(int i = 0; i < specialItems.Count; i++){
             //instantiate prefab
