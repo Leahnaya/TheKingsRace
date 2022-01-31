@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class Nitro : MonoBehaviour
 {
-    private PlayerStats playerStats;
     private CoolDown driver;
+    private PlayerStats playerStats;
+    public SpecialItem nitroItem;
     private bool isOnCoolDown = false;
     //this will need to be set from scritable object or something;
-    private float coolDown;
 
     // Start is called before the first frame update
     void Start()
     {
+        driver = GameObject.Find("Canvas").GetComponent<CoolDown>();
         playerStats = GetComponent<PlayerStats>();
     }
 
@@ -30,8 +31,8 @@ public class Nitro : MonoBehaviour
     private IEnumerator startCoolDown(){
         Debug.Log("start corotine");
         isOnCoolDown = true;
-    //    driver.startUICooldown("Nitro");
-        yield return new WaitForSeconds(coolDown);
+        driver.startUICooldown("Nitro");
+        yield return new WaitForSeconds(nitroItem.cooldownM);
         isOnCoolDown = false;
     }
 }

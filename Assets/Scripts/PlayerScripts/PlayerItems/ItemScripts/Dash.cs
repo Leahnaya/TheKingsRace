@@ -5,6 +5,7 @@ using UnityEngine;
 
 
 public class Dash : NetworkBehaviour{
+    private CoolDown driver;
     public Vector3 moveDirection;
  
     public const float maxDashTime = 1.0f;
@@ -19,6 +20,7 @@ public class Dash : NetworkBehaviour{
     PlayerMovement pMove;
 
     void Start(){
+        driver = GameObject.Find("Canvas").GetComponent<CoolDown>();
         characterController = this.gameObject.GetComponent<CharacterController>();
         pMove = GetComponent<PlayerMovement>();
     }

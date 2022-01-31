@@ -1,37 +1,52 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class CoolDown : MonoBehaviour
 {
     //used to check if the playr has abillities
     public PlayerStats stats;
-    public GameObject uiPrebab; 
+    public GameObject uiPrebab;
+    public SpecialItem dashItem;
+    public SpecialItem nitroItem;
     // Start is called before the first frame update
     void Start(){
-    //check if player has abillity
         if(stats.HasNitro == true){
             GameObject temp = Instantiate(uiPrebab);
             temp.transform.SetParent(this.gameObject.transform);
-            temp.name = "Nitro";
+            temp.name = nitroItem.name;
+            temp.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            temp.GetComponent<UICoolDown>().setCoolDownTime(nitroItem.cooldownM);
+            //set position on canvas
+            //due to low number, gonna hardcode this to be first
+            temp.transform.localPosition = new Vector3(-850, 425);
+            //set icon to ui icon
+            temp.transform.GetComponent<Image>().sprite = nitroItem.itemSprite;
+        }
+        if(stats.HasDash == true){
+            GameObject temp = Instantiate(uiPrebab);
+            temp.transform.SetParent(this.gameObject.transform);
+            temp.name = dashItem.name;
+            temp.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            temp.GetComponent<UICoolDown>().setCoolDownTime(dashItem.cooldownM);
+
+            //set image 
+            temp.transform.GetComponent<Image>().sprite = dashItem.itemSprite;
+
+            //if has nitro, make it below nitro icon
+            if (stats.HasNitro == true)
+            {
+                temp.transform.localPosition = new Vector3(-850, 225);
+            }
+            //if not, make this icon top of screen
+            else{
+                temp.transform.localPosition = new Vector3(-850, 425);
+            }
         }
           
     }
-      //set up ui elements for special items 
-    //   for(int i = 0; i < specialItems.Count; i++){
-    //         //instantiate prefab
-    //         GameObject temp = Instantiate(uiPrebab);
-    //         temp.transform.SetParent(this.gameObject.transform);
-    //         SpecialItem currentSpecialItem = specialItems[i];
-    //         temp.name = currentSpecialItem.itemName;
-    //         //set position
-    //         temp.transform.localPosition = new Vector3(-290, 110 - (i * 50), temp.transform.position.z);
-    //         temp.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-    //         //set cooldown on ui
-    //         temp.GetComponent<UICoolDown>().setCoolDownTime(currentSpecialItem.cooldownM);
-    //     }
-    //}
 
     public void startUICooldown(string name){
         this.gameObject.transform.Find(name).GetComponent<UICoolDown>().startCoolDown();

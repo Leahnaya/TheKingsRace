@@ -5,6 +5,7 @@ using UnityEngine;
 
 
 public class dDash : NetworkBehaviour{
+    private CoolDown driver;
     public Vector3 moveDirection;
  
     public const float maxDashTime = 1.0f;
@@ -19,6 +20,7 @@ public class dDash : NetworkBehaviour{
     dPlayerMovement pMove;
 
     void Start(){
+        driver = GameObject.Find("Canvas").GetComponent<CoolDown>();
         characterController = this.gameObject.GetComponent<CharacterController>();
         pMove = GetComponent<dPlayerMovement>();
     }
@@ -52,7 +54,7 @@ public class dDash : NetworkBehaviour{
     private IEnumerator startCoolDown(){
         Debug.Log("start corotine");
         isOnCoolDown = true;
-        //driver.startUICooldown("Nitro");
+        driver.startUICooldown(dashItem.name);
         yield return new WaitForSeconds(dashItem.cooldownM);
         isOnCoolDown = false;
         Debug.Log("end corotine");
