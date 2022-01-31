@@ -117,8 +117,8 @@ public class InvSceneSettings : MonoBehaviour
             player1.GetComponent<dWallRun>().enabled = pStats.HasWallrun;
         if(pStats.HasGrapple != player1.GetComponent<dGrapplingHook>().enabled)
             player1.GetComponent<dGrapplingHook>().enabled = pStats.HasGrapple;
-        if(pStats.HasNitro != player1.GetComponent<Nitro>().enabled)
-            player1.GetComponent<Nitro>().enabled = pStats.HasNitro;
+        if(pStats.HasNitro != player1.GetComponent<dNitro>().enabled)
+            player1.GetComponent<dNitro>().enabled = pStats.HasNitro;
         
     }
 

@@ -5,15 +5,15 @@ using UnityEngine.Assertions;
 
 public class PlayerStats : MonoBehaviour
 {
-    //Maximum possible player speed
-    [SerializeField] private float maxVel = 30.0f;
+    //Soft cap max speed a player can achieve they can achieve this speed by running
+    [SerializeField] private float maxVel = 40.0f;
     public float MaxVel{
         get{ return maxVel; }
         set{ maxVel = value; }
     }
 
     //Minimum possible player speed
-    [SerializeField] private float minVel = 5.0f;
+    [SerializeField] private float minVel = 15.0f;
     public float MinVel{
         get{ return minVel; }
         set{ minVel = value; }
@@ -26,15 +26,22 @@ public class PlayerStats : MonoBehaviour
         set{ curVel = value; }
     }
 
+    //The absolute max speed a player can achieve through boosts or momentum increases will disipate down to soft cap
+    [SerializeField] private float hardCapMaxVel = 60.0f;
+    public float HardCapMaxVel{
+        get{ return hardCapMaxVel; }
+        set{ hardCapMaxVel = value; }
+    }
+
     //Player Acceleration
-    [SerializeField] private float acc = 0.1f;
+    [SerializeField] private float acc = 0.01f;
     public float Acc{
         get{ return acc; }
         set{ acc = value; }
     }
 
     //Player Jump power
-    [SerializeField] private float jumpPow = 63.0f;
+    [SerializeField] private float jumpPow = 60.0f;
     public float JumpPow{
         get{ return jumpPow; }
         set{ jumpPow = value; }
@@ -55,7 +62,7 @@ public class PlayerStats : MonoBehaviour
     }
 
     //Player Kick Power
-    [SerializeField] private float kickPow = 150.0f;
+    [SerializeField] private float kickPow = 500.0f;
     public float KickPow{
         get{ return kickPow; }
         set{ kickPow = value; }

@@ -25,10 +25,10 @@ public class dDash : NetworkBehaviour{
 
     //UPDATE CHECK FOR MOVEMENT ONLY WHEN DASHING
     void FixedUpdate(){
-        if(pMove.pStats.HasDash) Dash();
+        if(pMove.pStats.HasDash) DashPlayer();
     }
 
-    void Dash(){
+    void DashPlayer(){
         //if (!IsLocalPlayer) { return; }
         if(characterController.enabled == true){
             if (Input.GetKeyDown(KeyCode.E) && isOnCoolDown == false)

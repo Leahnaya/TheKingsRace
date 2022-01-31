@@ -18,7 +18,7 @@ public class WallRun : NetworkBehaviour
     public float wallBouncing = 3;
     public float cameraTransitionDuration = 1;
 
-    public float wallGravityDownForce = 5f;
+    public float wallGravityDownForce = 2.8f;
 
     [Space]
     PlayerMovement playerMovementController;

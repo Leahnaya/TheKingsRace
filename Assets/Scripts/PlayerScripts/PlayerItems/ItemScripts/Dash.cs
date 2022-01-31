@@ -4,7 +4,7 @@ using MLAPI;
 using UnityEngine;
 
 
-public class Dash : NetworkBehaviour {
+public class Dash : NetworkBehaviour{
     public Vector3 moveDirection;
  
     public const float maxDashTime = 1.0f;
@@ -19,17 +19,34 @@ public class Dash : NetworkBehaviour {
     PlayerMovement pMove;
 
     void Start(){
-        characterController = GetComponent<CharacterController>();
+        characterController = this.gameObject.GetComponent<CharacterController>();
         pMove = GetComponent<PlayerMovement>();
     }
 
     //UPDATE CHECK FOR MOVEMENT ONLY WHEN DASHING
     void FixedUpdate(){
+        if(pMove.pStats.HasDash) DashPlayer();
+    }
+
+    void DashPlayer(){
         if (!IsLocalPlayer) { return; }
-        if(pMove.pStats.HasDash){
-            DashMovement();
+        if(characterController.enabled == true){
+            if (Input.GetKeyDown(KeyCode.E) && isOnCoolDown == false)
+            {
+                currentDashTime = 0;
+                StartCoroutine(startCoolDown());
+            }
+            if(currentDashTime < maxDashTime)
+            {
+                moveDirection = transform.forward * dashDistance;
+                currentDashTime += dashStoppingSpeed;
+            }
+            else
+            {
+                moveDirection = Vector3.zero;
+            }
+            characterController.Move(moveDirection * Time.deltaTime * dashSpeed);
         }
-        
     }
 
     private IEnumerator startCoolDown(){
@@ -39,25 +56,6 @@ public class Dash : NetworkBehaviour {
         yield return new WaitForSeconds(dashItem.cooldownM);
         isOnCoolDown = false;
         Debug.Log("end corotine");
-    }
-
-    private void DashMovement(){
-        if (Input.GetKeyDown(KeyCode.E) && isOnCoolDown == false)
-        {
-            currentDashTime = 0;
-            StartCoroutine(startCoolDown());
-        }
-        if(currentDashTime < maxDashTime)
-        {
-            moveDirection = transform.forward * dashDistance;
-            currentDashTime += dashStoppingSpeed;
-        }
-        else
-        {
-            moveDirection = Vector3.zero;
-        }
-       
-        //characterController.Move(moveDirection * Time.deltaTime * dashSpeed);
     }
 
 }
