@@ -19,19 +19,19 @@ public class CoolDown : MonoBehaviour
           
     }
       //set up ui elements for special items 
-      for(int i = 0; i < specialItems.Count; i++){
-            //instantiate prefab
-            GameObject temp = Instantiate(uiPrebab);
-            temp.transform.SetParent(this.gameObject.transform);
-            SpecialItem currentSpecialItem = specialItems[i];
-            temp.name = currentSpecialItem.itemName;
-            //set position
-            temp.transform.localPosition = new Vector3(-290, 110 - (i * 50), temp.transform.position.z);
-            temp.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            //set cooldown on ui
-            temp.GetComponent<UICoolDown>().setCoolDownTime(currentSpecialItem.cooldownM);
-        }
-    }
+    //   for(int i = 0; i < specialItems.Count; i++){
+    //         //instantiate prefab
+    //         GameObject temp = Instantiate(uiPrebab);
+    //         temp.transform.SetParent(this.gameObject.transform);
+    //         SpecialItem currentSpecialItem = specialItems[i];
+    //         temp.name = currentSpecialItem.itemName;
+    //         //set position
+    //         temp.transform.localPosition = new Vector3(-290, 110 - (i * 50), temp.transform.position.z);
+    //         temp.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+    //         //set cooldown on ui
+    //         temp.GetComponent<UICoolDown>().setCoolDownTime(currentSpecialItem.cooldownM);
+    //     }
+    //}
 
     public void startUICooldown(string name){
         this.gameObject.transform.Find(name).GetComponent<UICoolDown>().startCoolDown();
