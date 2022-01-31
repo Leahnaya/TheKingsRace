@@ -1604,6 +1604,14 @@ PrefabInstance:
       propertyPath: hasGrapple
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6664667533527261801, guid: 6adb8bcc65ee3a54da64d7c65225f219, type: 3}
+      propertyPath: hasWallrun
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6664667533527262099, guid: 6adb8bcc65ee3a54da64d7c65225f219, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6adb8bcc65ee3a54da64d7c65225f219, type: 3}
 --- !u!1 &1493944130
@@ -1972,18 +1980,6 @@ PrefabInstance:
     - target: {fileID: 6150409029086178024, guid: b95800967feee2a46a6c25838eb2fc6c, type: 3}
       propertyPath: m_RootOrder
       value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6150409029086178024, guid: b95800967feee2a46a6c25838eb2fc6c, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6150409029086178024, guid: b95800967feee2a46a6c25838eb2fc6c, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6150409029086178024, guid: b95800967feee2a46a6c25838eb2fc6c, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6150409029086178024, guid: b95800967feee2a46a6c25838eb2fc6c, type: 3}
       propertyPath: m_LocalPosition.x
