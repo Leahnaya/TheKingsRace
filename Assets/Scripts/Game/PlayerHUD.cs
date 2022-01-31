@@ -13,8 +13,11 @@ public class PlayerHUD : NetworkBehaviour
 
     public TMP_Text spectating_text;
 
+    [SerializeField] private GameObject respawningPanel;
+
     // Start is called before the first frame update
     void Start() {
+        respawningPanel.SetActive(false);
         countdown_text.text = "Time Remaining: 00:00";
         StartCoroutine(RaceTimeCountdown());
     }
@@ -40,5 +43,9 @@ public class PlayerHUD : NetworkBehaviour
     [ServerRpc]
     private void EndRoundServerRPC() {
         NetworkSceneManager.SwitchScene("PostGame");
+    }
+
+    public void setRespawnPanelVisibility(bool state) {
+        respawningPanel.SetActive(state);
     }
 }
