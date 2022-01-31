@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 2
   itemName: Roller Skates
-  description: More Slidey But Faster
+  description: Increases your max speed and acceleration at the cost of traction.
   itemSprite: {fileID: -3696225328785611619, guid: 7f448051c9c906545bfd88ed2754392b, type: 3}
   maxVelM: 15
   minVelM: 0

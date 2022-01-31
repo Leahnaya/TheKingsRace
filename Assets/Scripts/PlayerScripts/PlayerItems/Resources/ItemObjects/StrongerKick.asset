@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 4
   itemName: Strong Kick
-  description: Kick Harder
+  description: Your kick will become more powerful.
+  itemSprite: {fileID: 0}
   maxVelM: 0
   minVelM: 0
   curVelM: 0

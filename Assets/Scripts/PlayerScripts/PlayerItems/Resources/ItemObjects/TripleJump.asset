@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 5
   itemName: Triple Jump
-  description: Player gets an extra jump but has less jump height
+  description: Your jump height will be reduced slightly but you will gain an extra
+    jump.
   itemSprite: {fileID: -8809284872407378732, guid: 7f448051c9c906545bfd88ed2754392b, type: 3}
   maxVelM: 0
   minVelM: 0

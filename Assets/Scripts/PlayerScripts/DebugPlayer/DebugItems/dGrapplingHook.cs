@@ -26,7 +26,7 @@ public class dGrapplingHook : NetworkBehaviour
     private float minSwingSpeed = 10;
     private float swingSpeed = 0;
 
-    private float swingMom = 40;
+    private float swingMom = 50;
     private Vector3 tensionMomDirection;
     private Vector3 hookPointRight;
     private Vector3 momDirection;
@@ -34,7 +34,7 @@ public class dGrapplingHook : NetworkBehaviour
     private Vector3 oldXZDir;
     private float flip = -1; // flip variables for swing momentum
     private bool swingback = false; //swing the player back
-    private float midpointMom;
+    private float oldSwingMom;
 
     Vector3 tensionDirection;
     float tensionForce;
@@ -67,6 +67,7 @@ public class dGrapplingHook : NetworkBehaviour
                     ropeLength = Vector3.Distance(gameObject.transform.position, hookPoint.transform.position);
                     oldXZDir = (new Vector3(hookPoint.transform.position.x,0,hookPoint.transform.position.z) - new Vector3(transform.position.x,0,transform.position.z)).normalized;
                     curXZDir = (new Vector3(hookPoint.transform.position.x,0,hookPoint.transform.position.z) - new Vector3(transform.position.x,0,transform.position.z)).normalized;
+                    oldSwingMom = swingMom;
                     isGrappled = true; //toggle grappling state
                 }
             } 
@@ -176,27 +177,36 @@ public class dGrapplingHook : NetworkBehaviour
         return fDirection;
     }
 
+    //Needs to be Overhauled to properly implement energy loss and work more consistently taking into account players current Velocity, height and input
+    //------Important Equations--------
+    // TensionForce = Cos(theta) * g * m * Vector3(tensionDirection)
+    // Potential Energy = m * g * h -- Will need to modify adding current speed
+    // Kinetic Energy = 1/2 * m * V^2 -- assuming no energy loss at the bottom KE = PE at peak we will add energy loss ourselves
+    // Total Energy = m * ((g*h) + (1/2 * V^2))
+    // Velocity = (2 * ((TotalEnergy/m) - (g*h)))^(1/2) -- This hypothetically could be used for our swing momentum calculation
+    // Movement Direction right angle of tension force = Sin(theta) * g * m * Vector3(Right angle to tensionDirection)
     Vector3 calculateMomentumDirection(float g, Vector3 hPoint){
 
         tensionMomDirection = (hPoint - transform.position).normalized;
-        hookPointRight = Vector3.Cross((new Vector3(hPoint.x,0,hPoint.z) - new Vector3(transform.position.x,0,transform.position.z)), transform.up).normalized;
-        momDirection = flip * Vector3.Cross(hookPointRight, tensionMomDirection).normalized;
+        hookPointRight = Vector3.Cross(oldXZDir, transform.up).normalized;
+        momDirection = -1 * Vector3.Cross(hookPointRight, tensionMomDirection).normalized + new Vector3(.0001f,.0001f,.0001f);
         
         if(oldXZDir != curXZDir && flip == -1){
-            flip = 1;
-            midpointMom = swingMom;
+            //midpointMom = swingMom;
             swingback = false;
             Debug.Log("flip");
         }
 
-        if(swingback == false && swingMom <= (midpointMom*(.75f))){
+        if(swingback == false && swingMom <= (oldSwingMom*(.75f))){
             swingback = true;
-            flip = -1;
+            oldSwingMom = swingMom;
             oldXZDir = (new Vector3(hookPoint.transform.position.x,0,hookPoint.transform.position.z) - new Vector3(transform.position.x,0,transform.position.z)).normalized;
             Debug.Log("swingback");
         }
+
         curXZDir = (new Vector3(hPoint.x,0,hPoint.z) - new Vector3(transform.position.x,0,transform.position.z)).normalized;
         Debug.DrawRay(transform.position,  momDirection * Time.deltaTime* 100, Color.green);
+        Debug.Log((momDirection * swingMom).normalized);
         return (momDirection * Time.deltaTime * swingMom);
     }
     
