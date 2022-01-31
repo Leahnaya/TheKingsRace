@@ -68,7 +68,7 @@ public class InvSceneSettings : MonoBehaviour
                 //Changes Button Texts
                 iOpt.transform.Find("Name").GetComponent<Text>().text = item.Value.itemName;
                 iOpt.transform.Find("Cost").GetComponent<Text>().text = item.Value.costM.ToString();
-                //iOpt.GetComponentInChildren<Image>() = item.image; // IMPLEMENT WHEN ITEM OBJECT CONTAIN IMAGE REFERENCE
+                iOpt.transform.Find("ItemImg").GetComponent<Image>().sprite = item.Value.itemSprite; // IMPLEMENT WHEN ITEM OBJECT CONTAIN IMAGE REFERENCE
 
                 index++;
             }

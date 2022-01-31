@@ -1,13 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [CreateAssetMenu]
 public class Item: ScriptableObject {
+
+    //Set item characteristics
     public int id;
     public string itemName;
     public string description;
+    public Sprite itemSprite;
     [Space]
+
+    //Set item values
     public float maxVelM;
     public float minVelM;
     public float curVelM;
@@ -19,7 +25,8 @@ public class Item: ScriptableObject {
     public float recovTimeM;
     public float playerGravM;
     public int costM;
-
+    
+    //Updates player values to equip the item
     public virtual void Equip(PlayerStats p, GameObject player){
         if(maxVelM != 0){
             p.MaxVel += maxVelM;
@@ -50,6 +57,7 @@ public class Item: ScriptableObject {
         }
     }
 
+    //Updates player values to unequip the item
     public virtual void Unequip(PlayerStats p, GameObject player){
         if(maxVelM != 0){
             p.MaxVel -= maxVelM;

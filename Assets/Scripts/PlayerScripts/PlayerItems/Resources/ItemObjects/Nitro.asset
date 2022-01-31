@@ -14,7 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 10
   itemName: Nitro
-  description: Boosts player speed
+  description: Press Left Shift to boost your player speed beyond its max for a short
+    period.
+  itemSprite: {fileID: -295526885773654649, guid: 7f448051c9c906545bfd88ed2754392b, type: 3}
   maxVelM: 0
   minVelM: 0
   curVelM: 0

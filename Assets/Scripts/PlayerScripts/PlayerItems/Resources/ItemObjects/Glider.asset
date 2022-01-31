@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 7
   itemName: Glider
-  description: Player Will Fall slower
+  description: Hold space while falling to slow your descent.
+  itemSprite: {fileID: 7798176430303134427, guid: 7f448051c9c906545bfd88ed2754392b, type: 3}
   maxVelM: 0
   minVelM: 0
   curVelM: 0

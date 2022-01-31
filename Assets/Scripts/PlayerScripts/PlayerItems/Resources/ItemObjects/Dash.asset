@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 11
   itemName: Dash
-  description: Quickly Moves the player forwards
+  description: Press F to quickly dash your player forward.
+  itemSprite: {fileID: 0}
   maxVelM: 0
   minVelM: 0
   curVelM: 0

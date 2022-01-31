@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 6
   itemName: Wall Run
-  description: Allows player to run on walls
+  description: You now have the ability to run across red walls.
+  itemSprite: {fileID: -7634698977955767800, guid: 7f448051c9c906545bfd88ed2754392b, type: 3}
   maxVelM: 0
   minVelM: 0
   curVelM: 0
@@ -33,4 +34,3 @@ MonoBehaviour:
   hasNitroM: 0
   hasDashM: 0
   cooldownM: 0
-  scriptM: {fileID: 11500000, guid: 535009eaa735a4c4e95c6fc270e32741, type: 3}
