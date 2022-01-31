@@ -1757,8 +1757,8 @@ GameObject:
   - component: {fileID: 1940408589166091606}
   - component: {fileID: 2362000826974438061}
   m_Layer: 0
-  m_Name: ItemToolTip
-  m_TagString: ItemToolTip
+  m_Name: ItemTooltip
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
