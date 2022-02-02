@@ -8031,8 +8031,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c342edd8126e1449a50220a14c9333e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Inv: {fileID: 0}
+  stats: {fileID: 0}
   uiPrebab: {fileID: 2234979236645149946, guid: 757a136ec05bee247970d9f727f6b5f2, type: 3}
+  dashItem: {fileID: 0}
+  nitroItem: {fileID: 0}
 --- !u!114 &358007096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8167,6 +8169,10 @@ PrefabInstance:
     - target: {fileID: 3039877022422189067, guid: 6adb8bcc65ee3a54da64d7c65225f219, type: 3}
       propertyPath: m_Name
       value: DebugPlayerPrefab 1 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3039877022422189067, guid: 6adb8bcc65ee3a54da64d7c65225f219, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6adb8bcc65ee3a54da64d7c65225f219, type: 3}
@@ -38887,7 +38893,7 @@ MonoBehaviour:
   lookAtTarget: 0
   target: {fileID: 0}
   playOnAwake: 1
-  playOnAwakeTime: 3
+  playOnAwakeTime: 15
   points:
   - position: {x: -4227.884, y: 632.8725, z: 872.59894}
     rotation: {x: 0.07615532, y: -0.92383826, z: 0.2670521, w: 0.26345092}
