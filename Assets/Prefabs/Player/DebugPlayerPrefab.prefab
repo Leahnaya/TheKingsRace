@@ -303,7 +303,7 @@ MonoBehaviour:
   maxVel: 40
   minVel: 15
   curVel: 0
-  hardCapMaxVel: 60
+  hardCapMaxVel: 90
   acc: 0.01
   jumpPow: 60
   jumpNum: 2
@@ -632,6 +632,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nitroItem: {fileID: 11400000, guid: b91f668477f6b3244b3fea3204e6cd87, type: 2}
+  isNitroing: 0
 --- !u!1 &3728379727042858093
 GameObject:
   m_ObjectHideFlags: 0

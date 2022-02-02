@@ -108,15 +108,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: addc2e37ff81c1b4989ec34b6150b4f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxVel: 40
+  maxVel: 50
   minVel: 20
   curVel: 0
-  hardCapMaxVel: 60
-  acc: 0.01
+  hardCapMaxVel: 90
+  acc: 0.02
   jumpPow: 60
   jumpNum: 2
-  traction: 3
-  kickPow: 500
+  traction: 5
+  kickPow: 300
   recovTime: 3
   playerGrav: 200
   hasBlink: 0
@@ -259,6 +259,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nitroItem: {fileID: 11400000, guid: b91f668477f6b3244b3fea3204e6cd87, type: 2}
+  isNitroing: 0
 --- !u!54 &8956701063868523892
 Rigidbody:
   m_ObjectHideFlags: 0

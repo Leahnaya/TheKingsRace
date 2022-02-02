@@ -421,7 +421,7 @@ public class PlayerMovement : NetworkBehaviour
     private void UpdateGravity(){
 
         //Gliding
-        if(pStats.HasGlider && g < 0 && Input.GetButton("Jump")){
+        if(pStats.HasGlider && g < 0 && Input.GetButton("Jump") && !isSliding){
             //Gravity with glider
             GravityCalculation(8);
 

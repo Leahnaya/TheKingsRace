@@ -421,7 +421,7 @@ public class dPlayerMovement : NetworkBehaviour
     private void UpdateGravity(){
 
         //Gliding
-        if(pStats.HasGlider && g < 0 && Input.GetButton("Jump")){
+        if(pStats.HasGlider && g < 0 && Input.GetButton("Jump") && !isSliding){
             //Gravity with glider
             GravityCalculation(8);
 
@@ -564,9 +564,10 @@ public class dPlayerMovement : NetworkBehaviour
     //Slide Function
     private void Slide(){
         //if the q button or the east face button on gamepad is held down
-        if (Input.GetKey(KeyCode.JoystickButton1) || Input.GetKey(KeyCode.Q)) {
+        if ((Input.GetKey(KeyCode.JoystickButton1) || Input.GetKey(KeyCode.Q))) {
             qDown = true;
             if (isSliding == false){
+                
                 originalTraction = pStats.Traction;
                 this.gameObject.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x - 90, this.transform.eulerAngles.y, this.transform.eulerAngles.z);
                 isSliding = true;

@@ -35,12 +35,12 @@ public class dNitro : MonoBehaviour
         if(isNitroing){
             if(tempTimer > 0){
                 
-                tempTimer -= .04f;
+                tempTimer -= .02f;
 
                 Debug.Log("nitro is on");
 
                 if(playerStats.CurVel < playerStats.HardCapMaxVel){
-                    playerStats.CurVel += playerStats.Acc * 10;
+                    playerStats.CurVel += playerStats.Acc * 50;
                 }
                 else if(playerStats.CurVel > playerStats.HardCapMaxVel){
                     playerStats.CurVel = playerStats.HardCapMaxVel;

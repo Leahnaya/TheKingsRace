@@ -19,10 +19,10 @@ MonoBehaviour:
   maxVelM: 15
   minVelM: 0
   curVelM: 0
-  accM: 0.3
+  accM: 0.1
   jumpPowM: 0
   jumpNumM: 0
-  tractionM: -2.2
+  tractionM: -4
   kickPowM: 0
   recovTimeM: 0
   playerGravM: 0
