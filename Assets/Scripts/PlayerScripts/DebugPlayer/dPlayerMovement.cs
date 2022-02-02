@@ -220,6 +220,7 @@ public class dPlayerMovement : NetworkBehaviour
         }
         //Move Player
         if(grapple.isGrappled && !isGrounded){
+            driftVel = Vector3.zero;
             moveController.Move(((moveY + grapple.forceDirection) * Time.deltaTime)); 
         } 
         else{
@@ -236,7 +237,7 @@ public class dPlayerMovement : NetworkBehaviour
     {
         WallCheck();
         //If nothing is pressed speed is 0
-        if ((Input.GetAxis("Vertical") == 0.0f && Input.GetAxis("Horizontal") == 0.0f) || isSliding ||(grapple.isGrappled && !isGrounded))
+        if ((Input.GetAxis("Vertical") == 0.0f && Input.GetAxis("Horizontal") == 0.0f) || isSliding || (grapple.isGrappled && !isGrounded))
         {
             pStats.CurVel = 0.0f;
             return pStats.CurVel;

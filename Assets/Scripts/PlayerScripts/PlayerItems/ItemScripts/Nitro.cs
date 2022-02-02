@@ -13,7 +13,7 @@ public class Nitro : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        driver = GameObject.Find("Canvas").GetComponent<CoolDown>();
+        //driver = GameObject.Find("Canvas").GetComponent<CoolDown>();
         playerStats = GetComponent<PlayerStats>();
     }
 

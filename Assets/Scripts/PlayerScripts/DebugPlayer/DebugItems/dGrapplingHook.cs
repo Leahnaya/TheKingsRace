@@ -22,24 +22,31 @@ public class dGrapplingHook : NetworkBehaviour
     float inclinationAngle;
     float theta = -1;
 
-    private float maxSwingSpeed = 90;
-    private float minSwingSpeed = 10;
-    private float swingAcc = 5f;
+    private float maxSwingSpeed = 50;
+    private float minSwingSpeed = 20;
+    private float swingAcc = 3f;
     private float swingSpeed = 10;
 
-    private float swingMom = 50;
+    private float swingMom;
+    private float maxSwingMom = 60;
+
     private Vector3 tensionMomDirection;
     private Vector3 hookPointRight;
     private Vector3 momDirection;
+
     private Vector3 curXZDir;
     private Vector3 oldXZDir;
-    private float flip = -1; // flip variables for swing momentum
+
     private bool swingback = false; //swing the player back
     private float oldSwingMom;
 
     Vector3 tensionDirection;
     float tensionForce;
     public Vector3 forceDirection;
+
+    private Vector3 tempRelease;
+    private Vector3 lerpRelease;
+    bool release = false;
 
 
     // Start is called before the first frame update
@@ -68,13 +75,18 @@ public class dGrapplingHook : NetworkBehaviour
                     ropeLength = Vector3.Distance(gameObject.transform.position, hookPoint.transform.position);
                     oldXZDir = (new Vector3(hookPoint.transform.position.x,0,hookPoint.transform.position.z) - new Vector3(transform.position.x,0,transform.position.z)).normalized;
                     curXZDir = (new Vector3(hookPoint.transform.position.x,0,hookPoint.transform.position.z) - new Vector3(transform.position.x,0,transform.position.z)).normalized;
+                    swingMom = CalculateSwingMom(playerMovement.driftVel.magnitude * 50f);
                     oldSwingMom = swingMom;
+                    playerMovement.g = -1;
                     isGrappled = true; //toggle grappling state
+                    release = false;
+                    lerpRelease = Vector3.zero;
                 }
             } 
             else //Else we are grappling
             {
                 isGrappled = false; //toggle grappling state to release
+                release = true;
                 playerMovement.g = 0;
             }
         }
@@ -109,7 +121,6 @@ public class dGrapplingHook : NetworkBehaviour
                 //Debug.Log(ropeLength.ToString());
             }
             //Debug.Log(Vector3.Distance(gameObject.transform.position, hookPoint.transform.position));
-            Debug.Log(ropeLength);
             //Calculate tether force direction based on hookpoint
             if (Vector3.Distance(gameObject.transform.position, hookPoint.transform.position) >= ropeLength )
             {
@@ -130,19 +141,38 @@ public class dGrapplingHook : NetworkBehaviour
                     swingMom -= .5f;
                 }
             }
+            else{
+                swingMom = CalculateSwingMom(playerMovement.driftVel.magnitude * 50f);
+            }
+
             if(swingMom<0) swingMom = 0;
+
+            tempRelease = CalculateSwingReleaseForce();
         }
-        else if(!isGrappled || playerMovement.isGrounded){
-            flip = -1;
+        else if(!isGrappled){
+            //Reset force direction after unhook
+            forceDirection = Vector3.zero;
             swingback = true;
-            swingMom = 50;
+
+            if(release){
+                lerpRelease = Vector3.Lerp(lerpRelease, tempRelease, 10 * Time.deltaTime);
+                movementController.Move(lerpRelease);
+            }
+
+            
         }
+
         //WILL NEED ADJUSTMENT OR REMOVAL IN THE FUTURE
         //ungrapple on jump
-        if(playerMovement.GetJumpPressed() && !playerMovement.isGrounded) isGrappled = false;
-
-        //Reset force direction after unhook
-        if(isGrappled == false) forceDirection = Vector3.zero;
+        if(playerMovement.GetJumpPressed() && !playerMovement.isGrounded && isGrappled){
+            release = true;
+            isGrappled = false; 
+        }
+        if(playerMovement.isGrounded){
+            swingback = true;
+            release = false;
+        }
+        Debug.Log(playerMovement.isGrounded);
     }
 
     //Finds the nearest hook to the player
@@ -193,7 +223,7 @@ public class dGrapplingHook : NetworkBehaviour
         hookPointRight = Vector3.Cross(oldXZDir, transform.up).normalized;
         momDirection = -1 * Vector3.Cross(hookPointRight, tensionMomDirection).normalized;
         
-        if(oldXZDir != curXZDir && flip == -1){
+        if(oldXZDir != curXZDir){
             //midpointMom = swingMom;
             swingback = false;
             Debug.Log("flip");
@@ -212,8 +242,20 @@ public class dGrapplingHook : NetworkBehaviour
     }
 
     //Calculates the players initial swing momentum using their height and their current velocity
-    float CalculateSwingMom(Vector3 playerSpeed){
-        return 0.0f;
+    float CalculateSwingMom(float playerSpeed){
+
+        //Calculate the players height compared to the lowest point in the swing
+        float swingHeight = transform.position.y - (hookPoint.transform.position.y - ropeLength);
+        if(swingHeight <= 1){
+            swingHeight = 1;
+        }
+
+        float sMom = playerSpeed + (swingHeight*2);
+        if(sMom > maxSwingMom){
+            sMom = maxSwingMom;
+        }
+        Debug.Log(playerSpeed);
+        return sMom;
     }
     
     //Special movement for the player while they swing
@@ -261,5 +303,15 @@ public class dGrapplingHook : NetworkBehaviour
  
 
         return tenDirOffset * offsetPower * Time.deltaTime;
+    }
+
+    Vector3 CalculateSwingReleaseForce(){
+        Vector3 releaseSwingForceDirection = momDirection * (swingMom + 20);
+        releaseSwingForceDirection = new Vector3(releaseSwingForceDirection.x,0,releaseSwingForceDirection.z);
+
+        if(swingMom < 5){
+            return Vector3.zero;
+        }
+        return releaseSwingForceDirection * Time.deltaTime;
     }
 }

@@ -20,7 +20,7 @@ public class Dash : NetworkBehaviour{
     PlayerMovement pMove;
 
     void Start(){
-        driver = GameObject.Find("Canvas").GetComponent<CoolDown>();
+        //driver = GameObject.Find("Canvas").GetComponent<CoolDown>();
         characterController = this.gameObject.GetComponent<CharacterController>();
         pMove = GetComponent<PlayerMovement>();
     }
@@ -33,7 +33,7 @@ public class Dash : NetworkBehaviour{
     void DashPlayer(){
         if (!IsLocalPlayer) { return; }
         if(characterController.enabled == true){
-            if (Input.GetKeyDown(KeyCode.E) && isOnCoolDown == false)
+            if (Input.GetKeyDown(KeyCode.R) && isOnCoolDown == false)
             {
                 currentDashTime = 0;
                 StartCoroutine(startCoolDown());

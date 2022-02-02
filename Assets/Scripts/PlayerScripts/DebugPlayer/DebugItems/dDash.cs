@@ -20,7 +20,7 @@ public class dDash : NetworkBehaviour{
     dPlayerMovement pMove;
 
     void Start(){
-        driver = GameObject.Find("Canvas").GetComponent<CoolDown>();
+        //driver = GameObject.Find("Canvas").GetComponent<CoolDown>();
         characterController = this.gameObject.GetComponent<CharacterController>();
         pMove = GetComponent<dPlayerMovement>();
     }
