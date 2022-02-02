@@ -89,7 +89,7 @@ public class SpawnManager : NetworkBehaviour {
     // Give a slight delay to allow spawning to complete
     IEnumerator ApplyInventoryToClient(ulong clientID, string itemsAsString)
     {
-        yield return new WaitForSecondsRealtime(1f);
+        yield return new WaitForSecondsRealtime(5f);
 
         ClientRpcParams clientRpcParams = new ClientRpcParams
         {

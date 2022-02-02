@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using MLAPI;
@@ -68,6 +69,8 @@ public class PlayerInventory : NetworkBehaviour
 
     //Equips All items in list at start of next scene
     public void UpdateEquips(List<string> items, Dictionary<string, Item> allItems){
+        if (items.Count <= 0) { return; }
+
         foreach(string itemName in items){
             AddItem(allItems[itemName]);
         }
