@@ -72,6 +72,8 @@ public class PlayerInventory : NetworkBehaviour
         if (items.Count <= 0) { return; }
 
         foreach(string itemName in items){
+            if (itemName == "" || itemName == " ") { continue; }
+
             AddItem(allItems[itemName]);
         }
     }
