@@ -62,7 +62,7 @@ public class GrapplingHook : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (!IsLocalPlayer) { return; }
+        if (!IsLocalPlayer) { return; }
 
         if ((Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.JoystickButton2)) && pStats.HasGrapple) //If grapple button is hit
         {
@@ -94,7 +94,7 @@ public class GrapplingHook : NetworkBehaviour
 
     private void FixedUpdate()
     {
-        //if (!IsLocalPlayer) { return; }
+        if (!IsLocalPlayer) { return; }
         if (isGrappled)
         {
             Debug.DrawRay(gameObject.transform.position, (hookPoint.transform.position - gameObject.transform.position)); //Visual of line

@@ -67,7 +67,7 @@ public class WallRun : NetworkBehaviour
 
     public void WallRunRoutine()
     { 
-        //if (!IsLocalPlayer) { return; }
+        if (!IsLocalPlayer) { return; }
 
         isWallRunning = false;
 
