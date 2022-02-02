@@ -2322,6 +2322,10 @@ PrefabInstance:
       propertyPath: traction
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 6664667533527261801, guid: 6adb8bcc65ee3a54da64d7c65225f219, type: 3}
+      propertyPath: hasWallrun
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6adb8bcc65ee3a54da64d7c65225f219, type: 3}
 --- !u!1 &1493944130

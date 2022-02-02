@@ -445,6 +445,10 @@ public class dPlayerMovement : NetworkBehaviour
 
             //if wallrunning apply different gravity
             if(wallRun.IsWallRunning()){
+                if(wallRun.firstAttach){
+                    g = 0;
+                    wallRun.firstAttach = false;
+                }
                 GravityCalculation(2);
             }
 
