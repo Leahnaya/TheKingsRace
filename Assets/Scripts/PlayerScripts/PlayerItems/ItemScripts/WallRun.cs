@@ -27,6 +27,7 @@ public class WallRun : NetworkBehaviour
     RaycastHit[] hits;
 
     bool isWallRunning = false;
+    public bool firstAttach = false;
     Vector3 lastWallPosition;
     Vector3 lastWallNormal;
     float elapsedTimeSinceJump = 0;
@@ -66,7 +67,7 @@ public class WallRun : NetworkBehaviour
 
     public void WallRunRoutine()
     { 
-        if (!IsLocalPlayer) { return; }
+        //if (!IsLocalPlayer) { return; }
 
         isWallRunning = false;
 
@@ -173,7 +174,11 @@ public class WallRun : NetworkBehaviour
             //
 
             playerMovementController.SetPlayerVelocity(moveToSet);
-            isWallRunning = true;
+            if(!isWallRunning){
+                firstAttach = true;
+                isWallRunning = true;
+            }
+            
             if(playerMovementController.curJumpNum == playerMovementController.pStats.JumpNum){
                 playerMovementController.curJumpNum = 0;
             }
