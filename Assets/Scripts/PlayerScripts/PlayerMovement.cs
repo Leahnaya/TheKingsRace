@@ -94,6 +94,9 @@ public class PlayerMovement : NetworkBehaviour
 
     //Grapple
     private GrapplingHook grapple;
+
+    //Nitro
+    private Nitro nitro;
     
 
     //Animation controller
@@ -114,6 +117,7 @@ public class PlayerMovement : NetworkBehaviour
         wallRun = GetComponent<WallRun>(); //Wallrun
         blink = GetComponent<Blink>(); //Blink
         grapple = GetComponent<GrapplingHook>();
+        nitro = GetComponent<Nitro>();
 
         //Get parents up direction
         up = GetComponentInParent<Transform>().up;
@@ -220,6 +224,7 @@ public class PlayerMovement : NetworkBehaviour
         }
         //Move Player
         if(grapple.isGrappled && !isGrounded){
+            driftVel = Vector3.zero;
             moveController.Move(((moveY + grapple.forceDirection) * Time.deltaTime)); 
         } 
         else{
@@ -236,7 +241,7 @@ public class PlayerMovement : NetworkBehaviour
     {
         WallCheck();
         //If nothing is pressed speed is 0
-        if ((Input.GetAxis("Vertical") == 0.0f && Input.GetAxis("Horizontal") == 0.0f) || isSliding ||(grapple.isGrappled && !isGrounded))
+        if ((Input.GetAxis("Vertical") == 0.0f && Input.GetAxis("Horizontal") == 0.0f) || isSliding || (grapple.isGrappled && !isGrounded))
         {
             pStats.CurVel = 0.0f;
             return pStats.CurVel;
@@ -254,10 +259,18 @@ public class PlayerMovement : NetworkBehaviour
             return pStats.CurVel;
         }
         //If the players speed is above or equal to max speed set speed to max
-        else
+        else if (pStats.CurVel >= pStats.MaxVel && nitro.isNitroing == false)
         {
             pStats.CurVel = pStats.MaxVel;
             return pStats.CurVel;
+
+        }
+        else if(nitro.isNitroing){
+            return pStats.CurVel;
+        }
+        else{
+            Debug.Log("Something has gone wrong with the PlayerSpeed()");
+            return -1;
         }
     }
 
@@ -288,6 +301,7 @@ public class PlayerMovement : NetworkBehaviour
             if(wallRun.IsWallRunning()){
                 AddImpact((wallRun.GetWallJumpDirection()), pStats.JumpPow * 8.5f);
                 g = pStats.JumpPow;
+                curJumpNum = 0;
             }
 
             else{
@@ -388,6 +402,7 @@ public class PlayerMovement : NetworkBehaviour
             }
         }
     }
+
 
 
     //REMOVE WHEN UNNECCESARY

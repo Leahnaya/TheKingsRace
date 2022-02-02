@@ -31,7 +31,7 @@ public class Dash : NetworkBehaviour{
     }
 
     void DashPlayer(){
-        if (!IsLocalPlayer) { return; }
+        //if (!IsLocalPlayer) { return; }
         if(characterController.enabled == true){
             if (Input.GetKeyDown(KeyCode.R) && isOnCoolDown == false)
             {
@@ -54,7 +54,7 @@ public class Dash : NetworkBehaviour{
     private IEnumerator startCoolDown(){
         Debug.Log("start corotine");
         isOnCoolDown = true;
-        //driver.startUICooldown("Nitro");
+        //driver.startUICooldown(dashItem.name);
         yield return new WaitForSeconds(dashItem.cooldownM);
         isOnCoolDown = false;
         Debug.Log("end corotine");

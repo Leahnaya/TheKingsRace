@@ -1523,7 +1523,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1405946429}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.4, y: 18.3, z: 10.3}
+  m_LocalPosition: {x: 36.3, y: 24.5, z: 13.7}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1605,12 +1605,16 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6664667533527261801, guid: 6adb8bcc65ee3a54da64d7c65225f219, type: 3}
-      propertyPath: hasGrapple
+      propertyPath: hasNitro
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6664667533527261801, guid: 6adb8bcc65ee3a54da64d7c65225f219, type: 3}
+      propertyPath: hasGrapple
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6664667533527261801, guid: 6adb8bcc65ee3a54da64d7c65225f219, type: 3}
       propertyPath: hasWallrun
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6664667533527262099, guid: 6adb8bcc65ee3a54da64d7c65225f219, type: 3}
       propertyPath: m_Enabled

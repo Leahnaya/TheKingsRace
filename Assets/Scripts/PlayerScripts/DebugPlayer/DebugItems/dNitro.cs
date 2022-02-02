@@ -8,7 +8,9 @@ public class dNitro : MonoBehaviour
     private PlayerStats playerStats;
     public SpecialItem nitroItem;
     private bool isOnCoolDown = false;
-    private bool isNitroing = false;
+    public bool isNitroing = false;
+
+    private float tempTimer = 5;
     //this will need to be set from scritable object or something;
 
     // Start is called before the first frame update
@@ -24,23 +26,40 @@ public class dNitro : MonoBehaviour
         //once cooldowns are implemented, put this on one (a long one)
         if (Input.GetKeyDown(KeyCode.LeftShift) && isOnCoolDown == false && playerStats.HasNitro)
         {
-            if(playerStats.CurVel < playerStats.HardCapMaxVel){
-                playerStats.CurVel += playerStats.Acc * 10;
-            }
-            else if(playerStats.CurVel > playerStats.HardCapMaxVel){
-                playerStats.CurVel = playerStats.HardCapMaxVel;
-            }
+            isNitroing = true;
             
-            StartCoroutine(startCoolDown());
+        }
+    }
+
+    void FixedUpdate(){
+        if(isNitroing){
+            if(tempTimer > 0){
+                
+                tempTimer -= .04f;
+
+                Debug.Log("nitro is on");
+
+                if(playerStats.CurVel < playerStats.HardCapMaxVel){
+                    playerStats.CurVel += playerStats.Acc * 10;
+                }
+                else if(playerStats.CurVel > playerStats.HardCapMaxVel){
+                    playerStats.CurVel = playerStats.HardCapMaxVel;
+                }
+            }
+            else{
+                StartCoroutine(startCoolDown());
+                isNitroing = false;
+            }
         }
     }
 
     private IEnumerator startCoolDown(){
         Debug.Log("start corotine");
         isOnCoolDown = true;
-        driver.startUICooldown("Nitro");
+        //driver.startUICooldown("Nitro");
         yield return new WaitForSeconds(nitroItem.cooldownM);
         isOnCoolDown = false;
+        tempTimer = 5;
         Debug.Log("end corotine");
     }
 }

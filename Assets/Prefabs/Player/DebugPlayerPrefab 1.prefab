@@ -3777,6 +3777,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nitroItem: {fileID: 11400000, guid: b91f668477f6b3244b3fea3204e6cd87, type: 2}
+  isNitroing: 0
 --- !u!1 &6716225286288627934
 GameObject:
   m_ObjectHideFlags: 0

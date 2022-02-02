@@ -172,7 +172,6 @@ public class dGrapplingHook : NetworkBehaviour
             swingback = true;
             release = false;
         }
-        Debug.Log(playerMovement.isGrounded);
     }
 
     //Finds the nearest hook to the player
@@ -226,14 +225,14 @@ public class dGrapplingHook : NetworkBehaviour
         if(oldXZDir != curXZDir){
             //midpointMom = swingMom;
             swingback = false;
-            Debug.Log("flip");
+            //Debug.Log("flip");
         }
 
         if(swingback == false && swingMom <= (oldSwingMom*(.75f))){
             swingback = true;
             oldSwingMom = swingMom;
             oldXZDir = (new Vector3(hookPoint.transform.position.x,0,hookPoint.transform.position.z) - new Vector3(transform.position.x,0,transform.position.z)).normalized;
-            Debug.Log("swingback");
+            //Debug.Log("swingback");
         }
 
         curXZDir = (new Vector3(hPoint.x,0,hPoint.z) - new Vector3(transform.position.x,0,transform.position.z)).normalized;
@@ -254,7 +253,6 @@ public class dGrapplingHook : NetworkBehaviour
         if(sMom > maxSwingMom){
             sMom = maxSwingMom;
         }
-        Debug.Log(playerSpeed);
         return sMom;
     }
     

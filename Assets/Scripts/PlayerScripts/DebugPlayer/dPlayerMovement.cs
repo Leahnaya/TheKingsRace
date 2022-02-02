@@ -94,6 +94,9 @@ public class dPlayerMovement : NetworkBehaviour
 
     //Grapple
     private dGrapplingHook grapple;
+
+    //Nitro
+    private dNitro nitro;
     
 
     //Animation controller
@@ -114,6 +117,7 @@ public class dPlayerMovement : NetworkBehaviour
         wallRun = GetComponent<dWallRun>(); //Wallrun
         blink = GetComponent<dBlink>(); //Blink
         grapple = GetComponent<dGrapplingHook>();
+        nitro = GetComponent<dNitro>();
 
         //Get parents up direction
         up = GetComponentInParent<Transform>().up;
@@ -255,11 +259,14 @@ public class dPlayerMovement : NetworkBehaviour
             return pStats.CurVel;
         }
         //If the players speed is above or equal to max speed set speed to max
-        else if (pStats.CurVel >= pStats.MaxVel)
+        else if (pStats.CurVel >= pStats.MaxVel && nitro.isNitroing == false)
         {
             pStats.CurVel = pStats.MaxVel;
             return pStats.CurVel;
 
+        }
+        else if(nitro.isNitroing){
+            return pStats.CurVel;
         }
         else{
             Debug.Log("Something has gone wrong with the PlayerSpeed()");
