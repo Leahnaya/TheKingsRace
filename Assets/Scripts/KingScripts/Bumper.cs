@@ -8,7 +8,7 @@ public class Bumper : MonoBehaviour {
 
     // Is called whenever something collides with the bumper
     void OnTriggerEnter(Collider objectHit) {
-        if (objectHit.transform.parent.gameObject.tag == "Player") {//Checks if the other object is the player
+        if (objectHit.gameObject.tag == "ArcherTarget") {//Checks if the other object is the player
         
             Debug.Log("Bump");
             PlayerMovement playerMovement = objectHit.GetComponent<PlayerMovement>();

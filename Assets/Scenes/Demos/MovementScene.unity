@@ -2302,30 +2302,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: DebugPlayerPrefab 1
       objectReference: {fileID: 0}
-    - target: {fileID: 3039877022422189067, guid: 6adb8bcc65ee3a54da64d7c65225f219, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6664667533527261801, guid: 6adb8bcc65ee3a54da64d7c65225f219, type: 3}
-      propertyPath: acc
-      value: 0.02
-      objectReference: {fileID: 0}
-    - target: {fileID: 6664667533527261801, guid: 6adb8bcc65ee3a54da64d7c65225f219, type: 3}
-      propertyPath: maxVel
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 6664667533527261801, guid: 6adb8bcc65ee3a54da64d7c65225f219, type: 3}
-      propertyPath: hasNitro
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6664667533527261801, guid: 6adb8bcc65ee3a54da64d7c65225f219, type: 3}
-      propertyPath: traction
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6664667533527261801, guid: 6adb8bcc65ee3a54da64d7c65225f219, type: 3}
-      propertyPath: hasWallrun
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6adb8bcc65ee3a54da64d7c65225f219, type: 3}
 --- !u!1 &1493944130
@@ -3009,6 +2985,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6150409028514810266, guid: b95800967feee2a46a6c25838eb2fc6c, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6150409029086178024, guid: b95800967feee2a46a6c25838eb2fc6c, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -3056,6 +3036,10 @@ PrefabInstance:
     - target: {fileID: 6150409029086178026, guid: b95800967feee2a46a6c25838eb2fc6c, type: 3}
       propertyPath: m_Name
       value: Gate
+      objectReference: {fileID: 0}
+    - target: {fileID: 6150409029095057616, guid: b95800967feee2a46a6c25838eb2fc6c, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b95800967feee2a46a6c25838eb2fc6c, type: 3}

@@ -5,21 +5,22 @@ using UnityEngine;
 
 public class dKickController : NetworkBehaviour
 {
-    //Important, may want to change blink code to only work for trigger collider 
-    // so that the player doesn't teleport to their leg
     private GameObject leg;
+    private GameObject legHitbox;
     private bool isKicking = false;
     //slightly bad practice, when merging find a better work around
     private bool isDiveKicking = false;
     private CharacterController characterController;
     public dPlayerMovement pMove;
     public PlayerStats pStats;
+    private float legRotation = 0;
 
     void Start(){
         pStats = GetComponent<PlayerStats>();
         pMove = GetComponent<dPlayerMovement>();
         characterController = this.gameObject.GetComponent<CharacterController>();
-        leg = transform.GetChild(0).gameObject;
+        leg = transform.Find("Leg").gameObject;
+        legHitbox = leg.transform.Find("LegHitbox").gameObject;
         leg.SetActive(false);
     }
 
@@ -42,7 +43,7 @@ public class dKickController : NetworkBehaviour
         }
         //otherwise do ground kick for .3 seconds
         else if ((Input.GetKeyDown(KeyCode.F) || Input.GetAxis("Kick") != 0) && isKicking == false && pMove.isSliding==false){
-            StartCoroutine(Kicking(.3f));
+            StartCoroutine(Kicking(1f));
         }
 
         //once dive kick touches ground, set back to normal state
@@ -50,8 +51,15 @@ public class dKickController : NetworkBehaviour
         {
             isDiveKicking = false;
             isKicking = false;
+            legRotation = 0;
+            leg.transform.eulerAngles = new Vector3(legRotation, leg.transform.eulerAngles.y, leg.transform.eulerAngles.z);
             leg.SetActive(false);
 
+        }
+
+        if(isKicking){
+            RotateLeg();
+            characterController.Move(new Vector3(.0015f,0,0));
         }
     }
 
@@ -60,7 +68,9 @@ public class dKickController : NetworkBehaviour
         leg.SetActive(true);
         yield return new WaitForSeconds(waitTime);
         isKicking = false;
-        leg.GetComponent<Collider>().isTrigger = false;
+        legRotation = 0;
+        leg.transform.eulerAngles = new Vector3(legRotation, leg.transform.eulerAngles.y, leg.transform.eulerAngles.z);
+        legHitbox.GetComponent<Collider>().isTrigger = false;
         leg.SetActive(false);
 
     }
@@ -69,18 +79,29 @@ public class dKickController : NetworkBehaviour
     {
         //if (!IsLocalPlayer) { return; }
         Collider myCollider = collision.contacts[0].thisCollider;
-        if (collision.transform.CompareTag("kickable") && myCollider == leg.GetComponent<Collider>()){
+        if (collision.transform.CompareTag("kickable") && myCollider == legHitbox.GetComponent<Collider>()){
             if(collision.gameObject.GetComponent<Rigidbody>().isKinematic == true){
                 collision.gameObject.GetComponent<Rigidbody>().isKinematic = false;
             }
             Vector3 direction = this.transform.forward;
             Debug.Log(direction);
             collision.rigidbody.AddForce(direction * pStats.KickPow, ForceMode.Impulse);
-            leg.GetComponent<Collider>().isTrigger = true;
         }
-        if (collision.transform.CompareTag("destroyable") && myCollider == leg.GetComponent<Collider>()){
+        if (collision.transform.CompareTag("destroyable") && myCollider == legHitbox.GetComponent<Collider>()){
             collision.transform.gameObject.GetComponent<BreakableBlock>().damage(pStats.KickPow);
         }
+    }
+
+    private void RotateLeg(){
+        if(legRotation > -90){
+            leg.transform.eulerAngles = new Vector3(legRotation, leg.transform.eulerAngles.y, leg.transform.eulerAngles.z);
+            legRotation -= 20;
+        }
+        else{
+            legRotation = -90;
+            Debug.Log("Kick Full Extension");
+        }
+        
     }
 
 }
