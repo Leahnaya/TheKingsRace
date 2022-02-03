@@ -13,7 +13,7 @@ public class Boulder : NetworkBehaviour
     }
 
     void OnTriggerEnter(Collider other) {
-        if (objectHit.gameObject.tag == "ArcherTarget") {
+        if (other.gameObject.tag == "ArcherTarget") {
             GameObject player = other.gameObject;//Turns the collider into a game object
             Vector3 Dir = boulder.velocity;//Finds the bolder's velocity
             float Power = boulder.velocity.magnitude;// * 250;//Finds the power of the boulder by using it's velocity and a scaler
