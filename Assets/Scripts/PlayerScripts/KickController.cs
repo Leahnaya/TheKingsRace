@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using MLAPI;
+using MLAPI.Messaging;
 using UnityEngine;
 
 public class KickController : NetworkBehaviour
@@ -29,7 +30,7 @@ public class KickController : NetworkBehaviour
     }
 
     void Kick(){
-        //if (!IsLocalPlayer) { return; }
+        if (!IsLocalPlayer) { return; }
         //Note: when we merge this into PlayerMovement, we may want to change isgrounded to our 
         //custom is grounded
         //If F is pressed or gamepad right trigger is pulled
@@ -77,16 +78,16 @@ public class KickController : NetworkBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        //if (!IsLocalPlayer) { return; }
+        if (!IsLocalPlayer) { return; }
         Collider myCollider = collision.contacts[0].thisCollider;
-        if (collision.transform.CompareTag("kickable") && myCollider == legHitbox.GetComponent<Collider>()){
-            if(collision.gameObject.GetComponent<Rigidbody>().isKinematic == true){
-                collision.gameObject.GetComponent<Rigidbody>().isKinematic = false;
-            }
+
+        // Kickable items must be handled through the server since they need to modify the NetworkTransform
+        if (collision.transform.CompareTag("kickable") && myCollider == legHitbox.GetComponent<Collider>()) {
             Vector3 direction = this.transform.forward;
-            Debug.Log(direction);
-            collision.rigidbody.AddForce(direction * pStats.KickPow, ForceMode.Impulse);
+            ulong prefabHash = collision.gameObject.GetComponent<NetworkObject>().PrefabHash;
+            ApplyKickServerRPC(direction, prefabHash);
         }
+
         if (collision.transform.CompareTag("destroyable") && myCollider == legHitbox.GetComponent<Collider>()){
             collision.transform.gameObject.GetComponent<BreakableBlock>().damage(pStats.KickPow);
         }
@@ -99,9 +100,29 @@ public class KickController : NetworkBehaviour
         }
         else{
             legRotation = -90;
-            Debug.Log("Kick Full Extension");
         }
         
     }
 
+
+    [ServerRpc(RequireOwnership = false)]
+    private void ApplyKickServerRPC(Vector3 direction, ulong prefabHash) {
+        GameObject[] kickables = GameObject.FindGameObjectsWithTag("kickable");
+
+        foreach (GameObject kickedItem in kickables) { 
+            // First check to make sure this is the item we kicked
+            if (kickedItem.GetComponent<NetworkObject>() != null && kickedItem.GetComponent<NetworkObject>().PrefabHash == prefabHash) {
+                // First turn off kinematic
+                if (kickedItem.gameObject.GetComponent<Rigidbody>().isKinematic == true) {
+                    kickedItem.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+                }
+
+                // Then apply the force
+                kickedItem.gameObject.GetComponent<Rigidbody>().AddForce(direction * pStats.KickPow, ForceMode.Impulse);
+
+                // Then return since we only kicked one item and don't need to check the remainder of the items
+                return;
+            }
+        }
+    }
 }
