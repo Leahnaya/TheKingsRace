@@ -33,7 +33,8 @@ public class dDash : NetworkBehaviour{
     void DashPlayer(){
         //if (!IsLocalPlayer) { return; }
         if(characterController.enabled == true){
-            if (Input.GetKeyDown(KeyCode.E) && isOnCoolDown == false)
+            //press E button or left trigger is pulled
+            if ((Input.GetKeyDown(KeyCode.E) || Input.GetAxis("Dash") != 0) && isOnCoolDown == false)
             {
                 currentDashTime = 0;
                 StartCoroutine(startCoolDown());
