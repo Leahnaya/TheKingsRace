@@ -24,7 +24,7 @@ public class Nitro : MonoBehaviour
     void Update()
     {
         //once cooldowns are implemented, put this on one (a long one)
-        if (Input.GetKeyDown(KeyCode.LeftShift) && isOnCoolDown == false && playerStats.HasNitro)
+        if ((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.JoystickButton8)) && isOnCoolDown == false && playerStats.HasNitro)
         {
             isNitroing = true;
             

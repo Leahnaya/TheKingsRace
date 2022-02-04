@@ -5456,6 +5456,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.0924
       objectReference: {fileID: 0}
+    - target: {fileID: 2761631967499966007, guid: 6adb8bcc65ee3a54da64d7c65225f219, type: 3}
+      propertyPath: nitroItem
+      value: 
+      objectReference: {fileID: 11400000, guid: a1c26807795a7ac4f83567455ce978ce, type: 2}
     - target: {fileID: 3039877022422189067, guid: 6adb8bcc65ee3a54da64d7c65225f219, type: 3}
       propertyPath: m_Name
       value: DebugPlayerPrefab 1
@@ -5468,6 +5472,10 @@ PrefabInstance:
       propertyPath: hasNitro
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6664667533527262098, guid: 6adb8bcc65ee3a54da64d7c65225f219, type: 3}
+      propertyPath: dashItem
+      value: 
+      objectReference: {fileID: 11400000, guid: 3156de54e455b4348b2a6e79383383b0, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6adb8bcc65ee3a54da64d7c65225f219, type: 3}
 --- !u!114 &180859080 stripped
@@ -40069,8 +40077,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 180859080}
   uiPrebab: {fileID: 5756063885148329735, guid: 8150580546fbb0d48bcd414238e2be89, type: 3}
-  dashItem: {fileID: 11400000, guid: 4399d7276b3edf446ac51c5145539a5e, type: 2}
-  nitroItem: {fileID: 11400000, guid: b91f668477f6b3244b3fea3204e6cd87, type: 2}
+  dashItem: {fileID: 11400000, guid: 3156de54e455b4348b2a6e79383383b0, type: 2}
+  nitroItem: {fileID: 11400000, guid: a1c26807795a7ac4f83567455ce978ce, type: 2}
 --- !u!1 &1734064827
 GameObject:
   m_ObjectHideFlags: 0
