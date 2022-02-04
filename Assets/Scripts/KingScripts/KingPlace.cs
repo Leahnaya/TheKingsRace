@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using MLAPI;
 using UnityEngine;
 
 public class KingPlace : MonoBehaviour
@@ -41,7 +42,9 @@ public class KingPlace : MonoBehaviour
     private bool SlimePlacing = false;
     private int BoxSize = 20;
 
-    void Start()
+    private GameObject boxPlaced;
+
+    void Awake()
     {
         Grid = GameObject.FindGameObjectWithTag("KingGrid");
     }
@@ -105,8 +108,22 @@ public class KingPlace : MonoBehaviour
         int Box = (int)y; //Rounds it down
         int x = (RowNumb * -BoxSize) + 101;//Sets it's X to the X of the Row
         int z = (Box * -BoxSize) + 906;//Sets its Z to the Z of the Box
-        PlaceTemp.transform.position = new Vector3(x, PlaceTemp.transform.position.y, z);//fully snaps it to the grid
+        //PlaceTemp.transform.position = new Vector3(x, PlaceTemp.transform.position.y, z);//fully snaps it to the grid
+
+        // Grid Check first for valid location
         GridCheck(RowNumb, Box, ref FirstPlacing);//Makes sure the Box is a valid position
+
+        // Instantiate a networked box at the position
+        if (FirstPlacing == false)
+        {
+            Vector3 spawnLoc = new Vector3(x, PlaceTemp.transform.position.y, z);
+            boxPlaced = Instantiate(PlaceTemp, spawnLoc, Quaternion.identity);
+            boxPlaced.GetComponent<NetworkObject>().Spawn(null, true);
+
+            // Remove the reference to PlaceTemp
+            Destroy(PlaceTemp);
+        }
+
         if (Place == Slime) {//If Object is Hail or Slime set the respective Placing value to true so it can launch into the secondary placing function
             SlimePlacing = true;
         }
