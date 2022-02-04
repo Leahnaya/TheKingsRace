@@ -38,17 +38,23 @@ public class GridReveal : MonoBehaviour
             }
             else if (MovDir >= 0) { //Moving Right
                 Rows[Index].SetActive(false);//Deactivates Leftmost
-                if (Index != (Rows.Length - 1) - ROSCount) {//Prevents OfB error
+                if (Index <= (Rows.Length - 1) - ROSCount) {//Prevents OfB error
                     Rows[Index + ROSCount].SetActive(true);//Activates Rightmost
                     Index++;
                 }
             }
             else if (MovDir <= 0) { //Moving Left        
-                Rows[Index].SetActive(true);//Activates Rightmost
-                if (Index != 0) {//Prevents OfB error
-                    Rows[Index + ROSCount].SetActive(false);//Deactivates Leftmost
+                Rows[Index].SetActive(true);//Activates Leftmost
+                if (Index >= 0) {//Prevents OfB error
+                    Rows[Index + ROSCount].SetActive(false);//Deactivates Rightmost
                     Index--;
                 }
+            }
+            if(Index > ((Rows.Length - 1) - ROSCount)) {
+                Index = (Rows.Length - 1) - ROSCount;
+            }
+            if(Index < 0) {
+                Index = 0;
             }
         }
 
