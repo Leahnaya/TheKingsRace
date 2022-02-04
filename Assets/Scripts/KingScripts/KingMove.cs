@@ -11,7 +11,7 @@ public class KingMove : MonoBehaviour
     public GameObject Grid;
     // Update is called once per frame
     void Update() {
-        float translation = Input.GetAxis("HorizontalCam") * speed;
+        float translation = Input.GetAxis("KingMove") * speed;
 
         // Make it move 10 meters per second instead of 10 meters per frame...
         translation *= Time.deltaTime;

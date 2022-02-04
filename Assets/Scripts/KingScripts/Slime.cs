@@ -27,7 +27,7 @@ public class Slime : MonoBehaviour
             GooTrail.transform.parent = Folder.transform;
             GooTimer = 0;
         }
-        //attempt to move forward (Raycast for objects, how to make sure it didn't fall off a cliff?)
+        //attempt to move forward(Raycast for objects, how to make sure it didn't fall off a cliff?)
         if (transform.position.z >= StartPos || transform.position.z <= EndPos) {//Rough way of keeping turning it around when it reaches an end
             MoveDir = -MoveDir;
         }
