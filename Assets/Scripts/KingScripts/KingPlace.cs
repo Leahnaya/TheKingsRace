@@ -31,7 +31,7 @@ public class KingPlace : MonoBehaviour
     public GameObject HailSprite;
     public GameObject HailObject;
     public GameObject Slime;
-    public GameObject Grid;
+    private GameObject Grid;
     private GameObject Place;
     private GameObject PlaceTemp;
     private GameObject HailCorner;
@@ -40,6 +40,11 @@ public class KingPlace : MonoBehaviour
     private bool HailPlacing = false;
     private bool SlimePlacing = false;
     private int BoxSize = 20;
+
+    void Start()
+    {
+        Grid = GameObject.FindGameObjectWithTag("KingGrid");
+    }
 
     private void PlaceObject(int ID) {
         //Switch statement, ID-0 = Block,ID-1 = Hail,ID-2 = Slime

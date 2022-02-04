@@ -8,7 +8,13 @@ public class KingMove : MonoBehaviour
 
     private Vector3 newPos;
     private Vector3 MountCent = new Vector3(-4500, 620, 510);
-    public GameObject Grid;
+    private GameObject Grid;
+
+    void Start()
+    {
+        Grid = GameObject.FindGameObjectWithTag("KingGrid");
+    }
+
     // Update is called once per frame
     void Update() {
         float translation = Input.GetAxis("KingMove") * speed;
