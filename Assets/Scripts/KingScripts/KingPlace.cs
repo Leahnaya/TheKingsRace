@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using MLAPI;
+using MLAPI.Messaging;
 using UnityEngine;
 
-public class KingPlace : MonoBehaviour
+public class KingPlace : NetworkBehaviour
 {
 
     //Is called when the King clicks on the Block button
@@ -23,12 +24,14 @@ public class KingPlace : MonoBehaviour
 
     public GameObject Thunderstorm;
     //Is called when the King clicks on the Thunderstorm button
-    public void OnThundClicked() {
+    public void OnThunderClicked() {
         //TODO Spawn thunderstorms on the players
     }
 
 
     public GameObject Block;
+    public GameObject BlockWithoutNetwork;
+
     public GameObject HailSprite;
     public GameObject HailObject;
     public GameObject Slime;
@@ -53,7 +56,7 @@ public class KingPlace : MonoBehaviour
         //Switch statement, ID-0 = Block,ID-1 = Hail,ID-2 = Slime
         switch (ID) {//Parses in the button clicked into the right object that the King is placing
             case 0:
-                Place = Block;
+                Place = BlockWithoutNetwork;
                 break;
             case 1:
                 Place = HailSprite;
@@ -108,7 +111,6 @@ public class KingPlace : MonoBehaviour
         int Box = (int)y; //Rounds it down
         int x = (RowNumb * -BoxSize) + 101;//Sets it's X to the X of the Row
         int z = (Box * -BoxSize) + 906;//Sets its Z to the Z of the Box
-        //PlaceTemp.transform.position = new Vector3(x, PlaceTemp.transform.position.y, z);//fully snaps it to the grid
 
         // Grid Check first for valid location
         GridCheck(RowNumb, Box, ref FirstPlacing);//Makes sure the Box is a valid position
@@ -116,9 +118,11 @@ public class KingPlace : MonoBehaviour
         // Instantiate a networked box at the position
         if (FirstPlacing == false)
         {
+            // Calculate the position to spawn at
             Vector3 spawnLoc = new Vector3(x, PlaceTemp.transform.position.y, z);
-            boxPlaced = Instantiate(PlaceTemp, spawnLoc, Quaternion.identity);
-            boxPlaced.GetComponent<NetworkObject>().Spawn(null, true);
+
+            // Have the server spawn the box
+            SpawnBoxServerRPC(spawnLoc);
 
             // Remove the reference to PlaceTemp
             Destroy(PlaceTemp);
@@ -164,4 +168,9 @@ public class KingPlace : MonoBehaviour
         }
     }
 
+    [ServerRpc(RequireOwnership = false)]
+    private void SpawnBoxServerRPC(Vector3 spawnLoc) {
+        boxPlaced = Instantiate(Block, spawnLoc, Quaternion.identity);
+        boxPlaced.GetComponent<NetworkObject>().Spawn(null, true);
+    }
 }

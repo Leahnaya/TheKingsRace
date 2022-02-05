@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 8183403963077248726}
   - component: {fileID: 8183403963077248727}
   - component: {fileID: 8183403963077248720}
-  - component: {fileID: 8183403963077248721}
   m_Layer: 5
   m_Name: 'King Canvas '
   m_TagString: Untagged
@@ -101,27 +100,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &8183403963077248721
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8183403963077248722}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1b197075b52c7e644a525bf0ff3f69a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Thunderstorm: {fileID: 0}
-  Block: {fileID: 8322169750614848705, guid: 14529042a14497c499bdce8f966e884c, type: 3}
-  HailSprite: {fileID: 0}
-  HailObject: {fileID: 0}
-  Slime: {fileID: 0}
-  KingCam: {fileID: 8183403964090928733}
-  LayerMask:
-    serializedVersion: 2
-    m_Bits: 64
 --- !u!1 &8183403963399572359
 GameObject:
   m_ObjectHideFlags: 0
@@ -401,9 +379,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8183403963077248721}
+      - m_Target: {fileID: 4195644339311798069}
         m_TargetAssemblyTypeName: KingPlace, Assembly-CSharp
-        m_MethodName: OnThundClicked
+        m_MethodName: OnThunderClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -428,6 +406,7 @@ GameObject:
   - component: {fileID: 8183403963968820412}
   - component: {fileID: -3822619241858280905}
   - component: {fileID: 5428221257691747992}
+  - component: {fileID: 4195644339311798069}
   m_Layer: 0
   m_Name: King
   m_TagString: Player
@@ -591,6 +570,28 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &4195644339311798069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8183403963968820413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b197075b52c7e644a525bf0ff3f69a7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Thunderstorm: {fileID: 0}
+  Block: {fileID: 8322169750614848705, guid: 14529042a14497c499bdce8f966e884c, type: 3}
+  BlockWithoutNetwork: {fileID: 5704254083382235334, guid: f56dedeb24725ab4a844690df1d5d3cd, type: 3}
+  HailSprite: {fileID: 0}
+  HailObject: {fileID: 0}
+  Slime: {fileID: 0}
+  KingCam: {fileID: 8183403964090928733}
+  LayerMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &8183403964090928728
 GameObject:
   m_ObjectHideFlags: 0
@@ -874,7 +875,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8183403963077248721}
+      - m_Target: {fileID: 4195644339311798069}
         m_TargetAssemblyTypeName: KingPlace, Assembly-CSharp
         m_MethodName: OnBlockClicked
         m_Mode: 1
@@ -1043,7 +1044,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Thunderstorm
+  m_Text: Thunder
 --- !u!1 &8183403965182652615
 GameObject:
   m_ObjectHideFlags: 0
@@ -1165,7 +1166,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8183403963077248721}
+      - m_Target: {fileID: 4195644339311798069}
         m_TargetAssemblyTypeName: KingPlace, Assembly-CSharp
         m_MethodName: OnHailClicked
         m_Mode: 1
@@ -1298,7 +1299,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8183403963077248721}
+      - m_Target: {fileID: 4195644339311798069}
         m_TargetAssemblyTypeName: KingPlace, Assembly-CSharp
         m_MethodName: OnSlimeClicked
         m_Mode: 1

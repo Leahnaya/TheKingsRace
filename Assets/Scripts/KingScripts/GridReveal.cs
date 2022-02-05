@@ -19,7 +19,6 @@ public class GridReveal : MonoBehaviour
         for (int i = Rows.Length-1; i > ROSCount-1; i--) {// Disables most of the Rows that the King can't see
             Rows[i].SetActive(false);
         }
-        gameObject.SetActive(false);
     }
 
     public void GridSwitch(bool State) {//Activates or deactivates the Grid

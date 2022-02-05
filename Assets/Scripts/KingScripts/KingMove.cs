@@ -15,6 +15,18 @@ public class KingMove : MonoBehaviour
         Grid = GameObject.FindGameObjectWithTag("KingGrid");
     }
 
+    void Start()
+    {
+        // Turn on the king grid after a couple seconds.  Allows scripts to grab their reference to it before it is disabled
+        StartCoroutine(TurnOffGridAtStartOfMatch());
+    }
+
+    IEnumerator TurnOffGridAtStartOfMatch()
+    {
+        yield return new WaitForSecondsRealtime(0.5f);
+        Grid.GetComponent<GridReveal>().GridSwitch(false);
+    }
+
     // Update is called once per frame
     void Update() {
         float translation = Input.GetAxis("KingMove") * speed;
