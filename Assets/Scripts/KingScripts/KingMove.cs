@@ -10,7 +10,7 @@ public class KingMove : MonoBehaviour
     private Vector3 MountCent = new Vector3(-4500, 620, 510);
     private GameObject Grid;
 
-    void Start()
+    void Awake()
     {
         Grid = GameObject.FindGameObjectWithTag("KingGrid");
     }

@@ -114,11 +114,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Thunderstorm: {fileID: 0}
-  Block: {fileID: 8397943440757562192, guid: 8a60e3ee825870040bcb23f43e470e25, type: 3}
+  Block: {fileID: 8322169750614848705, guid: 14529042a14497c499bdce8f966e884c, type: 3}
   HailSprite: {fileID: 0}
   HailObject: {fileID: 0}
   Slime: {fileID: 0}
-  Grid: {fileID: 0}
   KingCam: {fileID: 8183403964090928733}
   LayerMask:
     serializedVersion: 2
@@ -527,7 +526,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 340
-  Grid: {fileID: 2895109888218125691, guid: 29189dd9c413d634fab6cef95039358d, type: 3}
 --- !u!114 &-3822619241858280905
 MonoBehaviour:
   m_ObjectHideFlags: 0
