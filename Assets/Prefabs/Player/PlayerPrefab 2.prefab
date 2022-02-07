@@ -260,8 +260,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: addc2e37ff81c1b4989ec34b6150b4f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxVel: 50
-  minVel: 20
+  maxVel: 45
+  minVel: 15
   curVel: 0
   hardCapMaxVel: 90
   acc: 0.02
@@ -427,6 +427,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxGrappleDistance: 25
+  maxGrabDistance: 30
   isGrappled: 0
   ropeLength: 0
   forceDirection: {x: 0, y: 0, z: 0}

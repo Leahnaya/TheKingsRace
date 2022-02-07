@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class dGrapplingHook : NetworkBehaviour
 {
-    public float maxGrappleDistance = 15;
+    public float maxGrappleDistance = 20;
+    public float maxGrabDistance = 30;
 
     public bool isGrappled;
     private int hookPointIndex;
@@ -73,8 +74,13 @@ public class dGrapplingHook : NetworkBehaviour
                 {
                     hookPoint = hookPoints[hookPointIndex]; //The point we are grappling from
                     ropeLength = Vector3.Distance(gameObject.transform.position, hookPoint.transform.position);
+                    if(ropeLength > maxGrappleDistance){
+                        ropeLength = maxGrappleDistance;
+                    }
+
                     oldXZDir = (new Vector3(hookPoint.transform.position.x,0,hookPoint.transform.position.z) - new Vector3(transform.position.x,0,transform.position.z)).normalized;
                     curXZDir = (new Vector3(hookPoint.transform.position.x,0,hookPoint.transform.position.z) - new Vector3(transform.position.x,0,transform.position.z)).normalized;
+
                     swingMom = CalculateSwingMom(playerMovement.driftVel.magnitude * 50f);
                     oldSwingMom = swingMom;
                     playerMovement.g = -1;
@@ -114,9 +120,9 @@ public class dGrapplingHook : NetworkBehaviour
             if (Input.GetKey(KeyCode.RightShift) || Input.GetKey(KeyCode.JoystickButton5))
             {
                 ropeLength -= climbRate * Time.deltaTime;
-                if (ropeLength < 5)
+                if (ropeLength < 8)
                 {
-                    ropeLength = 5;
+                    ropeLength = 8;
                 }
                 //Debug.Log(ropeLength.ToString());
             }
@@ -124,7 +130,7 @@ public class dGrapplingHook : NetworkBehaviour
             //Calculate tether force direction based on hookpoint
             if (Vector3.Distance(gameObject.transform.position, hookPoint.transform.position) >= ropeLength )
             {
-                
+                Debug.Log(ropeLength);
                 forceDirection = CalculateForceDirection(1, playerMovement.g, hookPoint.transform.position) + RopeLengthOffset(hookPoint.transform.position, Vector3.Distance(gameObject.transform.position, hookPoint.transform.position));
                 
 
@@ -155,7 +161,9 @@ public class dGrapplingHook : NetworkBehaviour
             swingback = true;
 
             if(release){
-                lerpRelease = Vector3.Lerp(lerpRelease, tempRelease, 10 * Time.deltaTime);
+                lerpRelease = Vector3.Lerp(lerpRelease, tempRelease, 10f * Time.deltaTime);
+                tempRelease *= .99f;
+                Debug.Log(lerpRelease);
                 movementController.Move(lerpRelease);
             }
 
@@ -177,7 +185,7 @@ public class dGrapplingHook : NetworkBehaviour
     //Finds the nearest hook to the player
     int FindHookPoint()
     {
-        float least = maxGrappleDistance;
+        float least = maxGrabDistance;
         int index = -1;
         for(int i = 0; i<hookPoints.Length; i++)
         {
@@ -304,7 +312,9 @@ public class dGrapplingHook : NetworkBehaviour
     }
 
     Vector3 CalculateSwingReleaseForce(){
-        Vector3 releaseSwingForceDirection = momDirection * (swingMom + 20);
+
+        Vector3 releaseSwingForceDirection = momDirection * ((swingMom) + 10);
+
         releaseSwingForceDirection = new Vector3(releaseSwingForceDirection.x,0,releaseSwingForceDirection.z);
 
         if(swingMom < 5){

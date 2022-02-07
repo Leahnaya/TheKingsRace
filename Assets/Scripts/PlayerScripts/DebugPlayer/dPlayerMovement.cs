@@ -89,9 +89,6 @@ public class dPlayerMovement : NetworkBehaviour
     private bool qDown;
     private float tempCurVel;
 
-    //Blink
-    private dBlink blink;
-
     //Grapple
     private dGrapplingHook grapple;
 
@@ -115,7 +112,6 @@ public class dPlayerMovement : NetworkBehaviour
         //Initialize Scripts
         pStats = GetComponent<PlayerStats>(); // PlayerStats
         wallRun = GetComponent<dWallRun>(); //Wallrun
-        blink = GetComponent<dBlink>(); //Blink
         grapple = GetComponent<dGrapplingHook>();
         nitro = GetComponent<dNitro>();
 
