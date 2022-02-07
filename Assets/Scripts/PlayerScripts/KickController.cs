@@ -84,8 +84,9 @@ public class KickController : NetworkBehaviour
         // Kickable items must be handled through the server since they need to modify the NetworkTransform
         if (collision.transform.CompareTag("kickable") && myCollider == legHitbox.GetComponent<Collider>()) {
             Vector3 direction = this.transform.forward;
-            ulong prefabHash = collision.gameObject.GetComponent<NetworkObject>().PrefabHash;
-            ApplyKickServerRPC(direction, prefabHash);
+            //ulong prefabHash = collision.gameObject.GetComponent<NetworkObject>().PrefabHash;
+            ulong netObjID = collision.gameObject.GetComponent<NetworkObject>().NetworkObjectId;
+            ApplyKickServerRPC(direction, netObjID);
         }
 
         if (collision.transform.CompareTag("destroyable") && myCollider == legHitbox.GetComponent<Collider>()){
@@ -106,12 +107,12 @@ public class KickController : NetworkBehaviour
 
 
     [ServerRpc(RequireOwnership = false)]
-    private void ApplyKickServerRPC(Vector3 direction, ulong prefabHash) {
+    private void ApplyKickServerRPC(Vector3 direction, ulong netObjId) {
         GameObject[] kickables = GameObject.FindGameObjectsWithTag("kickable");
 
         foreach (GameObject kickedItem in kickables) { 
             // First check to make sure this is the item we kicked
-            if (kickedItem.GetComponent<NetworkObject>() != null && kickedItem.GetComponent<NetworkObject>().PrefabHash == prefabHash) {
+            if (kickedItem.GetComponent<NetworkObject>() != null && kickedItem.GetComponent<NetworkObject>().NetworkObjectId == netObjId) {
                 // First turn off kinematic
                 if (kickedItem.gameObject.GetComponent<Rigidbody>().isKinematic == true) {
                     kickedItem.gameObject.GetComponent<Rigidbody>().isKinematic = false;
