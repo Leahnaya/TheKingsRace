@@ -122,7 +122,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3514673100429458173}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.16, z: -0.11}
+  m_LocalPosition: {x: 0, y: 0.39, z: -0.11}
   m_LocalScale: {x: 0.29999998, y: 0.29999998, z: 0.29999998}
   m_Children:
   - {fileID: 6234133119625404040}
@@ -299,8 +299,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: addc2e37ff81c1b4989ec34b6150b4f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxVel: 50
-  minVel: 20
+  maxVel: 45
+  minVel: 15
   curVel: 0
   hardCapMaxVel: 90
   acc: 0.02
@@ -347,7 +347,7 @@ MonoBehaviour:
   vel: {x: 0, y: 0, z: 0}
   driftVel: {x: 0, y: 0, z: 0}
   curJumpNum: 0
-  lowJumpMultiplier: 0.1
+  lowJumpMultiplier: 0.001
   fallMultiplier: 1.6
   g: 0
   isGrounded: 0
@@ -355,7 +355,7 @@ MonoBehaviour:
   cam: {fileID: 7188906082643956516}
   minAngle: -30
   maxAngle: 30
-  sensitivity: 301
+  sensitivity: 200
   isSliding: 0
 --- !u!114 &273103334658887749
 MonoBehaviour:
@@ -405,7 +405,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveDirection: {x: 0, y: 0, z: 0}
-  dashDistance: 10
+  dashDistance: 15
   dashStoppingSpeed: 0.1
   dashItem: {fileID: 11400000, guid: 4399d7276b3edf446ac51c5145539a5e, type: 2}
 --- !u!114 &3672942772524564832
@@ -421,6 +421,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxGrappleDistance: 25
+  maxGrabDistance: 30
   isGrappled: 0
   ropeLength: 0
   forceDirection: {x: 0, y: 0, z: 0}

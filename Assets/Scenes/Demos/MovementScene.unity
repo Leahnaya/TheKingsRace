@@ -2264,7 +2264,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 297879044457584256, guid: 6adb8bcc65ee3a54da64d7c65225f219, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 107
       objectReference: {fileID: 0}
     - target: {fileID: 297879044457584256, guid: 6adb8bcc65ee3a54da64d7c65225f219, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2301,6 +2301,14 @@ PrefabInstance:
     - target: {fileID: 3039877022422189067, guid: 6adb8bcc65ee3a54da64d7c65225f219, type: 3}
       propertyPath: m_Name
       value: DebugPlayerPrefab 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6664667533527261801, guid: 6adb8bcc65ee3a54da64d7c65225f219, type: 3}
+      propertyPath: maxVel
+      value: 45
+      objectReference: {fileID: 0}
+    - target: {fileID: 6664667533527261801, guid: 6adb8bcc65ee3a54da64d7c65225f219, type: 3}
+      propertyPath: minVel
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 6664667533527261801, guid: 6adb8bcc65ee3a54da64d7c65225f219, type: 3}
       propertyPath: hasGrapple

@@ -89,9 +89,6 @@ public class PlayerMovement : NetworkBehaviour
     private bool qDown;
     private float tempCurVel;
 
-    //Blink
-    private Blink blink;
-
     //Grapple
     private GrapplingHook grapple;
 
@@ -115,7 +112,6 @@ public class PlayerMovement : NetworkBehaviour
         //Initialize Scripts
         pStats = GetComponent<PlayerStats>(); // PlayerStats
         wallRun = GetComponent<WallRun>(); //Wallrun
-        blink = GetComponent<Blink>(); //Blink
         grapple = GetComponent<GrapplingHook>();
         nitro = GetComponent<Nitro>();
 
@@ -568,9 +564,10 @@ public class PlayerMovement : NetworkBehaviour
     //Slide Function
     private void Slide(){
         //if the q button or the east face button on gamepad is held down
-        if (Input.GetKey(KeyCode.JoystickButton1) || Input.GetKey(KeyCode.Q)) {
+        if ((Input.GetKey(KeyCode.JoystickButton1) || Input.GetKey(KeyCode.Q))) {
             qDown = true;
             if (isSliding == false){
+                
                 originalTraction = pStats.Traction;
                 this.gameObject.transform.eulerAngles = new Vector3(this.transform.eulerAngles.x - 90, this.transform.eulerAngles.y, this.transform.eulerAngles.z);
                 isSliding = true;
