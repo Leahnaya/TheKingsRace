@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class dGrapplingHook : NetworkBehaviour
 {
-    public float maxGrappleDistance = 18;
+    public float maxGrappleDistance = 20;
+    public float maxGrabDistance = 30;
 
     public bool isGrappled;
     private int hookPointIndex;
@@ -73,8 +74,13 @@ public class dGrapplingHook : NetworkBehaviour
                 {
                     hookPoint = hookPoints[hookPointIndex]; //The point we are grappling from
                     ropeLength = Vector3.Distance(gameObject.transform.position, hookPoint.transform.position);
+                    if(ropeLength > maxGrappleDistance){
+                        ropeLength = maxGrappleDistance;
+                    }
+
                     oldXZDir = (new Vector3(hookPoint.transform.position.x,0,hookPoint.transform.position.z) - new Vector3(transform.position.x,0,transform.position.z)).normalized;
                     curXZDir = (new Vector3(hookPoint.transform.position.x,0,hookPoint.transform.position.z) - new Vector3(transform.position.x,0,transform.position.z)).normalized;
+
                     swingMom = CalculateSwingMom(playerMovement.driftVel.magnitude * 50f);
                     oldSwingMom = swingMom;
                     playerMovement.g = -1;
@@ -124,7 +130,7 @@ public class dGrapplingHook : NetworkBehaviour
             //Calculate tether force direction based on hookpoint
             if (Vector3.Distance(gameObject.transform.position, hookPoint.transform.position) >= ropeLength )
             {
-                
+                Debug.Log(ropeLength);
                 forceDirection = CalculateForceDirection(1, playerMovement.g, hookPoint.transform.position) + RopeLengthOffset(hookPoint.transform.position, Vector3.Distance(gameObject.transform.position, hookPoint.transform.position));
                 
 
@@ -179,7 +185,7 @@ public class dGrapplingHook : NetworkBehaviour
     //Finds the nearest hook to the player
     int FindHookPoint()
     {
-        float least = maxGrappleDistance;
+        float least = maxGrabDistance;
         int index = -1;
         for(int i = 0; i<hookPoints.Length; i++)
         {
