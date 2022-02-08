@@ -16,13 +16,13 @@ public class Hail : MonoBehaviour
         hail = GetComponent<Rigidbody>();//Gets the rigidbody attached to the bolder
 
         ShadTemp = Instantiate(shadow);//Creates the shadow
-        ShadTemp.transform.position = new Vector3(hail.transform.position.x, 0, hail.transform.position.z);//Sets it properly directly under the hail //TODO find ground and set it's y ocordingly
+        ShadTemp.transform.position = new Vector3(hail.transform.position.x, hail.transform.position.y - 99.9f, hail.transform.position.z);//Sets it properly directly under the hail and .1 above the ground
         ShadTemp.transform.localScale = new Vector3(ShadStSz, 0, ShadStSz);//Scales it to the proper start size
-        m = (hail.transform.localScale.x - ShadStSz) / 100;//Find the proper rate of growth
+        m = hail.transform.localScale.x / 99.9f;//Find the proper rate of growth
     }
 
     void FixedUpdate() {
-        float y = m * (hail.transform.position.y-100) + ShadStSz;//Find the proper current size
+        float y = -m * (hail.transform.position.y - ShadTemp.transform.position.y) + hail.transform.localScale.x;//Find the proper current size
         ShadTemp.transform.localScale = new Vector3(y, 0, y);//Scales the shadow to that size
         Destruction();//Sees if it needs to destroy both
     }
@@ -44,7 +44,7 @@ public class Hail : MonoBehaviour
 
     //Destroys the Hail and its shadow
     void Destruction() {
-        if(hail.transform.position.y <= 0) {
+        if(hail.transform.position.y <= ShadTemp.transform.position.y) {
             Destroy(ShadTemp);
             Destroy(gameObject);
         }

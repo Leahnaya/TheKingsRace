@@ -77,7 +77,7 @@ public class KingPlace : NetworkBehaviour
     [SerializeField] private Camera KingCam;
     [SerializeField] private LayerMask LayerMask;
 
-    private void FixedUpdate() { //TODO Canceling out an input
+    private void Update() { //TODO Canceling out an input
         if (FirstPlacing == true) {
             Ray Ray = KingCam.ScreenPointToRay(Input.mousePosition);//Raycast to find the point where the mouse cursor is
             if (Physics.Raycast(Ray, out RaycastHit RayCastHit, float.MaxValue, LayerMask)) {
@@ -121,11 +121,15 @@ public class KingPlace : NetworkBehaviour
             // Calculate the position to spawn at
             Vector3 spawnLoc = new Vector3(x, PlaceTemp.transform.position.y, z);
 
-            // Have the server spawn the box
-            SpawnBoxServerRPC(spawnLoc);
+            PlaceTemp.transform.position = spawnLoc;
 
-            // Remove the reference to PlaceTemp
-            Destroy(PlaceTemp);
+            if (Place == BlockWithoutNetwork) {
+                // Have the server spawn the box
+                SpawnBoxServerRPC(spawnLoc);
+   
+                // Remove the reference to PlaceTemp
+                Destroy(PlaceTemp);
+            }
         }
 
         if (Place == Slime) {//If Object is Hail or Slime set the respective Placing value to true so it can launch into the secondary placing function
@@ -138,7 +142,7 @@ public class KingPlace : NetworkBehaviour
         }
     }
 
-    private void GridCheck(int Row, int Box, ref bool Placing) {
+    private void GridCheck(int Row, int Box, ref bool Placing) {//TODO change to Try Catch
         GameObject RowTrue;
         GameObject BoxTrue;
         RowTrue = Grid.transform.Find("Row" + Row).gameObject;

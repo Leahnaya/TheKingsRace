@@ -14,6 +14,9 @@ public class HailArea : MonoBehaviour
     public GameObject Hail;
 
     int timer = 0;
+
+    RaycastHit hit;
+    float height = 0f;
     // FixedUpdate is called once per .02 seconds (or 50 times a second)
     void FixedUpdate()
     {
@@ -24,7 +27,13 @@ public class HailArea : MonoBehaviour
             float radius = diameter / 2.0f;
             //Random pos X Xmax-radius -> Xmin+radius
             //Random pos Z Zmax-radius -> Zmin+radius
-            Vector3 position = new Vector3(Random.Range(Xmin + radius, Xmax - radius), 100, Random.Range(Zmin + radius, Zmax - radius)); //TODO find ground and set y occordingly
+
+            Vector3 position = new Vector3(Random.Range(Xmin + radius, Xmax - radius), 100, Random.Range(Zmin + radius, Zmax - radius));//Finds where the hail will spawn in the air
+            if (Physics.Raycast(position, transform.TransformDirection(Vector3.down), out hit, float.MaxValue)) {//Raycasts to find where the ground is
+                Debug.DrawRay(position, transform.TransformDirection(Vector3.down) * 100, Color.yellow);
+                height = 100 - hit.distance;
+            }
+            position = new Vector3(position.x, 100+height, position.z); //find ground and set y occordingly
 
             SpawnHail(diameter, position);
         }
