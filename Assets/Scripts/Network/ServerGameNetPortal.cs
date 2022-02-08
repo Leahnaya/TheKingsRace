@@ -25,6 +25,8 @@ public class ServerGameNetPortal : MonoBehaviour {
 
     private GameNetPortal gameNetPortal;
 
+    private int runnersQuitEarly = 0;
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -87,6 +89,8 @@ public class ServerGameNetPortal : MonoBehaviour {
     {
         gameInProgress = true;
 
+        runnersQuitEarly = 0;
+
         // Load the mountain level.  Can add code to swap which level here
         NetworkSceneManager.SwitchScene("Game-Mountain");
     }
@@ -114,16 +118,26 @@ public class ServerGameNetPortal : MonoBehaviour {
         }
     }
 
-    private void HandleClientDisconnect(ulong clientId)
-    {
+    private void HandleClientDisconnect(ulong clientId) {
+        bool kingLeft = false;
+
         clientSceneMap.Remove(clientId);
 
         if (clientIdToGuid.TryGetValue(clientId, out string guid))
         {
             clientIdToGuid.Remove(clientId);
 
-            if (clientData[guid].ClientId == clientId)
-            {
+            if (clientData[guid].ClientId == clientId) {
+                // Check for who specifically discornnected (only if in game)
+                if (gameInProgress == true) {
+                    // King left game early
+                    if (clientData[guid].IsKing) {
+                        kingLeft = true;
+                    } else { // Runner left early
+                        runnersQuitEarly++;
+                    }
+                }
+
                 clientData.Remove(guid);
             }
         }
@@ -133,6 +147,12 @@ public class ServerGameNetPortal : MonoBehaviour {
             gameNetPortal.OnUserDisconnectRequested -= HandleUserDisconnectRequested;
             NetworkManager.Singleton.OnClientDisconnectCallback -= HandleClientDisconnect;
             gameNetPortal.OnClientSceneChanged -= HandleClientSceneChanged;
+        }
+
+        // Players Left Early and the game must be stopped early
+        // - If the king leaves or if both runners leave
+        if (kingLeft || runnersQuitEarly == 2) {
+            EndRound();
         }
     }
 
