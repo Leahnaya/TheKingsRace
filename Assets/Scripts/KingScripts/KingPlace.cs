@@ -39,7 +39,7 @@ public class KingPlace : NetworkBehaviour
     private GameObject Place;
     private GameObject PlaceTemp;
     private GameObject HailCorner;
-    private GameObject SlimeDir;
+    private int SlimeDir;
     private bool FirstPlacing = false;
     private bool HailPlacing = false;
     private bool SlimePlacing = false;
@@ -93,13 +93,16 @@ public class KingPlace : NetworkBehaviour
             {
                 HailCorner.transform.position = RayCastHit.point;
             }
-            if (Input.GetMouseButtonUp(0)) {//Reads the player clicking the left mouse button again
+            if (Input.GetMouseButtonUp(0)) {//Reads the player releasing the left mouse button
                 CreateHail();
             }
         }
         if (SlimePlacing == true) {
-            //TODO draw arrow in direction of slime move
-            //TODO CreateSlime function?
+            SlimeDir = DrawArrow();
+            if (Input.GetMouseButtonUp(0)) {//Reads the player releasing the left mouse button
+                PlaceTemp.GetComponent<Slime>().GooStart(SlimeDir);
+                SlimePlacing = false;
+            }
         }
     }
 
@@ -170,6 +173,11 @@ public class KingPlace : NetworkBehaviour
             Temp = Instantiate(HailObject);
             Temp.GetComponent<HailArea>().SetArea(PlaceTemp.transform.position.x, HailCorner.transform.position.x, PlaceTemp.transform.position.z, HailCorner.transform.position.z);
         }
+    }
+
+    private int DrawArrow() {
+        //TODO convert mouse position to arrow direction. then return the int of what direction it is
+        return 2;
     }
 
     [ServerRpc(RequireOwnership = false)]

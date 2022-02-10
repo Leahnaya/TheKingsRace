@@ -16,6 +16,7 @@ public class HailArea : MonoBehaviour
     int timer = 0;
 
     RaycastHit hit;
+    [SerializeField] private LayerMask LayerMask;
     float height = 0f;
     // FixedUpdate is called once per .02 seconds (or 50 times a second)
     void FixedUpdate()
@@ -29,8 +30,7 @@ public class HailArea : MonoBehaviour
             //Random pos Z Zmax-radius -> Zmin+radius
 
             Vector3 position = new Vector3(Random.Range(Xmin + radius, Xmax - radius), 100, Random.Range(Zmin + radius, Zmax - radius));//Finds where the hail will spawn in the air
-            if (Physics.Raycast(position, transform.TransformDirection(Vector3.down), out hit, float.MaxValue)) {//Raycasts to find where the ground is
-                Debug.DrawRay(position, transform.TransformDirection(Vector3.down) * 100, Color.yellow);
+            if (Physics.Raycast(position, transform.TransformDirection(Vector3.down), out hit, float.MaxValue, LayerMask)) {//Raycasts to find where the ground is
                 height = 100 - hit.distance;
             }
             position = new Vector3(position.x, 100+height, position.z); //find ground and set y occordingly

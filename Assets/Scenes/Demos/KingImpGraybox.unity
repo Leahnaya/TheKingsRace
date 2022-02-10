@@ -9474,6 +9474,7 @@ GameObject:
   - component: {fileID: 343653236}
   - component: {fileID: 343653235}
   - component: {fileID: 343653234}
+  - component: {fileID: 343653237}
   - component: {fileID: 343653233}
   m_Layer: 0
   m_Name: TestSlime
@@ -9482,20 +9483,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!136 &343653233
-CapsuleCollider:
+--- !u!65 &343653233
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 343653232}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 1
-  m_Direction: 1
-  m_Center: {x: 0, y: 0.021134948, z: 0}
+  serializedVersion: 2
+  m_Size: {x: 0.12903199, y: 0.12903199, z: 0.12903199}
+  m_Center: {x: 0, y: 0.06451599, z: 0}
 --- !u!23 &343653234
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -9544,7 +9544,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 343653232}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 1360138328677090702, guid: d583fb6b27d23a849b80c1ea7d813943, type: 3}
 --- !u!4 &343653236
 Transform:
   m_ObjectHideFlags: 0
@@ -9554,11 +9554,28 @@ Transform:
   m_GameObject: {fileID: 343653232}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 486.3, y: 501.02, z: 1306.41}
-  m_LocalScale: {x: 20, y: 20, z: 20}
+  m_LocalScale: {x: 150, y: 150, z: 150}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &343653237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 343653232}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16272419deebd26418bee88aca87e679, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Goo: {fileID: 9109488354154531999, guid: e0a933a7f4d98134ea0c045fabc6a6a0, type: 3}
+  Folder: {fileID: 497375465}
+  LayerMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &343654569
 GameObject:
   m_ObjectHideFlags: 0
@@ -12952,6 +12969,36 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 496382787}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &497375465
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 497375466}
+  m_Layer: 0
+  m_Name: GooHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &497375466
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 497375465}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 164.64146, y: 118.0139, z: 620.85126}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &499423962
 GameObject:
   m_ObjectHideFlags: 0
@@ -57753,7 +57800,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2793902819963175727, guid: c642a15af2183e94f81d67ead9ec7326, type: 3}
       propertyPath: m_RootOrder
-      value: 18
+      value: 17
       objectReference: {fileID: 0}
     - target: {fileID: 2793902819963175727, guid: c642a15af2183e94f81d67ead9ec7326, type: 3}
       propertyPath: m_LocalPosition.x
@@ -61562,6 +61609,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4195644339311798069, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
+      propertyPath: Slime
+      value: 
+      objectReference: {fileID: 343653232}
     - target: {fileID: 4195644339311798069, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
       propertyPath: HailObject
       value: 
