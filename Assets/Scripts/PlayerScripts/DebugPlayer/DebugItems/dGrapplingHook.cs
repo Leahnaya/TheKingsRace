@@ -172,7 +172,7 @@ public class dGrapplingHook : NetworkBehaviour
 
         //WILL NEED ADJUSTMENT OR REMOVAL IN THE FUTURE
         //ungrapple on jump
-        if(playerMovement.GetJumpPressed() && !playerMovement.isGrounded && isGrappled){
+        if(playerMovement.jumpHeld && !playerMovement.isGrounded && isGrappled){
             release = true;
             isGrappled = false; 
         }
