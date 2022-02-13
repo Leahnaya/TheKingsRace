@@ -46,13 +46,13 @@ public class KingMove : MonoBehaviour
         else if (transform.position.x < -4500) {//Once they rech a certain point they begin to cirlce around the mountain (radius of 1050, (x+4500)^2+(z-510)^2=620^2)
             float z = transform.position.z;
             z -= translation; //Moves the player's X forward slightly
-            if (z >= -110) { //Stops this from breaking the circle's formula
+            if (z > -110 && z <= 1130) { //Stops this from breaking the circle's formula
                 float x = -Mathf.Sqrt((620 * 620) - ((z - 510) * (z - 510))) - 4500; //Snaps the player onto a circle that is around the mountain, so the player orbits it smoothly
-                newPos = new Vector3(x, 620, z); //make a Vector3 out of the new X and Z
+                newPos = new Vector3(x, 625, z); //make a Vector3 out of the new X and Z
                 transform.position = newPos;//Sets the player's new position on the cirlce
                 transform.LookAt(MountCent);//Rotates the player as they move along the circumfurance
             }
-            else if (z > 1130) {//Snaps the player back onto the horizontal track
+            if (z > 1130) {//Snaps the player back onto the horizontal track
                 transform.position = new Vector3(-4500, 625, 1130);
             }
         }

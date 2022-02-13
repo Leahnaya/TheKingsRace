@@ -8,7 +8,7 @@ public class Goo : MonoBehaviour
 
     void FixedUpdate() {
         Lifetime++;
-        if(Lifetime == 950) {
+        if(Lifetime == 850) {
             Destruction();
         }
     }

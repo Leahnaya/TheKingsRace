@@ -11,6 +11,8 @@ public class HailArea : MonoBehaviour
     private float Zmax = -85f;
     private float Zmin = -115f;
 
+    int Lifetime = 0;
+
     public GameObject Hail;
 
     int timer = 0;
@@ -38,6 +40,11 @@ public class HailArea : MonoBehaviour
             SpawnHail(diameter, position);
         }
         timer++;
+
+        Lifetime++;
+        if (Lifetime == 3000) {
+            Destruction();
+        }
     }
 
     // Spawns a singular Hail piece
@@ -55,5 +62,9 @@ public class HailArea : MonoBehaviour
         Xmax = RightBound;
         Zmax = TopBound;
         Zmin = BottomBound;
+    }
+
+    void Destruction() {
+        Destroy(gameObject);
     }
 }

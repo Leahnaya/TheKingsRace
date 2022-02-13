@@ -7,25 +7,43 @@ using UnityEngine;
 public class KingPlace : NetworkBehaviour
 {
 
+    private bool BoxAvaliable = true;
+    private int BoxCool = 3; 
+    private bool HailAvaliable = true;
+    private int HailCool = 3;
+    private bool SlimeAvaliable = true;
+    private int SlimeCool = 3;
+    private bool ThundAvaliable = true;
+    private int ThundCool = 3;
+
     //Is called when the King clicks on the Block button
     public void OnBlockClicked() {
-        PlaceObject(0);
+        if (BoxAvaliable) {
+            PlaceObject(0);
+        } 
     }
 
     //Is called when the King clicks on the Hail button
     public void OnHailClicked() {
-        PlaceObject(1);
+        if (HailAvaliable) {
+            PlaceObject(1);
+        }
     }
 
     //Is called when the King clicks on the Slime button
     public void OnSlimeClicked() {
-        PlaceObject(2);
+        if (SlimeAvaliable) {
+            PlaceObject(2);
+        }
     }
 
     public GameObject Thunderstorm;
     //Is called when the King clicks on the Thunderstorm button
     public void OnThunderClicked() {
-        //TODO Spawn thunderstorms on the players
+        if (ThundAvaliable) {
+            //TODO thunderstorm
+            Cooldown(3);
+        }
     }
 
 
@@ -44,6 +62,8 @@ public class KingPlace : NetworkBehaviour
     private bool HailPlacing = false;
     private bool SlimePlacing = false;
     private int BoxSize = 20;
+
+    private int Energy = 100;
 
     private GameObject boxPlaced;
 
@@ -95,6 +115,7 @@ public class KingPlace : NetworkBehaviour
             }
             if (Input.GetMouseButtonUp(0)) {//Reads the player releasing the left mouse button
                 CreateHail();
+                Cooldown(1);
             }
         }
         if (SlimePlacing == true) {
@@ -102,8 +123,13 @@ public class KingPlace : NetworkBehaviour
             if (Input.GetMouseButtonUp(0)) {//Reads the player releasing the left mouse button
                 PlaceTemp.GetComponent<Slime>().GooStart(SlimeDir);
                 SlimePlacing = false;
+                Cooldown(2);
             }
         }
+    }
+
+    private void FixedUpdate() {
+        CooldownTimer();
     }
 
     private GameObject Row;
@@ -126,32 +152,45 @@ public class KingPlace : NetworkBehaviour
 
             PlaceTemp.transform.position = spawnLoc;
 
-            if (Place == BlockWithoutNetwork) {
+            if (Place == BlockWithoutNetwork)
+            {
                 // Have the server spawn the box
                 SpawnBoxServerRPC(spawnLoc);
-   
+
                 // Remove the reference to PlaceTemp
                 Destroy(PlaceTemp);
+                Cooldown(0);
             }
-        }
 
-        if (Place == Slime) {//If Object is Hail or Slime set the respective Placing value to true so it can launch into the secondary placing function
-            SlimePlacing = true;
-        }
-        else if (Place == HailSprite) {
-            Grid.GetComponent<GridReveal>().GridSwitch(true);
-            HailPlacing = true;
-            HailCorner = Instantiate(Place);
+            if (Place == Slime)
+            {//If Object is Hail or Slime set the respective Placing value to true so it can launch into the secondary placing function
+                SlimePlacing = true;
+            }
+            else if (Place == HailSprite)
+            {
+                Grid.GetComponent<GridReveal>().GridSwitch(true);
+                HailPlacing = true;
+                HailCorner = Instantiate(Place);
+            }
         }
     }
 
-    private void GridCheck(int Row, int Box, ref bool Placing) {//TODO change to Try Catch
+    private void GridCheck(int Row, int Box, ref bool Placing) {//Makes it so items can only be placed in valid positions
         GameObject RowTrue;
         GameObject BoxTrue;
-        RowTrue = Grid.transform.Find("Row" + Row).gameObject;
-        if(RowTrue != null) {
-            BoxTrue = RowTrue.transform.Find("GridChunk" + Box).gameObject;
-            if(BoxTrue != null) {
+        try {
+            RowTrue = Grid.transform.Find("Row" + Row).gameObject;
+        } catch {
+            RowTrue = null;
+        }
+
+        if (RowTrue != null) {
+            try {
+                BoxTrue = RowTrue.transform.Find("GridChunk" + Box).gameObject;
+            } catch {
+                BoxTrue = null;
+            }
+            if (BoxTrue != null) {
                 Grid.GetComponent<GridReveal>().GridSwitch(false); //Switch off the grid
                 Placing = false;//Stop placing
             }
@@ -176,8 +215,96 @@ public class KingPlace : NetworkBehaviour
     }
 
     private int DrawArrow() {
-        //TODO convert mouse position to arrow direction. then return the int of what direction it is
-        return 2;
+        Vector3 MosPos = new Vector3(0, 0, 0);
+        Ray Ray = KingCam.ScreenPointToRay(Input.mousePosition);//Raycast to find the point where the mouse cursor is
+        if (Physics.Raycast(Ray, out RaycastHit RayCastHit, float.MaxValue, LayerMask)) {
+            MosPos = RayCastHit.point;
+        }
+        //TODO Draw arrow
+        if (MosPos.x > PlaceTemp.transform.position.x && MosPos.z < PlaceTemp.transform.position.z) {//Temp function to change Slime's dir   //TODO convert mouse position to arrow direction. then return the int of what direction it is
+            return 0;//Up
+        }
+        else if (MosPos.x < PlaceTemp.transform.position.x && MosPos.z < PlaceTemp.transform.position.z) {
+            return 1;//Right
+        }
+        else if (MosPos.x < PlaceTemp.transform.position.x && MosPos.z > PlaceTemp.transform.position.z)  {
+            return 2;//Down
+        }
+        else if (MosPos.x > PlaceTemp.transform.position.x && MosPos.z > PlaceTemp.transform.position.z) {
+            return 3;//Left
+        }
+        else {
+            return 2;//Defaults to down, just in case
+        }
+    }
+
+    private void Cooldown(int ID) {
+        switch (ID) {//Parses in the button clicked into the right object that the King is placing
+            case 0:
+                BoxAvaliable = false;//Block Cooldown
+                break;
+            case 1:
+                HailAvaliable = false;//Hail Cooldown
+                break;
+            case 2:
+                SlimeAvaliable = false;//Slime Cooldown
+                break;
+            case 3:
+                ThundAvaliable = false;//Thunderstorm Cooldown
+                break;
+        }
+    }
+
+    private int BSC = 0;
+    private int HSC = 0;
+    private int SSC = 0;
+    private int TSC = 0;  
+
+    private void CooldownTimer() {// Function for tracking the individual cooldowns of the items. It's done in a two-teired system to allow the cooldowns to be eaisly converted as seconds
+        if(BoxAvaliable == false) {
+            BSC++;
+            if (BSC == 50) {
+                BSC = 0;
+                BoxCool--;
+                if (BoxCool == 0) {
+                    BoxCool = 3;
+                    BoxAvaliable = true;
+                }
+            }
+        }
+        if (HailAvaliable == false) {
+            HSC++;
+            if (HSC == 50) {
+                HSC = 0;
+                HailCool--;
+                if (HailCool == 0) {
+                    HailCool = 3;
+                    HailAvaliable = true;
+                }
+            }
+        }
+        if (SlimeAvaliable == false) {
+            SSC++;
+            if (SSC == 50) {
+                SSC = 0;
+                SlimeCool--;
+                if (SlimeCool == 0) {
+                    SlimeCool = 3;
+                    SlimeAvaliable = true;
+                }
+            }
+        }
+        if (ThundAvaliable == false) {
+            TSC++;
+            if (TSC == 50) {
+                TSC = 0;
+                ThundCool--;
+                if (ThundCool == 0) {
+                    ThundCool = 3;
+                    ThundAvaliable = true;
+                }
+            }
+        }
     }
 
     [ServerRpc(RequireOwnership = false)]

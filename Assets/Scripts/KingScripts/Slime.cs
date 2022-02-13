@@ -6,8 +6,10 @@ public class Slime : MonoBehaviour
 {
     float MoveSpd;
     int GooTimer = 0;
+    int Lifetime = 0;
     bool GooGo = false;
-    Vector3 offset = new Vector3(0.0f, -0.1f, 0.0f);
+    Vector3 GooOffset = new Vector3(0.0f, -0.1f, 0.0f);
+    Vector3 RayOffset = new Vector3(0.0f, -0.5f, 0.0f);
     Vector3 MoveDir = new Vector3(0, 0, 1);
     RaycastHit hit;
     public GameObject Goo;
@@ -26,16 +28,22 @@ public class Slime : MonoBehaviour
             //create goo underneath them slime
             if (GooTimer == 6) {
                 GameObject GooTrail = null;
-                GooTrail = Instantiate(Goo, transform.position - offset, transform.rotation);
+                GooTrail = Instantiate(Goo, transform.position - GooOffset, transform.rotation);
                 GooTrail.transform.parent = Folder.transform;
                 GooTimer = 0;
             }
             //attempt to move forward(Raycast infront for objects, and also raycast down, to make sure there's still ground underneath it)
-            if (Physics.Raycast(transform.position, transform.TransformDirection(MoveDir), out hit, 1.5f, LayerMask) || Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 50f, LayerMask)) {//turns it around when it hits something or is going to go over a pit//TODO hit more than terrain
+            if (Physics.Raycast(transform.position, transform.TransformDirection(MoveDir), out hit, 2f, LayerMask) || Physics.Raycast(transform.position + RayOffset, transform.TransformDirection(Vector3.down), out hit, 50f, LayerMask)) {//turns it around when it hits something or is going to go over a pit//TODO hit more than terrain
                 MoveDir = -MoveDir;
             }
             transform.Translate(MoveSpd*MoveDir);//moving forward
             GooTimer++;
+
+            Lifetime++;
+            if (Lifetime == 3000)
+            {
+                Destruction();
+            }
         }
     }
 
@@ -67,4 +75,8 @@ public class Slime : MonoBehaviour
         }
     }
 
+    void Destruction()
+    {
+        Destroy(gameObject);
+    }
 }
