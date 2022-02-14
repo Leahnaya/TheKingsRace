@@ -12,7 +12,7 @@ public class AerialFallingState : AerialBaseState
         if(aSM.pStats.GravVel > 0){
             aSM.SwitchState(aSM.JumpingState);
         }
-        else if(Input.GetButton("Jump") && aSM.pStats.HasGlider){
+        else if(Input.GetButton("Jump") && aSM.pStats.HasGlider && (aSM.mSM.currentState != aSM.mSM.SlideState && aSM.mSM.currentState != aSM.mSM.RagdollState && aSM.mSM.currentState != aSM.mSM.RecoveringState)){
             aSM.SwitchState(aSM.GlidingState);
         }
 

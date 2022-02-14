@@ -5,7 +5,7 @@ using UnityEngine;
 public class MoveStateManager : MonoBehaviour
 {
     ////Player States
-    MoveBaseState currentState;
+    public MoveBaseState currentState;
     public MoveBaseState previousState;
 
     //WASD States
@@ -38,6 +38,7 @@ public class MoveStateManager : MonoBehaviour
 
     ////Scripts Section
     public PlayerStats pStats; // Player Stats
+    public AerialStateManager aSM;
     ////
 
     ////State Transition Variables
@@ -90,6 +91,7 @@ public class MoveStateManager : MonoBehaviour
 
         ////Initialize Scripts
         pStats = GetComponent<PlayerStats>(); // set PlayerStats
+        aSM = GetComponent<AerialStateManager>();
         ////
     }
 

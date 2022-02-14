@@ -43,6 +43,13 @@ public class MoveCrouchState : MoveBaseState
             }
         }
 
+        /*
+        //If falling stop sliding and go to wasd states
+        if(mSM.aSM.currentState == mSM.aSM.FallingState){
+            ExitCrouchState(mSM);
+            mSM.SwitchState(mSM.IdleState);
+        }
+        */
         mSM.SlideMovement();
     }
 

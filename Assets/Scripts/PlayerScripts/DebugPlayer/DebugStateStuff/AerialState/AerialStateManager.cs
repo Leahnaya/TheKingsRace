@@ -5,7 +5,7 @@ using UnityEngine;
 public class AerialStateManager : MonoBehaviour
 {
     ////Player States
-    AerialBaseState currentState;
+    public AerialBaseState currentState;
     public AerialBaseState previousState;
 
     //Aerial States
@@ -91,7 +91,6 @@ public class AerialStateManager : MonoBehaviour
             DownwardMovement();
         }
         else{
-            Debug.Log(currentState);
             //Gravity without moveController
             pStats.GravVel -= pStats.PlayerGrav * Time.deltaTime;
             rB.AddForce(new Vector3(0,pStats.GravVel,0));

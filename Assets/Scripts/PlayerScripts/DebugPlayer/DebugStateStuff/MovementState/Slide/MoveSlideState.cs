@@ -53,8 +53,27 @@ public class MoveSlideState : MoveBaseState
             else{
                 Debug.Log("Object above you");
             }
+
         }
 
+        /*
+        //If falling stop sliding and go to wasd states
+        if(mSM.aSM.currentState == mSM.aSM.FallingState){
+             //Determine which state to go into based on player speed
+                if(mSM.calculatedCurVel < mSM.walkLimit){
+                    SlideToMoveState(mSM);
+                    mSM.SwitchState(mSM.WalkState);
+                }
+                else if(mSM.calculatedCurVel < mSM.runLimit){
+                    SlideToMoveState(mSM);
+                    mSM.SwitchState(mSM.JogState);
+                }
+                else{
+                    SlideToMoveState(mSM);
+                    mSM.SwitchState(mSM.RunState);
+                }
+        }
+        */
         mSM.SlideMovement();
     }
 

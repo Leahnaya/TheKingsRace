@@ -5290,6 +5290,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 4663752955048033130}
   moveController: {fileID: 0}
+  rB: {fileID: 0}
+  capCol: {fileID: 0}
   pStats: {fileID: 0}
   idleLimit: 0.3
   walkLimit: 10
@@ -5302,6 +5304,8 @@ MonoBehaviour:
   minAngle: -18
   maxAngle: 30
   sensitivity: 200
+  dirHit: {x: 0, y: 0, z: 0}
+  distToGround: 0
 --- !u!114 &4061813754685703500
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5320,7 +5324,7 @@ MonoBehaviour:
   mSM: {fileID: 0}
   curJumpNum: 0
   jumpHeld: 0
-  coyJumpTimer: 0.13
+  coyJumpTimer: 0.1
   curCoyJumpTimer: 0.13
   lowJumpMultiplier: 0.001
   fallMultiplier: 1.6

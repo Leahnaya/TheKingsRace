@@ -14,6 +14,23 @@ public class MoveCrouchWalkState : MoveBaseState
 
     public override void FixedUpdateState(MoveStateManager mSM){
 
+        /*
+        if(mSM.aSM.currentState == mSM.aSM.FallingState){
+             //Determine which state to go into based on player speed
+                if(mSM.calculatedCurVel < mSM.walkLimit){
+                    SlideToMoveState(mSM);
+                    mSM.SwitchState(mSM.WalkState);
+                }
+                else if(mSM.calculatedCurVel < mSM.runLimit){
+                    SlideToMoveState(mSM);
+                    mSM.SwitchState(mSM.JogState);
+                }
+                else{
+                    SlideToMoveState(mSM);
+                    mSM.SwitchState(mSM.RunState);
+                }
+        }
+        */
     }
 
     public override void OnCollisionEnter(MoveStateManager mSM){
