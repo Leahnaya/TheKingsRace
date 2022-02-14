@@ -31,6 +31,7 @@ public class dPlayerMovement : NetworkBehaviour
     private Vector3 moveZ; // Local Horizontal Vector
     private Vector3 moveX; // Local Vertical Vector
     public Vector3 driftVel; // Lerped Movement Vector
+    public float calculatedCurVel; // calculated Vel based on curVel
 
     //Jump Variables
     public int curJumpNum; // current Jumps Used

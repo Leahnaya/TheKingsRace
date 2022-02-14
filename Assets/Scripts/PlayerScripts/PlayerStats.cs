@@ -82,6 +82,13 @@ public class PlayerStats : MonoBehaviour
         set{ playerGrav = value; }
     }
 
+    //Players Downwards Velocity
+    [SerializeField] private float gravVel = 0;
+    public float GravVel{
+        get{ return gravVel; }
+        set{ gravVel = value; }
+    }
+
     //If The Player Has Blink
     [SerializeField] private bool hasBlink = false;
     public bool HasBlink{
@@ -124,6 +131,7 @@ public class PlayerStats : MonoBehaviour
         set{ hasDash = value; }
     }
 
+    //Spending points the player has
     [SerializeField] private int playerPoints = 15;
     public int PlayerPoints{
         get{ return playerPoints; }

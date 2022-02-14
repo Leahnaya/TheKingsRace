@@ -3779,16 +3779,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77da7821cb08097418fbac702ac00f93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cam: {fileID: 2637749574256434612}
   pStats: {fileID: 0}
   vel: {x: 0, y: 0, z: 0}
   driftVel: {x: 0, y: 0, z: 0}
   curJumpNum: 0
+  jumpHeld: 0
   lowJumpMultiplier: 0.001
   fallMultiplier: 1.6
   g: 0
   isGrounded: 0
   groundCheckDistance: 0.05
-  cam: {fileID: 2637749574256434612}
   minAngle: -18
   maxAngle: 30
   sensitivity: 200
@@ -3819,7 +3820,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1f672a4741230d4a963fb68f5f8a8aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxGrappleDistance: 25
+  maxGrappleDistance: 20
   maxGrabDistance: 30
   isGrappled: 0
   ropeLength: 0
