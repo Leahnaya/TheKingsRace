@@ -16,7 +16,7 @@ public class MoveIdleState : MoveBaseState
         }
 
         //If Q or joystick button1 crouch state
-        if((Input.GetKey(KeyCode.JoystickButton1) || Input.GetKey(KeyCode.Q))){
+        if((Input.GetKey(KeyCode.JoystickButton1) || Input.GetKey(KeyCode.Q)) && mSM.aSM.currentState != mSM.aSM.FallingState){
             mSM.SwitchState(mSM.CrouchState);
         }
     }

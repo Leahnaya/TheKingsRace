@@ -21,7 +21,7 @@ public class MoveWalkState : MoveBaseState
         }
 
         //move to slide if Q or JoystickButton1
-        if((Input.GetKey(KeyCode.JoystickButton1) || Input.GetKey(KeyCode.Q))){
+        if((Input.GetKey(KeyCode.JoystickButton1) || Input.GetKey(KeyCode.Q)) && mSM.aSM.currentState != mSM.aSM.FallingState){
             mSM.SwitchState(mSM.SlideState);
         }
     }
