@@ -46,7 +46,6 @@ public class KingPlace : NetworkBehaviour
         }
     }
 
-
     public GameObject Block;
     public GameObject BlockWithoutNetwork;
 
