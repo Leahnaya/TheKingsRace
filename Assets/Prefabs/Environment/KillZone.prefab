@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 8778111956603343860}
   - component: {fileID: 8778111956603343861}
   - component: {fileID: 3183774617664554809}
-  - component: {fileID: -2092087121947270153}
   m_Layer: 0
   m_Name: KillZone
   m_TagString: Untagged
@@ -130,16 +129,3 @@ MonoBehaviour:
   PrefabHashGenerator: KillZone
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
---- !u!114 &-2092087121947270153
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8778111956603343863}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66519fc5420181e45850c591aa1179ec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  allItems: []
