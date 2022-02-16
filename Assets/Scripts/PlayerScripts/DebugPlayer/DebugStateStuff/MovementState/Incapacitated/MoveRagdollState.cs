@@ -8,7 +8,7 @@ public class MoveRagdollState : MoveBaseState
     Vector3 prevRot;
     bool beginRagTimer = false;
 
-    public override void EnterState(MoveStateManager mSM){
+    public override void EnterState(MoveStateManager mSM, MoveBaseState previousState){
         Debug.Log("Ragdoll State");
 
         ragTime = mSM.pStats.RecovTime;
@@ -19,6 +19,15 @@ public class MoveRagdollState : MoveBaseState
         mSM.rB.detectCollisions = true;
 
         mSM.rB.AddForce(mSM.dirHit, ForceMode.Impulse);
+    }
+
+    public override void ExitState(MoveStateManager mSM, MoveBaseState nextState){
+            mSM.pStats.GravVel = 50;
+            mSM.capCol.enabled = false;
+            mSM.moveController.enabled = true;
+            mSM.rB.isKinematic = true;
+            mSM.rB.detectCollisions = false;
+            mSM.transform.localEulerAngles = prevRot;
     }
 
     public override void UpdateState(MoveStateManager mSM){
@@ -36,17 +45,7 @@ public class MoveRagdollState : MoveBaseState
             ragTime = 0;
             beginRagTimer = false;
 
-            mSM.pStats.GravVel = 50;
-            mSM.capCol.enabled = false;
-            mSM.moveController.enabled = true;
-            mSM.rB.isKinematic = true;
-            mSM.rB.detectCollisions = false;
-            mSM.transform.localEulerAngles = prevRot;
             mSM.SwitchState(mSM.RecoveringState);
         }
-    }
-
-    public override void OnCollisionEnter(MoveStateManager mSM){
-
     }
 }

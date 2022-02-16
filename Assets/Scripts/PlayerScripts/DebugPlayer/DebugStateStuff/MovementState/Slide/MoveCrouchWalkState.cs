@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class MoveCrouchWalkState : MoveBaseState
 {
-    public override void EnterState(MoveStateManager mSM){
+    public override void EnterState(MoveStateManager mSM, MoveBaseState previousState){
         Debug.Log("Crouch Walk State");
+    }
+
+    public override void ExitState(MoveStateManager mSM, MoveBaseState nextState){
+
     }
     
     public override void UpdateState(MoveStateManager mSM){
@@ -33,7 +37,4 @@ public class MoveCrouchWalkState : MoveBaseState
         */
     }
 
-    public override void OnCollisionEnter(MoveStateManager mSM){
-
-    }
 }

@@ -9,10 +9,10 @@ public class MoveCrouchState : MoveBaseState
     float originalTraction; // Traction before slide started
     RaycastHit slideRay; // slide raycast
 
-    public override void EnterState(MoveStateManager mSM){
+    public override void EnterState(MoveStateManager mSM, MoveBaseState previousState){
         Debug.Log("Crouch State");
 
-        if(mSM.previousState != mSM.SlideState){
+        if(previousState != mSM.SlideState){
             //Initialize Important Stats On state enter
             mSM.pStats.CurVel = 0;
             originalTraction = mSM.pStats.Traction;
@@ -22,6 +22,16 @@ public class MoveCrouchState : MoveBaseState
         }
     }
     
+    public override void ExitState(MoveStateManager mSM, MoveBaseState nextState){
+        if(nextState != mSM.CrouchWalkState){
+            mSM.gameObject.transform.localEulerAngles = new Vector3(0, 0, 0);
+            mSM.pStats.CurVel = mSM.calculatedCurVel;
+            mSM.pStats.Traction = originalTraction;
+            mSM.moveController.height *= 2.0f; 
+        }
+        
+    }
+
     public override void UpdateState(MoveStateManager mSM){
         
     }
@@ -35,7 +45,6 @@ public class MoveCrouchState : MoveBaseState
         if((!Input.GetKey(KeyCode.JoystickButton1) && !Input.GetKey(KeyCode.Q))){
             if ((Physics.Raycast(mSM.gameObject.transform.position, mSM.slideUp, out slideRay, 5f) == false)){
 
-                ExitCrouchState(mSM);
                 mSM.SwitchState(mSM.IdleState);
             }
             else{
@@ -51,16 +60,5 @@ public class MoveCrouchState : MoveBaseState
         }
         */
         mSM.SlideMovement();
-    }
-
-    public override void OnCollisionEnter(MoveStateManager mSM){
-
-    }
-
-    public void ExitCrouchState(MoveStateManager mSM){
-        mSM.gameObject.transform.localEulerAngles = new Vector3(0, 0, 0);
-        mSM.pStats.CurVel = mSM.calculatedCurVel;
-        mSM.pStats.Traction = originalTraction;
-        mSM.moveController.height *= 2.0f;
     }
 }

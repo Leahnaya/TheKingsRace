@@ -22,6 +22,9 @@ public class MoveStateManager : MonoBehaviour
     //Incapitated States
     public MoveRagdollState RagdollState = new MoveRagdollState();
     public MoveRecoveringState RecoveringState = new MoveRecoveringState();
+
+    //Grapple States
+    public MoveGrappleAirState GrappleAirState = new MoveGrappleAirState();
     ////
 
     ////Objects Sections
@@ -69,12 +72,8 @@ public class MoveStateManager : MonoBehaviour
     public int sensitivity = 200; // Camera sensitivity
 
     //Ragdoll Variables
-    public Vector3 dirHit;
+    public Vector3 dirHit; // Direction hit
     public float distToGround; // distance to ground
-
-    //Impact Variables
-    private float mass = 5.0F; // mass variable for Impact
-    private Vector3 impact = Vector3.zero; // Impact Vector
     ////
 
 
@@ -101,7 +100,7 @@ public class MoveStateManager : MonoBehaviour
         //players starting state
         currentState = IdleState;
         previousState = IdleState;
-        currentState.EnterState(this);
+        currentState.EnterState(this, previousState);
 
         //Slide Upwards Variable
         slideUp = GetComponentInParent<Transform>().up; // get parents up direction
@@ -115,6 +114,8 @@ public class MoveStateManager : MonoBehaviour
     {
         //calculates vel using driftVel will need to be relocated
         calculatedCurVel = driftVel.magnitude * 50f;
+
+        GoToGrapple();
 
         //calls any logic in the update state from current state
         currentState.UpdateState(this);
@@ -131,12 +132,14 @@ public class MoveStateManager : MonoBehaviour
 
     public void SwitchState(MoveBaseState state){
         
+        currentState.ExitState(this, state);
+
         //Sets the previous State
         previousState = currentState;
 
         //updates current state and calls logic for entering
         currentState = state;
-        currentState.EnterState(this);
+        currentState.EnterState(this, previousState);
     }
 
 
@@ -252,4 +255,9 @@ public class MoveStateManager : MonoBehaviour
         driftVel = Vector3.zero;
     }
 
+    void GoToGrapple(){
+        if(aSM.currentState == aSM.GrappleAirState && (currentState != SlideState && currentState != RagdollState && currentState != RecoveringState)){
+            SwitchState(GrappleAirState);
+        }
+    }
 }

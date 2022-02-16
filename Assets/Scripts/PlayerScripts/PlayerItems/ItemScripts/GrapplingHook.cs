@@ -17,8 +17,7 @@ public class GrapplingHook : NetworkBehaviour
     private CharacterController movementController;
     private PlayerMovement playerMovement;
     private PlayerStats pStats;
-    [SerializeField] private float ropeLength;
-    private float climbRate = 5;
+    private float ropeLength;
     private Vector3 swingDirection;
     float inclinationAngle;
     float theta = -1;
@@ -88,7 +87,7 @@ public class GrapplingHook : NetworkBehaviour
                     release = false;
                     lerpRelease = Vector3.zero;
                 }
-            } 
+            }
             else //Else we are grappling
             {
                 isGrappled = false; //toggle grappling state to release
@@ -105,27 +104,6 @@ public class GrapplingHook : NetworkBehaviour
         {
             Debug.DrawRay(gameObject.transform.position, (hookPoint.transform.position - gameObject.transform.position)); //Visual of line
 
-            //Extend Hook
-            if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.JoystickButton4))
-            {
-                ropeLength += climbRate * Time.deltaTime;
-                if (ropeLength > maxGrappleDistance)
-                {
-                    ropeLength = maxGrappleDistance;
-                }
-                //Debug.Log(ropeLength.ToString());
-            }
-            
-            //Retract Hook
-            if (Input.GetKey(KeyCode.RightShift) || Input.GetKey(KeyCode.JoystickButton5))
-            {
-                ropeLength -= climbRate * Time.deltaTime;
-                if (ropeLength < 8)
-                {
-                    ropeLength = 8;
-                }
-                //Debug.Log(ropeLength.ToString());
-            }
             //Debug.Log(Vector3.Distance(gameObject.transform.position, hookPoint.transform.position));
             //Calculate tether force direction based on hookpoint
             if (Vector3.Distance(gameObject.transform.position, hookPoint.transform.position) >= ropeLength )
@@ -162,8 +140,7 @@ public class GrapplingHook : NetworkBehaviour
 
             if(release){
                 lerpRelease = Vector3.Lerp(lerpRelease, tempRelease, 10f * Time.deltaTime);
-                tempRelease *= .99f;
-                Debug.Log(lerpRelease);
+                tempRelease *= .95f;
                 movementController.Move(lerpRelease);
             }
 
@@ -315,11 +292,12 @@ public class GrapplingHook : NetworkBehaviour
 
         Vector3 releaseSwingForceDirection = momDirection * ((swingMom) + 10);
 
-        releaseSwingForceDirection = new Vector3(releaseSwingForceDirection.x,0,releaseSwingForceDirection.z);
+        releaseSwingForceDirection = new Vector3(releaseSwingForceDirection.x, 0, releaseSwingForceDirection.z);
 
         if(swingMom < 5){
             return Vector3.zero;
         }
+        
         return releaseSwingForceDirection * Time.deltaTime;
     }
 }

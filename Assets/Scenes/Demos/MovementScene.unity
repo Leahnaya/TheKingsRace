@@ -5245,9 +5245,9 @@ MonoBehaviour:
   playerGrav: 200
   gravVel: 0
   hasBlink: 0
-  hasGlider: 0
-  hasGrapple: 0
-  hasWallrun: 0
+  hasGlider: 1
+  hasGrapple: 1
+  hasWallrun: 1
   hasNitro: 0
   hasDash: 0
   playerPoints: 15
@@ -5293,6 +5293,7 @@ MonoBehaviour:
   rB: {fileID: 0}
   capCol: {fileID: 0}
   pStats: {fileID: 0}
+  aSM: {fileID: 0}
   idleLimit: 0.3
   walkLimit: 10
   jogLimit: 20
@@ -5330,6 +5331,21 @@ MonoBehaviour:
   fallMultiplier: 1.6
   isGrounded: 0
   groundCheckDistance: 0.05
+  isWallRunning: 0
+  maxGrabDistance: 30
+  hookPoint: {fileID: 0}
+  hookPoints: []
+  hookPointIndex: 0
+  distance: 0
+  maxGrappleDistance: 20
+  maxSwingSpeed: 50
+  minSwingSpeed: 20
+  swingAcc: 3
+  maxSwingMom: 60
+  release: 0
+  tempRelease: {x: 0, y: 0, z: 0}
+  lerpRelease: {x: 0, y: 0, z: 0}
+  forceDirection: {x: 0, y: 0, z: 0}
 --- !u!4 &4090990814600649861
 Transform:
   m_ObjectHideFlags: 0

@@ -8,7 +8,7 @@ public class MoveSlideState : MoveBaseState
     float originalTraction; // Traction before slide started
     RaycastHit slideRay; // slide raycast
 
-    public override void EnterState(MoveStateManager mSM){
+    public override void EnterState(MoveStateManager mSM, MoveBaseState previousState){
         Debug.Log("Slide State");
 
         //Initialize Important Stats On state enter
@@ -19,6 +19,15 @@ public class MoveSlideState : MoveBaseState
         mSM.pStats.Traction = 0.01f;
     }
     
+    public override void ExitState(MoveStateManager mSM, MoveBaseState nextState){
+        if(nextState != mSM.CrouchState){
+            mSM.gameObject.transform.localEulerAngles = new Vector3(0, 0, 0);
+            mSM.pStats.CurVel = mSM.calculatedCurVel;
+            mSM.pStats.Traction = originalTraction;
+            mSM.moveController.height *= 2.0f;
+        }
+    }
+
     public override void UpdateState(MoveStateManager mSM){
 
         //if player comes to a stop while sliding they crouch
@@ -38,15 +47,12 @@ public class MoveSlideState : MoveBaseState
 
                 //Determine which state to go into based on player speed
                 if(mSM.calculatedCurVel < mSM.walkLimit){
-                    SlideToMoveState(mSM);
                     mSM.SwitchState(mSM.WalkState);
                 }
                 else if(mSM.calculatedCurVel < mSM.runLimit){
-                    SlideToMoveState(mSM);
                     mSM.SwitchState(mSM.JogState);
                 }
                 else{
-                    SlideToMoveState(mSM);
                     mSM.SwitchState(mSM.RunState);
                 }
             }
@@ -75,16 +81,5 @@ public class MoveSlideState : MoveBaseState
         }
         */
         mSM.SlideMovement();
-    }
-
-    public override void OnCollisionEnter(MoveStateManager mSM){
-
-    }
-
-    public void SlideToMoveState(MoveStateManager mSM){
-        mSM.gameObject.transform.localEulerAngles = new Vector3(0, 0, 0);
-        mSM.pStats.CurVel = mSM.calculatedCurVel;
-        mSM.pStats.Traction = originalTraction;
-        mSM.moveController.height *= 2.0f;
     }
 }
