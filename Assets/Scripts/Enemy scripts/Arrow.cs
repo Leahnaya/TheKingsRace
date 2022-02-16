@@ -6,6 +6,7 @@ using UnityEngine;
 public class Arrow : NetworkBehaviour {
     private Vector3 target;
     private bool isLive = false;
+    private Vector3 dir = Vector3.zero;
 
     public float speed = 90f;
 
@@ -17,12 +18,15 @@ public class Arrow : NetworkBehaviour {
         target = _target;
         isLive = true;
 
+        //find the direction to fire
+        dir = (target - transform.position).normalized;
+
         // Start a co-routine to despawn the arrow if it doesn't hit anything
         StartCoroutine(DespawnCountdown());
     }
 
     IEnumerator DespawnCountdown() {
-        int time = 15;
+        int time = 5;
 
         for (int i = time; i > 0; i--) {
             yield return new WaitForSecondsRealtime(1f);
@@ -45,14 +49,13 @@ public class Arrow : NetworkBehaviour {
 
         // The arrow is allowed to move towards a target
         if (isLive) {
-            // Find the direction to fire in
-            Vector3 dir = target - transform.position;
+            
             
             // Calculate distance
             float distanceThisFrame = speed * Time.deltaTime;
 
             //move in the worldspace
-            transform.Translate(dir.normalized * distanceThisFrame, Space.World);
+            transform.Translate(dir * distanceThisFrame, Space.World);
 
         }
     }
