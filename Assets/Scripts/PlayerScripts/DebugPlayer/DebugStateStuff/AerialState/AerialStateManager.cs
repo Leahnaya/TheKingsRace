@@ -5,7 +5,7 @@ using System.Linq;
 using MLAPI;
 using UnityEngine.Rendering;
 
-public class AerialStateManager : MonoBehaviour
+public class AerialStateManager : NetworkBehavior
 {
     ////Player States
     public AerialBaseState currentState;

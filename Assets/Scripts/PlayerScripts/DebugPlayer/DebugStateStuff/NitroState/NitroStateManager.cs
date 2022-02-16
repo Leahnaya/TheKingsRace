@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NitroStateManager : MonoBehaviour
+public class NitroStateManager : NetworkBehavior
 {
     ////Player States
     public NitroBaseState currentState;

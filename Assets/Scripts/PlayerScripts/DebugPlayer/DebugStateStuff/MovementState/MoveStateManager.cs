@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveStateManager : MonoBehaviour
+public class MoveStateManager : NetworkBehavior
 {
     ////Player States
     public MoveBaseState currentState;

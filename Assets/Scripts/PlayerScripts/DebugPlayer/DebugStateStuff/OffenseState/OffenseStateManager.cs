@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OffenseStateManager : MonoBehaviour
+public class OffenseStateManager : NetworkBehavior
 {
     ////Player States
     public OffenseBaseState currentState;

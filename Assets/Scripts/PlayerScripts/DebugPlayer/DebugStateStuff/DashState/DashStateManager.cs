@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DashStateManager : MonoBehaviour
+public class DashStateManager : NetworkBehavior
 {
     ////Player States
     public DashBaseState currentState;
