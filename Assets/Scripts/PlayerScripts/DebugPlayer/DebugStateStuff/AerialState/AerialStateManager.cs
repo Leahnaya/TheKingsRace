@@ -143,11 +143,16 @@ public class AerialStateManager : NetworkBehaviour
     }
 
     void Update(){
+
+        if (!IsLocalPlayer) { return; }
+        
         //calls any logic in the update state from current state
         currentState.UpdateState(this);
     }
 
     void FixedUpdate(){
+
+        if (!IsLocalPlayer) { return; }
 
         //calls any logic in the fixed update state from current state
         currentState.FixedUpdateState(this);

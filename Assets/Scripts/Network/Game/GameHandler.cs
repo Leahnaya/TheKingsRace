@@ -57,8 +57,20 @@ public class GameHandler : NetworkBehaviour
         }
 
         // Re-enable the runner movement
-        if (localPlayer.GetComponentInChildren<PlayerMovement>() != null) {
-            localPlayer.GetComponentInChildren<PlayerMovement>().enabled = true;
+        if (localPlayer.GetComponentInChildren<MoveStateManager>() != null) {
+            localPlayer.GetComponentInChildren<MoveStateManager>().enabled = true;
+        }
+        if (localPlayer.GetComponentInChildren<AerialStateManager>() != null) {
+            localPlayer.GetComponentInChildren<AerialStateManager>().enabled = true;
+        }
+        if (localPlayer.GetComponentInChildren<OffenseStateManager>() != null) {
+            localPlayer.GetComponentInChildren<OffenseStateManager>().enabled = true;
+        }
+        if (localPlayer.GetComponentInChildren<DashStateManager>() != null) {
+            localPlayer.GetComponentInChildren<DashStateManager>().enabled = true;
+        }
+        if (localPlayer.GetComponentInChildren<NitroStateManager>() != null) {
+            localPlayer.GetComponentInChildren<NitroStateManager>().enabled = true;
         }
 
         // Re-enable the kings movement

@@ -107,12 +107,15 @@ public class MoveStateManager : NetworkBehaviour
         slideUp = GetComponentInParent<Transform>().up; // get parents up direction
         distToGround = GetComponent<Collider>().bounds.extents.y; // set players distance to ground
 
+        if (!IsLocalPlayer) { return; }
         Cursor.lockState = CursorLockMode.Locked; // Lock cursor on start if you are the local player
     }
 
     // Update is called once per frame
     void Update()
     {
+        //if (!IsLocalPlayer) { return; }
+
         //calculates vel using driftVel will need to be relocated
         calculatedCurVel = driftVel.magnitude * 50f;
 
@@ -123,6 +126,8 @@ public class MoveStateManager : NetworkBehaviour
     }
 
     void FixedUpdate(){
+
+        //if (!IsLocalPlayer) { return; }
 
         //calls any logic in the fixed update state from current state
         currentState.FixedUpdateState(this);

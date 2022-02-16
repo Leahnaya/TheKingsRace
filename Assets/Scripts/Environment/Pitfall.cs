@@ -125,7 +125,11 @@ public class Pitfall : NetworkBehaviour
                 GameHandler.FindGameObjectInChildWithTag(character, "PlayerCam").GetComponent<AudioListener>().enabled = true;
                 GameHandler.FindGameObjectInChildWithTag(character, "PlayerCam").GetComponent<PlayerCam>().enabled = true;
 
-                character.GetComponentInChildren<PlayerMovement>().enabled = true;
+                character.GetComponentInChildren<MoveStateManager>().enabled = true;
+                character.GetComponentInChildren<DashStateManager>().enabled = true;
+                character.GetComponentInChildren<NitroStateManager>().enabled = true;
+                character.GetComponentInChildren<AerialStateManager>().enabled = true;
+                character.GetComponentInChildren<OffenseStateManager>().enabled = true;
             }
         }
 
