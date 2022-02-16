@@ -3452,7 +3452,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5975360321733016164}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -4}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5975360322223408460}
@@ -4620,11 +4620,11 @@ MonoBehaviour:
   recovTime: 3
   playerGrav: 200
   gravVel: 0
-  hasGlider: 1
-  hasGrapple: 1
-  hasWallrun: 1
-  hasNitro: 1
-  hasDash: 1
+  hasGlider: 0
+  hasGrapple: 0
+  hasWallrun: 0
+  hasNitro: 0
+  hasDash: 0
   playerPoints: 15
 --- !u!114 &7688428083034862284
 MonoBehaviour:

@@ -20,7 +20,7 @@ public class Boulder : NetworkBehaviour
             Dir = Vector3.Normalize(Dir);//Normalizes the vector to be used as a knockback direction
             //Knock the player a little to the side
             Dir.z += Random.Range(-0.25f, 0.25f);
-            player.GetComponent<PlayerMovement>().GetHit(Dir, Power); //Ragdolls the player in the direction of the bolder depending on it's speed
+            player.GetComponent<MoveStateManager>().GetHit(Dir, Power); //Ragdolls the player in the direction of the bolder depending on it's speed
         }
     }
 

@@ -5,7 +5,6 @@ using UnityEngine;
 public class AerialGrappleGroundedState : AerialBaseState
 {
     public override void EnterState(AerialStateManager aSM, AerialBaseState previousState){
-        Debug.Log("Grapple Grounded State");
 
         aSM.release = false;
     }

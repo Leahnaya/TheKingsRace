@@ -9,7 +9,6 @@ public class MoveCrouchState : MoveBaseState
     RaycastHit slideRay; // slide raycast
 
     public override void EnterState(MoveStateManager mSM, MoveBaseState previousState){
-        Debug.Log("Crouch State");
 
         if(previousState != mSM.SlideState){
             //Initialize Important Stats On state enter

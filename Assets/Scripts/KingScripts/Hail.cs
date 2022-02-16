@@ -38,7 +38,7 @@ public class Hail : MonoBehaviour
             float hz = hail.transform.position.z;
             //Direction pointing away from the center of the Hail
             Vector3 Dir = new Vector3(px - hx, 0, pz - hz);
-            player.GetComponent<dPlayerMovement>().GetHit(Dir, Power); //Ragdolls the player in the direction of the bolder depending on it's speed
+            player.GetComponent<MoveStateManager>().GetHit(Dir, Power); //Ragdolls the player in the direction of the bolder depending on it's speed
         }
     }
 

@@ -2,13 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AerialGroundedState : AerialBaseState
+public class AerialWallRunState : AerialBaseState
 {
+    
     public override void EnterState(AerialStateManager aSM, AerialBaseState previousState){
-        Debug.Log("Grounded State");
 
-        //release is false if grounded
-        aSM.release = false;
+        aSM.pStats.GravVel = 0;
+
     }
 
     public override void ExitState(AerialStateManager aSM, AerialBaseState nextState){
@@ -16,25 +16,19 @@ public class AerialGroundedState : AerialBaseState
     }
 
     public override void UpdateState(AerialStateManager aSM){
-
-        //if grav vel < 0 then falling
-        if(aSM.pStats.GravVel < 0){
-            aSM.SwitchState(aSM.FallingState);
-        }
-        //if grav vel > 0 then jumping
-        else if(aSM.pStats.GravVel > 0){
+        if(Input.GetButton("Jump")){
             aSM.SwitchState(aSM.JumpingState);
         }
+        else if(!aSM.isWallRunning){
+            aSM.SwitchState(aSM.FallingState);
+        }
 
-        //can grapple and in state that allows grapple
         if(aSM.CheckGrapple() && (aSM.mSM.currentState != aSM.mSM.SlideState && aSM.mSM.currentState != aSM.mSM.RagdollState && aSM.mSM.currentState != aSM.mSM.RecoveringState)){
-            aSM.SwitchState(aSM.GrappleGroundedState);
+            aSM.SwitchState(aSM.GrappleAirState);
         }
     }
 
     public override void FixedUpdateState(AerialStateManager aSM){
-
-        //base gravity calculations
-        aSM.GravityCalculation(aSM.pStats.PlayerGrav);
+        aSM.GravityCalculation(2);
     }
 }

@@ -61,7 +61,7 @@ public class Arrow : NetworkBehaviour {
     void OnTriggerEnter(Collider objectHit) {
         if (objectHit.transform.parent.gameObject.tag == "Player") {
             //Checks if the other object is the player
-            PlayerMovement playerMovement = objectHit.GetComponent<PlayerMovement>();
+            MoveStateManager playerMovement = objectHit.GetComponent<MoveStateManager>();
 
             float DirBumpX = playerMovement.driftVel.x * -1;//Inverts the Player Velocity x
             float DirBumpY = .1f;

@@ -2,26 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveJogState : MoveBaseState
+public class MoveWalkState : MoveBaseState
 {
     public override void EnterState(MoveStateManager mSM, MoveBaseState previousState){
-        Debug.Log("Jog State");
-        //Debug.Log(mSM.calculatedCurVel);
-    }
 
+    }
+    
     public override void ExitState(MoveStateManager mSM, MoveBaseState nextState){
 
     }
 
     public override void UpdateState(MoveStateManager mSM){
 
-        //move to run state if speed increases
-        if(mSM.calculatedCurVel >= mSM.runLimit){
-            mSM.SwitchState(mSM.RunState);
+        //move to Jog if speed increases
+        if(mSM.calculatedCurVel >= mSM.jogLimit){
+            mSM.SwitchState(mSM.JogState);
         }
-        //move to walk if speed decreases
-        else if(mSM.calculatedCurVel < mSM.walkLimit){
-            mSM.SwitchState(mSM.WalkState);
+        //move to Idle if speed decreases
+        else if(mSM.calculatedCurVel < mSM.idleLimit){
+            mSM.SwitchState(mSM.IdleState);
         }
 
         //move to slide if Q or JoystickButton1

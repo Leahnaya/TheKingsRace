@@ -9,7 +9,6 @@ public class MoveSlideState : MoveBaseState
     RaycastHit slideRay; // slide raycast
 
     public override void EnterState(MoveStateManager mSM, MoveBaseState previousState){
-        Debug.Log("Slide State");
 
         //Initialize Important Stats On state enter
         mSM.pStats.CurVel = 0;

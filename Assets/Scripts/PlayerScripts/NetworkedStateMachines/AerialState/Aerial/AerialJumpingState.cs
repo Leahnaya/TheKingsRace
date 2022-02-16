@@ -6,7 +6,7 @@ public class AerialJumpingState : AerialBaseState
 {
 
     public override void EnterState(AerialStateManager aSM, AerialBaseState previousState){
-        Debug.Log("Jumping State");
+
     }
 
     public override void ExitState(AerialStateManager aSM, AerialBaseState nextState){

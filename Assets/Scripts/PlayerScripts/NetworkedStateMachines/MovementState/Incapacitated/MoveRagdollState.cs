@@ -9,7 +9,6 @@ public class MoveRagdollState : MoveBaseState
     bool beginRagTimer = false;
 
     public override void EnterState(MoveStateManager mSM, MoveBaseState previousState){
-        Debug.Log("Ragdoll State");
 
         ragTime = mSM.pStats.RecovTime;
         prevRot = mSM.transform.localEulerAngles;

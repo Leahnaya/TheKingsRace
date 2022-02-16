@@ -11,7 +11,7 @@ public class Bumper : MonoBehaviour {
         if (objectHit.gameObject.tag == "ArcherTarget") {//Checks if the other object is the player
         
             Debug.Log("Bump");
-            PlayerMovement playerMovement = objectHit.GetComponent<PlayerMovement>();
+            MoveStateManager playerMovement = objectHit.GetComponent<MoveStateManager>();
 
             float DirBumpX = playerMovement.driftVel.x * -1;//Inverts the Player Velocity x
             float DirBumpY = .1f;

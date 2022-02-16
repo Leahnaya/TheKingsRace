@@ -25,14 +25,18 @@ public class LobbyItems : MonoBehaviour
 
     // Start is called before the first frame update
     void Awake(){
-        pPar = GameObject.Find("PlayerPrefab");
-        player = pPar.transform.Find("PlayerModel").gameObject;
+        pPar = GameObject.Find("NetworkSMPlayerPrefab");
+        player = pPar.transform.Find("T-Pose").gameObject;
         pStats = player.GetComponent<PlayerStats>();
         glueGooSlider = GameObject.Find("GlueGoo").GetComponent<Slider>();
         tooltip = GameObject.Find("ItemTooltip").GetComponent<Tooltip>();
         lobbyUI = this.gameObject.GetComponent<LobbyUI>();
         pInv = player.GetComponent<PlayerInventory>();
-        player.GetComponent<PlayerMovement>().enabled = false;
+        player.GetComponent<MoveStateManager>().enabled = false;
+        player.GetComponent<DashStateManager>().enabled = false;
+        player.GetComponent<NitroStateManager>().enabled = false;
+        player.GetComponent<AerialStateManager>().enabled = false;
+        player.GetComponent<OffenseStateManager>().enabled = false;
         pPar.transform.Find("PlayerCam").gameObject.SetActive(false);
 
         invMan = GetComponent<InventoryManager>();

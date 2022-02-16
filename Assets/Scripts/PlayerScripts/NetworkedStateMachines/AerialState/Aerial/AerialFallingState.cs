@@ -2,42 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AerialGlidingState : AerialBaseState
+public class AerialFallingState : AerialBaseState
 {
-    float tempTraction; // temp traction to store the actual player traction
-
     public override void EnterState(AerialStateManager aSM, AerialBaseState previousState){
-        Debug.Log("Gliding State");
 
-        //Modify base traction
-        tempTraction = aSM.pStats.Traction;
-        aSM.pStats.Traction = 1.0f;
     }
 
     public override void ExitState(AerialStateManager aSM, AerialBaseState nextState){
 
-        //return traction to normal
-        aSM.pStats.Traction = tempTraction;
     }
 
     public override void UpdateState(AerialStateManager aSM){
 
-        //if not holding jump fall
-        if(!Input.GetButton("Jump")){
-            aSM.SwitchState(aSM.FallingState);
+        //if Grav Vel > 0 then jumping
+        if(aSM.pStats.GravVel > 0){
+            aSM.SwitchState(aSM.JumpingState);
+        }
+        //if jump has been pressed and has glider and is in a state that allows it glide
+        else if(Input.GetButton("Jump") && aSM.pStats.HasGlider && (aSM.mSM.currentState != aSM.mSM.SlideState && aSM.mSM.currentState != aSM.mSM.RagdollState && aSM.mSM.currentState != aSM.mSM.RecoveringState)){
+            aSM.SwitchState(aSM.GlidingState);
         }
 
         //if is grounded then grounded
         if(aSM.isGrounded){
             aSM.SwitchState(aSM.GroundedState);
         }
-        
-        //if isWallrunning and in state that allows it wallrun
+
+        //if is wallrunning ands is in a state that allows it wallrun
         if(aSM.isWallRunning && (aSM.mSM.currentState != aSM.mSM.SlideState && aSM.mSM.currentState != aSM.mSM.RagdollState && aSM.mSM.currentState != aSM.mSM.RecoveringState)){
             aSM.SwitchState(aSM.WallRunState);
         }
 
-        //if can grapple and in state that allows it grapple
+        //if grapple is possible and in state that allows it grapple air
         if(aSM.CheckGrapple() && (aSM.mSM.currentState != aSM.mSM.SlideState && aSM.mSM.currentState != aSM.mSM.RagdollState && aSM.mSM.currentState != aSM.mSM.RecoveringState)){
             aSM.SwitchState(aSM.GrappleAirState);
         }
@@ -45,12 +41,12 @@ public class AerialGlidingState : AerialBaseState
 
     public override void FixedUpdateState(AerialStateManager aSM){
         
-        //modified gravity calculation to fall slower
-        aSM.GravityCalculation(9);
+        //Default gravity calculation
+        aSM.GravityCalculation(aSM.pStats.PlayerGrav);
 
         //if grapple released apply release force
         if(aSM.pStats.HasGrapple){
             aSM.GrappleReleaseForce();
-        }  
+        }    
     }
 }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OffenseKickState : OffenseBaseState
+public class OffensePunchState : OffenseBaseState
 {
 
     float legRotation = 0;
@@ -10,8 +10,7 @@ public class OffenseKickState : OffenseBaseState
 
 
     public override void EnterState(OffenseStateManager oSM, OffenseBaseState previousState){
-        Debug.Log("Kicking State");
-
+        
         oSM.leg.SetActive(true);
         kicked = false;
 

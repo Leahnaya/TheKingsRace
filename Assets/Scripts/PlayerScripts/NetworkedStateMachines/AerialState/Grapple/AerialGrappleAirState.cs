@@ -22,8 +22,6 @@ public class AerialGrappleAirState : AerialBaseState
 
     public override void EnterState(AerialStateManager aSM, AerialBaseState previousState){
 
-        Debug.Log("Grapple Air State");
-
         //refresh jump number
         aSM.curJumpNum = 0;
 
