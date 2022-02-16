@@ -40,6 +40,7 @@ public class dKickController : NetworkBehaviour
             isKicking = true;
             isDiveKicking = true;
             leg.SetActive(true);
+            legRotation = -90;
         }
         //otherwise do ground kick for .3 seconds
         else if ((Input.GetKeyDown(KeyCode.F) || Input.GetAxis("Kick") != 0) && isKicking == false && pMove.isSliding==false){
@@ -70,7 +71,6 @@ public class dKickController : NetworkBehaviour
         isKicking = false;
         legRotation = 0;
         leg.transform.eulerAngles = new Vector3(legRotation, leg.transform.eulerAngles.y, leg.transform.eulerAngles.z);
-        legHitbox.GetComponent<Collider>().isTrigger = false;
         leg.SetActive(false);
 
     }

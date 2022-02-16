@@ -5244,7 +5244,6 @@ MonoBehaviour:
   recovTime: 3
   playerGrav: 200
   gravVel: 0
-  hasBlink: 0
   hasGlider: 1
   hasGrapple: 1
   hasWallrun: 1
@@ -5270,6 +5269,8 @@ GameObject:
   - component: {fileID: 4061813754685703500}
   - component: {fileID: 4061813754685703499}
   - component: {fileID: 4061813754685703501}
+  - component: {fileID: 4061813754685703502}
+  - component: {fileID: 4061813754685703503}
   m_Layer: 0
   m_Name: T-Pose
   m_TagString: ArcherTarget
@@ -5364,6 +5365,42 @@ MonoBehaviour:
   pStats: {fileID: 0}
   mSM: {fileID: 0}
   dashItem: {fileID: 11400000, guid: 3156de54e455b4348b2a6e79383383b0, type: 2}
+--- !u!114 &4061813754685703502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4061813754685703498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f89839a9c7d0204ea00e910d9c5c5ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveController: {fileID: 0}
+  pStats: {fileID: 0}
+  mSM: {fileID: 0}
+  nitroItem: {fileID: 11400000, guid: a1c26807795a7ac4f83567455ce978ce, type: 2}
+  nitroVelBoost: 40
+  nitroAccBoost: 0.4
+--- !u!114 &4061813754685703503
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4061813754685703498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc5a1a9c85c29a744aa6ca7f1a8dbc60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  leg: {fileID: 0}
+  legHitbox: {fileID: 0}
+  moveController: {fileID: 0}
+  pStats: {fileID: 0}
+  mSM: {fileID: 0}
+  aSM: {fileID: 0}
 --- !u!4 &4090990814600649861
 Transform:
   m_ObjectHideFlags: 0

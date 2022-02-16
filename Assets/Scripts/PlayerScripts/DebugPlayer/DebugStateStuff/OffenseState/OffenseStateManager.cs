@@ -22,6 +22,8 @@ public class OffenseStateManager : MonoBehaviour
     
     ////Objects Sections
     GameObject parentObj; // Parent object
+    public GameObject leg; // leg object
+    public GameObject legHitbox; // leg hitbox
     ////
 
     ////Components Section
@@ -34,6 +36,7 @@ public class OffenseStateManager : MonoBehaviour
     ////Scripts Section
     public PlayerStats pStats; // Player Stats
     public MoveStateManager mSM;
+    public AerialStateManager aSM;
     ////
 
     void Awake(){
@@ -43,13 +46,20 @@ public class OffenseStateManager : MonoBehaviour
         rB = GetComponent<Rigidbody>(); //set Rigid Body
         capCol = GetComponent<CapsuleCollider>(); // set Capsule Collider
         capCol.enabled = true;
-        parentObj = transform.parent.gameObject; // set parent object
         animator = GetComponent<Animator>(); // set animator
+        ////
+
+        ////Initialize Player Objects
+        leg = transform.Find("Leg").gameObject; // Set Leg Object
+        legHitbox = leg.transform.Find("LegHitbox").gameObject; // Set Leg Hitbox
+        leg.SetActive(false);
+        parentObj = transform.parent.gameObject; // set parent object
         ////
 
         ////Initialize Scripts
         pStats = GetComponent<PlayerStats>(); // set PlayerStats
         mSM = GetComponent<MoveStateManager>(); // set move state manager
+        aSM = GetComponent<AerialStateManager>();
         ////
     }
 
@@ -80,5 +90,22 @@ public class OffenseStateManager : MonoBehaviour
         //updates current state and calls logic for entering
         currentState = state;
         currentState.EnterState(this, previousState);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        //if (!IsLocalPlayer) { return; }
+        Collider myCollider = collision.contacts[0].thisCollider;
+        if (collision.transform.CompareTag("kickable") && myCollider == legHitbox.GetComponent<Collider>()){
+            if(collision.gameObject.GetComponent<Rigidbody>().isKinematic == true){
+                collision.gameObject.GetComponent<Rigidbody>().isKinematic = false;
+            }
+            Vector3 direction = this.transform.forward;
+            Debug.Log(direction);
+            collision.rigidbody.AddForce(direction * pStats.KickPow, ForceMode.Impulse);
+        }
+        if (collision.transform.CompareTag("destroyable") && myCollider == legHitbox.GetComponent<Collider>()){
+            collision.transform.gameObject.GetComponent<BreakableBlock>().damage(pStats.KickPow);
+        }
     }
 }
