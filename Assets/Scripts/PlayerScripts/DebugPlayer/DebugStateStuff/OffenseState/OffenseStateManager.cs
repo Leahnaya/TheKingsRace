@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MLAPI;
 
-public class OffenseStateManager : NetworkBehavior
+public class OffenseStateManager : NetworkBehaviour
 {
     ////Player States
     public OffenseBaseState currentState;

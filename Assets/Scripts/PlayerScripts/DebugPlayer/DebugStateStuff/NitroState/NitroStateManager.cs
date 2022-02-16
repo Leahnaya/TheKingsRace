@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MLAPI;
 
-public class NitroStateManager : NetworkBehavior
+public class NitroStateManager : NetworkBehaviour
 {
     ////Player States
     public NitroBaseState currentState;
