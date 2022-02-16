@@ -2,17 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OffenseCooldownState : MonoBehaviour
+public class OffenseCooldownState : OffenseBaseState
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public override void EnterState(OffenseStateManager oSM, OffenseBaseState previousState){
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public override void ExitState(OffenseStateManager oSM, OffenseBaseState nextState){
+
+    }
+
+    public override void UpdateState(OffenseStateManager oSM){
+
+    }
+
+    public override void FixedUpdateState(OffenseStateManager oSM){
+
     }
 }

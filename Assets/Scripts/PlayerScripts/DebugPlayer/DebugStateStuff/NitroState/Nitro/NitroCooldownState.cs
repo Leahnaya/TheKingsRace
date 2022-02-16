@@ -2,17 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NitroCooldownState : MonoBehaviour
+public class NitroCooldownState : NitroBaseState
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public override void EnterState(NitroStateManager nSM, NitroBaseState previousState){
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public override void ExitState(NitroStateManager nSM, NitroBaseState nextState){
+
+    }
+
+    public override void UpdateState(NitroStateManager nSM){
+
+    }
+
+    public override void FixedUpdateState(NitroStateManager nSM){
+
     }
 }

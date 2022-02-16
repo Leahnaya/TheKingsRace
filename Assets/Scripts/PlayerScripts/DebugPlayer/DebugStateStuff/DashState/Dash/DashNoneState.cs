@@ -2,17 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DashNoneState : MonoBehaviour
+public class DashNoneState : DashBaseState
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public override void EnterState(DashStateManager dSM, DashBaseState previousState){
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    public override void ExitState(DashStateManager dSM, DashBaseState nextState){
+
+    }
+
+    public override void UpdateState(DashStateManager dSM){
+
+    }
+
+    public override void FixedUpdateState(DashStateManager dSM){
+
     }
 }
