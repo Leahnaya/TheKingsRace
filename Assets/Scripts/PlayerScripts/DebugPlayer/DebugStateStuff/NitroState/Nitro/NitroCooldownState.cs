@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class NitroCooldownState : NitroBaseState
 {
-
     bool cooldown = false;
 
     public override void EnterState(NitroStateManager nSM, NitroBaseState previousState){
@@ -30,7 +29,7 @@ public class NitroCooldownState : NitroBaseState
     }
 
     private IEnumerator startCoolDown(NitroStateManager nSM){
-        //driver.startUICooldown("Nitro");
+        //nSM.driver.startUICooldown("Nitro");
         yield return new WaitForSeconds(nSM.nitroItem.cooldownM);
         cooldown = true;
     }

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class DashCooldownState : DashBaseState
 {
-    private CoolDown driver;
     bool cooldown = false;
 
     public override void EnterState(DashStateManager dSM, DashBaseState previousState){
@@ -30,7 +29,7 @@ public class DashCooldownState : DashBaseState
     }
 
     private IEnumerator startCoolDown(DashStateManager dSM){
-        //driver.startUICooldown(dashItem.name);
+        //dSM.driver.startUICooldown(dashItem.name);
         yield return new WaitForSeconds(dSM.dashItem.cooldownM);
         cooldown = true;
     }

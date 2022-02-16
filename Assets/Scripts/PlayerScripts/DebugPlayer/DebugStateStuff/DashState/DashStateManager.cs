@@ -29,6 +29,7 @@ public class DashStateManager : MonoBehaviour
     ////Scripts Section
     public PlayerStats pStats; // Player Stats
     public MoveStateManager mSM;
+    public CoolDown driver;
     ////
 
     ////Items Section
@@ -44,6 +45,7 @@ public class DashStateManager : MonoBehaviour
         capCol.enabled = true;
         parentObj = transform.parent.gameObject; // set parent object
         animator = GetComponent<Animator>(); // set animator
+        //driver = GameObject.Find("Canvas").GetComponent<CoolDown>();
         ////
 
         ////Initialize Scripts

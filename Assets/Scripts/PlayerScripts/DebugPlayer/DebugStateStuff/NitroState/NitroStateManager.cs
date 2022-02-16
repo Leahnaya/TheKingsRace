@@ -29,6 +29,7 @@ public class NitroStateManager : MonoBehaviour
     ////Scripts Section
     public PlayerStats pStats; // Player Stats
     public MoveStateManager mSM;
+    public CoolDown driver;
     ////
 
     ////Items Section
@@ -48,6 +49,7 @@ public class NitroStateManager : MonoBehaviour
         capCol.enabled = true;
         parentObj = transform.parent.gameObject; // set parent object
         animator = GetComponent<Animator>(); // set animator
+        //driver = GameObject.Find("Canvas").GetComponent<CoolDown>();
         ////
 
         ////Initialize Scripts

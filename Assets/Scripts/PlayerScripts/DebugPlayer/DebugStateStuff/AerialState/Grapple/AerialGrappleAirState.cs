@@ -24,24 +24,31 @@ public class AerialGrappleAirState : AerialBaseState
 
         Debug.Log("Grapple Air State");
 
+        //refresh jump number
         aSM.curJumpNum = 0;
 
+        //rope length limit
         ropeLength = Vector3.Distance(aSM.transform.position, aSM.hookPoint.transform.position);
         if(ropeLength > aSM.maxGrappleDistance){
             ropeLength = aSM.maxGrappleDistance;
         }
 
+        //old and cur direction vector for player to hookpoint
         oldXZDir = (new Vector3(aSM.hookPoint.transform.position.x,0,aSM.hookPoint.transform.position.z) - new Vector3(aSM.transform.position.x,0,aSM.transform.position.z)).normalized;
         curXZDir = (new Vector3(aSM.hookPoint.transform.position.x,0,aSM.hookPoint.transform.position.z) - new Vector3(aSM.transform.position.x,0,aSM.transform.position.z)).normalized;
 
+        //swing momentum calculation
         swingMom = CalculateSwingMom(aSM.mSM.driftVel.magnitude * 50f, aSM);
         oldSwingMom = swingMom;
-        aSM.pStats.GravVel = -1;
-        aSM.release = false;
-        aSM.lerpRelease = Vector3.zero;
+
+        //Initialize variables
+        aSM.pStats.GravVel = -1; // grav vel is adjusted so things work
+        aSM.release = false; // player hasn't released
+        aSM.lerpRelease = Vector3.zero; // reset lerp release
     }
 
     public override void ExitState(AerialStateManager aSM, AerialBaseState nextState){
+
         if(nextState != aSM.GrappleGroundedState){
             aSM.release = true;
             aSM.pStats.GravVel = 0;
