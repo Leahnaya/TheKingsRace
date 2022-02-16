@@ -89,13 +89,6 @@ public class PlayerStats : MonoBehaviour
         set{ gravVel = value; }
     }
 
-    //If The Player Has Blink
-    [SerializeField] private bool hasBlink = false;
-    public bool HasBlink{
-        get{ return hasBlink; }
-        set{ hasBlink = value; }
-    }
-
     //If The Player Has Glider
     [SerializeField] private bool hasGlider = false;
     public bool HasGlider{

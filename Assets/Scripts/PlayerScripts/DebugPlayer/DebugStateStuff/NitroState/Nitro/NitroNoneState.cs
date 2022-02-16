@@ -13,7 +13,18 @@ public class NitroNoneState : NitroBaseState
     }
 
     public override void UpdateState(NitroStateManager nSM){
+        if(nSM.pStats.HasNitro){
 
+            if ((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.JoystickButton8)))
+            {
+                nSM.SwitchState(nSM.NitroingState);
+            }
+
+            if(nSM.mSM.currentState == nSM.mSM.RagdollState){
+                nSM.SwitchState(nSM.IncapacitatedState);
+            }
+        }
+        
     }
 
     public override void FixedUpdateState(NitroStateManager nSM){

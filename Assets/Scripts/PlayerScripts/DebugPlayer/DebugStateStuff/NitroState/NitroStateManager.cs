@@ -31,6 +31,14 @@ public class NitroStateManager : MonoBehaviour
     public MoveStateManager mSM;
     ////
 
+    ////Items Section
+    public SpecialItem nitroItem;
+    ////
+
+    ////Variables Section
+    public float nitroVelBoost = 40;
+    public float nitroAccBoost = .4f;
+
     void Awake(){
         
         ////Initialize Player Components

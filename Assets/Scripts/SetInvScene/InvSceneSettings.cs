@@ -109,8 +109,6 @@ public class InvSceneSettings : MonoBehaviour
     //Enables Script on player
     //NEEDS TO BE CLEANED UP AND IMPROVED
     public void itemToEnable(){
-        if(pStats.HasBlink != player1.GetComponent<dBlink>().enabled)
-            player1.GetComponent<dBlink>().enabled = pStats.HasBlink;
         if(pStats.HasDash != player1.GetComponent<dDash>().enabled)
             player1.GetComponent<dDash>().enabled = pStats.HasDash;
         if(pStats.HasWallrun != player1.GetComponent<dWallRun>().enabled)

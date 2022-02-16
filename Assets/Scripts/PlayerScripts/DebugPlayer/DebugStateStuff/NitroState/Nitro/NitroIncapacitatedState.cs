@@ -13,7 +13,9 @@ public class NitroIncapacitatedState : NitroBaseState
     }
 
     public override void UpdateState(NitroStateManager nSM){
-
+        if(nSM.mSM.currentState != nSM.mSM.RagdollState && nSM.mSM.currentState != nSM.mSM.RecoveringState){
+            nSM.SwitchState(nSM.NoneState);
+        }
     }
 
     public override void FixedUpdateState(NitroStateManager nSM){

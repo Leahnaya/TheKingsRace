@@ -45,9 +45,6 @@ public class SpecialItem : Item
         if(hasWallrunM != false){
             p.HasWallrun = hasWallrunM;
         }
-        if(hasBlinkM != false){
-            p.HasBlink = hasBlinkM;
-        }
         if(hasGrappleM != false){
             p.HasGrapple = hasGrappleM;
         }
@@ -92,9 +89,6 @@ public class SpecialItem : Item
         }
         if(hasWallrunM != false){
             p.HasWallrun = false;
-        }
-        if(hasBlinkM != false){
-            p.HasBlink = false;
         }
         if(hasGrappleM != false){
             p.HasGrapple = false;
