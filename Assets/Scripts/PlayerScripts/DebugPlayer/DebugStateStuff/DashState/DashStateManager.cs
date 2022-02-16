@@ -31,6 +31,10 @@ public class DashStateManager : MonoBehaviour
     public MoveStateManager mSM;
     ////
 
+    ////Items Section
+    public SpecialItem dashItem;
+    ////
+
     void Awake(){
         
         ////Initialize Player Components

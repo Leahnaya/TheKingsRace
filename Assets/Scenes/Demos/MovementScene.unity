@@ -2225,7 +2225,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1405946429}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 36.3, y: 24.5, z: 13.7}
+  m_LocalPosition: {x: 36.3, y: 22.3, z: 13.7}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_Children: []
   m_Father: {fileID: 0}
@@ -5248,8 +5248,8 @@ MonoBehaviour:
   hasGlider: 1
   hasGrapple: 1
   hasWallrun: 1
-  hasNitro: 0
-  hasDash: 0
+  hasNitro: 1
+  hasDash: 1
   playerPoints: 15
 --- !u!1 &4061813754685703498
 GameObject:
@@ -5269,6 +5269,7 @@ GameObject:
   - component: {fileID: 4061813754685703344}
   - component: {fileID: 4061813754685703500}
   - component: {fileID: 4061813754685703499}
+  - component: {fileID: 4061813754685703501}
   m_Layer: 0
   m_Name: T-Pose
   m_TagString: ArcherTarget
@@ -5346,6 +5347,23 @@ MonoBehaviour:
   tempRelease: {x: 0, y: 0, z: 0}
   lerpRelease: {x: 0, y: 0, z: 0}
   forceDirection: {x: 0, y: 0, z: 0}
+  eHeld: 0
+--- !u!114 &4061813754685703501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4061813754685703498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5904903ff376f25499c08e24ad00aaf8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveController: {fileID: 0}
+  pStats: {fileID: 0}
+  mSM: {fileID: 0}
+  dashItem: {fileID: 11400000, guid: 3156de54e455b4348b2a6e79383383b0, type: 2}
 --- !u!4 &4090990814600649861
 Transform:
   m_ObjectHideFlags: 0
