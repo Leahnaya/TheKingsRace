@@ -26,6 +26,9 @@ public class MoveSlideState : MoveBaseState
             mSM.pStats.Traction = originalTraction;
             mSM.moveController.height *= 2.0f;
         }
+        else{
+            mSM.pStats.Traction = originalTraction;
+        }
     }
 
     public override void UpdateState(MoveStateManager mSM){
