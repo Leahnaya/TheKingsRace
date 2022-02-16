@@ -10,15 +10,11 @@ public class WallRun : NetworkBehaviour
     public float wallMaxDistance = 3f;
     public float wallSpeedMultiplier = 1.2f;
     public float minimumHeight = .1f;
-    public float maxAngleRoll = 20;
     [Range(0.0f, 1.0f)]
     public float normalizedAngleThreshold = 0.1f;
-    
     public float jumpDuration = .02f;
     public float wallBouncing = 3;
     public float cameraTransitionDuration = 1;
-
-    public float wallGravityDownForce = 2.8f;
 
     [Space]
     PlayerMovement playerMovementController;

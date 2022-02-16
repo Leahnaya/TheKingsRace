@@ -8,7 +8,7 @@ public class PlayerInventory : NetworkBehaviour
 {
 
     //List of items
-    [SerializeField] Dictionary<string, Item> playerItemDict = new Dictionary<string, Item>();
+    [SerializeField] private Dictionary<string, Item> playerItemDict = new Dictionary<string, Item>();
     public Dictionary<string, Item> PlayerItemDict{
         get{ return playerItemDict; }
     }

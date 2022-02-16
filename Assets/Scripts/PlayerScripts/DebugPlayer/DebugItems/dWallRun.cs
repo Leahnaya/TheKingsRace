@@ -45,14 +45,12 @@ public class dWallRun : NetworkBehaviour
         return !isPlayergrounded() && verticalAxis > 0 && VerticalCheck();
     }
 
-    bool VerticalCheck()
-    {
+    bool VerticalCheck(){
         return !Physics.Raycast(transform.position, Vector3.down, minimumHeight);
     }
 
 
-    void Start()
-    {
+    void Start(){
         playerMovementController = GetComponent<dPlayerMovement>();
 
          directions = new Vector3[]{ 
@@ -65,15 +63,14 @@ public class dWallRun : NetworkBehaviour
     }
 
 
-    public void WallRunRoutine()
-    { 
+    public void WallRunRoutine(){ 
         //if (!IsLocalPlayer) { return; }
 
         isWallRunning = false;
 
         hits = new RaycastHit[directions.Length];
 
-        if(playerMovementController.GetJumpPressed())
+        if(playerMovementController.jumpHeld)
         {
             jumping = true;
         }
@@ -173,7 +170,7 @@ public class dWallRun : NetworkBehaviour
             moveToSet.y = 0;
             //
 
-            playerMovementController.SetPlayerVelocity(moveToSet);
+            playerMovementController.vel = moveToSet;
             if(!isWallRunning){
                 firstAttach = true;
                 isWallRunning = true;
