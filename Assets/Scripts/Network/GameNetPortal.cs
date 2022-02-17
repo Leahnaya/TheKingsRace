@@ -3,6 +3,7 @@ using MLAPI;
 using MLAPI.Messaging;
 using MLAPI.Serialization.Pooled;
 using MLAPI.Transports;
+using MLAPI.Transports.UNET;
 using UnityEngine;
 
 public class GameNetPortal : MonoBehaviour {
@@ -38,6 +39,23 @@ public class GameNetPortal : MonoBehaviour {
 
         RegisterClientMessageHandlers();
         RegisterServerMessageHandlers();
+
+        SetOptions();
+    }
+
+    private void SetOptions() { 
+        // Set the Use MLAPI Relay Option if it doesn't yet exist
+        if (!PlayerPrefs.HasKey("UseMLAPIRelay")) {
+            PlayerPrefs.SetInt("UseMLAPIRelay", 1);
+        } else { 
+            if (PlayerPrefs.GetInt("UseMLAPIRelay") == 0) {
+                GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<UNetTransport>().UseMLAPIRelay = false;
+            } else {
+                GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<UNetTransport>().UseMLAPIRelay = true;
+            }
+        }
+
+        // Set other options here
     }
 
     private void OnDestroy()
