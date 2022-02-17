@@ -1,0 +1,24 @@
+Run this command in the top level MLAPI.Relay folder to build a deployable Linux distro:
+
+dotnet publish -c Release -r linux-x64 --self-contained true
+
+The build will be created in the MLAPI.Relay/bin/release folder
+
+Copy all the files in MLAPI.Relay/libs into the build's publish folder.  There will probably be 1 file that has the same name, just skip that file.  Once those dlls are moved in from lib, you can zip the publish folder and move it to the linux distro.
+
+Once unzipped on the linux box, you will need to update the permissions on the files.
+
+Run: chmod 755 publish/*
+
+This will set the permissions of all files in the publish folder to 755.
+
+Then once that is complete you are all set to run.  The file to start the server is MLAPI.Relay.  Which can be run via this command:
+
+./publish/MLAPI.Relay
+
+If a config is not found it will prompt you to answer two questions.  When it asks about transport type Press "U" for UNetTransport.  And then when it asks the second question press "M" for MLAPI.
+
+Also make sure you port forward 8888 for the relay server as that is the port the relay listens on.
+
+If you have a second command prompt, you can verify the server is listening by running: netstat -tulpn
+If the relay is working, you will see something running with :8888, and that is your relay server
