@@ -13,6 +13,8 @@ public class DashIncapacitatedState : DashBaseState
     }
 
     public override void UpdateState(DashStateManager dSM){
+
+        //if no longer incapacitated then None
         if(dSM.mSM.currentState != dSM.mSM.RagdollState && dSM.mSM.currentState != dSM.mSM.RecoveringState && dSM.mSM.currentState != dSM.mSM.SlideState && dSM.mSM.currentState != dSM.mSM.CrouchState && dSM.mSM.currentState != dSM.mSM.CrouchWalkState){
             dSM.SwitchState(dSM.NoneState);
         }

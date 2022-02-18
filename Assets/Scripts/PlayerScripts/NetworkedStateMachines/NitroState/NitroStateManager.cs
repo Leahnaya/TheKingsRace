@@ -29,12 +29,12 @@ public class NitroStateManager : NetworkBehaviour
 
     ////Scripts Section
     public PlayerStats pStats; // Player Stats
-    public MoveStateManager mSM;
-    public CoolDown driver;
+    public MoveStateManager mSM; // move state manager
+    public CoolDown driver; // cooldown driver
     ////
 
     ////Items Section
-    public SpecialItem nitroItem;
+    public SpecialItem nitroItem; // nitro item
     ////
 
     ////Variables Section

@@ -28,13 +28,11 @@ public class AerialStateManager : NetworkBehaviour
 
     ////Objects Sections
     GameObject parentObj; // Parent object
-    public Camera cam; // Camera object
     ////
 
     ////Components Section
     public CharacterController moveController; // Character Controller
     Rigidbody rB; // Players Rigidbody
-    CapsuleCollider capCol; // Players Capsule Collider
     Animator animator; // Animation Controller
     ////
 
@@ -65,43 +63,42 @@ public class AerialStateManager : NetworkBehaviour
     RaycastHit groundHit; // ground raycast
     
     //Wallrun
-    float wallMaxDistance = 3f;
-    float wallSpeedMultiplier = 1.5f;
-    float minimumHeight = .1f;
+    float wallMaxDistance = 3f; // distance to wall that player can attach from
+    float minimumHeight = .1f; // minimum height player has to be
     [Range(0.0f, 1.0f)]
-    float normalizedAngleThreshold = 0.1f;
-    float jumpDuration = .02f;
-    float wallBouncing = 3;
-    Vector3[] directions;
-    RaycastHit[] hits;
-    public bool isWallRunning = false;
-    Vector3 lastWallPosition;
-    Vector3 lastWallNormal;
-    float elapsedTimeSinceJump = 0;
-    float elapsedTimeSinceWallAttach = 0;
-    float elapsedTimeSinceWallDetatch = 0;
-    bool jumping;
+    float normalizedAngleThreshold = 0.1f; // angle player can attach to wall from
+    float jumpDuration = .02f; // jump duration
+    float wallBouncing = 3; // wall bouncing
+    Vector3[] directions; // cardinal direction to attach to wall
+    RaycastHit[] hits; // where we hit wall
+    public bool isWallRunning = false; // if player is wallrunning
+    Vector3 lastWallPosition; // last wall position
+    Vector3 lastWallNormal; // last wall normal
+    float elapsedTimeSinceJump = 0; // time since jump
+    float elapsedTimeSinceWallAttach = 0; // time since attached to wall
+    float elapsedTimeSinceWallDetatch = 0; // time since detached
+    bool jumping; // is player jumping
 
     //Impact Variables
     float mass = 5.0F; // mass variable for Impact
     Vector3 impact = Vector3.zero; // Impact Vector
 
     //Grapple Variables
-    public float maxGrabDistance = 30;// Max Distance can cast grapple
+    public float maxGrabDistance = 50;// Max Distance can cast grapple
     public GameObject hookPoint; // Actual Hook points
     public GameObject[] hookPoints; // Hook point list
     public int hookPointIndex; // Hook point Index
     public float distance; // distance of hookpoints
-    public float maxGrappleDistance = 20; // Max Rope Length
-    public float maxSwingSpeed = 50;
-    public float minSwingSpeed = 20;
-    public float swingAcc = 3f;
-    public float maxSwingMom = 60;
-    public bool release = false;
-    public Vector3 tempRelease;
-    public Vector3 lerpRelease;
-    public Vector3 forceDirection;
-    public bool eHeld;
+    public float maxGrappleDistance = 25; // Max Rope Length
+    public float maxSwingSpeed = 50; // max swing speed
+    public float minSwingSpeed = 20; // min swing speed
+    public float swingAcc = 3f; // swing acceleration
+    public float maxSwingMom = 60; // max swing momentum
+    public bool release = false; // has player ungrappled
+    public Vector3 tempRelease; // temporary release force vector
+    public Vector3 lerpRelease; // lerped release force vector
+    public Vector3 forceDirection; // force direction vector
+    public bool eHeld; // is e being held
     ////
 
     void Awake(){
@@ -109,8 +106,6 @@ public class AerialStateManager : NetworkBehaviour
         ////Initialize Player Components
         moveController = GetComponent<CharacterController>(); // set Character Controller
         rB = GetComponent<Rigidbody>(); //set Rigid Body
-        capCol = GetComponent<CapsuleCollider>(); // set Capsule Collider
-        capCol.enabled = true;
         parentObj = transform.parent.gameObject; // set parent object
         animator = GetComponent<Animator>(); // set animator
         ////
@@ -156,11 +151,20 @@ public class AerialStateManager : NetworkBehaviour
 
         //calls any logic in the fixed update state from current state
         currentState.FixedUpdateState(this);
+
+        //Some functions that need to be active if move controller is active
         if(moveController.enabled){
+            
+            //Allows player to jump
             Jump();
+
+            //checks ground
             GroundCheck();
+
+            //Applies downwards movement
             DownwardMovement();
 
+            //if player has wallrun then do wall run routine 
             if(pStats.HasWallrun){
                 WallRunRoutine();
             }
@@ -168,7 +172,9 @@ public class AerialStateManager : NetworkBehaviour
             //Dissipates Impact 
             DissipateImpact();
         }
+        
         else{
+
             //Gravity without moveController
             pStats.GravVel -= pStats.PlayerGrav * Time.deltaTime;
             rB.AddForce(new Vector3(0,pStats.GravVel,0));
@@ -499,6 +505,7 @@ public class AerialStateManager : NetworkBehaviour
         return index;
     }
 
+    //lerped grapple release force and dissipation of it
     public void GrappleReleaseForce(){
         if(release){
             lerpRelease = Vector3.Lerp(lerpRelease, tempRelease, 9f * Time.deltaTime);

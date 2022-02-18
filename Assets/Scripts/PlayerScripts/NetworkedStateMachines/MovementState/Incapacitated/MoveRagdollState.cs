@@ -4,42 +4,51 @@ using UnityEngine;
 
 public class MoveRagdollState : MoveBaseState
 {
-    float ragTime;
-    Vector3 prevRot;
-    bool beginRagTimer = false;
+
+    float ragTime; // ragdoll timer
+    Vector3 prevRot; // previous rotation before ragdolled
+    bool beginRagTimer = false; // whether ragtimer has started
 
     public override void EnterState(MoveStateManager mSM, MoveBaseState previousState){
 
-        ragTime = mSM.pStats.RecovTime;
-        prevRot = mSM.transform.localEulerAngles;
-        mSM.capCol.enabled = true;
-        mSM.moveController.enabled = false;
-        mSM.rB.isKinematic = false;
-        mSM.rB.detectCollisions = true;
+        ragTime = mSM.pStats.RecovTime; // how long to be ragdolled
+        prevRot = mSM.transform.localEulerAngles; // save previous rotation
+        mSM.capCol.enabled = true; // enable capsule collider
+        mSM.moveController.enabled = false; // disable move controller
+        mSM.rB.isKinematic = false; // disable kinematic
+        mSM.rB.detectCollisions = true; // detect collisions
 
+        //apply force
         mSM.rB.AddForce(mSM.dirHit, ForceMode.Impulse);
     }
 
     public override void ExitState(MoveStateManager mSM, MoveBaseState nextState){
-            mSM.pStats.GravVel = 50;
-            mSM.capCol.enabled = false;
-            mSM.moveController.enabled = true;
-            mSM.rB.isKinematic = true;
-            mSM.rB.detectCollisions = false;
-            mSM.transform.localEulerAngles = prevRot;
+
+            mSM.pStats.GravVel = 50; // resets gravVel
+            mSM.capCol.enabled = false; // disable capsule collider
+            mSM.moveController.enabled = true; // enable move controller
+            mSM.rB.isKinematic = true; // enable kinematic
+            mSM.rB.detectCollisions = false; // detect collisions false
+            mSM.transform.localEulerAngles = prevRot; // reset player rotation
     }
 
     public override void UpdateState(MoveStateManager mSM){
+
+        //if player hasn't touched the ground don't start timer
         if(!beginRagTimer){
             beginRagTimer = Physics.Raycast(mSM.transform.position, -Vector3.up, mSM.distToGround + 1f);
         }
+
+        //start timer
         else{
             ragTime -= Time.deltaTime;
         }
+
     }
 
     public override void FixedUpdateState(MoveStateManager mSM){
-        //Has to be in Fixed Update because it has player movement
+
+        //if ragtimer is over then recover
         if(ragTime <= 0 && beginRagTimer){
             ragTime = 0;
             beginRagTimer = false;

@@ -20,12 +20,14 @@ public class MoveIdleState : MoveBaseState
         }
 
         //If Q or joystick button1 crouch state
-        if((Input.GetKey(KeyCode.JoystickButton1) || Input.GetKey(KeyCode.Q)) && (mSM.aSM.currentState != mSM.aSM.FallingState && mSM.aSM.currentState != mSM.aSM.WallRunState && mSM.aSM.currentState != mSM.aSM.WallIdleState && mSM.aSM.currentState != mSM.aSM.GrappleGroundedState)){
+        else if((Input.GetKey(KeyCode.JoystickButton1) || Input.GetKey(KeyCode.Q)) && (mSM.aSM.currentState != mSM.aSM.FallingState && mSM.aSM.currentState != mSM.aSM.WallRunState && mSM.aSM.currentState != mSM.aSM.WallIdleState && mSM.aSM.currentState != mSM.aSM.GrappleGroundedState)){
             mSM.SwitchState(mSM.CrouchState);
         }
     }
 
     public override void FixedUpdateState(MoveStateManager mSM){
+        
+        //actual directional movement
         mSM.DirectionalMovement();
     }
 }

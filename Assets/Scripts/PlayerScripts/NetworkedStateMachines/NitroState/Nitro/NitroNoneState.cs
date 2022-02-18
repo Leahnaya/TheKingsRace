@@ -13,16 +13,21 @@ public class NitroNoneState : NitroBaseState
     }
 
     public override void UpdateState(NitroStateManager nSM){
+        
+        //if player has nitro
         if(nSM.pStats.HasNitro){
+            
+            //if ragdolling then incapacitiated
+            if(nSM.mSM.currentState == nSM.mSM.RagdollState){
+                nSM.SwitchState(nSM.IncapacitatedState);
+            }
 
-            if ((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.JoystickButton8)))
+            //if pressing left shift then nitroing
+            else if ((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.JoystickButton8)))
             {
                 nSM.SwitchState(nSM.NitroingState);
             }
 
-            if(nSM.mSM.currentState == nSM.mSM.RagdollState){
-                nSM.SwitchState(nSM.IncapacitatedState);
-            }
         }
         
     }

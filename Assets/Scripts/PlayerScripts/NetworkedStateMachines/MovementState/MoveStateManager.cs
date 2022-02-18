@@ -66,9 +66,9 @@ public class MoveStateManager : NetworkBehaviour
     //Camera Variables
     private Vector3 camRotation; // cameras camera rotation vector
     [Range(-45, -15)]
-    public int minAngle = -30; // minimum downwards cam angle
+    public int minAngle = -18; // minimum downwards cam angle
     [Range(30, 80)]
-    public int maxAngle = 45; // Max upwards cam angle
+    public int maxAngle = 30; // Max upwards cam angle
     [Range(50, 500)]
     public int sensitivity = 200; // Camera sensitivity
 
@@ -91,7 +91,7 @@ public class MoveStateManager : NetworkBehaviour
 
         ////Initialize Scripts
         pStats = GetComponent<PlayerStats>(); // set PlayerStats
-        aSM = GetComponent<AerialStateManager>();
+        aSM = GetComponent<AerialStateManager>(); // aerial state manager
         ////
     }
 
@@ -114,12 +114,17 @@ public class MoveStateManager : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (!IsLocalPlayer) { return; }
+        if (!IsLocalPlayer) { return; }
 
         //calculates vel using driftVel will need to be relocated
         calculatedCurVel = driftVel.magnitude * 50f;
 
-        GoToGrapple();
+        //if grappling in aerial state manager swap to grapple here
+        if(currentState != GrappleAirState){
+            if(aSM.currentState == aSM.GrappleAirState && (currentState != SlideState && currentState != RagdollState && currentState != RecoveringState)){
+                SwitchState(GrappleAirState);
+            }
+        }
 
         //calls any logic in the update state from current state
         currentState.UpdateState(this);
@@ -127,13 +132,14 @@ public class MoveStateManager : NetworkBehaviour
 
     void FixedUpdate(){
 
-        //if (!IsLocalPlayer) { return; }
+        if (!IsLocalPlayer) { return; }
 
-        //calls any logic in the fixed update state from current state
-        currentState.FixedUpdateState(this);
-
+        //if camera is enabled then rotate
         if(cam.enabled) Rotation();  
         else Debug.Log("Cam Disabled");
+        
+        //calls any logic in the fixed update state from current state
+        currentState.FixedUpdateState(this);
     }
 
     public void SwitchState(MoveBaseState state){
@@ -194,6 +200,9 @@ public class MoveStateManager : NetworkBehaviour
         vel = moveX + moveZ;
         Vector3 moveXZ = new Vector3(vel.x, 0, vel.z);
         driftVel = Vector3.Lerp(driftVel, moveXZ, pStats.Traction * Time.deltaTime);
+        if(currentState == GrappleAirState){
+            driftVel = Vector3.zero;
+        }
         
         //Actually move he player
         moveController.Move(driftVel);
@@ -246,6 +255,7 @@ public class MoveStateManager : NetworkBehaviour
         }
     }
 
+    //Get hit into a ragdoll
     public void GetHit(Vector3 dir, float force){
         //if (!IsLocalPlayer) { return; }
         dir.Normalize();
@@ -253,6 +263,7 @@ public class MoveStateManager : NetworkBehaviour
         SwitchState(RagdollState);
     }
 
+    //remove player momentum
     public void CancelMomentum(){
         pStats.CurVel = 0;
         vel = Vector3.zero;
@@ -260,10 +271,6 @@ public class MoveStateManager : NetworkBehaviour
         moveZ = Vector3.zero;
         driftVel = Vector3.zero;
     }
+    ////
 
-    void GoToGrapple(){
-        if(aSM.currentState == aSM.GrappleAirState && (currentState != SlideState && currentState != RagdollState && currentState != RecoveringState)){
-            SwitchState(GrappleAirState);
-        }
-    }
 }
