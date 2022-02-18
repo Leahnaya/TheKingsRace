@@ -20,6 +20,7 @@ public class KingPlace : NetworkBehaviour
     public void OnBlockClicked() {
         if (BoxAvaliable) {
             PlaceObject(0);
+            MenuOff();
         } 
     }
 
@@ -27,6 +28,7 @@ public class KingPlace : NetworkBehaviour
     public void OnHailClicked() {
         if (HailAvaliable) {
             PlaceObject(1);
+            MenuOff();
         }
     }
 
@@ -34,6 +36,7 @@ public class KingPlace : NetworkBehaviour
     public void OnSlimeClicked() {
         if (SlimeAvaliable) {
             PlaceObject(2);
+            MenuOff();
         }
     }
 
@@ -43,6 +46,7 @@ public class KingPlace : NetworkBehaviour
         if (ThundAvaliable) {
             //TODO thunderstorm
             Cooldown(3);
+            MenuOff();
         }
     }
 
@@ -53,8 +57,9 @@ public class KingPlace : NetworkBehaviour
     public GameObject HailObject;
     public GameObject Slime;
     private GameObject Grid;
+    public GameObject Panel;
     private GameObject Place;
-    private GameObject PlaceTemp;
+    private GameObject PlaceTemp = null;
     private GameObject HailCorner;
     private int SlimeDir;
     private bool FirstPlacing = false;
@@ -72,31 +77,36 @@ public class KingPlace : NetworkBehaviour
     }
 
     private void PlaceObject(int ID) {
-        //Switch statement, ID-0 = Block,ID-1 = Hail,ID-2 = Slime
-        switch (ID) {//Parses in the button clicked into the right object that the King is placing
-            case 0:
-                Place = BlockWithoutNetwork;
-                break;
-            case 1:
-                Place = HailSprite;
-                break;
-            case 2:
-                Place = Slime;
-                break;
-        }
-        //Create the object that will follow the Mouse
-        PlaceTemp = Instantiate(Place);
-        //Layout the grid
-        Grid.GetComponent<GridReveal>().GridSwitch(true);
+            //Switch statement, ID-0 = Block,ID-1 = Hail,ID-2 = Slime
+            switch (ID)
+            {//Parses in the button clicked into the right object that the King is placing
+                case 0:
+                    Place = BlockWithoutNetwork;
+                    break;
+                case 1:
+                    Place = HailSprite;
+                    break;
+                case 2:
+                    Place = Slime;
+                    break;
+            }
+            //Create the object that will follow the Mouse
+            PlaceTemp = Instantiate(Place);
+            //Layout the grid
+            Grid.GetComponent<GridReveal>().GridSwitch(true);
 
-        //The player can then see where the object will be placed, reletive to the Grid
-        FirstPlacing = true;
+            //The player can then see where the object will be placed, reletive to the Grid
+            FirstPlacing = true;
+    }
+
+    private void MenuOff() {
+        Panel.GetComponent<RadialMenu>().MenuOff();
     }
 
     [SerializeField] private Camera KingCam;
     [SerializeField] private LayerMask LayerMask;
 
-    private void Update() { //TODO Canceling out an input
+    private void Update() {
         if (FirstPlacing == true) {
             Ray Ray = KingCam.ScreenPointToRay(Input.mousePosition);//Raycast to find the point where the mouse cursor is
             if (Physics.Raycast(Ray, out RaycastHit RayCastHit, float.MaxValue, LayerMask)) {
@@ -104,6 +114,11 @@ public class KingPlace : NetworkBehaviour
             }
             if (Input.GetMouseButtonDown(0)) {//Reads the player clicking the left mouse button
                 FindGridBox();
+            }
+            if (Input.GetMouseButtonUp(1)) {//Allows the player to cancel out a button press
+                Destroy(PlaceTemp);
+                Grid.GetComponent<GridReveal>().GridSwitch(false);
+                FirstPlacing = false;
             }
         }
         if (HailPlacing == true) {
@@ -129,6 +144,7 @@ public class KingPlace : NetworkBehaviour
 
     private void FixedUpdate() {
         CooldownTimer();
+        EnergyRefill();
     }
 
     private GameObject Row;
@@ -210,6 +226,8 @@ public class KingPlace : NetworkBehaviour
             GameObject Temp;
             Temp = Instantiate(HailObject);
             Temp.GetComponent<HailArea>().SetArea(PlaceTemp.transform.position.x, HailCorner.transform.position.x, PlaceTemp.transform.position.z, HailCorner.transform.position.z);
+            Destroy(PlaceTemp);
+            Destroy(HailCorner);
         }
     }
 
@@ -303,6 +321,22 @@ public class KingPlace : NetworkBehaviour
                     ThundAvaliable = true;
                 }
             }
+        }
+    }
+
+    private bool SpendEnergy(int cost) {
+        if (Energy > cost) {
+            Energy -= cost;
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    private void EnergyRefill() {
+        if(Energy < 100) {
+            Energy++;
         }
     }
 
