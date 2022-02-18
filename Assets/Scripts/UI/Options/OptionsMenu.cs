@@ -29,7 +29,6 @@ public class OptionsMenu : MonoBehaviour {
     }
 
     private void OnUseMLAPIRelayToggleChanged(bool newState) {
-        Debug.Log("New value: " + newState);
         if (newState) {
             useMLAPIRelayToggle.isOn = true;
             PlayerPrefs.SetInt("UseMLAPIRelay", 1);
