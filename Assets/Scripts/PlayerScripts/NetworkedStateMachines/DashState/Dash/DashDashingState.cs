@@ -5,36 +5,42 @@ using UnityEngine;
 public class DashDashingState : DashBaseState
 {
 
-    Vector3 moveDirection;
-    const float maxDashTime = 1.0f;
-    float dashDistance = 10;
-    float dashStoppingSpeed = 0.1f;
-    float currentDashTime = maxDashTime;
-    float dashSpeed = 12;
+    Vector3 moveDirection; // direction vector
+    const float maxDashTime = .8f; // max dash time
+    float dashDistance = 10; // distance to dash
+    float dashStoppingSpeed = 0.1f; // how quickly they stop
+    float currentDashTime = maxDashTime; // current dash time
+    float dashSpeed = 12; // dash speed
 
     public override void EnterState(DashStateManager dSM, DashBaseState previousState){
-        currentDashTime = 0;
+        currentDashTime = 0; // resets dash time
     }
 
     public override void ExitState(DashStateManager dSM, DashBaseState nextState){
-        moveDirection = Vector3.zero;
+        moveDirection = Vector3.zero; // resets moveDirection
     }
 
     public override void UpdateState(DashStateManager dSM){
+        //if dash timer is active then move player
         if(currentDashTime < maxDashTime){
             moveDirection = dSM.transform.forward * dashDistance;
             currentDashTime += dashStoppingSpeed;
         }
+
+        //if dashtimer runs out then cooldown
         else{
             dSM.SwitchState(dSM.CooldownState);
         }
 
+        //if player becomes incapacitated then cooldown
         if(dSM.mSM.currentState == dSM.mSM.RagdollState || dSM.mSM.currentState == dSM.mSM.SlideState || dSM.mSM.currentState == dSM.mSM.CrouchState || dSM.mSM.currentState == dSM.mSM.CrouchWalkState){
             dSM.SwitchState(dSM.CooldownState);
         }
     }
 
     public override void FixedUpdateState(DashStateManager dSM){
+
+        //Actually moves the player
         dSM.moveController.Move(moveDirection * Time.deltaTime * dashSpeed);
     }
 }

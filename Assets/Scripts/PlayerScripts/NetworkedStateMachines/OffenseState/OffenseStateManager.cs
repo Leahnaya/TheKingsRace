@@ -36,8 +36,8 @@ public class OffenseStateManager : NetworkBehaviour
 
     ////Scripts Section
     public PlayerStats pStats; // Player Stats
-    public MoveStateManager mSM;
-    public AerialStateManager aSM;
+    public MoveStateManager mSM; // move state manager
+    public AerialStateManager aSM; // aerial state manager
     ////
 
     void Awake(){
@@ -60,7 +60,7 @@ public class OffenseStateManager : NetworkBehaviour
         ////Initialize Scripts
         pStats = GetComponent<PlayerStats>(); // set PlayerStats
         mSM = GetComponent<MoveStateManager>(); // set move state manager
-        aSM = GetComponent<AerialStateManager>();
+        aSM = GetComponent<AerialStateManager>(); // set aerial state manager
         ////
     }
 
@@ -99,9 +99,10 @@ public class OffenseStateManager : NetworkBehaviour
         currentState.EnterState(this, previousState);
     }
 
+    //Collision checker for the leg
     private void OnCollisionEnter(Collision collision)
     {
-        //if (!IsLocalPlayer) { return; }
+        if (!IsLocalPlayer) { return; }
         Collider myCollider = collision.contacts[0].thisCollider;
         if (collision.transform.CompareTag("kickable") && myCollider == legHitbox.GetComponent<Collider>()){
             if(collision.gameObject.GetComponent<Rigidbody>().isKinematic == true){

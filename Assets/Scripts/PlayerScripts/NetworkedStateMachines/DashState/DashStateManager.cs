@@ -15,36 +15,26 @@ public class DashStateManager : NetworkBehaviour
     public DashCooldownState CooldownState = new DashCooldownState();
     public DashDashingState DashingState = new DashDashingState();
     ////
-    
-    ////Objects Sections
-    GameObject parentObj; // Parent object
-    ////
 
     ////Components Section
     public CharacterController moveController; // Character Controller
-    Rigidbody rB; // Players Rigidbody
-    CapsuleCollider capCol; // Players Capsule Collider
     Animator animator; // Animation Controller
     ////
 
     ////Scripts Section
     public PlayerStats pStats; // Player Stats
-    public MoveStateManager mSM;
-    public CoolDown driver;
+    public MoveStateManager mSM; // movement state manager
+    public CoolDown driver; // cooldown driver
     ////
 
     ////Items Section
-    public SpecialItem dashItem;
+    public SpecialItem dashItem; // dash item
     ////
 
     void Awake(){
         
         ////Initialize Player Components
         moveController = GetComponent<CharacterController>(); // set Character Controller
-        rB = GetComponent<Rigidbody>(); //set Rigid Body
-        capCol = GetComponent<CapsuleCollider>(); // set Capsule Collider
-        capCol.enabled = true;
-        parentObj = transform.parent.gameObject; // set parent object
         animator = GetComponent<Animator>(); // set animator
         //driver = GameObject.Find("Canvas").GetComponent<CoolDown>();
         ////

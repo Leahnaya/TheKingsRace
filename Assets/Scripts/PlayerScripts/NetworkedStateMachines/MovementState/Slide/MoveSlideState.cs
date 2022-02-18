@@ -10,7 +10,7 @@ public class MoveSlideState : MoveBaseState
 
     public override void EnterState(MoveStateManager mSM, MoveBaseState previousState){
 
-        //Initialize Important Stats On state enter
+        //Rotate player and adjust height and adjust traction
         mSM.pStats.CurVel = 0;
         originalTraction = mSM.pStats.Traction;
         mSM.gameObject.transform.eulerAngles = new Vector3(mSM.transform.eulerAngles.x - 90, mSM.transform.eulerAngles.y, mSM.transform.eulerAngles.z);
@@ -19,12 +19,16 @@ public class MoveSlideState : MoveBaseState
     }
     
     public override void ExitState(MoveStateManager mSM, MoveBaseState nextState){
+
+        //if next state isn't crouch then revert player rotation, height, and traction
         if(nextState != mSM.CrouchState){
             mSM.gameObject.transform.localEulerAngles = new Vector3(0, 0, 0);
             mSM.pStats.CurVel = mSM.calculatedCurVel;
             mSM.pStats.Traction = originalTraction;
             mSM.moveController.height *= 2.0f;
         }
+
+        //if state is crouch revert traction
         else{
             mSM.pStats.Traction = originalTraction;
         }
@@ -40,7 +44,11 @@ public class MoveSlideState : MoveBaseState
     }
 
     public override void FixedUpdateState(MoveStateManager mSM){
+
+        //counter rotates player so they don't rotate when camera is turned
         mSM.transform.Rotate(Vector3.forward * -mSM.sensitivity * Time.deltaTime * Input.GetAxis("Mouse X"));
+
+        //steadily increase traction
         mSM.pStats.Traction += .004f;
         
         ///////ONCE WE HAVE IT SO SLIDE DOESNT ROTATE PLAYER MOVE THIS TO UPDATE
@@ -82,6 +90,8 @@ public class MoveSlideState : MoveBaseState
                 }
         }
         */
+
+        //actual slide movement
         mSM.SlideMovement();
     }
 }

@@ -7,7 +7,7 @@ public class MoveRecoveringState : MoveBaseState
     ////// ADD SOMETHING THAT CHECKS ANIMATION FINISH BEFORE GO TO IDLE
 
     public override void EnterState(MoveStateManager mSM, MoveBaseState previousState){
-        mSM.CancelMomentum();
+        mSM.CancelMomentum(); // reset player variables
     }
 
     public override void ExitState(MoveStateManager mSM, MoveBaseState nextState){
@@ -15,6 +15,8 @@ public class MoveRecoveringState : MoveBaseState
     }
 
     public override void UpdateState(MoveStateManager mSM){
+        
+        //swap to idle state
         mSM.SwitchState(mSM.IdleState);
     }
 

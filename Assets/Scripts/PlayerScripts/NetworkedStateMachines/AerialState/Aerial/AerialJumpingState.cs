@@ -16,22 +16,22 @@ public class AerialJumpingState : AerialBaseState
     public override void UpdateState(AerialStateManager aSM){
 
         //if grav vel < 0 falling
-        if(aSM.pStats.GravVel < 0){
+        if(aSM.pStats.GravVel < 0 || aSM.mSM.currentState == aSM.mSM.RagdollState){
             aSM.SwitchState(aSM.FallingState);
         }
 
         //if is grounded then grounded
-        if(aSM.isGrounded){
+        else if(aSM.isGrounded){
             aSM.SwitchState(aSM.GroundedState);
         }
         
         //if is wall running and in a state that allows it wallrun
-        if(aSM.isWallRunning && (aSM.mSM.currentState != aSM.mSM.SlideState && aSM.mSM.currentState != aSM.mSM.RagdollState && aSM.mSM.currentState != aSM.mSM.RecoveringState)){
+        else if(aSM.isWallRunning){
             aSM.SwitchState(aSM.WallRunState);
         }
 
         //if can grapple and in a state that allows it grapple
-        if(aSM.CheckGrapple() && (aSM.mSM.currentState != aSM.mSM.SlideState && aSM.mSM.currentState != aSM.mSM.RagdollState && aSM.mSM.currentState != aSM.mSM.RecoveringState)){
+        else if(aSM.CheckGrapple()){
             aSM.SwitchState(aSM.GrappleAirState);
         }
     }

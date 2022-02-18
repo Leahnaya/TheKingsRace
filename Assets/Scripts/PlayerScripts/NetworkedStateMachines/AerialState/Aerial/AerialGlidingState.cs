@@ -22,22 +22,22 @@ public class AerialGlidingState : AerialBaseState
     public override void UpdateState(AerialStateManager aSM){
 
         //if not holding jump fall
-        if(!Input.GetButton("Jump")){
+        if(!Input.GetButton("Jump") || (aSM.mSM.currentState == aSM.mSM.RagdollState)){
             aSM.SwitchState(aSM.FallingState);
         }
 
         //if is grounded then grounded
-        if(aSM.isGrounded){
+        else if(aSM.isGrounded){
             aSM.SwitchState(aSM.GroundedState);
         }
         
         //if isWallrunning and in state that allows it wallrun
-        if(aSM.isWallRunning && (aSM.mSM.currentState != aSM.mSM.SlideState && aSM.mSM.currentState != aSM.mSM.RagdollState && aSM.mSM.currentState != aSM.mSM.RecoveringState)){
+        else if(aSM.isWallRunning){
             aSM.SwitchState(aSM.WallRunState);
         }
 
         //if can grapple and in state that allows it grapple
-        if(aSM.CheckGrapple() && (aSM.mSM.currentState != aSM.mSM.SlideState && aSM.mSM.currentState != aSM.mSM.RagdollState && aSM.mSM.currentState != aSM.mSM.RecoveringState)){
+        else if(aSM.CheckGrapple()){
             aSM.SwitchState(aSM.GrappleAirState);
         }
     }

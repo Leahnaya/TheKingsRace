@@ -10,8 +10,8 @@ public class MoveCrouchState : MoveBaseState
 
     public override void EnterState(MoveStateManager mSM, MoveBaseState previousState){
 
+        //if not coming from slide state then rotate player and adjust height
         if(previousState != mSM.SlideState){
-            //Initialize Important Stats On state enter
             mSM.pStats.CurVel = 0;
             mSM.gameObject.transform.eulerAngles = new Vector3(mSM.transform.localEulerAngles.x - 90, mSM.transform.localEulerAngles.y, mSM.transform.localEulerAngles.z);
             mSM.moveController.height *= .5f;
@@ -19,6 +19,8 @@ public class MoveCrouchState : MoveBaseState
     }
     
     public override void ExitState(MoveStateManager mSM, MoveBaseState nextState){
+        
+        //if next state isn't crouch walk revert rotation, speed, and height
         if(nextState != mSM.CrouchWalkState){
             mSM.gameObject.transform.localEulerAngles = new Vector3(0, 0, 0);
             mSM.pStats.CurVel = mSM.calculatedCurVel;

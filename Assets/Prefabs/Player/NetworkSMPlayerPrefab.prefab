@@ -4743,12 +4743,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7688428083034862386}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 201caa2b2f1776a46af6bdfd52456028, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cam: {fileID: 8193413098731078861}
   moveController: {fileID: 0}
   pStats: {fileID: 0}
   mSM: {fileID: 0}
@@ -4761,12 +4760,12 @@ MonoBehaviour:
   isGrounded: 0
   groundCheckDistance: 0.05
   isWallRunning: 0
-  maxGrabDistance: 30
+  maxGrabDistance: 50
   hookPoint: {fileID: 0}
   hookPoints: []
   hookPointIndex: 0
   distance: 0
-  maxGrappleDistance: 20
+  maxGrappleDistance: 25
   maxSwingSpeed: 50
   minSwingSpeed: 20
   swingAcc: 3

@@ -20,12 +20,13 @@ public class MoveRunState : MoveBaseState
         }
 
         //move to slide if Q or JoystickButton1
-        if((Input.GetKey(KeyCode.JoystickButton1) || Input.GetKey(KeyCode.Q)) && (mSM.aSM.currentState != mSM.aSM.FallingState && mSM.aSM.currentState != mSM.aSM.WallRunState && mSM.aSM.currentState != mSM.aSM.WallIdleState && mSM.aSM.currentState != mSM.aSM.GrappleGroundedState)){
+        else if((Input.GetKey(KeyCode.JoystickButton1) || Input.GetKey(KeyCode.Q)) && (mSM.aSM.currentState != mSM.aSM.FallingState && mSM.aSM.currentState != mSM.aSM.WallRunState && mSM.aSM.currentState != mSM.aSM.WallIdleState && mSM.aSM.currentState != mSM.aSM.GrappleGroundedState)){
             mSM.SwitchState(mSM.SlideState);
         }
     }
 
     public override void FixedUpdateState(MoveStateManager mSM){
+        //actual direction movement
         mSM.DirectionalMovement();
     }
 }
