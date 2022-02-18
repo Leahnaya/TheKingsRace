@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Add generics
 public abstract class AerialBaseState
 {
     public abstract void EnterState(AerialStateManager aSM, AerialBaseState previousState);

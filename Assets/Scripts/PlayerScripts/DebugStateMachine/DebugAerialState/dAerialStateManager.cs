@@ -5,27 +5,25 @@ using System.Linq;
 using MLAPI;
 using UnityEngine.Rendering;
 
-//Look into state set
-
-public class AerialStateManager : NetworkBehaviour
+public class dAerialStateManager : NetworkBehaviour
 {
     ////Player States
-    public AerialBaseState currentState;
-    public AerialBaseState previousState;
+    public dAerialBaseState currentState;
+    public dAerialBaseState previousState;
 
     //Aerial States
-    public AerialFallingState FallingState = new AerialFallingState();
-    public AerialGlidingState GlidingState = new AerialGlidingState();
-    public AerialGroundedState GroundedState = new AerialGroundedState();
-    public AerialJumpingState JumpingState = new AerialJumpingState();
+    public dAerialFallingState FallingState = new dAerialFallingState();
+    public dAerialGlidingState GlidingState = new dAerialGlidingState();
+    public dAerialGroundedState GroundedState = new dAerialGroundedState();
+    public dAerialJumpingState JumpingState = new dAerialJumpingState();
 
     //Wallrunning States
-    public AerialWallRunState WallRunState = new AerialWallRunState();
-    public AerialWallIdleState WallIdleState = new AerialWallIdleState();
+    public dAerialWallRunState WallRunState = new dAerialWallRunState();
+    public dAerialWallIdleState WallIdleState = new dAerialWallIdleState();
 
     //Grappling States
-    public AerialGrappleGroundedState GrappleGroundedState = new AerialGrappleGroundedState();
-    public AerialGrappleAirState GrappleAirState = new AerialGrappleAirState();
+    public dAerialGrappleGroundedState GrappleGroundedState = new dAerialGrappleGroundedState();
+    public dAerialGrappleAirState GrappleAirState = new dAerialGrappleAirState();
     ////
 
     ////Objects Sections
@@ -40,7 +38,7 @@ public class AerialStateManager : NetworkBehaviour
 
     ////Scripts Section
     public PlayerStats pStats; // Player Stats
-    public MoveStateManager mSM;
+    public dMoveStateManager mSM;
     ////
 
     ////Variables Section
@@ -114,7 +112,7 @@ public class AerialStateManager : NetworkBehaviour
 
         ////Initialize Scripts
         pStats = GetComponent<PlayerStats>(); // set PlayerStats
-        mSM = GetComponent<MoveStateManager>(); // set move state manager
+        mSM = GetComponent<dMoveStateManager>(); // set move state manager
         ////
     }
 
@@ -141,7 +139,7 @@ public class AerialStateManager : NetworkBehaviour
 
     void Update(){
 
-        if (!IsLocalPlayer) { return; }
+        //if (!IsLocalPlayer) { return; }
         
         //calls any logic in the update state from current state
         currentState.UpdateState(this);
@@ -149,7 +147,7 @@ public class AerialStateManager : NetworkBehaviour
 
     void FixedUpdate(){
 
-        if (!IsLocalPlayer) { return; }
+        //if (!IsLocalPlayer) { return; }
 
         //calls any logic in the fixed update state from current state
         currentState.FixedUpdateState(this);
@@ -186,7 +184,7 @@ public class AerialStateManager : NetworkBehaviour
         
     }
 
-    public void SwitchState(AerialBaseState state){
+    public void SwitchState(dAerialBaseState state){
         
         currentState.ExitState(this, state);
 
