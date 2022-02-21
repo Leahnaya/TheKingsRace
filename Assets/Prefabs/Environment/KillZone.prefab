@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8778111956603342859}
   - component: {fileID: 8778111956603343860}
   - component: {fileID: 8778111956603343861}
+  - component: {fileID: 2777707544055662971}
   - component: {fileID: 3183774617664554809}
   m_Layer: 0
   m_Name: KillZone
@@ -112,6 +113,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RespawnPoint: {x: 435, y: 26, z: 573}
   runnerPrefab: {fileID: 3669633515805984294, guid: 1e178f956ddfe5143b2b9e77e76db7f0, type: 3}
+--- !u!114 &2777707544055662971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8778111956603343863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66519fc5420181e45850c591aa1179ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allItems: []
 --- !u!114 &3183774617664554809
 MonoBehaviour:
   m_ObjectHideFlags: 0
