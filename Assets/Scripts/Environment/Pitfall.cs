@@ -17,8 +17,8 @@ public class Pitfall : NetworkBehaviour
     private bool cooldown = false;
 
     private void OnTriggerEnter(Collider other) {
-        if (cooldown == false && other.transform.parent.gameObject.tag == "Player" && other.GetType() != typeof(BoxCollider) && other.gameObject.transform.parent.gameObject.GetComponent<NetworkObject>().OwnerClientId == NetworkManager.Singleton.LocalClientId) {
-            RespawnPlayerServerRPC(other.gameObject.transform.parent.gameObject.GetComponent<NetworkObject>().OwnerClientId);
+        if (cooldown == false && other.transform.gameObject.tag == "PlayerTrigger" && other.gameObject.transform.root.gameObject.GetComponent<NetworkObject>().OwnerClientId == NetworkManager.Singleton.LocalClientId) {
+            RespawnPlayerServerRPC(other.gameObject.transform.root.gameObject.GetComponent<NetworkObject>().OwnerClientId);
             cooldown = true;
             StartCoroutine(CoolItDown());
         }
