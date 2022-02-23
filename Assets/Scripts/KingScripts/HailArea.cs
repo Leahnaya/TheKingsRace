@@ -11,9 +11,15 @@ public class HailArea : MonoBehaviour
     private float Zmax = -85f;
     private float Zmin = -115f;
 
+    int Lifetime = 0;
+
     public GameObject Hail;
 
     int timer = 0;
+
+    RaycastHit hit;
+    [SerializeField] private LayerMask LayerMask;
+    float height = 0f;
     // FixedUpdate is called once per .02 seconds (or 50 times a second)
     void FixedUpdate()
     {
@@ -24,11 +30,21 @@ public class HailArea : MonoBehaviour
             float radius = diameter / 2.0f;
             //Random pos X Xmax-radius -> Xmin+radius
             //Random pos Z Zmax-radius -> Zmin+radius
-            Vector3 position = new Vector3(Random.Range(Xmin + radius, Xmax - radius), 100, Random.Range(Zmin + radius, Zmax - radius)); //TODO find ground and set y occordingly
+
+            Vector3 position = new Vector3(Random.Range(Xmin + radius, Xmax - radius), 100, Random.Range(Zmin + radius, Zmax - radius));//Finds where the hail will spawn in the air
+            if (Physics.Raycast(position, transform.TransformDirection(Vector3.down), out hit, float.MaxValue, LayerMask)) {//Raycasts to find where the ground is
+                height = 100 - hit.distance;
+            }
+            position = new Vector3(position.x, 100+height, position.z); //find ground and set y occordingly
 
             SpawnHail(diameter, position);
         }
         timer++;
+
+        Lifetime++;
+        if (Lifetime == 3000) {
+            Destruction();
+        }
     }
 
     // Spawns a singular Hail piece
@@ -46,5 +62,9 @@ public class HailArea : MonoBehaviour
         Xmax = RightBound;
         Zmax = TopBound;
         Zmin = BottomBound;
+    }
+
+    void Destruction() {
+        Destroy(gameObject);
     }
 }

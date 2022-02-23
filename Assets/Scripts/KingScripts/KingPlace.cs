@@ -7,28 +7,6 @@ using UnityEngine;
 public class KingPlace : NetworkBehaviour
 {
 
-    //Is called when the King clicks on the Block button
-    public void OnBlockClicked() {
-        PlaceObject(0);
-    }
-
-    //Is called when the King clicks on the Hail button
-    public void OnHailClicked() {
-        PlaceObject(1);
-    }
-
-    //Is called when the King clicks on the Slime button
-    public void OnSlimeClicked() {
-        PlaceObject(2);
-    }
-
-    public GameObject Thunderstorm;
-    //Is called when the King clicks on the Thunderstorm button
-    public void OnThunderClicked() {
-        //TODO Spawn thunderstorms on the players
-    }
-
-
     public GameObject Block;
     public GameObject BlockWithoutNetwork;
 
@@ -36,14 +14,35 @@ public class KingPlace : NetworkBehaviour
     public GameObject HailObject;
     public GameObject Slime;
     private GameObject Grid;
+    public GameObject Panel;
     private GameObject Place;
-    private GameObject PlaceTemp;
+    private GameObject PlaceTemp = null;
     private GameObject HailCorner;
-    private GameObject SlimeDir;
-    private bool FirstPlacing = false;
+    
+    public bool FirstPlacing = false;
     private bool HailPlacing = false;
     private bool SlimePlacing = false;
+
+    private int SlimeDir;
     private int BoxSize = 20;
+
+    private KingAbility KABlock = new KingAbility(1, 5);
+    private KingAbility KASlime = new KingAbility(1, 15);
+    private KingAbility KAHail = new KingAbility(1, 15);
+    private KingAbility KAThund = new KingAbility(1, 10);
+
+    public GameObject Thunderstorm;
+    //Is called when the King clicks on the Thunderstorm button
+    public void OnThunderClicked()
+    {
+        if (KAThund.IsAvaliable()) {
+            //TODO thunderstorm
+            KAThund.UseItem();
+            MenuOff();
+        }
+    }
+
+    private int Energy = 100;
 
     private GameObject boxPlaced;
 
@@ -52,32 +51,44 @@ public class KingPlace : NetworkBehaviour
         Grid = GameObject.FindGameObjectWithTag("KingGrid");
     }
 
-    private void PlaceObject(int ID) {
+    bool Avaliable;
+    public void PlaceObject(int ID) { //Is called when trhe King clicks the Block,Hail,or Slime button
         //Switch statement, ID-0 = Block,ID-1 = Hail,ID-2 = Slime
+        Avaliable = false;
         switch (ID) {//Parses in the button clicked into the right object that the King is placing
             case 0:
                 Place = BlockWithoutNetwork;
+                Avaliable = KABlock.IsAvaliable();
                 break;
             case 1:
                 Place = HailSprite;
+                Avaliable = KAHail.IsAvaliable();
                 break;
             case 2:
                 Place = Slime;
+                Avaliable = KASlime.IsAvaliable();
                 break;
         }
-        //Create the object that will follow the Mouse
-        PlaceTemp = Instantiate(Place);
-        //Layout the grid
-        Grid.GetComponent<GridReveal>().GridSwitch(true);
+        if (Avaliable == true) {
+            MenuOff();
+            //Create the object that will follow the Mouse
+            PlaceTemp = Instantiate(Place);
+            //Layout the grid
+            Grid.GetComponent<GridReveal>().GridSwitch(true);
 
-        //The player can then see where the object will be placed, reletive to the Grid
-        FirstPlacing = true;
+            //The player can then see where the object will be placed, reletive to the Grid
+            FirstPlacing = true;
+        }
+    }
+
+    private void MenuOff() {
+        Panel.GetComponent<RadialMenu>().MenuOff();
     }
 
     [SerializeField] private Camera KingCam;
     [SerializeField] private LayerMask LayerMask;
 
-    private void FixedUpdate() { //TODO Canceling out an input
+    private void Update() {
         if (FirstPlacing == true) {
             Ray Ray = KingCam.ScreenPointToRay(Input.mousePosition);//Raycast to find the point where the mouse cursor is
             if (Physics.Raycast(Ray, out RaycastHit RayCastHit, float.MaxValue, LayerMask)) {
@@ -86,65 +97,98 @@ public class KingPlace : NetworkBehaviour
             if (Input.GetMouseButtonDown(0)) {//Reads the player clicking the left mouse button
                 FindGridBox();
             }
+            if (Input.GetMouseButtonUp(1)) {//Reads the player pressing the right mouse button
+                CancelPlacing();
+            }
         }
         if (HailPlacing == true) {
             Ray Ray = KingCam.ScreenPointToRay(Input.mousePosition);//Raycast to find the point where the mouse cursor is
-            if (Physics.Raycast(Ray, out RaycastHit RayCastHit, float.MaxValue, LayerMask))
-            {
+            if (Physics.Raycast(Ray, out RaycastHit RayCastHit, float.MaxValue, LayerMask)) {
                 HailCorner.transform.position = RayCastHit.point;
             }
-            if (Input.GetMouseButtonUp(0)) {//Reads the player clicking the left mouse button again
+            if (Input.GetMouseButtonUp(0)) {//Reads the player releasing the left mouse button
                 CreateHail();
+                KAHail.UseItem();
             }
         }
         if (SlimePlacing == true) {
-            //TODO draw arrow in direction of slime move
-            //TODO CreateSlime function?
+            SlimeDir = DrawArrow();
+            if (Input.GetMouseButtonUp(0)) {//Reads the player releasing the left mouse button
+                PlaceTemp.GetComponent<Slime>().GooStart(SlimeDir);
+                SlimePlacing = false;
+                KASlime.UseItem();
+            }
         }
     }
 
+    public void CancelPlacing() {//Allows the player to cancel out a button press
+        Destroy(PlaceTemp);
+        Grid.GetComponent<GridReveal>().GridSwitch(false);
+        FirstPlacing = false;
+    }
+
+    private void FixedUpdate() {
+        CooldownTimer();
+        EnergyRefill();
+    }
+
+    int xOffset = 101;
+    int zOffset = 906;
     private GameObject Row;
     private void FindGridBox() {
-        float i = ((PlaceTemp.transform.position.x) - 101) / -BoxSize; //Finds the Row the cursor is in
+        float i = ((PlaceTemp.transform.position.x) - xOffset) / -BoxSize; //Finds the Row the cursor is in
         int RowNumb = (int)i; //Rounds it down
-        float y = ((PlaceTemp.transform.position.z) - 906) / -BoxSize;  //Finds the Box in the Row the cursor is in
+        float y = ((PlaceTemp.transform.position.z) - zOffset) / -BoxSize;  //Finds the Box in the Row the cursor is in
         int Box = (int)y; //Rounds it down
-        int x = (RowNumb * -BoxSize) + 101;//Sets it's X to the X of the Row
-        int z = (Box * -BoxSize) + 906;//Sets its Z to the Z of the Box
+        int x = (RowNumb * -BoxSize) + xOffset;//Sets it's X to the X of the Row
+        int z = (Box * -BoxSize) + zOffset;//Sets its Z to the Z of the Box
 
         // Grid Check first for valid location
         GridCheck(RowNumb, Box, ref FirstPlacing);//Makes sure the Box is a valid position
 
         // Instantiate a networked box at the position
-        if (FirstPlacing == false)
-        {
+        if (FirstPlacing == false) {
             // Calculate the position to spawn at
             Vector3 spawnLoc = new Vector3(x, PlaceTemp.transform.position.y, z);
 
-            // Have the server spawn the box
-            SpawnBoxServerRPC(spawnLoc);
+            PlaceTemp.transform.position = spawnLoc;
 
-            // Remove the reference to PlaceTemp
-            Destroy(PlaceTemp);
-        }
+            if (Place == BlockWithoutNetwork) {
+                // Have the server spawn the box
+                SpawnBoxServerRPC(spawnLoc);
 
-        if (Place == Slime) {//If Object is Hail or Slime set the respective Placing value to true so it can launch into the secondary placing function
-            SlimePlacing = true;
-        }
-        else if (Place == HailSprite) {
-            Grid.GetComponent<GridReveal>().GridSwitch(true);
-            HailPlacing = true;
-            HailCorner = Instantiate(Place);
+                // Remove the reference to PlaceTemp
+                Destroy(PlaceTemp);
+                KABlock.UseItem();
+            }
+
+            if (Place == Slime) {//If Object is Hail or Slime set the respective Placing value to true so it can launch into the secondary placing function
+                SlimePlacing = true;
+            }
+            else if (Place == HailSprite) {
+                Grid.GetComponent<GridReveal>().GridSwitch(true);
+                HailPlacing = true;
+                HailCorner = Instantiate(Place);
+            }
         }
     }
 
-    private void GridCheck(int Row, int Box, ref bool Placing) {
+    private void GridCheck(int Row, int Box, ref bool Placing) {//Makes it so items can only be placed in valid positions
         GameObject RowTrue;
         GameObject BoxTrue;
-        RowTrue = Grid.transform.Find("Row" + Row).gameObject;
-        if(RowTrue != null) {
-            BoxTrue = RowTrue.transform.Find("GridChunk" + Box).gameObject;
-            if(BoxTrue != null) {
+        try {
+            RowTrue = Grid.transform.Find("Row" + Row).gameObject;
+        } catch {
+            RowTrue = null;
+        }
+
+        if (RowTrue != null) {
+            try {
+                BoxTrue = RowTrue.transform.Find("GridChunk" + Box).gameObject;
+            } catch {
+                BoxTrue = null;
+            }
+            if (BoxTrue != null) {
                 Grid.GetComponent<GridReveal>().GridSwitch(false); //Switch off the grid
                 Placing = false;//Stop placing
             }
@@ -152,12 +196,12 @@ public class KingPlace : NetworkBehaviour
     }
 
     private void CreateHail() {//TODO make sure it makes a box/actually make the Hail Area
-        float i = ((HailCorner.transform.position.x) - 101) / -BoxSize; //Finds the Row the cursor is in
+        float i = ((HailCorner.transform.position.x) - xOffset) / -BoxSize; //Finds the Row the cursor is in
         int RowNumb = (int)i; //Rounds it down
-        float y = ((HailCorner.transform.position.z) - 906) / -BoxSize;  //Finds the Box in the Row the cursor is in
+        float y = ((HailCorner.transform.position.z) - zOffset) / -BoxSize;  //Finds the Box in the Row the cursor is in
         int Box = (int)y; //Rounds it down
-        int x = (RowNumb * -BoxSize) + 101;//Sets it's X to the X of the Row
-        int z = (Box * -BoxSize) + 906;//Sets its Z to the Z of the Box
+        int x = (RowNumb * -BoxSize) + xOffset;//Sets it's X to the X of the Row
+        int z = (Box * -BoxSize) + zOffset;//Sets its Z to the Z of the Box
         HailCorner.transform.position = new Vector3(x, HailCorner.transform.position.y, z);//fully snaps it to the grid
         GridCheck(RowNumb, Box, ref HailPlacing);//Makes sure the Box is a valid position
         //Instanciate HailArea based on PlaceTemp = Top Left and HailCorner = Bottom Right
@@ -165,6 +209,55 @@ public class KingPlace : NetworkBehaviour
             GameObject Temp;
             Temp = Instantiate(HailObject);
             Temp.GetComponent<HailArea>().SetArea(PlaceTemp.transform.position.x, HailCorner.transform.position.x, PlaceTemp.transform.position.z, HailCorner.transform.position.z);
+            Destroy(PlaceTemp);
+            Destroy(HailCorner);
+        }
+    }
+
+    private int DrawArrow() {
+        Vector3 MosPos = new Vector3(0, 0, 0);
+        Ray Ray = KingCam.ScreenPointToRay(Input.mousePosition);//Raycast to find the point where the mouse cursor is
+        if (Physics.Raycast(Ray, out RaycastHit RayCastHit, float.MaxValue, LayerMask)) {
+            MosPos = RayCastHit.point;
+        }
+        //TODO Draw arrow
+        if (MosPos.x > PlaceTemp.transform.position.x && MosPos.z < PlaceTemp.transform.position.z) {//Temp function to change Slime's dir   //TODO convert mouse position to arrow direction. then return the int of what direction it is
+            return 0;//Up
+        }
+        else if (MosPos.x < PlaceTemp.transform.position.x && MosPos.z < PlaceTemp.transform.position.z) {
+            return 1;//Right
+        }
+        else if (MosPos.x < PlaceTemp.transform.position.x && MosPos.z > PlaceTemp.transform.position.z)  {
+            return 2;//Down
+        }
+        else if (MosPos.x > PlaceTemp.transform.position.x && MosPos.z > PlaceTemp.transform.position.z) {
+            return 3;//Left
+        }
+        else {
+            return 2;//Defaults to down, just in case
+        }
+    } 
+
+    private void CooldownTimer() {// Function for tracking the individual cooldowns of the items. It's done in a two-teired system to allow the cooldowns to be eaisly converted as seconds
+        KABlock.Cooldown();
+        KAHail.Cooldown();
+        KASlime.Cooldown();
+        KAThund.Cooldown();
+    }
+
+    private bool SpendEnergy(KingAbility Ability) {
+        if (Energy > Ability.Energy()) {
+            Energy -= Ability.Energy();
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    private void EnergyRefill() {
+        if(Energy < 100) {
+            Energy++;
         }
     }
 

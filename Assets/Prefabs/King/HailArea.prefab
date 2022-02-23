@@ -44,3 +44,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Hail: {fileID: 3697101767757923800, guid: 5137ba8741866bd429180e6ae058498a, type: 3}
+  LayerMask:
+    serializedVersion: 2
+    m_Bits: 64
