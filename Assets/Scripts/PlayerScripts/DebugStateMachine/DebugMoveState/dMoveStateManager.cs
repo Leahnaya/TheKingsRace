@@ -60,9 +60,6 @@ public class dMoveStateManager : NetworkBehaviour
     public Vector3 driftVel; // Lerped Movement Vector
     public float calculatedCurVel; // calculated current vel using driftVel
 
-    //Slide Variables
-    public Vector3 slideUp; // Slide upwards direction
-
     //Camera Variables
     private Vector3 camRotation; // cameras camera rotation vector
     [Range(-45, -15)]
@@ -104,7 +101,6 @@ public class dMoveStateManager : NetworkBehaviour
         currentState.EnterState(this, previousState);
 
         //Slide Upwards Variable
-        slideUp = GetComponentInParent<Transform>().up; // get parents up direction
         distToGround = GetComponent<Collider>().bounds.extents.y; // set players distance to ground
 
         //if (!IsLocalPlayer) { return; }
@@ -220,6 +216,11 @@ public class dMoveStateManager : NetworkBehaviour
         Vector3 moveXZ = new Vector3(vel.x, 0, vel.z);
         driftVel = Vector3.Lerp(driftVel, moveXZ, pStats.Traction * Time.deltaTime);
         
+        //need to have move controller involved for correct movement
+        if(currentState == CrouchState){
+            driftVel = Vector3.zero;
+        }
+
         //Actually move he player
         moveController.Move(driftVel);
     }

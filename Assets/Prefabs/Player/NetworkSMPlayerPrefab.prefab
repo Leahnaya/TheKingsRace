@@ -1395,7 +1395,6 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 5975360321733016165}
   - {fileID: 3304884871725760614}
   - {fileID: 7059700519020685704}
   m_Father: {fileID: 0}
@@ -3453,11 +3452,11 @@ Transform:
   m_GameObject: {fileID: 5975360321733016164}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.033333335, y: 0.033333335, z: 0.033333335}
   m_Children:
   - {fileID: 5975360322223408460}
   - {fileID: 5975360321271394394}
-  m_Father: {fileID: 3669633515805984294}
+  m_Father: {fileID: 7059700519020685704}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5975360321733016166
@@ -3805,7 +3804,7 @@ Transform:
   - {fileID: 8646021746884051643}
   - {fileID: 63863340556852325}
   m_Father: {fileID: 7059700519020685704}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6322357764579638395
 GameObject:
@@ -4199,7 +4198,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7059700519020685704}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &5804161043832888973
 CapsuleCollider:
@@ -4575,7 +4574,7 @@ Transform:
   - {fileID: 1669950514738216483}
   - {fileID: 3008883029677079183}
   m_Father: {fileID: 7059700519020685704}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7688428083034862386
 GameObject:
@@ -4616,12 +4615,13 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 30, y: 30, z: 30}
   m_Children:
+  - {fileID: 5975360321733016165}
   - {fileID: 5911456903690389451}
   - {fileID: 3290243446330099996}
   - {fileID: 347685973298016132}
   - {fileID: 5981285733375990595}
   m_Father: {fileID: 3669633515805984294}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &3970262697637032946
 Animator:
@@ -4846,7 +4846,6 @@ MonoBehaviour:
   vel: {x: 0, y: 0, z: 0}
   driftVel: {x: 0, y: 0, z: 0}
   calculatedCurVel: 0
-  slideUp: {x: 0, y: 0, z: 0}
   minAngle: -18
   maxAngle: 30
   sensitivity: 200
@@ -4938,7 +4937,7 @@ Transform:
   m_Children:
   - {fileID: 5281084129260463729}
   m_Father: {fileID: 7059700519020685704}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4668701882978121971
 MeshFilter:
@@ -5151,7 +5150,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3669633515805984294}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!20 &8193413098731078861
 Camera:
