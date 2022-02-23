@@ -13,9 +13,10 @@ public class dMoveSlideState : dMoveBaseState
         //Rotate player and adjust height and adjust traction
         mSM.pStats.CurVel = 0;
         originalTraction = mSM.pStats.Traction;
-        mSM.gameObject.transform.eulerAngles = new Vector3(mSM.transform.eulerAngles.x - 90, mSM.transform.eulerAngles.y, mSM.transform.eulerAngles.z);
         mSM.moveController.height *= .5f;
         mSM.pStats.Traction = 0.01f;
+        mSM.moveController.center = new Vector3(0,mSM.moveController.center.y - mSM.moveController.height * .5f,0);
+        //mSM.moveController.Move(new Vector3(0,-0.1f,0));
     }
     
     public override void ExitState(dMoveStateManager mSM, dMoveBaseState nextState){
@@ -26,6 +27,7 @@ public class dMoveSlideState : dMoveBaseState
             mSM.pStats.CurVel = mSM.calculatedCurVel;
             mSM.pStats.Traction = originalTraction;
             mSM.moveController.height *= 2.0f;
+            mSM.moveController.center = new Vector3(0,mSM.moveController.center.y + mSM.moveController.height * .25f,0);
         }
 
         //if state is crouch revert traction
@@ -41,19 +43,12 @@ public class dMoveSlideState : dMoveBaseState
             mSM.SwitchState(mSM.CrouchState);
         }
         
-    }
-
-    public override void FixedUpdateState(dMoveStateManager mSM){
-
-        //counter rotates player so they don't rotate when camera is turned
-        mSM.transform.Rotate(Vector3.forward * -mSM.sensitivity * Time.deltaTime * Input.GetAxis("Mouse X"));
-
         //steadily increase traction
         mSM.pStats.Traction += .004f;
         
-        ///////ONCE WE HAVE IT SO SLIDE DOESNT ROTATE PLAYER MOVE THIS TO UPDATE
+        //If player isn't pressing either Q or the joystick button they stop sliding if nothing is above them
         if((!Input.GetKey(KeyCode.JoystickButton1) && !Input.GetKey(KeyCode.Q))){
-            if ((Physics.Raycast(mSM.gameObject.transform.position, mSM.slideUp, out slideRay, 5f) == false)){
+            if ((Physics.Raycast(mSM.gameObject.transform.position + new Vector3(0,1f,0), Vector3.up, out slideRay, 2f, mSM.layerMask) == false)){
 
                 //Determine which state to go into based on player speed
                 if(mSM.calculatedCurVel < mSM.walkLimit){
@@ -67,29 +62,33 @@ public class dMoveSlideState : dMoveBaseState
                 }
             }
             else{
-                Debug.Log("Object above you");
+                Debug.Log(slideRay.collider.name);
             }
 
         }
 
-        /*
+        //Debug.DrawRay(mSM.gameObject.transform.position + new Vector3(0,1f,0), Vector3.up * 2f, Color.red);
+
         //If falling stop sliding and go to wasd states
         if(mSM.aSM.currentState == mSM.aSM.FallingState){
              //Determine which state to go into based on player speed
                 if(mSM.calculatedCurVel < mSM.walkLimit){
-                    SlideToMoveState(mSM);
                     mSM.SwitchState(mSM.WalkState);
                 }
                 else if(mSM.calculatedCurVel < mSM.runLimit){
-                    SlideToMoveState(mSM);
                     mSM.SwitchState(mSM.JogState);
                 }
                 else{
-                    SlideToMoveState(mSM);
                     mSM.SwitchState(mSM.RunState);
                 }
         }
-        */
+
+    }
+
+    public override void FixedUpdateState(dMoveStateManager mSM){
+
+        //counter rotates player so they don't rotate when camera is turned
+        mSM.transform.Rotate(Vector3.up * -mSM.sensitivity * Time.deltaTime * Input.GetAxis("Mouse X"));
 
         //actual slide movement
         mSM.SlideMovement();

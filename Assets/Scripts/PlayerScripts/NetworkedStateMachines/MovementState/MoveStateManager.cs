@@ -59,9 +59,10 @@ public class MoveStateManager : NetworkBehaviour
     private Vector3 moveX; // Local Vertical Vector
     public Vector3 driftVel; // Lerped Movement Vector
     public float calculatedCurVel; // calculated current vel using driftVel
-
-    //Slide Variables
-    public Vector3 slideUp; // Slide upwards direction
+    public int layerMask; // LayerMask to exclude player
+    RaycastHit wallHitTop, wallHitBot; // Raycast for momentum loss on wall hit
+    private Vector3 lastVel; // previous vel
+    private bool firstWallHit = false; // hit the wall for the first time
 
     //Camera Variables
     private Vector3 camRotation; // cameras camera rotation vector
@@ -93,6 +94,12 @@ public class MoveStateManager : NetworkBehaviour
         pStats = GetComponent<PlayerStats>(); // set PlayerStats
         aSM = GetComponent<AerialStateManager>(); // aerial state manager
         ////
+
+        ////Initialize Variables
+        layerMask = 1 << 3;
+        layerMask = ~layerMask;
+        ////
+
     }
 
     // Start is called before the first frame update
@@ -103,8 +110,6 @@ public class MoveStateManager : NetworkBehaviour
         previousState = IdleState;
         currentState.EnterState(this, previousState);
 
-        //Slide Upwards Variable
-        slideUp = GetComponentInParent<Transform>().up; // get parents up direction
         distToGround = GetComponent<Collider>().bounds.extents.y; // set players distance to ground
 
         if (!IsLocalPlayer) { return; }
@@ -165,7 +170,7 @@ public class MoveStateManager : NetworkBehaviour
             return pStats.CurVel;
         }
         //If current speed is below min when pressed set to minimum speed
-        else if (pStats.CurVel < pStats.MinVel)
+        else if (pStats.CurVel < pStats.MinVel || firstWallHit == true)
         {
             pStats.CurVel = pStats.MinVel;
             return pStats.MinVel;
@@ -196,9 +201,24 @@ public class MoveStateManager : NetworkBehaviour
         //Checks if movement keys have been pressed and calculates correct vector
         moveX = transform.right * Input.GetAxis("Horizontal") * Time.deltaTime * PlayerSpeed();
         moveZ = transform.forward * Input.GetAxis("Vertical") * Time.deltaTime * PlayerSpeed();
-
         vel = moveX + moveZ;
         Vector3 moveXZ = new Vector3(vel.x, 0, vel.z);
+
+        //Raycast offset
+        Vector3 rayOffset = moveXZ - lastVel;
+        
+        //Check if wall is in direction player is moving
+        if (((Physics.Raycast(gameObject.transform.position + new Vector3(0,.4f,0) + rayOffset, moveXZ.normalized, out wallHitBot, .2f, layerMask) == true) || ((currentState != SlideState || currentState != CrouchState) && (Physics.Raycast(gameObject.transform.position + new Vector3(0,2.2f,0), moveXZ.normalized, out wallHitTop, .5f, layerMask) == true))) && !firstWallHit){
+            CancelMomentum();
+            firstWallHit = true;
+        }
+        else if((Physics.Raycast(gameObject.transform.position + new Vector3(0,.4f,0) + rayOffset, moveXZ.normalized, out wallHitBot, .2f, layerMask) == false) || ((currentState != SlideState || currentState != CrouchState) && (Physics.Raycast(gameObject.transform.position + new Vector3(0,2.2f,0), moveXZ.normalized, out wallHitTop, .5f, layerMask) == false))){
+            firstWallHit = false;
+        }
+
+        Debug.DrawRay(gameObject.transform.position + new Vector3(0,.4f,0) + rayOffset, moveXZ.normalized * 1f, Color.red);
+        Debug.DrawRay(gameObject.transform.position + new Vector3(0,2.2f,0) + rayOffset, moveXZ.normalized * 1f, Color.red);
+
         driftVel = Vector3.Lerp(driftVel, moveXZ, pStats.Traction * Time.deltaTime);
         if(currentState == GrappleAirState){
             driftVel = Vector3.zero;
@@ -220,6 +240,11 @@ public class MoveStateManager : NetworkBehaviour
         Vector3 moveXZ = new Vector3(vel.x, 0, vel.z);
         driftVel = Vector3.Lerp(driftVel, moveXZ, pStats.Traction * Time.deltaTime);
         
+        //Need to have movecontroller involved for correct movement
+        if(currentState == CrouchState){
+            driftVel = Vector3.zero;
+        }
+
         //Actually move he player
         moveController.Move(driftVel);
     }

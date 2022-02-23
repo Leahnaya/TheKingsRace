@@ -271,7 +271,7 @@ public class AerialStateManager : NetworkBehaviour
     //applies Jump values and Variables
     void Jump(){
         //If space/south gamepad button is pressed apply an upwards force to the player
-        if (Input.GetAxis("Jump") != 0 && !jumpHeld && curJumpNum < pStats.JumpNum)
+        if (Input.GetAxis("Jump") != 0 && !jumpHeld && curJumpNum < pStats.JumpNum && (mSM.currentState != mSM.SlideState && mSM.currentState != mSM.CrouchState && mSM.currentState != mSM.RagdollState && mSM.currentState != mSM.RecoveringState))
         {
             if(currentState == WallRunState){
                 AddImpact((GetWallJumpDirection()), pStats.JumpPow * 8.5f);
