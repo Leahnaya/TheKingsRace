@@ -7,7 +7,6 @@ public class MoveSlideState : MoveBaseState
     //Slide Variables
     float originalTraction; // Traction before slide started
     RaycastHit slideRay; // slide raycast
-    int layerMask;
 
     public override void EnterState(MoveStateManager mSM, MoveBaseState previousState){
 
@@ -18,8 +17,6 @@ public class MoveSlideState : MoveBaseState
         mSM.pStats.Traction = 0.01f;
         mSM.moveController.center = new Vector3(0,mSM.moveController.center.y - mSM.moveController.height * .5f,0);
         //mSM.moveController.Move(new Vector3(0,-0.1f,0));
-        layerMask = 1 << 3;
-        layerMask = ~layerMask;
     }
     
     public override void ExitState(MoveStateManager mSM, MoveBaseState nextState){
@@ -51,7 +48,7 @@ public class MoveSlideState : MoveBaseState
         
         //If player isn't pressing either Q or the joystick button they stop sliding if nothing is above them
         if((!Input.GetKey(KeyCode.JoystickButton1) && !Input.GetKey(KeyCode.Q))){
-            if ((Physics.Raycast(mSM.gameObject.transform.position + new Vector3(0,1f,0), Vector3.up, out slideRay, 2f, layerMask) == false)){
+            if ((Physics.Raycast(mSM.gameObject.transform.position + new Vector3(0,1f,0), Vector3.up, out slideRay, 2f, mSM.layerMask) == false)){
 
                 //Determine which state to go into based on player speed
                 if(mSM.calculatedCurVel < mSM.walkLimit){

@@ -7,7 +7,6 @@ public class dMoveCrouchState : dMoveBaseState
 
     //Slide Variables
     RaycastHit slideRay; // slide raycast
-    int layerMask;
 
     public override void EnterState(dMoveStateManager mSM, dMoveBaseState previousState){
 
@@ -17,8 +16,6 @@ public class dMoveCrouchState : dMoveBaseState
             mSM.moveController.height *= .5f;
             mSM.moveController.center = new Vector3(0,mSM.moveController.center.y - mSM.moveController.height * .5f,0);
             //mSM.moveController.Move(new Vector3(0,-mSM.moveController.height * .5f,0));
-            layerMask = 1 << 3;
-            layerMask = ~layerMask;
         }
     }
     
@@ -39,7 +36,7 @@ public class dMoveCrouchState : dMoveBaseState
         //If player isn't pressing either Q or the joystick button they stop crouching if nothing is above them
         if((!Input.GetKey(KeyCode.JoystickButton1) && !Input.GetKey(KeyCode.Q))){
 
-            if ((Physics.Raycast(mSM.gameObject.transform.position + new Vector3(0,1f,0), Vector3.up, out slideRay, 2f, layerMask) == false)){
+            if ((Physics.Raycast(mSM.gameObject.transform.position + new Vector3(0,1f,0), Vector3.up, out slideRay, 2f, mSM.layerMask) == false)){
 
                 mSM.SwitchState(mSM.IdleState);
             }
