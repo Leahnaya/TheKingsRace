@@ -6,6 +6,7 @@ public class RadialMenu : MonoBehaviour
 {
 
     bool UIOn = false;
+    public GameObject King;
     // Update is called once per frame
     void Update()
     {
@@ -13,7 +14,9 @@ public class RadialMenu : MonoBehaviour
             transform.position = Input.mousePosition;//Moved the UI to where the mouse is
         }
         if(Input.GetAxis("RadialMenu") > 0) {//Pressing Q makes the UI appear
-            //Stop placing if already placing
+            if (King.GetComponent<KingPlace>().FirstPlacing == true) {
+                King.GetComponent<KingPlace>().CancelPlacing();
+            }
             MenuOn();
         }
         if (Input.GetAxis("RadialMenu") < 0) {//Pressing E makes the UI dissapear

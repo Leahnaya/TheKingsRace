@@ -14376,6 +14376,11 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 1626541045562377096, guid: 50a1c343e2b03d94b949098ca0255428, type: 3}
+--- !u!1 &540093853 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8183403963968820413, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
+  m_PrefabInstance: {fileID: 8183403963536638187}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &542093930
 GameObject:
   m_ObjectHideFlags: 0
@@ -50272,6 +50277,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d94be097208c22f4daa3776bd00128b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  King: {fileID: 540093853}
 --- !u!1 &1885653570
 GameObject:
   m_ObjectHideFlags: 0
@@ -61870,6 +61876,14 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8183403964692436335, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8183403964692436335, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PlaceObject
+      objectReference: {fileID: 0}
     - target: {fileID: 8183403965069105119, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
       propertyPath: m_Text
       value: Thunder
@@ -61881,6 +61895,18 @@ PrefabInstance:
     - target: {fileID: 8183403965069105119, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
       propertyPath: m_FontData.m_FontSize
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8183403965182652613, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8183403965182652613, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PlaceObject
+      objectReference: {fileID: 0}
+    - target: {fileID: 8183403965182652613, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8183403965182652614, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
       propertyPath: m_SizeDelta.x
@@ -61929,6 +61955,18 @@ PrefabInstance:
     - target: {fileID: 8183403965183742969, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8183403965183742975, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8183403965183742975, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: PlaceObject
+      objectReference: {fileID: 0}
+    - target: {fileID: 8183403965183742975, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
