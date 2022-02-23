@@ -15,7 +15,8 @@ public class MoveCrouchState : MoveBaseState
         if(previousState != mSM.SlideState){
             mSM.pStats.CurVel = 0;
             mSM.moveController.height *= .5f;
-            mSM.moveController.Move(new Vector3(0,-mSM.moveController.height * .5f,0));
+            mSM.moveController.center = new Vector3(0,mSM.moveController.center.y - mSM.moveController.height * .5f,0);
+            //mSM.moveController.Move(new Vector3(0,-mSM.moveController.height * .5f,0));
             layerMask = 1 << 3;
             layerMask = ~layerMask;
         }
@@ -27,7 +28,8 @@ public class MoveCrouchState : MoveBaseState
         if(nextState != mSM.CrouchWalkState){
             mSM.gameObject.transform.localEulerAngles = new Vector3(0, 0, 0);
             mSM.pStats.CurVel = mSM.calculatedCurVel;
-            mSM.moveController.height *= 2.0f; 
+            mSM.moveController.height *= 2.0f;
+            mSM.moveController.center = new Vector3(0,mSM.moveController.center.y + mSM.moveController.height * .25f,0);
         }
         
     }
@@ -49,12 +51,12 @@ public class MoveCrouchState : MoveBaseState
 
         //Debug.DrawRay(mSM.gameObject.transform.position + new Vector3(0,1f,0), Vector3.up * 2f, Color.red);
 
-        /*
+        
         //If falling stop sliding and go to wasd states
         if(mSM.aSM.currentState == mSM.aSM.FallingState){
             mSM.SwitchState(mSM.IdleState);
         }
-        */
+    
     }
 
     public override void FixedUpdateState(MoveStateManager mSM){

@@ -16,7 +16,8 @@ public class dMoveSlideState : dMoveBaseState
         originalTraction = mSM.pStats.Traction;
         mSM.moveController.height *= .5f;
         mSM.pStats.Traction = 0.01f;
-        mSM.moveController.Move(new Vector3(0,-0.1f,0));
+        mSM.moveController.center = new Vector3(0,mSM.moveController.center.y - mSM.moveController.height * .5f,0);
+        //mSM.moveController.Move(new Vector3(0,-0.1f,0));
         layerMask = 1 << 3;
         layerMask = ~layerMask;
     }
@@ -29,6 +30,7 @@ public class dMoveSlideState : dMoveBaseState
             mSM.pStats.CurVel = mSM.calculatedCurVel;
             mSM.pStats.Traction = originalTraction;
             mSM.moveController.height *= 2.0f;
+            mSM.moveController.center = new Vector3(0,mSM.moveController.center.y + mSM.moveController.height * .25f,0);
         }
 
         //if state is crouch revert traction
@@ -70,7 +72,6 @@ public class dMoveSlideState : dMoveBaseState
 
         //Debug.DrawRay(mSM.gameObject.transform.position + new Vector3(0,1f,0), Vector3.up * 2f, Color.red);
 
-        /*
         //If falling stop sliding and go to wasd states
         if(mSM.aSM.currentState == mSM.aSM.FallingState){
              //Determine which state to go into based on player speed
@@ -84,7 +85,6 @@ public class dMoveSlideState : dMoveBaseState
                     mSM.SwitchState(mSM.RunState);
                 }
         }
-        */
 
     }
 
