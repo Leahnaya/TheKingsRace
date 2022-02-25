@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4121269670625047655}
   - component: {fileID: 4550182660015704559}
   - component: {fileID: 4869347295655275014}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: LeftDoor
   m_TagString: kickable
   m_Icon: {fileID: 0}
@@ -30,7 +30,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2600877024947699237}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -38,7 +38,7 @@ Transform:
   - {fileID: 6871662126972329396}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!33 &7317664724232857934
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 8360243053779946927}
   - component: {fileID: 215130377004824692}
   - component: {fileID: 3862225755302144756}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: LeftHandle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -287,7 +287,7 @@ GameObject:
   - component: {fileID: 6871662126972329396}
   - component: {fileID: 7775466228100032066}
   - component: {fileID: 508314590947380972}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: LeftKnocker
   m_TagString: Untagged
   m_Icon: {fileID: 0}

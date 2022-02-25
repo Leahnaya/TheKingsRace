@@ -60,7 +60,7 @@ public class dMoveStateManager : NetworkBehaviour
     public Vector3 driftVel; // Lerped Movement Vector
     public float calculatedCurVel; // calculated current vel using driftVel
     public int layerMask; // LayerMask to exclude player
-    RaycastHit wallHitTop, wallHitBot; // Raycast for momentum loss on wall hit
+    RaycastHit wallHitTop, wallHitBot, wallExitTop, wallExitBot; // Raycast for momentum loss on wall hit
     private Vector3 lastVel; // previous vel
     private bool firstWallHit = false; // hit the wall for the first time
 
@@ -210,16 +210,17 @@ public class dMoveStateManager : NetworkBehaviour
         Vector3 rayOffset = moveXZ - lastVel;
         
         //Check if wall is in direction player is moving
-        if (((Physics.Raycast(gameObject.transform.position + new Vector3(0,.4f,0) + rayOffset, moveXZ.normalized, out wallHitBot, .2f, layerMask) == true) || ((currentState != SlideState || currentState != CrouchState) && (Physics.Raycast(gameObject.transform.position + new Vector3(0,2.2f,0), moveXZ.normalized, out wallHitTop, .5f, layerMask) == true))) && !firstWallHit){
+        if (((Physics.Raycast(gameObject.transform.position + new Vector3(0,.4f,0) + rayOffset, moveXZ.normalized, out wallHitBot, .18f, layerMask) == true) || ((currentState != SlideState || currentState != CrouchState) && (Physics.Raycast(gameObject.transform.position + new Vector3(0,2.2f,0), moveXZ.normalized, out wallHitTop, .18f, layerMask) == true))) && !firstWallHit){
             CancelMomentum();
+            Debug.Log("Collide");
             firstWallHit = true;
         }
-        else if((Physics.Raycast(gameObject.transform.position + new Vector3(0,.4f,0) + rayOffset, moveXZ.normalized, out wallHitBot, .2f, layerMask) == false) || ((currentState != SlideState || currentState != CrouchState) && (Physics.Raycast(gameObject.transform.position + new Vector3(0,2.2f,0), moveXZ.normalized, out wallHitTop, .5f, layerMask) == false))){
+        if(((Physics.Raycast(gameObject.transform.position + new Vector3(0,.4f,0) + rayOffset, moveXZ.normalized, out wallExitBot, .3f, layerMask) == false) && ((currentState == SlideState || currentState == CrouchState) || (Physics.Raycast(gameObject.transform.position + new Vector3(0,2.2f,0), moveXZ.normalized, out wallExitTop, .3f, layerMask) == false))) && firstWallHit){
             firstWallHit = false;
         }
 
-        Debug.DrawRay(gameObject.transform.position + new Vector3(0,.4f,0) + rayOffset, moveXZ.normalized * 1f, Color.red);
-        Debug.DrawRay(gameObject.transform.position + new Vector3(0,2.2f,0) + rayOffset, moveXZ.normalized * 1f, Color.red);
+        Debug.DrawRay(gameObject.transform.position + new Vector3(0,.4f,0) + (rayOffset/2), moveXZ.normalized * 1f, Color.red);
+        Debug.DrawRay(gameObject.transform.position + new Vector3(0,2.2f,0) + rayOffset, moveXZ.normalized * .2f, Color.red);
 
         driftVel = Vector3.Lerp(driftVel, moveXZ, pStats.Traction * Time.deltaTime);
         if(currentState == GrappleAirState){

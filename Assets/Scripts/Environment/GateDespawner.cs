@@ -15,6 +15,7 @@ public class GateDespawner : NetworkBehaviour {
             // Only have the host start the timer
             if (IsHost) {
                 StartCoroutine(DespawnTimer());
+                Physics.IgnoreLayerCollision(13,14);
             }
         }
     }

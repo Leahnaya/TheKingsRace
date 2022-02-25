@@ -13,6 +13,7 @@ public class dPlayCam : NetworkBehaviour
     void Start ()
     {
         rad = (transform.position - player.transform.position);
+
     }
 
     void Update ()
