@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class Pitfall : NetworkBehaviour
 {
-    [SerializeField] private Vector3 RespawnPoint; //Where player will respawn to, set in GUI
+    [SerializeField] private Transform RespawnPoint; //Where player will respawn to, set in GUI
 
     public Transform runnerPrefab;
 
@@ -60,7 +60,7 @@ public class Pitfall : NetworkBehaviour
                     if (ServerGameNetPortal.Instance.clientData.TryGetValue(clientGuid, out PlayerData playerData))
                     {
                         // Spawn as player
-                        _runner = Instantiate(runnerPrefab, RespawnPoint, Quaternion.Euler(0, -90, 0)).gameObject;
+                        _runner = Instantiate(runnerPrefab, RespawnPoint.position, Quaternion.Euler(0, -90, 0)).gameObject;
                         _runner.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientID, null, true);
 
                         // Handle Client Spawning Locally
