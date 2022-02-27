@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MLAPI;
+using MLAPI.Messaging;
 
-public class CrumblingPlatform : MonoBehaviour
+public class CrumblingPlatform : NetworkBehaviour
 {
     private bool cooldown = false;
     private MeshRenderer mesh;
@@ -31,17 +33,25 @@ public class CrumblingPlatform : MonoBehaviour
     {
         //Debug.Log("Crumbling");
         yield return new WaitForSecondsRealtime(.25f);
-        mesh.enabled = false;
-        boxColliders[0].enabled = false;
-        boxColliders[1].enabled = false;
+        ChangeCrublingPlatformsStateServerRPC(false);
         
         //Debug.Log("Crumbled");
         yield return new WaitForSecondsRealtime(2.0f);
-        mesh.enabled = true;
-        boxColliders[0].enabled = true;
-        boxColliders[1].enabled = true;
+        ChangeCrublingPlatformsStateServerRPC(true);
 
         //Debug.Log("Respawned Platform");
         cooldown = false;
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void ChangeCrublingPlatformsStateServerRPC(bool active) {
+        ChangeStateClientRPC(active);
+    }
+
+    [ClientRpc]
+    private void ChangeStateClientRPC(bool active) {
+        mesh.enabled = active;
+        boxColliders[0].enabled = active;
+        boxColliders[1].enabled = active;
     }
 }
