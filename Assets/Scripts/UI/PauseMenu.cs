@@ -17,6 +17,9 @@ public class PauseMenu : MonoBehaviour {
     private GameObject ConfirmationPanel;
 
     [SerializeField]
+    private GameObject RespawnConfirmationPanel;
+
+    [SerializeField]
     private TMP_Text ControlsHeader;
     [SerializeField]
     private TMP_Text ControlsButtonText;
@@ -29,6 +32,7 @@ public class PauseMenu : MonoBehaviour {
         PauseMenuPanel.SetActive(false);
         ControlsPanel.SetActive(false);
         ConfirmationPanel.SetActive(false);
+        RespawnConfirmationPanel.SetActive(false);
     }
 
     void Update() { 
@@ -125,6 +129,26 @@ public class PauseMenu : MonoBehaviour {
             ControlsHeader.text = "Runner Controls";
             ControlsButtonText.text = "King Controls";
             ControlsText.text = "To-Do: Put the Runner's Controls here";
+        }
+    }
+
+    public void OnRespawnClicked() {
+        RespawnConfirmationPanel.SetActive(true);
+    }
+
+    public void RespawnDecline() {
+        RespawnConfirmationPanel.SetActive(false);
+    }
+
+    public void RespawnConfirmed() {
+        // Disable/Enable player controls
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+
+        foreach (GameObject player in players) {
+            // Find the local player
+            if (player.GetComponent<NetworkObject>().IsLocalPlayer) {
+                player.GetComponent<ResetZones>().RespawnToCheckpoint();
+            }
         }
     }
 }
