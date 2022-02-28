@@ -5,16 +5,14 @@ using UnityEngine;
 public class dMoveSlideState : dMoveBaseState
 {
     //Slide Variables
-    float originalTraction; // Traction before slide started
     RaycastHit slideRay; // slide raycast
 
     public override void EnterState(dMoveStateManager mSM, dMoveBaseState previousState){
 
         //Rotate player and adjust height and adjust traction
         mSM.pStats.CurVel = 0;
-        originalTraction = mSM.pStats.Traction;
         mSM.moveController.height *= .5f;
-        mSM.pStats.Traction = 0.01f;
+        mSM.pStats.CurTraction = 0.01f;
         mSM.moveController.center = new Vector3(0,mSM.moveController.center.y - mSM.moveController.height * .5f,0);
         //mSM.moveController.Move(new Vector3(0,-0.1f,0));
     }
@@ -25,7 +23,7 @@ public class dMoveSlideState : dMoveBaseState
         if(nextState != mSM.CrouchState){
             mSM.gameObject.transform.localEulerAngles = new Vector3(0, 0, 0);
             mSM.pStats.CurVel = mSM.calculatedCurVel;
-            mSM.pStats.Traction = originalTraction;
+            mSM.pStats.CurTraction = mSM.pStats.Traction;
             mSM.moveController.height *= 2.0f;
             mSM.moveController.center = new Vector3(0,mSM.moveController.center.y + mSM.moveController.height * .25f,0);
         }

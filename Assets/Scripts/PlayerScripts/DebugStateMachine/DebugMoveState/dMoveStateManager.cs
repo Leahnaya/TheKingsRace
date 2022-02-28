@@ -116,6 +116,8 @@ public class dMoveStateManager : NetworkBehaviour
 
         //if (!IsLocalPlayer) { return; }
         Cursor.lockState = CursorLockMode.Locked; // Lock cursor on start if you are the local player
+        pStats.Traction = pStats.CurTraction;
+        pStats.CurAcc = pStats.Acc;
     }
 
     // Update is called once per frame
@@ -180,7 +182,7 @@ public class dMoveStateManager : NetworkBehaviour
         // while the speed is below max speed slowly increase it
         else if ((pStats.CurVel >= pStats.MinVel) && (pStats.CurVel < pStats.MaxVel))
         {
-            pStats.CurVel += pStats.Acc;
+            pStats.CurVel += pStats.CurAcc;
             return pStats.CurVel;
         }
         //If the players speed is above or equal to max speed set speed to max
@@ -222,7 +224,7 @@ public class dMoveStateManager : NetworkBehaviour
         Debug.DrawRay(gameObject.transform.position + new Vector3(0,.4f,0) + (rayOffset/2), moveXZ.normalized * 1f, Color.red);
         Debug.DrawRay(gameObject.transform.position + new Vector3(0,2.2f,0) + rayOffset, moveXZ.normalized * .2f, Color.red);
 
-        driftVel = Vector3.Lerp(driftVel, moveXZ, pStats.Traction * Time.deltaTime);
+        driftVel = Vector3.Lerp(driftVel, moveXZ, pStats.CurTraction * Time.deltaTime);
         if(currentState == GrappleAirState){
             driftVel = Vector3.zero;
         }
@@ -241,7 +243,7 @@ public class dMoveStateManager : NetworkBehaviour
         //player vector should be under the circumstances
         vel = moveX + moveZ;
         Vector3 moveXZ = new Vector3(vel.x, 0, vel.z);
-        driftVel = Vector3.Lerp(driftVel, moveXZ, pStats.Traction * Time.deltaTime);
+        driftVel = Vector3.Lerp(driftVel, moveXZ, pStats.CurTraction * Time.deltaTime);
         
         //need to have move controller involved for correct movement
         if(currentState == CrouchState){
