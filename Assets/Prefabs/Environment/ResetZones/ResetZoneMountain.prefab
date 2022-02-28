@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8977215705378820474}
   - component: {fileID: 8977215705378820485}
+  - component: {fileID: -3220977901539271234}
   m_Layer: 0
   m_Name: ResetZoneMountain
   m_TagString: Untagged
@@ -44,3 +45,16 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1400, y: 2500, z: 1200}
   m_Center: {x: -4400, y: 0, z: 500}
+--- !u!114 &-3220977901539271234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8977215705378820484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6560db454bf09ef49bdb0240a370b8aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RespawnZone: 3
