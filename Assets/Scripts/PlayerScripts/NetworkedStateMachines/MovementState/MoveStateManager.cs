@@ -298,6 +298,14 @@ public class MoveStateManager : NetworkBehaviour
         moveZ = Vector3.zero;
         driftVel = Vector3.zero;
     }
+
+    //Apply Wind movement to the player
+    public void ApplyWind(bool wind){
+        if(wind){
+
+        }
+    }
+
     ////
 
 }
