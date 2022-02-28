@@ -22,6 +22,10 @@ TagManager:
   - FogSystem
   - SnowSystem
   - WindSystem
+  - ValleyRespawnPoint
+  - PlainsRespawnPoint
+  - FoothillsRespawnPoint
+  - MountainRespawnPoint
   layers:
   - Default
   - TransparentFX
