@@ -30,7 +30,7 @@ public class dMoveSlideState : dMoveBaseState
 
         //if state is crouch revert traction
         else{
-            mSM.pStats.Traction = originalTraction;
+            mSM.pStats.CurTraction = mSM.pStats.Traction;
         }
     }
 

@@ -186,8 +186,8 @@ public class PlayerStats : MonoBehaviour
                    curTraction += 2;
                 }
 
-                acc *= .5;
-                curAcc *= .5;
+                acc *= .5f;
+                curAcc *= .5f;
                 accModification = -acc;
 
                 break;
