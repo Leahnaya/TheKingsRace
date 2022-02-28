@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 8244088406367100711}
   - component: {fileID: 5663995165336616769}
   - component: {fileID: 5342244697037577531}
-  - component: {fileID: 4922246777311652770}
   - component: {fileID: 3689559005048040261}
+  - component: {fileID: 7288458195488485932}
   m_Layer: 0
   m_Name: Boulder
   m_TagString: Untagged
@@ -141,7 +141,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 502e1c22be3238645a39762fd220d3b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4922246777311652770
+--- !u!114 &3689559005048040261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1439663680877494070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NetworkInstanceId: 0
+  PrefabHash: 10761943207984983740
+  PrefabHashGenerator: Boulder
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+--- !u!114 &7288458195488485932
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -189,20 +206,3 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &3689559005048040261
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1439663680877494070}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NetworkInstanceId: 0
-  PrefabHash: 10761943207984983740
-  PrefabHashGenerator: Boulder
-  AlwaysReplicateAsRoot: 0
-  DontDestroyWithOwner: 0
