@@ -18,6 +18,10 @@ TagManager:
   - NetworkManager
   - PauseMenu
   - PlayerTrigger
+  - RainSystem
+  - FogSystem
+  - SnowSystem
+  - WindSystem
   layers:
   - Default
   - TransparentFX
