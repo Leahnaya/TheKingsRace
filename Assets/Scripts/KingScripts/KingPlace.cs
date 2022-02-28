@@ -26,10 +26,10 @@ public class KingPlace : NetworkBehaviour
     private int SlimeDir;
     private int BoxSize = 20;
 
-    private KingAbility KABlock = new KingAbility(1, 5);
-    private KingAbility KASlime = new KingAbility(1, 15);
-    private KingAbility KAHail = new KingAbility(1, 15);
-    private KingAbility KAThund = new KingAbility(1, 10);
+    private KingAbility KABlock = new KingAbility(2, 5);
+    private KingAbility KASlime = new KingAbility(2, 15);
+    private KingAbility KAHail = new KingAbility(2, 15);
+    private KingAbility KAThund = new KingAbility(2, 10);
 
     public GameObject Thunderstorm;
     //Is called when the King clicks on the Thunderstorm button
@@ -115,6 +115,9 @@ public class KingPlace : NetworkBehaviour
             SlimeDir = DrawArrow();
             if (Input.GetMouseButtonUp(0)) {//Reads the player releasing the left mouse button
                 PlaceTemp.GetComponent<Slime>().GooStart(SlimeDir);
+                foreach (Transform child in PlaceTemp.transform) {
+                    child.gameObject.SetActive(false);
+                }
                 SlimePlacing = false;
                 KASlime.UseItem();
             }
@@ -220,17 +223,23 @@ public class KingPlace : NetworkBehaviour
         if (Physics.Raycast(Ray, out RaycastHit RayCastHit, float.MaxValue, LayerMask)) {
             MosPos = RayCastHit.point;
         }
-        //TODO Draw arrow
-        if (MosPos.x > PlaceTemp.transform.position.x && MosPos.z < PlaceTemp.transform.position.z) {//Temp function to change Slime's dir   //TODO convert mouse position to arrow direction. then return the int of what direction it is
+        foreach (Transform child in PlaceTemp.transform) {
+            child.gameObject.SetActive(false);
+        }//y=x(PlaceTemp.y - PlaceTemp.x) y=-x(PlaceTemp.y - PlaceTemp.x)
+        if (MosPos.x > PlaceTemp.transform.position.x && MosPos.z < PlaceTemp.transform.position.z) {//Temp function to change Slime's dir
+            PlaceTemp.transform.Find("ArrowUP").gameObject.SetActive(true);
             return 0;//Up
         }
         else if (MosPos.x < PlaceTemp.transform.position.x && MosPos.z < PlaceTemp.transform.position.z) {
+            PlaceTemp.transform.Find("ArrowRIGHT").gameObject.SetActive(true);
             return 1;//Right
         }
         else if (MosPos.x < PlaceTemp.transform.position.x && MosPos.z > PlaceTemp.transform.position.z)  {
+            PlaceTemp.transform.Find("ArrowDOWN").gameObject.SetActive(true);
             return 2;//Down
         }
         else if (MosPos.x > PlaceTemp.transform.position.x && MosPos.z > PlaceTemp.transform.position.z) {
+            PlaceTemp.transform.Find("ArrowLEFT").gameObject.SetActive(true);
             return 3;//Left
         }
         else {
