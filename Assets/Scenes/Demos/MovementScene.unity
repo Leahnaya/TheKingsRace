@@ -3166,5 +3166,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: DebugSMPlayerPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 7053551988629990270, guid: 0ea305f96ab853340bb9f0ed320dac08, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ea305f96ab853340bb9f0ed320dac08, type: 3}
