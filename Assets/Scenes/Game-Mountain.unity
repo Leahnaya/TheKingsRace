@@ -11459,6 +11459,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 800883475}
     m_Modifications:
+    - target: {fileID: 8778111956603342859, guid: 0e50603b66fe968418894499e023ec03, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8778111956603343861, guid: 0e50603b66fe968418894499e023ec03, type: 3}
       propertyPath: RespawnPoint
       value: 
@@ -14965,6 +14969,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1713850190}
     m_Modifications:
+    - target: {fileID: 8778111956603342859, guid: 0e50603b66fe968418894499e023ec03, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8778111956603343861, guid: 0e50603b66fe968418894499e023ec03, type: 3}
       propertyPath: RespawnPoint
       value: 
@@ -63228,6 +63236,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1529765016}
     m_Modifications:
+    - target: {fileID: 8778111956603342859, guid: 0e50603b66fe968418894499e023ec03, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8778111956603343861, guid: 0e50603b66fe968418894499e023ec03, type: 3}
       propertyPath: RespawnPoint
       value: 
@@ -65157,6 +65169,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 33053106}
     m_Modifications:
+    - target: {fileID: 8778111956603342859, guid: 0e50603b66fe968418894499e023ec03, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8778111956603343861, guid: 0e50603b66fe968418894499e023ec03, type: 3}
       propertyPath: RespawnPoint
       value: 
