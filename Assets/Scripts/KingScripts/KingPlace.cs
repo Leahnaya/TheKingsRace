@@ -25,6 +25,7 @@ public class KingPlace : NetworkBehaviour
 
     private int SlimeDir;
     private int BoxSize = 20;
+    private Vector3 MontStr = new Vector3(-4000, 300, 495);
 
     private KingAbility KABlock = new KingAbility(2, 5);
     private KingAbility KASlime = new KingAbility(2, 15);
@@ -139,13 +140,18 @@ public class KingPlace : NetworkBehaviour
     int zOffset = 906;
     private GameObject Row;
     private void FindGridBox() {
-        float i = ((PlaceTemp.transform.position.x) - xOffset) / -BoxSize; //Finds the Row the cursor is in
-        int RowNumb = (int)i; //Rounds it down
-        float y = ((PlaceTemp.transform.position.z) - zOffset) / -BoxSize;  //Finds the Box in the Row the cursor is in
-        int Box = (int)y; //Rounds it down
-        int x = (RowNumb * -BoxSize) + xOffset;//Sets it's X to the X of the Row
-        int z = (Box * -BoxSize) + zOffset;//Sets its Z to the Z of the Box
-
+        int RowNumb = 0, Box = 0, x = 0, z = 0;
+        if (PlaceTemp.transform.position.x < MontStr.x) {//King is trying to place on the mountain
+            Debug.Log("Mount Place");
+        }
+        else {
+            float i = ((PlaceTemp.transform.position.x) - xOffset) / -BoxSize; //Finds the Row the cursor is in
+            RowNumb = (int)i; //Rounds it down
+            float y = ((PlaceTemp.transform.position.z) - zOffset) / -BoxSize;  //Finds the Box in the Row the cursor is in
+            Box = (int)y; //Rounds it down
+            x = (RowNumb * -BoxSize) + xOffset;//Sets it's X to the X of the Row
+            z = (Box * -BoxSize) + zOffset;//Sets its Z to the Z of the Box
+        }
         // Grid Check first for valid location
         GridCheck(RowNumb, Box, ref FirstPlacing);//Makes sure the Box is a valid position
 

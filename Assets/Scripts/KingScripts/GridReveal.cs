@@ -7,7 +7,7 @@ public class GridReveal : MonoBehaviour
     private GameObject[] Rows;
     private float TempKingPos = 0;
     private int Index = 0;
-    private int ROSCount = 130;
+    private int ROSCount = 100;
     private int BoxSize = 20;
     private int ValleyStr = -670;
     private int MountainStr = -2960;
