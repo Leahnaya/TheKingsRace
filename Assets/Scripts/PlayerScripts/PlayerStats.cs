@@ -5,6 +5,9 @@ using UnityEngine.Assertions;
 
 public class PlayerStats : MonoBehaviour
 {
+
+    public enum Weather {Rain, Snow, Wind, Fog};
+
     //Soft cap max speed a player can achieve they can achieve this speed by running
     [SerializeField] private float maxVel = 40.0f;
     public float MaxVel{
@@ -40,6 +43,12 @@ public class PlayerStats : MonoBehaviour
         set{ acc = value; }
     }
 
+    [SerializeField] private float curAcc;
+    public float CurAcc{
+        get{ return curAcc; }
+        set{ curAcc = value;}
+    }
+
     //Player Jump power
     [SerializeField] private float jumpPow = 60.0f;
     public float JumpPow{
@@ -59,6 +68,12 @@ public class PlayerStats : MonoBehaviour
     public float Traction{
         get{ return traction; }
         set{ traction = value; }
+    }
+
+    [SerializeField] private float curTraction;
+    public float CurTraction{
+        get{ return curTraction; }
+        set{ curTraction = value; }
     }
 
     //Player Kick Power
@@ -129,6 +144,87 @@ public class PlayerStats : MonoBehaviour
     public int PlayerPoints{
         get{ return playerPoints; }
         set{ playerPoints = value; }
+    }
+
+    [SerializeField] private bool windOn = false;
+    public bool WindOn{
+        get{ return windOn; }
+    }
+
+    private float tempTraction;
+    private float tempAcc;
+    private float accModification;
+
+    public void SetWeather(Weather weather){
+        switch(weather){
+            case Weather.Rain:{
+                Debug.Log("Rain");
+
+                tempTraction = traction;
+                tempAcc = acc;
+
+                traction -= 2;
+                if(curTraction - 2 > 0){
+                   curTraction -= 2; 
+                }
+
+                acc += 2;
+                curAcc += 2;
+                accModification = 2;
+
+                break;
+            }
+                
+            case Weather.Snow:{
+                Debug.Log("Snow");
+
+                tempTraction = traction;
+                tempAcc = acc;
+
+                traction += 2;
+                if(curTraction > .01 && curTraction != 1){
+                   curTraction += 2;
+                }
+
+                acc *= .5f;
+                curAcc *= .5f;
+                accModification = -acc;
+
+                break;
+            }
+            
+            case Weather.Wind:{
+                Debug.Log("Wind");
+                windOn = true;
+                break;
+            }
+
+            case Weather.Fog:{
+                Debug.Log("Fog");
+                break;
+            }
+                
+            default:{
+                Debug.Log("Incorrect thing passed in");
+                break;
+            }
+                
+        }
+    }
+
+    public void ClearWeather(){
+
+        acc = tempAcc;
+        traction = tempTraction;
+
+        if(curTraction > .01 && curTraction != 1){
+            curTraction = traction;
+        }
+
+        curAcc -= accModification;
+
+        windOn = false;
+
     }
 
     void Update(){

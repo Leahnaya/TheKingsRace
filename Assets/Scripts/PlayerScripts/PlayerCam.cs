@@ -13,6 +13,7 @@ public class PlayerCam : NetworkBehaviour
     void Start ()
     {
         rad = (transform.position - player.transform.position);
+
     }
 
     void Update ()

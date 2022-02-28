@@ -114,6 +114,8 @@ public class MoveStateManager : NetworkBehaviour
 
         if (!IsLocalPlayer) { return; }
         Cursor.lockState = CursorLockMode.Locked; // Lock cursor on start if you are the local player
+        pStats.CurTraction = pStats.Traction;
+        pStats.CurAcc = pStats.Acc;
     }
 
     // Update is called once per frame
@@ -178,7 +180,7 @@ public class MoveStateManager : NetworkBehaviour
         // while the speed is below max speed slowly increase it
         else if ((pStats.CurVel >= pStats.MinVel) && (pStats.CurVel < pStats.MaxVel))
         {
-            pStats.CurVel += pStats.Acc;
+            pStats.CurVel += pStats.CurAcc;
             return pStats.CurVel;
         }
         //If the players speed is above or equal to max speed set speed to max
@@ -208,18 +210,18 @@ public class MoveStateManager : NetworkBehaviour
         Vector3 rayOffset = moveXZ - lastVel;
         
         //Check if wall is in direction player is moving
-        if (((Physics.Raycast(gameObject.transform.position + new Vector3(0,.4f,0) + rayOffset, moveXZ.normalized, out wallHitBot, .2f, layerMask) == true) || ((currentState != SlideState || currentState != CrouchState) && (Physics.Raycast(gameObject.transform.position + new Vector3(0,2.2f,0), moveXZ.normalized, out wallHitTop, .5f, layerMask) == true))) && !firstWallHit){
+        if (((Physics.Raycast(gameObject.transform.position + new Vector3(0,.4f,0) + rayOffset, moveXZ.normalized, out wallHitBot, .2f, layerMask) == true) || ((currentState != SlideState || currentState != CrouchState) && (Physics.Raycast(gameObject.transform.position + new Vector3(0,2.2f,0), moveXZ.normalized, out wallHitTop, .2f, layerMask) == true))) && !firstWallHit){
             CancelMomentum();
             firstWallHit = true;
         }
-        else if((Physics.Raycast(gameObject.transform.position + new Vector3(0,.4f,0) + rayOffset, moveXZ.normalized, out wallHitBot, .2f, layerMask) == false) || ((currentState != SlideState || currentState != CrouchState) && (Physics.Raycast(gameObject.transform.position + new Vector3(0,2.2f,0), moveXZ.normalized, out wallHitTop, .5f, layerMask) == false))){
+        else if((Physics.Raycast(gameObject.transform.position + new Vector3(0,.4f,0) + rayOffset, moveXZ.normalized, out wallHitBot, .2f, layerMask) == false) || ((currentState != SlideState || currentState != CrouchState) && (Physics.Raycast(gameObject.transform.position + new Vector3(0,2.2f,0), moveXZ.normalized, out wallHitTop, .2f, layerMask) == false))){
             firstWallHit = false;
         }
 
         Debug.DrawRay(gameObject.transform.position + new Vector3(0,.4f,0) + rayOffset, moveXZ.normalized * 1f, Color.red);
         Debug.DrawRay(gameObject.transform.position + new Vector3(0,2.2f,0) + rayOffset, moveXZ.normalized * 1f, Color.red);
 
-        driftVel = Vector3.Lerp(driftVel, moveXZ, pStats.Traction * Time.deltaTime);
+        driftVel = Vector3.Lerp(driftVel, moveXZ, pStats.CurTraction * Time.deltaTime);
         if(currentState == GrappleAirState){
             driftVel = Vector3.zero;
         }
@@ -238,7 +240,7 @@ public class MoveStateManager : NetworkBehaviour
         //player vector should be under the circumstances
         vel = moveX + moveZ;
         Vector3 moveXZ = new Vector3(vel.x, 0, vel.z);
-        driftVel = Vector3.Lerp(driftVel, moveXZ, pStats.Traction * Time.deltaTime);
+        driftVel = Vector3.Lerp(driftVel, moveXZ, pStats.CurTraction * Time.deltaTime);
         
         //Need to have movecontroller involved for correct movement
         if(currentState == CrouchState){
