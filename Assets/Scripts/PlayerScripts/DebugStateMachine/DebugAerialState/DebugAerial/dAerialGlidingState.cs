@@ -4,19 +4,17 @@ using UnityEngine;
 
 public class dAerialGlidingState : dAerialBaseState
 {
-    float tempTraction; // temp traction to store the actual player traction
 
     public override void EnterState(dAerialStateManager aSM, dAerialBaseState previousState){
 
         //Modify base traction
-        tempTraction = aSM.pStats.Traction;
-        aSM.pStats.Traction = 1.0f;
+        aSM.pStats.CurTraction = 1.0f;
     }
 
     public override void ExitState(dAerialStateManager aSM, dAerialBaseState nextState){
 
         //return traction to normal
-        aSM.pStats.Traction = tempTraction;
+        aSM.pStats.CurTraction = aSM.pStats.Traction;
     }
 
     public override void UpdateState(dAerialStateManager aSM){

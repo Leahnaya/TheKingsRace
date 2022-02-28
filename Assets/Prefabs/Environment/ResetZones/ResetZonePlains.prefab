@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1578817158580045979}
   - component: {fileID: 1578817158580045978}
+  - component: {fileID: -4917741327760879080}
   m_Layer: 0
   m_Name: ResetZonePlains
   m_TagString: Untagged
@@ -44,3 +45,16 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2000, y: 1000, z: 1200}
   m_Center: {x: -1000, y: 0, z: 500}
+--- !u!114 &-4917741327760879080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1578817158580045977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6560db454bf09ef49bdb0240a370b8aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RespawnZone: 1

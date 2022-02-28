@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2828097643214473696}
   - component: {fileID: 7980481746424238940}
   - component: {fileID: 3653011703778519387}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: RightDoor
   m_TagString: kickable
   m_Icon: {fileID: 0}
@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 6702006673828507876}
   - component: {fileID: 6718938087178912854}
   - component: {fileID: 3431465945459635273}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: RightHandle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -287,7 +287,7 @@ GameObject:
   - component: {fileID: 945210126440020914}
   - component: {fileID: 3100385083289979938}
   - component: {fileID: 1365865449014584479}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: RightKnocker
   m_TagString: Untagged
   m_Icon: {fileID: 0}

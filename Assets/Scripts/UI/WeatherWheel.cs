@@ -10,7 +10,7 @@ public class WeatherWheel : MonoBehaviour {
 
     void Update() {
         if (isSpinning) {
-            transform.Rotate(0, 0, wheelSpeed, Space.World);
+            transform.Rotate(0, 0, wheelSpeed);
             wheelSpeed -= subtractSpeed;
         }
 
@@ -28,28 +28,28 @@ public class WeatherWheel : MonoBehaviour {
                 Debug.Log("Snow");
 
                 // Set angle back to centered
-                transform.rotation = Quaternion.Euler(0, 0, 0);
+                transform.localRotation = Quaternion.Euler(0, 0, 0);
             } else if (finalAngle > 45 && finalAngle <= 135) {
                 // Windy
                 // TODO: Trigger Wind
                 Debug.Log("Windy");
 
                 // Set angle back to centered
-                transform.rotation = Quaternion.Euler(0, 0, 90);
+                transform.localRotation = Quaternion.Euler(0, 0, 90);
             } else if (finalAngle > 135 && finalAngle <= 225) {
                 // Fog
                 // TODO: Trigger Fog
                 Debug.Log("Fog");
 
                 // Set angle back to centered
-                transform.rotation = Quaternion.Euler(0, 0, 180);
+                transform.localRotation = Quaternion.Euler(0, 0, 180);
             } else if (finalAngle > 225 && finalAngle <= 315) {
                 // Rain
                 // TODO: Trigger Rain
                 Debug.Log("Rain");
 
                 // Set angle back to centered
-                transform.rotation = Quaternion.Euler(0, 0, 270);
+                transform.localRotation = Quaternion.Euler(0, 0, 270);
             }
         }
     }
