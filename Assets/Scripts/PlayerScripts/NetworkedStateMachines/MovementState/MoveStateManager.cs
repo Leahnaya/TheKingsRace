@@ -144,6 +144,10 @@ public class MoveStateManager : NetworkBehaviour
         //if camera is enabled then rotate
         if(cam.enabled) Rotation();  
         else Debug.Log("Cam Disabled");
+
+        if(moveController.enabled){
+            ApplyWind(pStats.WindOn); 
+        }
         
         //calls any logic in the fixed update state from current state
         currentState.FixedUpdateState(this);
@@ -302,7 +306,7 @@ public class MoveStateManager : NetworkBehaviour
     //Apply Wind movement to the player
     public void ApplyWind(bool wind){
         if(wind){
-
+                moveController.Move(pStats.WindDirection.normalized * 2); 
         }
     }
 

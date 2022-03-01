@@ -151,11 +151,17 @@ public class PlayerStats : MonoBehaviour
         get{ return windOn; }
     }
 
+    [SerializeField] private Vector3 windDirection;
+    public Vector3 WindDirection{
+        get{ return windDirection; }
+        set{ windDirection = value; }
+    }
+
     private float tempTraction;
     private float tempAcc;
     private float accModification;
 
-    public void SetWeather(Weather weather){
+    public void SetWeather(Weather weather, Vector3 windDir){
         switch(weather){
             case Weather.Rain:{
                 Debug.Log("Rain");
@@ -195,6 +201,8 @@ public class PlayerStats : MonoBehaviour
             
             case Weather.Wind:{
                 Debug.Log("Wind");
+
+                windDirection = windDir;
                 windOn = true;
                 break;
             }
