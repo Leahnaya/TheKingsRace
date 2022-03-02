@@ -23,7 +23,7 @@ public class dNitroNoneState : dNitroBaseState
             }
 
             //if pressing left shift then nitroing
-            else if ((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.JoystickButton8)))
+            else if ((Input.GetKeyDown(KeyCode.LeftShift) || Input.GetKeyDown(KeyCode.JoystickButton8)) && !nSM.pStats.IsPaused)
             {
                 nSM.SwitchState(nSM.NitroingState);
             }

@@ -116,8 +116,10 @@ public class dMoveStateManager : NetworkBehaviour
 
         //if (!IsLocalPlayer) { return; }
         Cursor.lockState = CursorLockMode.Locked; // Lock cursor on start if you are the local player
-        pStats.Traction = pStats.CurTraction;
+        pStats.CurTraction = pStats.Traction;
         pStats.CurAcc = pStats.Acc;
+
+        pStats.SetWeather(PlayerStats.Weather.Wind, new Vector3(1,0,0));
     }
 
     // Update is called once per frame
@@ -146,6 +148,10 @@ public class dMoveStateManager : NetworkBehaviour
         //if camera is enabled then rotate
         if(cam.enabled) Rotation();  
         else Debug.Log("Cam Disabled");
+
+        if(moveController.enabled){
+            ApplyWind(pStats.WindOn); 
+        }        
         
         //calls any logic in the fixed update state from current state
         currentState.FixedUpdateState(this);
@@ -168,7 +174,7 @@ public class dMoveStateManager : NetworkBehaviour
     //Player Speed Calculator
     public float PlayerSpeed(){
         //If nothing is pressed speed is 0
-        if ((Input.GetAxis("Vertical") == 0.0f && Input.GetAxis("Horizontal") == 0.0f))
+        if ((Input.GetAxis("Vertical") == 0.0f && Input.GetAxis("Horizontal") == 0.0f) || pStats.IsPaused)
         {
             pStats.CurVel = 0.0f;
             return pStats.CurVel;
@@ -257,7 +263,7 @@ public class dMoveStateManager : NetworkBehaviour
     //Camera and player rotation
     private void Rotation(){
         //If moveController is enabled allow Camera control
-        if(moveController.enabled){
+        if(moveController.enabled && !pStats.IsPaused){
             //if input is received from Mouse X
             if (Input.GetAxis("Mouse X") != 0){
                 transform.parent.Rotate(Vector3.up * sensitivity * Time.deltaTime * Input.GetAxis("Mouse X"));
@@ -300,6 +306,13 @@ public class dMoveStateManager : NetworkBehaviour
         moveX = Vector3.zero;
         moveZ = Vector3.zero;
         driftVel = Vector3.zero;
+    }
+
+    //Apply Wind movement to the player
+    public void ApplyWind(bool wind){
+        if(wind){
+                moveController.Move(pStats.WindDirection.normalized * .2f); 
+        }
     }
     ////
 

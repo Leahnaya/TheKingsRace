@@ -60,20 +60,8 @@ public class PauseMenu : MonoBehaviour {
             // Find the local player
             if (player.GetComponent<NetworkObject>().IsLocalPlayer) {
                 // Have to use if checks since only the runners have these
-                if (player.GetComponentInChildren<MoveStateManager>() != null) {
-                    player.GetComponentInChildren<MoveStateManager>().enabled = newState;
-                }
-                if (player.GetComponentInChildren<AerialStateManager>() != null) {
-                    player.GetComponentInChildren<AerialStateManager>().enabled = newState;
-                }
-                if (player.GetComponentInChildren<OffenseStateManager>() != null) {
-                    player.GetComponentInChildren<OffenseStateManager>().enabled = newState;
-                }
-                if (player.GetComponentInChildren<DashStateManager>() != null) {
-                    player.GetComponentInChildren<DashStateManager>().enabled = newState;
-                }
-                if (player.GetComponentInChildren<NitroStateManager>() != null) {
-                    player.GetComponentInChildren<NitroStateManager>().enabled = newState;
+                if (player.GetComponentInChildren<PlayerStats>() != null) {
+                    player.GetComponentInChildren<PlayerStats>().IsPaused = !newState;
                 }
 
                 // King's Movement

@@ -928,7 +928,7 @@ GameObject:
   - component: {fileID: 1707207228499037412}
   - component: {fileID: 1707207228499037411}
   - component: {fileID: 1707207228499037410}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: T-Pose
   m_TagString: ArcherTarget
   m_Icon: {fileID: 0}
@@ -984,14 +984,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: addc2e37ff81c1b4989ec34b6150b4f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxVel: 45
+  maxVel: 50
   minVel: 18
   curVel: 0
   hardCapMaxVel: 90
   acc: 0.02
+  curAcc: 0
   jumpPow: 60
   jumpNum: 2
   traction: 5
+  curTraction: 0
   kickPow: 300
   recovTime: 3
   playerGrav: 200
@@ -1002,6 +1004,9 @@ MonoBehaviour:
   hasNitro: 0
   hasDash: 0
   playerPoints: 15
+  isPaused: 0
+  windOn: 0
+  windDirection: {x: 0, y: 0, z: 0}
 --- !u!114 &1707207228499037471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2253,7 +2258,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3454051987037357494
 Transform:
   m_ObjectHideFlags: 0

@@ -42,7 +42,7 @@ public class dMoveSlideState : dMoveBaseState
         }
         
         //steadily increase traction
-        mSM.pStats.Traction += .004f;
+        mSM.pStats.CurTraction += .004f;
         
         //If player isn't pressing either Q or the joystick button they stop sliding if nothing is above them
         if((!Input.GetKey(KeyCode.JoystickButton1) && !Input.GetKey(KeyCode.Q))){

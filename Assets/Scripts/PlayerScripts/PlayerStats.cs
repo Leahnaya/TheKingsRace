@@ -5,7 +5,7 @@ using UnityEngine.Assertions;
 
 public class PlayerStats : MonoBehaviour
 {
-
+    //Weather types
     public enum Weather {Rain, Snow, Wind, Fog};
 
     //Soft cap max speed a player can achieve they can achieve this speed by running
@@ -146,16 +146,35 @@ public class PlayerStats : MonoBehaviour
         set{ playerPoints = value; }
     }
 
+    //Is player paused
+    [SerializeField] private bool isPaused = false;
+    public bool IsPaused{
+        get{ return isPaused; }
+        set{ isPaused = value; }
+    }
+
+    ////Weather Related stats
+    //Is wind on
     [SerializeField] private bool windOn = false;
     public bool WindOn{
         get{ return windOn; }
     }
 
+    //Wind direction
+    [SerializeField] private Vector3 windDirection;
+    public Vector3 WindDirection{
+        get{ return windDirection; }
+        set{ windDirection = value; }
+    }
+
+    //temp values for reseting stuff
     private float tempTraction;
     private float tempAcc;
     private float accModification;
 
-    public void SetWeather(Weather weather){
+    //sets weather effect on player
+    public void SetWeather(Weather weather, Vector3 windDir = default(Vector3)){
+
         switch(weather){
             case Weather.Rain:{
                 Debug.Log("Rain");
@@ -163,9 +182,9 @@ public class PlayerStats : MonoBehaviour
                 tempTraction = traction;
                 tempAcc = acc;
 
-                traction -= 2;
-                if(curTraction - 2 > 0){
-                   curTraction -= 2; 
+                traction -= 4;
+                if(curTraction - 4 > 0){
+                   curTraction -= 4; 
                 }
 
                 acc += 2;
@@ -190,11 +209,15 @@ public class PlayerStats : MonoBehaviour
                 curAcc *= .5f;
                 accModification = -acc;
 
+                curVel *= .5f;
+
                 break;
             }
             
             case Weather.Wind:{
                 Debug.Log("Wind");
+
+                windDirection = windDir;
                 windOn = true;
                 break;
             }
@@ -212,6 +235,7 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
+    //clears weather effects
     public void ClearWeather(){
 
         acc = tempAcc;
@@ -226,6 +250,7 @@ public class PlayerStats : MonoBehaviour
         windOn = false;
 
     }
+    ////
 
     void Update(){
         VariableValidation();
@@ -235,7 +260,7 @@ public class PlayerStats : MonoBehaviour
         Debug.Assert((maxVel >= 0), "maxVel cannot be below zero");
         Debug.Assert((minVel >= 0), "minVel cannot be below zero"); 
         Debug.Assert((curVel >= 0), "curVel cannot be below zero");
-        Debug.Assert((jumpPow >= 0), "jumpPow cannot be below zero"); 
+        Debug.Assert((jumpPow >= 0), "jumpPow cannot be below zero");
         Debug.Assert((jumpNum >= 2), "jumpNum cannot be below 2"); 
         Debug.Assert((traction >= 0), "traction cannot be below zero"); 
         Debug.Assert((kickPow >= 0), "Playerpoints cannot be below zero"); 
