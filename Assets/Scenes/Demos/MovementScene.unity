@@ -3106,18 +3106,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1707207228499037409, guid: 0ea305f96ab853340bb9f0ed320dac08, type: 3}
-      propertyPath: m_Layer
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1707207228499037465, guid: 0ea305f96ab853340bb9f0ed320dac08, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3454051987037357495, guid: 0ea305f96ab853340bb9f0ed320dac08, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5759777694531189237, guid: 0ea305f96ab853340bb9f0ed320dac08, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -3165,10 +3153,6 @@ PrefabInstance:
     - target: {fileID: 7053551988629990270, guid: 0ea305f96ab853340bb9f0ed320dac08, type: 3}
       propertyPath: m_Name
       value: DebugSMPlayerPrefab
-      objectReference: {fileID: 0}
-    - target: {fileID: 7053551988629990270, guid: 0ea305f96ab853340bb9f0ed320dac08, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ea305f96ab853340bb9f0ed320dac08, type: 3}

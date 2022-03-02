@@ -173,7 +173,8 @@ public class PlayerStats : MonoBehaviour
     private float accModification;
 
     //sets weather effect on player
-    public void SetWeather(Weather weather, Vector3 windDir){
+    public void SetWeather(Weather weather, Vector3 windDir = default(Vector3)){
+
         switch(weather){
             case Weather.Rain:{
                 Debug.Log("Rain");
@@ -181,9 +182,9 @@ public class PlayerStats : MonoBehaviour
                 tempTraction = traction;
                 tempAcc = acc;
 
-                traction -= 2;
-                if(curTraction - 2 > 0){
-                   curTraction -= 2; 
+                traction -= 4;
+                if(curTraction - 4 > 0){
+                   curTraction -= 4; 
                 }
 
                 acc += 2;
@@ -207,6 +208,8 @@ public class PlayerStats : MonoBehaviour
                 acc *= .5f;
                 curAcc *= .5f;
                 accModification = -acc;
+
+                curVel *= .5f;
 
                 break;
             }
@@ -257,7 +260,7 @@ public class PlayerStats : MonoBehaviour
         Debug.Assert((maxVel >= 0), "maxVel cannot be below zero");
         Debug.Assert((minVel >= 0), "minVel cannot be below zero"); 
         Debug.Assert((curVel >= 0), "curVel cannot be below zero");
-        Debug.Assert((jumpPow >= 0), "jumpPow cannot be below zero"); 
+        Debug.Assert((jumpPow >= 0), "jumpPow cannot be below zero");
         Debug.Assert((jumpNum >= 2), "jumpNum cannot be below 2"); 
         Debug.Assert((traction >= 0), "traction cannot be below zero"); 
         Debug.Assert((kickPow >= 0), "Playerpoints cannot be below zero"); 

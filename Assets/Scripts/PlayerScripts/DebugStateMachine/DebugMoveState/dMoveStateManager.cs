@@ -116,8 +116,10 @@ public class dMoveStateManager : NetworkBehaviour
 
         //if (!IsLocalPlayer) { return; }
         Cursor.lockState = CursorLockMode.Locked; // Lock cursor on start if you are the local player
-        pStats.Traction = pStats.CurTraction;
+        pStats.CurTraction = pStats.Traction;
         pStats.CurAcc = pStats.Acc;
+
+        pStats.SetWeather(PlayerStats.Weather.Wind, new Vector3(1,0,0));
     }
 
     // Update is called once per frame
@@ -309,7 +311,7 @@ public class dMoveStateManager : NetworkBehaviour
     //Apply Wind movement to the player
     public void ApplyWind(bool wind){
         if(wind){
-                moveController.Move(pStats.WindDirection.normalized * 2); 
+                moveController.Move(pStats.WindDirection.normalized * .2f); 
         }
     }
     ////
