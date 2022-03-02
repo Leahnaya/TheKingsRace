@@ -33,7 +33,9 @@ public class ResetZonesGlobal : MonoBehaviour {
         foreach (GameObject character in playableCharacters) {
             if (character.GetComponent<NetworkObject>().OwnerClientId == clientID) {
                 // Set their zone
-                character.GetComponent<ResetZones>().SetCurrentZone(RespawnZone);
+                if (character.GetComponent<ResetZones>() != null) {
+                    character.GetComponent<ResetZones>().SetCurrentZone(RespawnZone);
+                }
             }
         }
     }

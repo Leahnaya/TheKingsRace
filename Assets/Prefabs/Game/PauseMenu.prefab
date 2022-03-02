@@ -2091,6 +2091,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6431751770358054813}
   - component: {fileID: 1008376151640199170}
+  - component: {fileID: 7402969457012247330}
+  - component: {fileID: 4573322176111875793}
   m_Layer: 0
   m_Name: PauseMenu
   m_TagString: PauseMenu
@@ -2132,6 +2134,37 @@ MonoBehaviour:
   ControlsHeader: {fileID: 785062696961171354}
   ControlsButtonText: {fileID: 4533798804063372460}
   ControlsText: {fileID: 8276015047527584947}
+  runnerPrefab: {fileID: 3669633515805984294, guid: 1e178f956ddfe5143b2b9e77e76db7f0, type: 3}
+--- !u!114 &7402969457012247330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4414581513358013603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66519fc5420181e45850c591aa1179ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allItems: []
+--- !u!114 &4573322176111875793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4414581513358013603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NetworkInstanceId: 0
+  PrefabHash: 14656023668747719728
+  PrefabHashGenerator: PauseMenu
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
 --- !u!1 &4446168051527838164
 GameObject:
   m_ObjectHideFlags: 0
