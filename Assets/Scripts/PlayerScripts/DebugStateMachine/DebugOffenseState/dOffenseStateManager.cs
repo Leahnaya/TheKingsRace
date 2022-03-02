@@ -102,7 +102,7 @@ public class dOffenseStateManager : NetworkBehaviour
     //Collision checker for the leg
     private void OnCollisionEnter(Collision collision)
     {
-        if (!IsLocalPlayer) { return; }
+        //if (!IsLocalPlayer) { return; }
         Collider myCollider = collision.contacts[0].thisCollider;
         if (collision.transform.CompareTag("kickable") && myCollider == legHitbox.GetComponent<Collider>()){
             if(collision.gameObject.GetComponent<Rigidbody>().isKinematic == true){
@@ -115,5 +115,10 @@ public class dOffenseStateManager : NetworkBehaviour
         if (collision.transform.CompareTag("destroyable") && myCollider == legHitbox.GetComponent<Collider>()){
             collision.transform.gameObject.GetComponent<BreakableBlock>().damage(pStats.KickPow);
         }
+
+        // if(collision.transform.CompareTag("ArcherTarget") && myCollider == legHitbox.GetComponent<Collider>()){
+        //     Vector3 direction = this.transform.forward;
+        //     collision.gameObject.GetComponent<dMoveStateManager>().GetHit(this.transform.forward, 10);
+        // }
     }
 }
