@@ -148,7 +148,7 @@ public class OffenseStateManager : NetworkBehaviour
 
         foreach(GameObject kickedPlayer in players){
             //First check if the player is kicked
-            if(kickedPlayer.transform.root.GetComponent<NetworkObject>() != null && kickedPlayer.transform.root.GetComponent<NetworkObject>().NetworkObjectId == netObjId){
+            if(kickedPlayer.transform.root.GetComponent<NetworkObject>() != null && kickedPlayer.transform.root.GetComponent<NetworkObject>().NetworkObjectId == netObjId && kickedPlayer.transform.root.GetComponent<NetworkObject>().NetworkObjectId != this.transform.root.GetComponent<NetworkObject>().NetworkObjectId){
                 kickedPlayer.GetComponent<MoveStateManager>().GetHit(direction, 10);
             }
 

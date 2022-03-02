@@ -116,9 +116,9 @@ public class dOffenseStateManager : NetworkBehaviour
             collision.transform.gameObject.GetComponent<BreakableBlock>().damage(pStats.KickPow);
         }
 
-        if(collision.transform.CompareTag("ArcherTarget") && myCollider == legHitbox.GetComponent<Collider>()){
-            Vector3 direction = this.transform.forward;
-            collision.gameObject.GetComponent<dMoveStateManager>().GetHit(this.transform.forward, 10);
-        }
+        // if(collision.transform.CompareTag("ArcherTarget") && myCollider == legHitbox.GetComponent<Collider>()){
+        //     Vector3 direction = this.transform.forward;
+        //     collision.gameObject.GetComponent<dMoveStateManager>().GetHit(this.transform.forward, 10);
+        // }
     }
 }
