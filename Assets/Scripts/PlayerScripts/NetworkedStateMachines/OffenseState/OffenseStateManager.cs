@@ -116,7 +116,7 @@ public class OffenseStateManager : NetworkBehaviour
 
         if(collision.transform.CompareTag("ArcherTarget") && myCollider == legHitbox.GetComponent<Collider>()){
             Vector3 direction = this.transform.forward;
-            ulong netObjID = collision.gameObject.GetComponent<NetworkObject>().NetworkObjectId;
+            ulong netObjID = collision.gameObject.transform.root.GetComponent<NetworkObject>().NetworkObjectId;
             ApplyKickServerRPC(direction, netObjID);
         }
 
