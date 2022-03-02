@@ -4655,14 +4655,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: addc2e37ff81c1b4989ec34b6150b4f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxVel: 45
+  maxVel: 50
   minVel: 18
   curVel: 0
   hardCapMaxVel: 90
   acc: 0.02
+  curAcc: 0
   jumpPow: 60
   jumpNum: 2
   traction: 5
+  curTraction: 0
   kickPow: 300
   recovTime: 3
   playerGrav: 200
@@ -4673,6 +4675,9 @@ MonoBehaviour:
   hasNitro: 0
   hasDash: 0
   playerPoints: 15
+  isPaused: 0
+  windOn: 0
+  windDirection: {x: 0, y: 0, z: 0}
 --- !u!114 &7688428083034862284
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4919,6 +4924,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f942eeaa888c98468c9ad196fb88115, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  runnerPrefab: {fileID: 0}
 --- !u!1 &7740096766088430285
 GameObject:
   m_ObjectHideFlags: 0
