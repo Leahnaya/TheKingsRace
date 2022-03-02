@@ -172,7 +172,7 @@ public class dMoveStateManager : NetworkBehaviour
     //Player Speed Calculator
     public float PlayerSpeed(){
         //If nothing is pressed speed is 0
-        if ((Input.GetAxis("Vertical") == 0.0f && Input.GetAxis("Horizontal") == 0.0f))
+        if ((Input.GetAxis("Vertical") == 0.0f && Input.GetAxis("Horizontal") == 0.0f) || pStats.IsPaused)
         {
             pStats.CurVel = 0.0f;
             return pStats.CurVel;
@@ -261,7 +261,7 @@ public class dMoveStateManager : NetworkBehaviour
     //Camera and player rotation
     private void Rotation(){
         //If moveController is enabled allow Camera control
-        if(moveController.enabled){
+        if(moveController.enabled && !pStats.IsPaused){
             //if input is received from Mouse X
             if (Input.GetAxis("Mouse X") != 0){
                 transform.parent.Rotate(Vector3.up * sensitivity * Time.deltaTime * Input.GetAxis("Mouse X"));

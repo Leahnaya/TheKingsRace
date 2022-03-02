@@ -20,7 +20,7 @@ public class OffenseNoneState : OffenseBaseState
         }
 
         //if grounded then grounded kick states
-        else if(oSM.aSM.currentState == oSM.aSM.GroundedState && (Input.GetKeyDown(KeyCode.F) || Input.GetAxis("Kick") != 0)){
+        else if(oSM.aSM.currentState == oSM.aSM.GroundedState && (Input.GetKeyDown(KeyCode.F) || Input.GetAxis("Kick") != 0) && !oSM.pStats.IsPaused){
 
             //if power is above 300 then punch
             if(oSM.pStats.KickPow > 300){
@@ -35,7 +35,7 @@ public class OffenseNoneState : OffenseBaseState
         }
 
         //if in the air
-        else if((Input.GetKeyDown(KeyCode.F) || Input.GetAxis("Kick") != 0)){
+        else if((Input.GetKeyDown(KeyCode.F) || Input.GetAxis("Kick") != 0) && !oSM.pStats.IsPaused){
 
             //if power is above 300 air punch
             if(oSM.pStats.KickPow > 300){

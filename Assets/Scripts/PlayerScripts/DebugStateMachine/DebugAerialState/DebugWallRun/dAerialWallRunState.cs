@@ -25,7 +25,7 @@ public class dAerialWallRunState : dAerialBaseState
         }        
 
         //if space is pressed then jumping
-        else if(Input.GetButton("Jump") && !spaceHeld){
+        else if(Input.GetButton("Jump") && !spaceHeld && !aSM.pStats.IsPaused){
             aSM.SwitchState(aSM.JumpingState);
         }
         else if(!Input.GetButton("Jump") && spaceHeld){

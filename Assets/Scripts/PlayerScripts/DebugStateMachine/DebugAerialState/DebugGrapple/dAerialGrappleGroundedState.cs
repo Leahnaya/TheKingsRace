@@ -17,7 +17,7 @@ public class dAerialGrappleGroundedState : dAerialBaseState
     public override void UpdateState(dAerialStateManager aSM){
 
         //if E is pressed or ragdolling then grounded
-        if(((Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.JoystickButton2)) && !aSM.eHeld) || (aSM.mSM.currentState == aSM.mSM.RagdollState)){
+        if(((Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.JoystickButton2)) && !aSM.eHeld && !aSM.pStats.IsPaused) || (aSM.mSM.currentState == aSM.mSM.RagdollState)){
             aSM.SwitchState(aSM.GroundedState);
         }
         else if((Input.GetKeyUp(KeyCode.E) || Input.GetKeyUp(KeyCode.JoystickButton2)) && aSM.eHeld){

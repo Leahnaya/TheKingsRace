@@ -268,22 +268,24 @@ public class dAerialStateManager : NetworkBehaviour
 
     //applies Jump values and Variables
     void Jump(){
-        //If space/south gamepad button is pressed apply an upwards force to the player
-        if (Input.GetAxis("Jump") != 0 && !jumpHeld && curJumpNum < pStats.JumpNum && (mSM.currentState != mSM.SlideState && mSM.currentState != mSM.CrouchState && mSM.currentState != mSM.RagdollState && mSM.currentState != mSM.RecoveringState))
-        {
-            if(currentState == WallRunState){
-                AddImpact((GetWallJumpDirection()), pStats.JumpPow * 8.5f);
-                pStats.GravVel = pStats.JumpPow;
-                curJumpNum = 0;
+        if(!pStats.IsPaused){
+            //If space/south gamepad button is pressed apply an upwards force to the player
+            if (Input.GetAxis("Jump") != 0 && !jumpHeld && curJumpNum < pStats.JumpNum && (mSM.currentState != mSM.SlideState && mSM.currentState != mSM.CrouchState && mSM.currentState != mSM.RagdollState && mSM.currentState != mSM.RecoveringState))
+            {
+                if(currentState == WallRunState){
+                    AddImpact((GetWallJumpDirection()), pStats.JumpPow * 8.5f);
+                    pStats.GravVel = pStats.JumpPow;
+                    curJumpNum = 0;
+                }
+                else{
+                pStats.GravVel = pStats.JumpPow; 
+                }
+                
+                
+                curJumpNum++;
+                jumpHeld = true;
+                jumpPressed = true;
             }
-            else{
-               pStats.GravVel = pStats.JumpPow; 
-            }
-            
-            
-            curJumpNum++;
-            jumpHeld = true;
-            jumpPressed = true;
         }
 
         //If grounded no jumps have been used and coyote Timer is refreshed
@@ -476,15 +478,17 @@ public class dAerialStateManager : NetworkBehaviour
     ////Grapple Functions
     //Checks if the player can grapple
     public bool CheckGrapple(){
-        if ((Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.JoystickButton2)) && pStats.HasGrapple) //If grapple button is hit
-        {
-            hookPointIndex = FindHookPoint(); //Find the nearest hook point within max distance
-            if (hookPointIndex != -1) //If there is a hookpoint
-                {
-                    hookPoint = hookPoints[hookPointIndex]; //The point we are grappling from
-                    eHeld = true;
-                    return true;
-                }
+        if(!pStats.IsPaused){
+            if ((Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.JoystickButton2)) && pStats.HasGrapple) //If grapple button is hit
+            {
+                hookPointIndex = FindHookPoint(); //Find the nearest hook point within max distance
+                if (hookPointIndex != -1) //If there is a hookpoint
+                    {
+                        hookPoint = hookPoints[hookPointIndex]; //The point we are grappling from
+                        eHeld = true;
+                        return true;
+                    }
+            }
         }
         return false;
     }

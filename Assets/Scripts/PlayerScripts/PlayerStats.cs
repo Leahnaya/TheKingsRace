@@ -5,7 +5,7 @@ using UnityEngine.Assertions;
 
 public class PlayerStats : MonoBehaviour
 {
-
+    //Weather types
     public enum Weather {Rain, Snow, Wind, Fog};
 
     //Soft cap max speed a player can achieve they can achieve this speed by running
@@ -146,21 +146,33 @@ public class PlayerStats : MonoBehaviour
         set{ playerPoints = value; }
     }
 
+    //Is player paused
+    [SerializeField] private bool isPaused = false;
+    public bool IsPaused{
+        get{ return isPaused; }
+        set{ isPaused = value; }
+    }
+
+    ////Weather Related stats
+    //Is wind on
     [SerializeField] private bool windOn = false;
     public bool WindOn{
         get{ return windOn; }
     }
 
+    //Wind direction
     [SerializeField] private Vector3 windDirection;
     public Vector3 WindDirection{
         get{ return windDirection; }
         set{ windDirection = value; }
     }
 
+    //temp values for reseting stuff
     private float tempTraction;
     private float tempAcc;
     private float accModification;
 
+    //sets weather effect on player
     public void SetWeather(Weather weather, Vector3 windDir){
         switch(weather){
             case Weather.Rain:{
@@ -220,6 +232,7 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
+    //clears weather effects
     public void ClearWeather(){
 
         acc = tempAcc;
@@ -234,6 +247,7 @@ public class PlayerStats : MonoBehaviour
         windOn = false;
 
     }
+    ////
 
     void Update(){
         VariableValidation();

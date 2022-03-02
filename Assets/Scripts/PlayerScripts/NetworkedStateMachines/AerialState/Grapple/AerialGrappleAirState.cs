@@ -68,7 +68,7 @@ public class AerialGrappleAirState : AerialBaseState
     public override void UpdateState(AerialStateManager aSM){
         
         //if pressing E or ragdolling then falling
-        if(((Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.JoystickButton2)) && !aSM.eHeld) || (aSM.mSM.currentState == aSM.mSM.RagdollState)){
+        if(((Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.JoystickButton2)) && !aSM.eHeld && !aSM.pStats.IsPaused) || (aSM.mSM.currentState == aSM.mSM.RagdollState)){
             aSM.SwitchState(aSM.FallingState);
         }
         else if((Input.GetKeyUp(KeyCode.E) || Input.GetKeyUp(KeyCode.JoystickButton2)) && aSM.eHeld){
@@ -76,7 +76,7 @@ public class AerialGrappleAirState : AerialBaseState
         }
 
         //if pressing Jump then jump
-        else if(Input.GetButton("Jump") && !spaceHeld){
+        else if(Input.GetButton("Jump") && !spaceHeld && !aSM.pStats.IsPaused){
             aSM.SwitchState(aSM.JumpingState);
         }
         else if(!(Input.GetButton("Jump")) && spaceHeld){
