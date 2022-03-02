@@ -119,7 +119,6 @@ public class dMoveStateManager : NetworkBehaviour
         pStats.CurTraction = pStats.Traction;
         pStats.CurAcc = pStats.Acc;
 
-        pStats.SetWeather(PlayerStats.Weather.Wind, new Vector3(1,0,0));
     }
 
     // Update is called once per frame

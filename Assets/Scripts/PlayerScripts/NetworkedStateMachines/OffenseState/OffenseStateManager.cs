@@ -114,6 +114,12 @@ public class OffenseStateManager : NetworkBehaviour
             ApplyKickServerRPC(direction, netObjID);
         }
 
+        if(collision.transform.CompareTag("ArcherTarget") && myCollider == legHitbox.GetComponent<Collider>()){
+            Vector3 direction = this.transform.forward;
+            ulong netObjID = collision.gameObject.GetComponent<NetworkObject>().NetworkObjectId;
+            ApplyKickServerRPC(direction, netObjID);
+        }
+
         if (collision.transform.CompareTag("destroyable") && myCollider == legHitbox.GetComponent<Collider>()){
             collision.transform.gameObject.GetComponent<BreakableBlock>().damage(pStats.KickPow);
         }
@@ -122,6 +128,7 @@ public class OffenseStateManager : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     private void ApplyKickServerRPC(Vector3 direction, ulong netObjId) {
         GameObject[] kickables = GameObject.FindGameObjectsWithTag("kickable");
+        GameObject[] players = GameObject.FindGameObjectsWithTag("ArcherTarget");
 
         foreach (GameObject kickedItem in kickables) { 
             // First check to make sure this is the item we kicked
@@ -137,6 +144,15 @@ public class OffenseStateManager : NetworkBehaviour
                 // Then return since we only kicked one item and don't need to check the remainder of the items
                 return;
             }
+        }
+
+        foreach(GameObject kickedPlayer in players){
+            //First check if the player is kicked
+            if(kickedPlayer.transform.root.GetComponent<NetworkObject>() != null && kickedPlayer.transform.root.GetComponent<NetworkObject>().NetworkObjectId == netObjId){
+                kickedPlayer.GetComponent<MoveStateManager>().GetHit(direction, 10);
+            }
+
+            return;
         }
     }
 }

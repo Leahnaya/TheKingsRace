@@ -62,6 +62,11 @@ public class PauseMenu : MonoBehaviour {
                 // Have to use if checks since only the runners have these
                 if (player.GetComponentInChildren<PlayerStats>() != null) {
                     player.GetComponentInChildren<PlayerStats>().IsPaused = !newState;
+
+                    // Lock the cursor
+                    if(newState){
+                        Cursor.lockState = CursorLockMode.Locked;
+                    }
                 }
 
                 // King's Movement
@@ -75,9 +80,6 @@ public class PauseMenu : MonoBehaviour {
     public void OnResumeGameClicked() {
         // Unlock player controls
         setPlayerControlsStateServerRPC(true);
-
-        // Lock the cursor
-        Cursor.lockState = CursorLockMode.Locked;
 
         // Hide PauseMenu
         PauseMenuPanel.SetActive(false);
