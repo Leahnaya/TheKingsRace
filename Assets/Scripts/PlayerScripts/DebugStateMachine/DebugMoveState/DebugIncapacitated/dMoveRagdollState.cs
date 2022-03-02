@@ -24,7 +24,7 @@ public class dMoveRagdollState : dMoveBaseState
 
     public override void ExitState(dMoveStateManager mSM, dMoveBaseState nextState){
 
-            mSM.pStats.GravVel = 60; // resets gravVel
+            mSM.pStats.GravVel = 80; // resets gravVel
             mSM.capCol.enabled = false; // disable capsule collider
             mSM.moveController.enabled = true; // enable move controller
             mSM.rB.isKinematic = true; // enable kinematic
