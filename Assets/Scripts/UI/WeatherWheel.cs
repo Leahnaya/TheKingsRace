@@ -10,8 +10,12 @@ public class WeatherWheel : NetworkBehaviour {
     private float wheelSpeed;
     private float subtractSpeed;
     public bool isSpinning = false;
+    private bool onCooldown = false;
 
     public GameObject pointer;
+
+    private float weatherDuration = 30f;
+    private float postWeatherCooldown = 15f;
 
     void Start() {
         gameObject.GetComponent<Image>().enabled = false;
@@ -101,8 +105,26 @@ public class WeatherWheel : NetworkBehaviour {
             }
 
             // Start an IEnum to turn off the weather
-            //TODO: here
+            StartCoroutine(StopWeatherCountdown());
         }
+    }
+
+    IEnumerator StopWeatherCountdown() { 
+        // Weather duration
+        for (int i = 0; i < weatherDuration; i++) {
+            yield return new WaitForSecondsRealtime(1f);
+        }
+
+        // Stop weather after duration
+        StopWeatherServerRPC();
+
+        // Post weather cool down
+        for (int i = 0; i < postWeatherCooldown; i++) {
+            yield return new WaitForSecondsRealtime(1f);
+        }
+
+        // Allow weather to be spun again
+        onCooldown = false;
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -141,14 +163,41 @@ public class WeatherWheel : NetworkBehaviour {
         }
     }
 
+    [ServerRpc(RequireOwnership = false)]
+    private void StopWeatherServerRPC() {
+        StopWeatherClientRPC();
+    }
+
+    [ClientRpc]
+    private void StopWeatherClientRPC() {
+        // Stop the weather on the player
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+
+        foreach (GameObject player in players) {
+            if (player.GetComponent<NetworkObject>().OwnerClientId == NetworkManager.Singleton.LocalClientId) {
+                // This check makes it so the king isn't affected
+                if (player.GetComponentInChildren<PlayerStats>() != null) {
+                    player.GetComponentInChildren<PlayerStats>().ClearWeather();
+                }
+            }
+        }
+
+        // Turn off the weather particle systems
+        GameObject.FindGameObjectWithTag("RainSystem").GetComponent<ParticleSystem>().Stop();
+        GameObject.FindGameObjectWithTag("SnowSystem").GetComponent<ParticleSystem>().Stop();
+        GameObject.FindGameObjectWithTag("WindSystem").GetComponent<ParticleSystem>().Stop();
+        GameObject.FindGameObjectWithTag("FogSystem").GetComponent<ParticleSystem>().Stop();
+    }
+
     public void SpinWheel() {
 
-        // Only spin if not spinning already
-        if (isSpinning) { return; }
+        // Only spin if not spinning already and not on cooldown
+        if (isSpinning && !onCooldown) { return; }
 
         // Do the spin
         wheelSpeed = Random.Range(4.000f, 5.000f);
         subtractSpeed = Random.Range(0.003f, 0.009f);
         isSpinning = true;
+        onCooldown = true;
     }
 }
