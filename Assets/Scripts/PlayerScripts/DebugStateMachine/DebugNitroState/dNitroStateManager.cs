@@ -32,7 +32,7 @@ public class dNitroStateManager : NetworkBehaviour
     public dMoveStateManager mSM; // move state manager
     public CoolDown driver; // cooldown driver
     //// AnimatorManagerScript
-    private AnimationManager animationManager;
+    private dAnimationManager animationManager;
     ////
 
     ////Items Section
@@ -53,7 +53,7 @@ public class dNitroStateManager : NetworkBehaviour
         capCol.enabled = true;
         parentObj = transform.parent.gameObject; // set parent object
         animator = GetComponent<Animator>(); // set animator
-        animationManager = GetComponent<AnimationManager>();
+        animationManager = GetComponent<dAnimationManager>();
         //driver = GameObject.Find("Canvas").GetComponent<CoolDown>();
         ////
 

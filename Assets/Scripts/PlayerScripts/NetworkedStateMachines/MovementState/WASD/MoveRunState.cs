@@ -5,11 +5,13 @@ using UnityEngine;
 public class MoveRunState : MoveBaseState
 {
     public override void EnterState(MoveStateManager mSM, MoveBaseState previousState){
-
+        mSM.GetComponent<Animator>().SetBool("isRunning", true);
+        Debug.Log("Entered Run");
     }
     
     public override void ExitState(MoveStateManager mSM, MoveBaseState nextState){
-
+        mSM.GetComponent<Animator>().SetBool("isRunning", false);
+        Debug.Log("Exit Run");
     }
 
     public override void UpdateState(MoveStateManager mSM){

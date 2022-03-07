@@ -18,13 +18,15 @@ public class DashStateManager : NetworkBehaviour
 
     ////Components Section
     public CharacterController moveController; // Character Controller
-    Animator animator; // Animation Controller
+    public Animator animator; // Animation Controller
     ////
 
     ////Scripts Section
     public PlayerStats pStats; // Player Stats
     public MoveStateManager mSM; // movement state manager
     public CoolDown driver; // cooldown driver
+    //// AnimatorManagerScript
+    private AnimationManager animationManager;
     ////
 
     ////Items Section
@@ -42,6 +44,7 @@ public class DashStateManager : NetworkBehaviour
         ////Initialize Scripts
         pStats = GetComponent<PlayerStats>(); // set PlayerStats
         mSM = GetComponent<MoveStateManager>(); // set move state manager
+        animationManager = GetComponent<AnimationManager>();
         ////
     }
 
@@ -77,6 +80,7 @@ public class DashStateManager : NetworkBehaviour
 
         //updates current state and calls logic for entering
         currentState = state;
+        animationManager.updateCurrentPriority();
         currentState.EnterState(this, previousState);
     }
 }

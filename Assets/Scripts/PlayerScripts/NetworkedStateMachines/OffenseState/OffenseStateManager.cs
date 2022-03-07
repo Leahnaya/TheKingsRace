@@ -32,13 +32,15 @@ public class OffenseStateManager : NetworkBehaviour
     public CharacterController moveController; // Character Controller
     Rigidbody rB; // Players Rigidbody
     CapsuleCollider capCol; // Players Capsule Collider
-    Animator animator; // Animation Controller
+    public Animator animator; // Animation Controller
     ////
 
     ////Scripts Section
     public PlayerStats pStats; // Player Stats
     public MoveStateManager mSM; // move state manager
     public AerialStateManager aSM; // aerial state manager
+    //// AnimatorManagerScript
+    private AnimationManager animationManager;
     ////
 
     void Awake(){
@@ -49,6 +51,7 @@ public class OffenseStateManager : NetworkBehaviour
         capCol = GetComponent<CapsuleCollider>(); // set Capsule Collider
         capCol.enabled = true;
         animator = GetComponent<Animator>(); // set animator
+        animationManager = GetComponent<AnimationManager>();
         ////
 
         ////Initialize Player Objects
@@ -97,6 +100,7 @@ public class OffenseStateManager : NetworkBehaviour
 
         //updates current state and calls logic for entering
         currentState = state;
+        animationManager.updateCurrentPriority();
         currentState.EnterState(this, previousState);
     }
 
