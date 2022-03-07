@@ -5,11 +5,13 @@ using UnityEngine;
 public class dMoveJogState : dMoveBaseState
 {
     public override void EnterState(dMoveStateManager mSM, dMoveBaseState previousState){
-
+        mSM.GetComponent<Animator>().SetBool("isJogging", true);
+        Debug.Log("Entered Jog");
     }
 
     public override void ExitState(dMoveStateManager mSM, dMoveBaseState nextState){
-
+        mSM.GetComponent<Animator>().SetBool("isJogging", false);
+        Debug.Log("Exited Jog");
     }
 
     public override void UpdateState(dMoveStateManager mSM){

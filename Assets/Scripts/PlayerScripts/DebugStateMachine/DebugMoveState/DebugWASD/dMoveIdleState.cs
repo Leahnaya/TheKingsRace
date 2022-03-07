@@ -5,11 +5,13 @@ using UnityEngine;
 public class dMoveIdleState : dMoveBaseState
 {
     public override void EnterState(dMoveStateManager mSM, dMoveBaseState previousState){
-        
+        mSM.GetComponent<Animator>().SetBool("isIdle", true);
+        Debug.Log("Entered Idle");
     }
     
     public override void ExitState(dMoveStateManager mSM, dMoveBaseState nextState){
-
+        mSM.GetComponent<Animator>().SetBool("isIdle", false);
+        Debug.Log("Exited Idle");
     }
 
     public override void UpdateState(dMoveStateManager mSM){

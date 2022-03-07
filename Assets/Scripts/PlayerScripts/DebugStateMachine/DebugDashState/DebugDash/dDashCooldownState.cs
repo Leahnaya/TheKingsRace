@@ -8,7 +8,7 @@ public class dDashCooldownState : dDashBaseState
 
     public override void EnterState(dDashStateManager dSM, dDashBaseState previousState){
         cooldown = false; // sets cooldown
-        dSM.StartCoroutine(startCoolDown(dSM)); // activates cooldown
+        //dSM.StartCoroutine(startCoolDown(dSM)); // activates cooldown
     }
 
     public override void ExitState(dDashStateManager dSM, dDashBaseState nextState){
