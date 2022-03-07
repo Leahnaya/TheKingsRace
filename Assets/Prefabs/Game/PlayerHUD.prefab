@@ -273,7 +273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 540bda985e7e4b549a804ff06b069af1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  raceTimer: 420
+  raceTimer: 600
   countdown_text: {fileID: 8450380190165699611}
   spectating_text: {fileID: 9093490155705374174}
   respawningPanel: {fileID: 1614475755869829565}

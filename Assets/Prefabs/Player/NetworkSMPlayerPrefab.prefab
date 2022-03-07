@@ -4598,6 +4598,7 @@ GameObject:
   - component: {fileID: 7688428083034862390}
   - component: {fileID: 7688428083034862391}
   - component: {fileID: 7391821093297401085}
+  - component: {fileID: 7866023119774536007}
   m_Layer: 0
   m_Name: T-Pose
   m_TagString: ArcherTarget
@@ -4858,6 +4859,7 @@ MonoBehaviour:
   sensitivity: 200
   dirHit: {x: 0, y: 0, z: 0}
   distToGround: 0
+  prevRot: {x: 0, y: 0, z: 0}
 --- !u!114 &7688428083034862389
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4924,7 +4926,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f942eeaa888c98468c9ad196fb88115, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runnerPrefab: {fileID: 0}
+--- !u!114 &7866023119774536007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7688428083034862386}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db0579f1149ac2f4295639b1c9430bf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7740096766088430285
 GameObject:
   m_ObjectHideFlags: 0
