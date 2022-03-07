@@ -12,7 +12,7 @@ public class dMoveRagdollState : dMoveBaseState
     public override void EnterState(dMoveStateManager mSM, dMoveBaseState previousState){
 
         ragTime = mSM.pStats.RecovTime; // how long to be ragdolled
-        prevRot = mSM.transform.localEulerAngles; // save previous rotation
+        mSM.prevRot = mSM.transform.localEulerAngles; // save previous rotation
         mSM.capCol.enabled = true; // enable capsule collider
         mSM.moveController.enabled = false; // disable move controller
         mSM.rB.isKinematic = false; // disable kinematic
@@ -24,12 +24,6 @@ public class dMoveRagdollState : dMoveBaseState
 
     public override void ExitState(dMoveStateManager mSM, dMoveBaseState nextState){
 
-            mSM.pStats.GravVel = 80; // resets gravVel
-            mSM.capCol.enabled = false; // disable capsule collider
-            mSM.moveController.enabled = true; // enable move controller
-            mSM.rB.isKinematic = true; // enable kinematic
-            mSM.rB.detectCollisions = false; // detect collisions false
-            mSM.transform.localEulerAngles = prevRot; // reset player rotation
     }
 
     public override void UpdateState(dMoveStateManager mSM){

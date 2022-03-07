@@ -116,6 +116,9 @@ public class OffenseStateManager : NetworkBehaviour
 
         if(collision.transform.CompareTag("ArcherTarget") && myCollider == legHitbox.GetComponent<Collider>()){
             Vector3 direction = this.transform.forward;
+
+            Debug.Log("---Player Being Kicked: " + collision.transform.root.GetComponent<NetworkObject>().NetworkObjectId);
+            Debug.Log("---Player Kicking: " + this.transform.root.GetComponent<NetworkObject>().NetworkObjectId);
             ulong netObjID = collision.gameObject.transform.root.GetComponent<NetworkObject>().NetworkObjectId;
             ApplyKickServerRPC(direction, netObjID);
         }
@@ -149,6 +152,7 @@ public class OffenseStateManager : NetworkBehaviour
         foreach(GameObject kickedPlayer in players){
             //First check if the player is kicked
             if(kickedPlayer.transform.root.GetComponent<NetworkObject>() != null && kickedPlayer.transform.root.GetComponent<NetworkObject>().NetworkObjectId == netObjId && kickedPlayer.transform.root.GetComponent<NetworkObject>().NetworkObjectId != this.transform.root.GetComponent<NetworkObject>().NetworkObjectId){
+                Debug.Log("Kicking other user");
                 kickedPlayer.GetComponent<MoveStateManager>().GetHit(direction, 10);
             }
 

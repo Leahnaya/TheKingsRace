@@ -8,7 +8,6 @@ public class OffenseCooldownState : OffenseBaseState
 
     public override void EnterState(OffenseStateManager oSM, OffenseBaseState previousState){
         cooldown = false; // cooldown isn't over
-
         //start cooldown
         oSM.StartCoroutine(kickCooldown());
     }   

@@ -36,7 +36,6 @@ public class OffenseNoneState : OffenseBaseState
 
         //if in the air
         else if((Input.GetKeyDown(KeyCode.F) || Input.GetAxis("Kick") != 0) && !oSM.pStats.IsPaused){
-
             //if power is above 300 air punch
             if(oSM.pStats.KickPow > 300){
                 oSM.SwitchState(oSM.AirPunchState);

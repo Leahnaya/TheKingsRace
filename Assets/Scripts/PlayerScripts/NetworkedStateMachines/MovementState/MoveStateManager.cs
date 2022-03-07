@@ -76,6 +76,7 @@ public class MoveStateManager : NetworkBehaviour
     //Ragdoll Variables
     public Vector3 dirHit; // Direction hit
     public float distToGround; // distance to ground
+    public Vector3 prevRot; // previous rotation before ragdolled
     ////
 
 
@@ -213,18 +214,20 @@ public class MoveStateManager : NetworkBehaviour
         //Raycast offset
         Vector3 rayOffset = moveXZ - lastVel;
         
+        /*
         //Check if wall is in direction player is moving
-        if (((Physics.Raycast(gameObject.transform.position + new Vector3(0,.4f,0) + rayOffset, moveXZ.normalized, out wallHitBot, .2f, layerMask) == true) || ((currentState != SlideState || currentState != CrouchState) && (Physics.Raycast(gameObject.transform.position + new Vector3(0,2.2f,0), moveXZ.normalized, out wallHitTop, .2f, layerMask) == true))) && !firstWallHit){
+        if (((Physics.Raycast(gameObject.transform.position + new Vector3(0,.4f,0) + rayOffset, moveXZ.normalized, out wallHitBot, .2f, layerMask) == true) || ((Physics.Raycast(gameObject.transform.position + new Vector3(0,2.2f,0), moveXZ.normalized, out wallHitTop, .2f, layerMask) == true))) && !firstWallHit){
             CancelMomentum();
             firstWallHit = true;
         }
-        else if((Physics.Raycast(gameObject.transform.position + new Vector3(0,.4f,0) + rayOffset, moveXZ.normalized, out wallHitBot, .2f, layerMask) == false) || ((currentState != SlideState || currentState != CrouchState) && (Physics.Raycast(gameObject.transform.position + new Vector3(0,2.2f,0), moveXZ.normalized, out wallHitTop, .2f, layerMask) == false))){
+        else if((Physics.Raycast(gameObject.transform.position + new Vector3(0,.4f,0) + rayOffset, moveXZ.normalized, out wallHitBot, .2f, layerMask) == false) || ((Physics.Raycast(gameObject.transform.position + new Vector3(0,2.2f,0), moveXZ.normalized, out wallHitTop, .2f, layerMask) == false))){
             firstWallHit = false;
         }
 
         Debug.DrawRay(gameObject.transform.position + new Vector3(0,.4f,0) + rayOffset, moveXZ.normalized * 1f, Color.red);
         Debug.DrawRay(gameObject.transform.position + new Vector3(0,2.2f,0) + rayOffset, moveXZ.normalized * 1f, Color.red);
-
+        */
+        
         driftVel = Vector3.Lerp(driftVel, moveXZ, pStats.CurTraction * Time.deltaTime);
         if(currentState == GrappleAirState){
             driftVel = Vector3.zero;
