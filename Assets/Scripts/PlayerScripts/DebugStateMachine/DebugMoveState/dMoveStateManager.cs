@@ -37,12 +37,14 @@ public class dMoveStateManager : NetworkBehaviour
     public CharacterController moveController; // Character Controller
     public Rigidbody rB; // Players Rigidbody
     public CapsuleCollider capCol; // Players Capsule Collider
-    private Animator animator; // Animation Controller
+    public Animator animator; // Animation Controller
     ////
 
     ////Scripts Section
     public PlayerStats pStats; // Player Stats
     public dAerialStateManager aSM;
+    //// AnimatorManagerScript
+    private AnimationManager animationManager;
     ////
 
     ////State Transition Variables
@@ -87,6 +89,7 @@ public class dMoveStateManager : NetworkBehaviour
         capCol.enabled = true;
         parentObj = transform.parent.gameObject; // set parent object
         animator = GetComponent<Animator>(); // set animator
+        animationManager = GetComponent<AnimationManager>();
         ////
 
         ////Initialize Scripts
@@ -151,6 +154,8 @@ public class dMoveStateManager : NetworkBehaviour
 
         //updates current state and calls logic for entering
         currentState = state;
+        //update current animation priorty in animation manager
+        animationManager.updateCurrentPriority();
         currentState.EnterState(this, previousState);
     }
 

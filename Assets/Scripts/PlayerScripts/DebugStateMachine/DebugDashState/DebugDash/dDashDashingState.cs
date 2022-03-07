@@ -14,10 +14,12 @@ public class dDashDashingState : dDashBaseState
 
     public override void EnterState(dDashStateManager dSM, dDashBaseState previousState){
         currentDashTime = 0; // resets dash time
+        dSM.GetComponent<Animator>().SetBool("isDashing", true);
     }
 
     public override void ExitState(dDashStateManager dSM, dDashBaseState nextState){
         moveDirection = Vector3.zero; // resets moveDirection
+        dSM.GetComponent<Animator>().SetBool("isDashing", false);
     }
 
     public override void UpdateState(dDashStateManager dSM){
