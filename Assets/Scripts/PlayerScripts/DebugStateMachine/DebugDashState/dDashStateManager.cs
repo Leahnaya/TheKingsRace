@@ -26,7 +26,7 @@ public class dDashStateManager : NetworkBehaviour
     public dMoveStateManager mSM; // movement state manager
     public CoolDown driver; // cooldown driver
     //// AnimatorManagerScript
-    private AnimationManager animationManager;
+    private dAnimationManager animationManager;
     ////
 
     ////Items Section
@@ -38,7 +38,7 @@ public class dDashStateManager : NetworkBehaviour
         ////Initialize Player Components
         moveController = GetComponent<CharacterController>(); // set Character Controller
         animator = GetComponent<Animator>(); // set animator
-        animationManager = GetComponent<AnimationManager>();
+        animationManager = GetComponent<dAnimationManager>();
         //driver = GameObject.Find("Canvas").GetComponent<CoolDown>();
         ////
 

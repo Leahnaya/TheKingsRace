@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using MLAPI;
 
-public class AnimationManager : NetworkBehaviour
+public class dAnimationManager : MonoBehaviour
 {
     //current priority weight
 
@@ -18,11 +17,11 @@ public class AnimationManager : NetworkBehaviour
     private int currentPriority = 1;
 
     //declare references to all the state managers
-    private OffenseStateManager offenseState;
-    private NitroStateManager nitroState;
-    private MoveStateManager moveState;
-    private DashStateManager dashState;
-    private AerialStateManager aerialState;
+    private dOffenseStateManager offenseState;
+    private dNitroStateManager nitroState;
+    private dMoveStateManager moveState;
+    private dDashStateManager dashState;
+    private dAerialStateManager aerialState;
 
     //declare reference to animator
     private Animator animator;
@@ -31,11 +30,11 @@ public class AnimationManager : NetworkBehaviour
     private void Awake()
     {
         //initialize all state managers references
-        offenseState = GetComponent<OffenseStateManager>();
-        nitroState = GetComponent<NitroStateManager>();
-        moveState = GetComponent<MoveStateManager>();
-        dashState = GetComponent<DashStateManager>();
-        aerialState = GetComponent<AerialStateManager>();
+        offenseState = GetComponent<dOffenseStateManager>();
+        nitroState = GetComponent<dNitroStateManager>();
+        moveState = GetComponent<dMoveStateManager>();
+        dashState = GetComponent<dDashStateManager>();
+        aerialState = GetComponent<dAerialStateManager>();
 
         animator = GetComponent<Animator>();
 
@@ -47,39 +46,32 @@ public class AnimationManager : NetworkBehaviour
     //then the current priorty will changed 
     //Note: if we ever want to have this manager keep track of current animation state and not just a priorty number,
     //then this will need to be changed later (also if we want to add additional animations)
-    public void updateCurrentPriority()
-    {
+    public void updateCurrentPriority(){
         int highestPriority;
         //check if MoveStateManager's current state is incapcitated state
-        if (moveState.currentState.GetType() == typeof(MoveRagdollState) || moveState.currentState.GetType() == typeof(MoveRecoveringState))
-        {
+        if (moveState.currentState.GetType() == typeof(dMoveRagdollState) || moveState.currentState.GetType() == typeof(dMoveRecoveringState)){
             highestPriority = 5;
 
         }
         //if dash manager current state is dashing
-        else if (dashState.currentState.GetType() == typeof(DashDashingState))
-        {
+        else if (dashState.currentState.GetType() == typeof(dDashDashingState)){
             highestPriority = 4;
         }
 
         //check to see if offense manager current state is any state that's doesn't have a weight of 0;
-        else if (offenseState.currentState.GetType() != typeof(OffenseIncapacitatedState) && offenseState.currentState.GetType() != typeof(OffenseNoneState) && offenseState.currentState.GetType() != typeof(OffenseCooldownState))
-        {
+        else if (offenseState.currentState.GetType() != typeof(dOffenseIncapacitatedState) && offenseState.currentState.GetType() != typeof(dOffenseNoneState) && offenseState.currentState.GetType() != typeof(dOffenseCooldownState)){
             highestPriority = 3;
         }
         //if current state in aerialManager is not grounded
-        else if (aerialState.currentState.GetType() != typeof(AerialGroundedState))
-        {
+        else if (aerialState.currentState.GetType() != typeof(dAerialGroundedState)){
             highestPriority = 2;
         }
         //ground movement is the only state with a animation right now
-        else
-        {
+        else{
             highestPriority = 1;
         }
         //if highest priorty does not equal current, then a state changed has resulted in a new higher priorty animation
-        if (highestPriority != currentPriority)
-        {
+        if(highestPriority != currentPriority){
             currentPriority = highestPriority;
             animator.SetInteger("currentPriority", currentPriority);
 
@@ -87,25 +79,21 @@ public class AnimationManager : NetworkBehaviour
     }
     //function will set the currentPriorty to the newPriority arguement. 
     //Note: this function is mostly meant to exist if we need to force a new priorty for some reason, otherwise lgoci will be handled in check
-    public void SetCurrentPriorityState(int newPriority)
-    {
+    public void SetCurrentPriorityState(int newPriority){
         //set var to new prio
         currentPriority = newPriority;
         //set animator priority var
         animator.SetInteger("currentPriority", currentPriority);
     }
-
+     
     //return priority of a given state (stubbed out for not as not needed for current implementation but may be desired later)
-    public int GetCurrentPriortyValue()
-    {
+    public int GetCurrentPriortyValue(){
         return 0;
     }
-
+    
     //retrieve highest priority value (current priorty should almost always be 
-    public int GetHighestPriorityValue()
-    {
+    public int GetHighestPriorityValue(){
         return currentPriority;
     }
 
 }
-

@@ -44,7 +44,7 @@ public class dMoveStateManager : NetworkBehaviour
     public PlayerStats pStats; // Player Stats
     public dAerialStateManager aSM;
     //// AnimatorManagerScript
-    private AnimationManager animationManager;
+    private dAnimationManager animationManager;
     ////
 
     ////State Transition Variables
@@ -90,7 +90,7 @@ public class dMoveStateManager : NetworkBehaviour
         capCol.enabled = true;
         parentObj = transform.parent.gameObject; // set parent object
         animator = GetComponent<Animator>(); // set animator
-        animationManager = GetComponent<AnimationManager>();
+        animationManager = GetComponent<dAnimationManager>();
         ////
 
         ////Initialize Scripts

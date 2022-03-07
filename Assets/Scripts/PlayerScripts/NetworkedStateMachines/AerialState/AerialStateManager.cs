@@ -35,12 +35,14 @@ public class AerialStateManager : NetworkBehaviour
     ////Components Section
     public CharacterController moveController; // Character Controller
     Rigidbody rB; // Players Rigidbody
-    Animator animator; // Animation Controller
+    public Animator animator; // Animation Controller
     ////
 
     ////Scripts Section
     public PlayerStats pStats; // Player Stats
     public MoveStateManager mSM;
+    //// AnimatorManagerScript
+    private AnimationManager animationManager;
     ////
 
     ////Variables Section
@@ -115,6 +117,7 @@ public class AerialStateManager : NetworkBehaviour
         ////Initialize Scripts
         pStats = GetComponent<PlayerStats>(); // set PlayerStats
         mSM = GetComponent<MoveStateManager>(); // set move state manager
+        animationManager = GetComponent<AnimationManager>();
         ////
     }
 
@@ -195,6 +198,7 @@ public class AerialStateManager : NetworkBehaviour
 
         //updates current state and calls logic for entering
         currentState = state;
+        animationManager.updateCurrentPriority();
         currentState.EnterState(this, previousState);
     }
 

@@ -40,7 +40,7 @@ public class dOffenseStateManager : NetworkBehaviour
     public dMoveStateManager mSM; // move state manager
     public dAerialStateManager aSM; // aerial state manager
     //// AnimatorManagerScript
-    private AnimationManager animationManager;
+    private dAnimationManager animationManager;
     ///
 
     void Awake(){
@@ -51,7 +51,7 @@ public class dOffenseStateManager : NetworkBehaviour
         capCol = GetComponent<CapsuleCollider>(); // set Capsule Collider
         capCol.enabled = true;
         animator = GetComponent<Animator>(); // set animator
-        animationManager = GetComponent<AnimationManager>();
+        animationManager = GetComponent<dAnimationManager>();
         ////
 
         ////Initialize Player Objects

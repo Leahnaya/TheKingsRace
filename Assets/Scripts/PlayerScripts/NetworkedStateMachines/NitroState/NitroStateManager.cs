@@ -17,7 +17,7 @@ public class NitroStateManager : NetworkBehaviour
     ////
 
     ////Objects Sections
-    GameObject parentObj; // Parent object
+    public GameObject parentObj; // Parent object
     ////
 
     ////Components Section
@@ -31,6 +31,8 @@ public class NitroStateManager : NetworkBehaviour
     public PlayerStats pStats; // Player Stats
     public MoveStateManager mSM; // move state manager
     public CoolDown driver; // cooldown driver
+    //// AnimatorManagerScript
+    private AnimationManager animationManager;
     ////
 
     ////Items Section
@@ -50,6 +52,7 @@ public class NitroStateManager : NetworkBehaviour
         capCol.enabled = true;
         parentObj = transform.parent.gameObject; // set parent object
         animator = GetComponent<Animator>(); // set animator
+        animationManager = GetComponent<AnimationManager>();
         //driver = GameObject.Find("Canvas").GetComponent<CoolDown>();
         ////
 
@@ -91,6 +94,7 @@ public class NitroStateManager : NetworkBehaviour
 
         //updates current state and calls logic for entering
         currentState = state;
+        animationManager.updateCurrentPriority();
         currentState.EnterState(this, previousState);
     }
 }
