@@ -10,6 +10,11 @@ public class CrumblingPlatform : NetworkBehaviour
     private MeshRenderer mesh;
     private BoxCollider[] boxColliders;
 
+    [SerializeField]
+    public float crumbleTime = 0.25f;
+    [SerializeField]
+    public float respawnTime = 2.0f;
+
     private void Start()
     {
         mesh = gameObject.GetComponent<MeshRenderer>();
@@ -32,11 +37,11 @@ public class CrumblingPlatform : NetworkBehaviour
     IEnumerator DeleteCooldown()
     {
         //Debug.Log("Crumbling");
-        yield return new WaitForSecondsRealtime(.25f);
+        yield return new WaitForSecondsRealtime(crumbleTime);
         ChangeCrublingPlatformsStateServerRPC(false);
         
         //Debug.Log("Crumbled");
-        yield return new WaitForSecondsRealtime(2.0f);
+        yield return new WaitForSecondsRealtime(respawnTime);
         ChangeCrublingPlatformsStateServerRPC(true);
 
         //Debug.Log("Respawned Platform");

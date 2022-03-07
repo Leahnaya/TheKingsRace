@@ -24,13 +24,15 @@ public class dNitroStateManager : NetworkBehaviour
     public CharacterController moveController; // Character Controller
     Rigidbody rB; // Players Rigidbody
     CapsuleCollider capCol; // Players Capsule Collider
-    Animator animator; // Animation Controller
+    public Animator animator; // Animation Controller
     ////
 
     ////Scripts Section
     public PlayerStats pStats; // Player Stats
     public dMoveStateManager mSM; // move state manager
     public CoolDown driver; // cooldown driver
+    //// AnimatorManagerScript
+    private AnimationManager animationManager;
     ////
 
     ////Items Section
@@ -41,6 +43,7 @@ public class dNitroStateManager : NetworkBehaviour
     public float nitroVelBoost = 40;
     public float nitroAccBoost = .4f;
 
+
     void Awake(){
         
         ////Initialize Player Components
@@ -50,6 +53,7 @@ public class dNitroStateManager : NetworkBehaviour
         capCol.enabled = true;
         parentObj = transform.parent.gameObject; // set parent object
         animator = GetComponent<Animator>(); // set animator
+        animationManager = GetComponent<AnimationManager>();
         //driver = GameObject.Find("Canvas").GetComponent<CoolDown>();
         ////
 
@@ -91,6 +95,8 @@ public class dNitroStateManager : NetworkBehaviour
 
         //updates current state and calls logic for entering
         currentState = state;
+        //update current animation priorty in animation manager
+        animationManager.updateCurrentPriority();
         currentState.EnterState(this, previousState);
     }
 }
