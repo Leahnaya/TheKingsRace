@@ -34,7 +34,7 @@ public class DashCooldownState : DashBaseState
 
     //cooldown function
     private IEnumerator startCoolDown(DashStateManager dSM){
-        //dSM.driver.startUICooldown(dashItem.name);
+        dSM.driver.startUICooldown("Dash");
         yield return new WaitForSeconds(dSM.dashItem.cooldownM);
         cooldown = true;
     }

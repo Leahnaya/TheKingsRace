@@ -54,7 +54,7 @@ public class Dash : NetworkBehaviour{
     private IEnumerator startCoolDown(){
         Debug.Log("start corotine");
         isOnCoolDown = true;
-        //driver.startUICooldown(dashItem.name);
+        driver.startUICooldown(dashItem.name);
         yield return new WaitForSeconds(dashItem.cooldownM);
         isOnCoolDown = false;
         Debug.Log("end corotine");

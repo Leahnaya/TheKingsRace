@@ -56,7 +56,7 @@ public class dNitro : MonoBehaviour
     private IEnumerator startCoolDown(){
         Debug.Log("start corotine");
         isOnCoolDown = true;
-        //driver.startUICooldown("Nitro");
+        driver.startUICooldown("Nitro");
         yield return new WaitForSeconds(nitroItem.cooldownM);
         isOnCoolDown = false;
         tempTimer = 5;

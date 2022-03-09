@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
+//this is intended to be attached to a canvasd
 public class CoolDown : MonoBehaviour
 {
     //used to check if the playr has abillities
@@ -129,6 +130,7 @@ public class CoolDown : MonoBehaviour
     }
 
     public void startUICooldown(string name){
+        Debug.Log("its me");
         this.gameObject.transform.Find(name).GetComponent<UICoolDown>().startCoolDown();
     }
     // Update is called once per frame

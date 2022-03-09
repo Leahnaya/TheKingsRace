@@ -658,6 +658,18 @@ PrefabInstance:
       propertyPath: hasDash
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1707207228499037468, guid: 0ea305f96ab853340bb9f0ed320dac08, type: 3}
+      propertyPath: hasNitro
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1707207228499037468, guid: 0ea305f96ab853340bb9f0ed320dac08, type: 3}
+      propertyPath: hasGlider
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1707207228499037468, guid: 0ea305f96ab853340bb9f0ed320dac08, type: 3}
+      propertyPath: hasGrapple
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5759777694531189237, guid: 0ea305f96ab853340bb9f0ed320dac08, type: 3}
       propertyPath: m_RootOrder
       value: 11

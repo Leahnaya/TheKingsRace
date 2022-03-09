@@ -8,7 +8,7 @@ public class dDashCooldownState : dDashBaseState
 
     public override void EnterState(dDashStateManager dSM, dDashBaseState previousState){
         cooldown = false; // sets cooldown
-        //dSM.StartCoroutine(startCoolDown(dSM)); // activates cooldown
+        dSM.StartCoroutine(startCoolDown(dSM)); // activates cooldown
     }
 
     public override void ExitState(dDashStateManager dSM, dDashBaseState nextState){
@@ -34,7 +34,7 @@ public class dDashCooldownState : dDashBaseState
 
     //cooldown function
     private IEnumerator startCoolDown(dDashStateManager dSM){
-        //dSM.driver.startUICooldown(dashItem.name);
+        dSM.driver.startUICooldown("Dash");
         yield return new WaitForSeconds(dSM.dashItem.cooldownM);
         cooldown = true;
     }

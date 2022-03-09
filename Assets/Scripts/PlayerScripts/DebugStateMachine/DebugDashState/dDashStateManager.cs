@@ -39,7 +39,7 @@ public class dDashStateManager : NetworkBehaviour
         moveController = GetComponent<CharacterController>(); // set Character Controller
         animator = GetComponent<Animator>(); // set animator
         animationManager = GetComponent<dAnimationManager>();
-        //driver = GameObject.Find("Canvas").GetComponent<CoolDown>();
+        driver = GameObject.Find("PlayerCanvas").GetComponent<CoolDown>();
         ////
 
         ////Initialize Scripts
