@@ -9,6 +9,8 @@ public class BoulderSpawn : NetworkBehaviour
     [SerializeField] private float RespawnTimer = 10.0f;
     private float currentTime = 0.0f;
 
+    [SerializeField] private float boulderScaleMultiplier = 1.0f;
+
     [SerializeField] private Vector3 spawnForce;
 
     [SerializeField] private Vector3 SpawnLocation;
@@ -28,6 +30,7 @@ public class BoulderSpawn : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     private void SpawnBoulderServerRPC() {
         boulderInScene = Instantiate(BoulderPrefab, SpawnLocation, Quaternion.identity).gameObject;
+        boulderInScene.transform.localScale *= boulderScaleMultiplier;
         boulderInScene.GetComponent<NetworkObject>().Spawn(null, true);
         boulderInScene.GetComponent<Boulder>().StartCountdown((int)RespawnTimer, spawnForce);
     }
