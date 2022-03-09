@@ -16,7 +16,6 @@ public class MoveRagdollState : MoveBaseState
         mSM.capCol.enabled = true; // enable capsule collider
         mSM.moveController.enabled = false; // disable move controller
         mSM.rB.isKinematic = false; // disable kinematic
-        mSM.rB.detectCollisions = true; // detect collisions
 
         //apply force
         mSM.rB.AddForce(mSM.dirHit, ForceMode.Impulse);

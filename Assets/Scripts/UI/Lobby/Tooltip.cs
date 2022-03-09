@@ -14,11 +14,11 @@ public class Tooltip : MonoBehaviour
     }
 
     public void ShowTooltip(string curTooltip){
-        gameObject.SetActive(true);
+        this.gameObject.SetActive(true);
         tooltipText.text = curTooltip;
     }
 
     public void HideTooltip(){
-        gameObject.SetActive(false);
+        this.gameObject.SetActive(false);
     }
 }
