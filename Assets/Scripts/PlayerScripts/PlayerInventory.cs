@@ -77,4 +77,10 @@ public class PlayerInventory : NetworkBehaviour
             AddItem(allItems[itemName]);
         }
     }
+
+    public void ClearInventory(){
+        foreach(KeyValuePair<string, Item> item in PlayerItemDict){
+            RemoveItem(item.Value);
+        }
+    }
 }

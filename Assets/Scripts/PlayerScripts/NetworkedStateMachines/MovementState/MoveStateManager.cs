@@ -78,7 +78,6 @@ public class MoveStateManager : NetworkBehaviour
     //Ragdoll Variables
     public Vector3 dirHit; // Direction hit
     public float distToGround; // distance to ground
-    public Vector3 prevRot; // previous rotation before ragdolled
     ////
 
 
@@ -313,7 +312,7 @@ public class MoveStateManager : NetworkBehaviour
     //Apply Wind movement to the player
     public void ApplyWind(bool wind){
         if(wind){
-                moveController.Move(pStats.WindDirection.normalized * 2); 
+                moveController.Move(pStats.WindDirection.normalized * .2f); 
         }
     }
 

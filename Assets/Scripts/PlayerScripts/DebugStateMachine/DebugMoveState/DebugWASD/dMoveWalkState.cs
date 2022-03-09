@@ -9,12 +9,12 @@ public class dMoveWalkState : dMoveBaseState
     public override void EnterState(dMoveStateManager mSM, dMoveBaseState previousState){
         //get component is semi expensive--may want to ahve all statemanagers have a reference to animator
         mSM.GetComponent<Animator>().SetBool("isWalking", true);
-        Debug.Log("Entered Walk");
+        //Debug.Log("Entered Walk");
     }
     
     public override void ExitState(dMoveStateManager mSM, dMoveBaseState nextState){
         mSM.GetComponent<Animator>().SetBool("isWalking", false);
-        Debug.Log("Exited Walk");
+        //Debug.Log("Exited Walk");
     }
 
     public override void UpdateState(dMoveStateManager mSM){

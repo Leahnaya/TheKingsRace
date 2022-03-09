@@ -8,6 +8,8 @@ public class dAerialGroundedState : dAerialBaseState
 
         //release is false if grounded
         aSM.release = false;
+
+
     }
 
     public override void ExitState(dAerialStateManager aSM, dAerialBaseState nextState){

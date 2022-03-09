@@ -23,6 +23,10 @@ public class AerialGrappleAirState : AerialBaseState
     Vector3 momDirection; // momentum direction
     Vector3 tensionMomDirection; // tension momentum direction
 
+    float defaultGraceTimer = 1.0f; // default timer
+    float graceTimer; // grace period at the end of the swing so the player has time to let go 
+    bool swingGrace = true; // is the grace timer over
+
     public override void EnterState(AerialStateManager aSM, AerialBaseState previousState){
 
         //refresh jump number
@@ -47,6 +51,7 @@ public class AerialGrappleAirState : AerialBaseState
         aSM.release = false; // player hasn't released
         aSM.lerpRelease = Vector3.zero; // reset lerp release
         spaceHeld = true;
+        graceTimer = defaultGraceTimer; //sets grace timer 
     }
 
     public override void ExitState(AerialStateManager aSM, AerialBaseState nextState){
@@ -156,8 +161,17 @@ public class AerialGrappleAirState : AerialBaseState
 
         //if player is on the other side of hookpoint and swingMom is lower then update oldXZDir
         if(oldXZDir != curXZDir && swingMom <= (oldSwingMom*(.75f))){
-            oldSwingMom = swingMom;
-            oldXZDir = (new Vector3(aSM.hookPoint.transform.position.x,0,aSM.hookPoint.transform.position.z) - new Vector3(aSM.transform.position.x,0,aSM.transform.position.z)).normalized;
+            if(graceTimer >= 0){
+                swingGrace = false;
+                graceTimer -= .1f;
+            }
+            else{
+                oldSwingMom = swingMom;
+                oldXZDir = (new Vector3(aSM.hookPoint.transform.position.x,0,aSM.hookPoint.transform.position.z) - new Vector3(aSM.transform.position.x,0,aSM.transform.position.z)).normalized;   
+                swingGrace = true;
+                graceTimer = defaultGraceTimer;
+            }
+            
         }
 
         //current line between hookpoint and player

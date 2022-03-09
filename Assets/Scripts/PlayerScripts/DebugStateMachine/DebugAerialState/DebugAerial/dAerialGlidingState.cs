@@ -9,12 +9,15 @@ public class dAerialGlidingState : dAerialBaseState
 
         //Modify base traction
         aSM.pStats.CurTraction = 1.0f;
+
+
     }
 
     public override void ExitState(dAerialStateManager aSM, dAerialBaseState nextState){
 
         //return traction to normal
         aSM.pStats.CurTraction = aSM.pStats.Traction;
+
     }
 
     public override void UpdateState(dAerialStateManager aSM){

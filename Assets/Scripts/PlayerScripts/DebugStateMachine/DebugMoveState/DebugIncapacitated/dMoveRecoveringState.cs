@@ -12,7 +12,6 @@ public class dMoveRecoveringState : dMoveBaseState
         mSM.moveController.enabled = true; // enable move controller
         mSM.rB.isKinematic = true; // enable kinematic
         mSM.rB.detectCollisions = false; // detect collisions false
-        mSM.transform.localEulerAngles = mSM.prevRot; // reset player rotation
         mSM.CancelMomentum(); // reset player variables
         mSM.moveController.Move(new Vector3(0,2,0));
     }

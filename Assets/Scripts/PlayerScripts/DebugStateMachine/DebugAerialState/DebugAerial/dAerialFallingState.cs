@@ -10,7 +10,7 @@ public class dAerialFallingState : dAerialBaseState
 
     public override void ExitState(dAerialStateManager aSM, dAerialBaseState nextState){
 
-    }
+    }   
 
     public override void UpdateState(dAerialStateManager aSM){
 

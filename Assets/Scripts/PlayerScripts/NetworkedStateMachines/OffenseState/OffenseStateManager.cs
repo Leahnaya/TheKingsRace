@@ -39,9 +39,14 @@ public class OffenseStateManager : NetworkBehaviour
     public PlayerStats pStats; // Player Stats
     public MoveStateManager mSM; // move state manager
     public AerialStateManager aSM; // aerial state manager
+    ////
+
     //// AnimatorManagerScript
     private AnimationManager animationManager;
     ////
+
+    //// Variables Section
+    private GameObject[] players;
 
     void Awake(){
         
@@ -58,7 +63,6 @@ public class OffenseStateManager : NetworkBehaviour
         leg = transform.Find("Leg").gameObject; // Set Leg Object
         legHitbox = leg.transform.Find("LegHitbox").gameObject; // Set Leg Hitbox
         leg.SetActive(false);
-        parentObj = transform.parent.gameObject; // set parent object
         ////
 
         ////Initialize Scripts
@@ -73,6 +77,7 @@ public class OffenseStateManager : NetworkBehaviour
         currentState = NoneState;
         previousState = NoneState;
         currentState.EnterState(this, previousState);
+
     }
 
     void Update(){
@@ -121,10 +126,12 @@ public class OffenseStateManager : NetworkBehaviour
         if(collision.transform.CompareTag("ArcherTarget") && myCollider == legHitbox.GetComponent<Collider>()){
             Vector3 direction = this.transform.forward;
 
-            Debug.Log("---Player Being Kicked: " + collision.transform.root.GetComponent<NetworkObject>().NetworkObjectId);
-            Debug.Log("---Player Kicking: " + this.transform.root.GetComponent<NetworkObject>().NetworkObjectId);
             ulong netObjID = collision.gameObject.transform.root.GetComponent<NetworkObject>().NetworkObjectId;
-            ApplyKickServerRPC(direction, netObjID);
+            if(netObjID != this.transform.root.GetComponent<NetworkObject>().NetworkObjectId){
+                Debug.Log("NetObjID of Kicked Player: " + netObjID);
+                ApplyKickServerRPC(direction, netObjID); 
+            }
+            
         }
 
         if (collision.transform.CompareTag("destroyable") && myCollider == legHitbox.GetComponent<Collider>()){
@@ -155,9 +162,27 @@ public class OffenseStateManager : NetworkBehaviour
 
         foreach(GameObject kickedPlayer in players){
             //First check if the player is kicked
-            if(kickedPlayer.transform.root.GetComponent<NetworkObject>() != null && kickedPlayer.transform.root.GetComponent<NetworkObject>().NetworkObjectId == netObjId && kickedPlayer.transform.root.GetComponent<NetworkObject>().NetworkObjectId != this.transform.root.GetComponent<NetworkObject>().NetworkObjectId){
+
+            Debug.Log(kickedPlayer.transform.root.GetComponent<NetworkObject>().NetworkObjectId);
+
+            if(kickedPlayer.transform.root.GetComponent<NetworkObject>().NetworkObjectId == netObjId){
+                Debug.Log("Kicked Players NetObjId is equal to the NetObjId");
+            }
+            else{
+                Debug.Log("Kicked Player NetObjId not equal to the NetObjId");
+            }
+
+            if(kickedPlayer.transform.root.GetComponent<NetworkObject>().NetworkObjectId != this.transform.root.GetComponent<NetworkObject>().NetworkObjectId){
+                Debug.Log("Kicked Player Not The Same as Me");
+            }
+            else{
+                Debug.Log("My RPC ID: " + this.transform.root.GetComponent<NetworkObject>().NetworkObjectId);
+                Debug.Log("Their RPC ID: " + kickedPlayer.transform.root.GetComponent<NetworkObject>().NetworkObjectId);
+            }
+
+            if(kickedPlayer.transform.root.GetComponent<NetworkObject>() != null && kickedPlayer.transform.root.GetComponent<NetworkObject>().NetworkObjectId == netObjId){
                 Debug.Log("Kicking other user");
-                kickedPlayer.GetComponent<MoveStateManager>().GetHit(direction, 10);
+                kickedPlayer.GetComponent<MoveStateManager>().GetHit(direction, 20);
             }
 
             return;

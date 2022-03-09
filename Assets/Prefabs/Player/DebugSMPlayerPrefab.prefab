@@ -928,6 +928,7 @@ GameObject:
   - component: {fileID: 1707207228499037412}
   - component: {fileID: 1707207228499037411}
   - component: {fileID: 1707207228499037410}
+  - component: {fileID: 2620177443006759317}
   m_Layer: 3
   m_Name: T-Pose
   m_TagString: ArcherTarget
@@ -1169,6 +1170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveController: {fileID: 0}
+  animator: {fileID: 0}
   pStats: {fileID: 0}
   mSM: {fileID: 0}
   driver: {fileID: 0}
@@ -1189,6 +1191,7 @@ MonoBehaviour:
   moveController: {fileID: 0}
   rB: {fileID: 0}
   capCol: {fileID: 0}
+  animator: {fileID: 0}
   pStats: {fileID: 0}
   aSM: {fileID: 0}
   idleLimit: 0.3
@@ -1217,6 +1220,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveController: {fileID: 0}
+  animator: {fileID: 0}
   pStats: {fileID: 0}
   mSM: {fileID: 0}
   driver: {fileID: 0}
@@ -1238,9 +1242,22 @@ MonoBehaviour:
   leg: {fileID: 0}
   legHitbox: {fileID: 0}
   moveController: {fileID: 0}
+  animator: {fileID: 0}
   pStats: {fileID: 0}
   mSM: {fileID: 0}
   aSM: {fileID: 0}
+--- !u!114 &2620177443006759317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1707207228499037409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db0579f1149ac2f4295639b1c9430bf6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1832820220301833206
 GameObject:
   m_ObjectHideFlags: 0

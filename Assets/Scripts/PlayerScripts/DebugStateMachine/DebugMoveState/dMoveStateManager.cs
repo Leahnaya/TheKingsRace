@@ -78,7 +78,6 @@ public class dMoveStateManager : NetworkBehaviour
     //Ragdoll Variables
     public Vector3 dirHit; // Direction hit
     public float distToGround; // distance to ground
-    public Vector3 prevRot; // previous rotation before ragdolled
     ////
 
 

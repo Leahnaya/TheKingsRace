@@ -7,20 +7,26 @@ using UnityEngine;
 public class Boulder : NetworkBehaviour
 {
     private Rigidbody boulder;
+    public float bumpPower = 70;
 
     void Start() {
        boulder = GetComponent<Rigidbody>();//Gets the rigidbody attached to the bolder
     }
 
-    void OnTriggerEnter(Collider other) {
-        if (other.gameObject.tag == "ArcherTarget") {
-            GameObject player = other.gameObject;//Turns the collider into a game object
-            Vector3 Dir = boulder.velocity;//Finds the bolder's velocity
-            float Power = boulder.velocity.magnitude;// * 250;//Finds the power of the boulder by using it's velocity and a scaler
-            Dir = Vector3.Normalize(Dir);//Normalizes the vector to be used as a knockback direction
-            //Knock the player a little to the side
-            Dir.z += Random.Range(-0.25f, 0.25f);
-            player.GetComponent<MoveStateManager>().GetHit(Dir, Power); //Ragdolls the player in the direction of the bolder depending on it's speed
+    void OnTriggerEnter(Collider objectHit) {
+        if (objectHit.gameObject.tag == "ArcherTarget") {
+                    
+            Debug.Log("Bump");
+            MoveStateManager playerMovement = objectHit.GetComponent<MoveStateManager>();
+
+            float DirBumpX = playerMovement.driftVel.x * -1;//Inverts the Player Velocity x
+            float DirBumpY = .1f;
+            float DirBumpZ = playerMovement.driftVel.z * -1;//Inverts the Player Velocity z
+
+            Vector3 DirBump = new Vector3(DirBumpX, DirBumpY, DirBumpZ);//Creates a direction to launch the player
+            DirBump = Vector3.Normalize(DirBump);//Normalizes the vector to be used as a bump direction
+
+            playerMovement.GetHit(DirBump, bumpPower);
         }
     }
 

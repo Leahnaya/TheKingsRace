@@ -22,6 +22,10 @@ public class dAerialGrappleAirState : dAerialBaseState
     float oldSwingMom; // old swing Momentum amplifier
     Vector3 momDirection; // momentum direction
     Vector3 tensionMomDirection; // tension momentum direction
+    
+    float defaultGraceTimer = 1.0f; // default timer
+    float graceTimer; // grace period at the end of the swing so the player has time to let go 
+    bool swingGrace = true; // is the grace timer over
 
     public override void EnterState(dAerialStateManager aSM, dAerialBaseState previousState){
 
@@ -47,6 +51,7 @@ public class dAerialGrappleAirState : dAerialBaseState
         aSM.release = false; // player hasn't released
         aSM.lerpRelease = Vector3.zero; // reset lerp release
         spaceHeld = true;
+        graceTimer = defaultGraceTimer; //sets grace timer 
     }
 
     public override void ExitState(dAerialStateManager aSM, dAerialBaseState nextState){
@@ -116,6 +121,7 @@ public class dAerialGrappleAirState : dAerialBaseState
         //if Swing Momentum isn't zero then move player
         if(swingMom != 0){
             aSM.moveController.Move(CalculateMomentumDirection(aSM.pStats.GravVel, aSM.hookPoint.transform.position, aSM));
+        
             swingMom -= .5f;
         }
         if(swingMom<0) swingMom = 0;
@@ -156,8 +162,17 @@ public class dAerialGrappleAirState : dAerialBaseState
 
         //if player is on the other side of hookpoint and swingMom is lower then update oldXZDir
         if(oldXZDir != curXZDir && swingMom <= (oldSwingMom*(.75f))){
-            oldSwingMom = swingMom;
-            oldXZDir = (new Vector3(aSM.hookPoint.transform.position.x,0,aSM.hookPoint.transform.position.z) - new Vector3(aSM.transform.position.x,0,aSM.transform.position.z)).normalized;
+            if(graceTimer >= 0){
+                swingGrace = false;
+                graceTimer -= .1f;
+            }
+            else{
+                oldSwingMom = swingMom;
+                oldXZDir = (new Vector3(aSM.hookPoint.transform.position.x,0,aSM.hookPoint.transform.position.z) - new Vector3(aSM.transform.position.x,0,aSM.transform.position.z)).normalized;   
+                swingGrace = true;
+                graceTimer = defaultGraceTimer;
+            }
+            
         }
 
         //current line between hookpoint and player
@@ -179,7 +194,7 @@ public class dAerialGrappleAirState : dAerialBaseState
         }
 
         //calculates swing momentum based on height ands speed
-        float sMom = playerSpeed + (swingHeight * 2.5f);
+        float sMom = playerSpeed + (swingHeight * 3f);
         if(sMom > aSM.maxSwingMom){
             sMom = aSM.maxSwingMom;
         }

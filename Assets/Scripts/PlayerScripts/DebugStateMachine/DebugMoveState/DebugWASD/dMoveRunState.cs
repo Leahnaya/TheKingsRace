@@ -6,12 +6,12 @@ public class dMoveRunState : dMoveBaseState
 {
     public override void EnterState(dMoveStateManager mSM, dMoveBaseState previousState){
         mSM.GetComponent<Animator>().SetBool("isRunning", true);
-        Debug.Log("Entered Run");
+        //Debug.Log("Entered Run");
     }
     
     public override void ExitState(dMoveStateManager mSM, dMoveBaseState nextState){
         mSM.GetComponent<Animator>().SetBool("isRunning", false);
-        Debug.Log("Exit Run");
+        //Debug.Log("Exit Run");
     }
 
     public override void UpdateState(dMoveStateManager mSM){
