@@ -5075,7 +5075,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   pStats: {fileID: 0}
   mSM: {fileID: 0}
-  driver: {fileID: 0}
+  driver: {fileID: 8643913596794274241}
   dashItem: {fileID: 11400000, guid: 3156de54e455b4348b2a6e79383383b0, type: 2}
 --- !u!114 &7688428083034862390
 MonoBehaviour:
@@ -5093,7 +5093,7 @@ MonoBehaviour:
   moveController: {fileID: 0}
   pStats: {fileID: 0}
   mSM: {fileID: 0}
-  driver: {fileID: 0}
+  driver: {fileID: 8643913596794274241}
   nitroItem: {fileID: 11400000, guid: a1c26807795a7ac4f83567455ce978ce, type: 2}
   nitroVelBoost: 40
   nitroAccBoost: 0.4

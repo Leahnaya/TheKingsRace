@@ -31,6 +31,7 @@ public class CoolDown : MonoBehaviour
             temp.transform.SetParent(this.gameObject.transform);
             temp.name = nitroItem.name;
             temp.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            temp.transform.rotation.Set(0f, 0f, 0f, 0f);
             temp.GetComponent<UICoolDown>().setCoolDownTime(nitroItem.cooldownM);
             //set position on canvas
             //due to low number, gonna hardcode this to be first
@@ -38,13 +39,14 @@ public class CoolDown : MonoBehaviour
             //set icon to ui icon
             temp.transform.GetComponent<Image>().sprite = nitroItem.itemSprite;
             //set button control (hard coded)
-            temp.transform.Find("Button Prompt").GetComponent<TMPro.TextMeshProUGUI>().text = "Shift";
+            temp.transform.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Shift";
         }
         if (stats.HasDash == true){
             GameObject temp2 = Instantiate(uiPrebab);
             temp2.transform.SetParent(this.gameObject.transform);
             temp2.name = dashItem.name;
             temp2.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            temp2.transform.rotation.Set(0f, 0f, 0f, 0f);
             temp2.GetComponent<UICoolDown>().setCoolDownTime(dashItem.cooldownM);
 
             //set image 
@@ -60,7 +62,7 @@ public class CoolDown : MonoBehaviour
                 temp2.transform.localPosition = new Vector3(-850, 425);
             }
             //set button control
-            temp2.transform.Find("Button Prompt").GetComponent<TMPro.TextMeshProUGUI>().text = "R";
+            temp2.transform.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "R";
         }
 
         ////display guranteed items
@@ -72,11 +74,12 @@ public class CoolDown : MonoBehaviour
         temp3.transform.SetParent(boxHighlight.transform);
         temp3.name = kickItem.name;
         temp3.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+        temp3.transform.rotation.Set(0f, 0f, 0f, 0f);
         //due to low number, gonna hardcode this to be first
         temp3.transform.localPosition = new Vector3(-100, -100);
         //set icon to ui icon
         temp3.transform.GetComponent<Image>().sprite = kickItem.itemSprite;
-        temp3.transform.Find("Button Prompt").GetComponent<TMPro.TextMeshProUGUI>().text = "F";
+        temp3.transform.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "F";
     
         //slide
         GameObject temp4 = Instantiate(uiPrebab);
@@ -84,11 +87,12 @@ public class CoolDown : MonoBehaviour
         temp4.transform.SetParent(boxHighlight.transform);
         temp4.name = "slide";
         temp4.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+        temp4.transform.rotation.Set(0f, 0f, 0f, 0f);
         //due to low number, gonna hardcode this to be first
         temp4.transform.localPosition = new Vector3(100, -100);
         //set icon to ui icon
         //doesn't exists
-        temp4.transform.Find("Button Prompt").GetComponent<TMPro.TextMeshProUGUI>().text = "Slide \n Q";
+        temp4.transform.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Slide \n Q";
 
         ////check if items are there
         //grapple
@@ -98,12 +102,13 @@ public class CoolDown : MonoBehaviour
             temp5.transform.SetParent(boxHighlight.transform);
             temp5.name = grapple.itemName;
             temp5.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            temp5.transform.rotation.Set(0f, 0f, 0f, 0f);
             //due to low number, gonna hardcode this to be first
             temp5.transform.localPosition = new Vector3(100 + posTemp, 100);
             //set icon to ui icon
             temp5.transform.GetComponent<Image>().sprite = grapple.itemSprite;
             //doesn't exists
-            temp5.transform.Find("Button Prompt").GetComponent<TMPro.TextMeshProUGUI>().text = "E";
+            temp5.transform.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "E";
             //increment counter
             posTemp -= 200;
         }
@@ -114,12 +119,13 @@ public class CoolDown : MonoBehaviour
             temp6.transform.SetParent(boxHighlight.transform);
             temp6.name = Glide.itemName;
             temp6.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            temp6.transform.rotation.Set(0f, 0f, 0f, 0f);
             //due to low number, gonna hardcode this to be first
             temp6.transform.localPosition = new Vector3(100 + posTemp, 100);
             //set icon to ui icon
             temp6.transform.GetComponent<Image>().sprite = Glide.itemSprite;
             //doesn't exists
-            temp6.transform.Find("Button Prompt").GetComponent<TMPro.TextMeshProUGUI>().text = "Hold Space";
+            temp6.transform.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Hold Space";
             //increment counter
             posTemp -= 200;
         }
@@ -130,7 +136,6 @@ public class CoolDown : MonoBehaviour
     }
 
     public void startUICooldown(string name){
-        Debug.Log("its me");
         this.gameObject.transform.Find(name).GetComponent<UICoolDown>().startCoolDown();
     }
     // Update is called once per frame

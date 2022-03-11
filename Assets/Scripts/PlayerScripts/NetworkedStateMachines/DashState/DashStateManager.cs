@@ -38,7 +38,6 @@ public class DashStateManager : NetworkBehaviour
         ////Initialize Player Components
         moveController = GetComponent<CharacterController>(); // set Character Controller
         animator = GetComponent<Animator>(); // set animator
-        driver = GameObject.Find("PlayerCanvas").GetComponent<CoolDown>();
         ////
 
         ////Initialize Scripts

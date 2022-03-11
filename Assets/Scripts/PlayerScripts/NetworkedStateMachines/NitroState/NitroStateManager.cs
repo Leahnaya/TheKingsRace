@@ -53,7 +53,6 @@ public class NitroStateManager : NetworkBehaviour
         parentObj = transform.parent.gameObject; // set parent object
         animator = GetComponent<Animator>(); // set animator
         animationManager = GetComponent<AnimationManager>();
-        driver = GameObject.Find("PlayerCanvas").GetComponent<CoolDown>();
         ////
 
         ////Initialize Scripts

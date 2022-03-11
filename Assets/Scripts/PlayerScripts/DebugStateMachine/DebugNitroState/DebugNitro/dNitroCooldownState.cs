@@ -36,11 +36,8 @@ public class dNitroCooldownState : dNitroBaseState
 
     //cooldown timer
     private IEnumerator startCoolDown(dNitroStateManager nSM){
-        Debug.Log("Hello");
         nSM.driver.startUICooldown("Nitro");
-        Debug.Log("DE");
         yield return new WaitForSeconds(nSM.nitroItem.cooldownM);
-        Debug.Log("Done");
         cooldown = true;
     }
 }
