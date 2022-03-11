@@ -4,26 +4,33 @@ using UnityEngine;
 
 public class LobbySwap : MonoBehaviour
 {
-    GameObject playerLobby;
-    GameObject kingLobby;
+    public GameObject playerLobby;
+    public GameObject kingLobby;
+
+    public GameObject player;
+    public GameObject king;
 
     // Start is called before the first frame update
     void Start()
     {
-        playerLobby = GameObject.Find("PlayerLobby");
-        kingLobby = GameObject.Find("KingLobby");
-
         kingLobby.SetActive(false);
+        king.SetActive(false);
     }
 
     public void SwapLobby(){
         if(playerLobby.active){
             kingLobby.SetActive(true);
+            king.SetActive(true);
+
             playerLobby.SetActive(false);
+            player.SetActive(false);
         }
         else{
             playerLobby.SetActive(true);
+            player.SetActive(true);
+
             kingLobby.SetActive(false);
+            king.SetActive(false);
         }
     }
 }
