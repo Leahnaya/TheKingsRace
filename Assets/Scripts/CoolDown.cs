@@ -30,8 +30,9 @@ public class CoolDown : MonoBehaviour
             GameObject temp = Instantiate(uiPrebab);
             temp.transform.SetParent(this.gameObject.transform);
             temp.name = nitroItem.name;
+            temp.transform.localRotation = Quaternion.identity;
             temp.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            temp.transform.rotation.Set(0f, 0f, 0f, 0f);
+            temp.transform.localRotation.Set(0f, 0f, 0f, 0f);
             temp.GetComponent<UICoolDown>().setCoolDownTime(nitroItem.cooldownM);
             //set position on canvas
             //due to low number, gonna hardcode this to be first
@@ -46,7 +47,7 @@ public class CoolDown : MonoBehaviour
             temp2.transform.SetParent(this.gameObject.transform);
             temp2.name = dashItem.name;
             temp2.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            temp2.transform.rotation.Set(0f, 0f, 0f, 0f);
+            temp2.transform.localRotation = Quaternion.identity;
             temp2.GetComponent<UICoolDown>().setCoolDownTime(dashItem.cooldownM);
 
             //set image 
@@ -74,7 +75,7 @@ public class CoolDown : MonoBehaviour
         temp3.transform.SetParent(boxHighlight.transform);
         temp3.name = kickItem.name;
         temp3.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-        temp3.transform.rotation.Set(0f, 0f, 0f, 0f);
+        temp3.transform.localRotation = Quaternion.identity;
         //due to low number, gonna hardcode this to be first
         temp3.transform.localPosition = new Vector3(-100, -100);
         //set icon to ui icon
@@ -87,7 +88,7 @@ public class CoolDown : MonoBehaviour
         temp4.transform.SetParent(boxHighlight.transform);
         temp4.name = "slide";
         temp4.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-        temp4.transform.rotation.Set(0f, 0f, 0f, 0f);
+        temp4.transform.localRotation = Quaternion.identity;
         //due to low number, gonna hardcode this to be first
         temp4.transform.localPosition = new Vector3(100, -100);
         //set icon to ui icon
@@ -102,7 +103,7 @@ public class CoolDown : MonoBehaviour
             temp5.transform.SetParent(boxHighlight.transform);
             temp5.name = grapple.itemName;
             temp5.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            temp5.transform.rotation.Set(0f, 0f, 0f, 0f);
+            temp5.transform.localRotation = Quaternion.identity;
             //due to low number, gonna hardcode this to be first
             temp5.transform.localPosition = new Vector3(100 + posTemp, 100);
             //set icon to ui icon
@@ -119,7 +120,7 @@ public class CoolDown : MonoBehaviour
             temp6.transform.SetParent(boxHighlight.transform);
             temp6.name = Glide.itemName;
             temp6.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            temp6.transform.rotation.Set(0f, 0f, 0f, 0f);
+            temp6.transform.localRotation = Quaternion.identity;
             //due to low number, gonna hardcode this to be first
             temp6.transform.localPosition = new Vector3(100 + posTemp, 100);
             //set icon to ui icon

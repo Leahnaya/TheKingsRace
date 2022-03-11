@@ -73,6 +73,7 @@ public class PopUpScript : MonoBehaviour
             temp.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
             //due to low number, gonna hardcode this to be first
             temp.transform.localPosition = new Vector3(0, 0);
+            temp.transform.localRotation = Quaternion.identity;
             //set icon to ui icon
             temp.transform.GetComponent<Image>().sprite = item.itemSprite;
             //set text
@@ -102,6 +103,7 @@ public class PopUpScript : MonoBehaviour
             temp.transform.SetParent(canvas.transform);
             temp.name = "SlidePopUp";
             temp.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            temp.transform.localRotation = Quaternion.identity;
             //due to low number, gonna hardcode this to be first
             temp.transform.localPosition = new Vector3(0, 0);
             //set text
