@@ -8,8 +8,7 @@ public class ResetZonesGlobal : MonoBehaviour {
 
     private bool cooldown = false;
 
-    [SerializeField]
-    private int RespawnZone;
+    public int RespawnZone;
 
     private void OnTriggerEnter(Collider other) {
         if (cooldown == false && other.transform.gameObject.tag == "PlayerTrigger" && other.gameObject.transform.root.gameObject.GetComponent<NetworkObject>().OwnerClientId == NetworkManager.Singleton.LocalClientId) {

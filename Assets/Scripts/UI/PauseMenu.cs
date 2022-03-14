@@ -34,6 +34,12 @@ public class PauseMenu : NetworkBehaviour {
 
     private bool isViewingRunnerControls = true;
 
+    private ResetZonesGlobal[] respawnZones;
+
+    void Awake() {
+        respawnZones = (ResetZonesGlobal[])GameObject.FindObjectsOfType(typeof(ResetZonesGlobal));
+    }
+
     void Start()  {
         PauseMenuPanel.SetActive(false);
         ControlsPanel.SetActive(false);
@@ -138,14 +144,23 @@ public class PauseMenu : NetworkBehaviour {
 
     public void RespawnConfirmed() {
         
-        // Disable/Enable player controls
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+
+        
 
         foreach (GameObject player in players) {
             // Find the local player
             if (player.GetComponent<NetworkObject>().IsLocalPlayer) {
+                ResetZones.Zone curZone = ResetZones.Zone.VALLEY;
+                foreach(ResetZonesGlobal reZone in respawnZones) {
+                    if (reZone.gameObject.GetComponent<BoxCollider>().bounds.Intersects(player.GetComponentInChildren<CapsuleCollider>().bounds)) {
+                        Debug.LogError("Current Zone = " + reZone.RespawnZone);
+                        curZone = (ResetZones.Zone)reZone.RespawnZone;
+                    }
+                }
+
                 RespawnPlayerServerRPC(player.GetComponent<NetworkObject>().OwnerClientId, 
-                    player.GetComponentInChildren<ResetZones>().GetRespawnPosition(player.GetComponentInChildren<ResetZones>().GetCurrentZone()));
+                    player.GetComponentInChildren<ResetZones>().GetRespawnPosition(curZone));
             }
         }
 
