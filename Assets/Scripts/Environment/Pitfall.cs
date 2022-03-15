@@ -130,6 +130,7 @@ public class Pitfall : NetworkBehaviour
                 character.GetComponentInChildren<NitroStateManager>().enabled = true;
                 character.GetComponentInChildren<AerialStateManager>().enabled = true;
                 character.GetComponentInChildren<OffenseStateManager>().enabled = true;
+                character.GetComponentInChildren<CoolDown>().populatePlayerCanvas();
             }
         }
 

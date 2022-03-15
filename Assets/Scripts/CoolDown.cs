@@ -17,16 +17,38 @@ public class CoolDown : MonoBehaviour
     public Item kickItem;
     public Item grapple;
     public Item Glide;
-    private GameObject boxHighlight;
+    public GameObject boxHighlight;
     // Start is called before the first frame update
     void Start(){
-        //retrieve player object, find the T-Pose child, and then retrive player stats
-        stats = GameObject.FindGameObjectWithTag("Player").transform.Find("T-Pose").GetComponent<PlayerStats>();
-        //retrieve box object
-        boxHighlight = this.transform.Find("Highlight").gameObject;
 
+      
+      
+
+
+
+    }
+
+    public void startUICooldown(string name){
+        this.gameObject.transform.Find(name).GetComponent<UICoolDown>().startCoolDown();
+    }
+    // Update is called once per frame
+    void Update(){
+        ////if tap is pressed, set active reversed 
+        //not currently bounded to controller
+        if (Input.GetKeyDown(KeyCode.Tab)){
+            if(boxHighlight.activeInHierarchy == false){
+                boxHighlight.SetActive(true);
+            }
+            else{
+                boxHighlight.SetActive(false);
+            }
+        }
+    }
+    public void populatePlayerCanvas()
+    {
         //apply special items (can condense and simplify if needed)
-        if(stats.HasNitro == true){
+        if (stats.HasNitro == true)
+        {
             GameObject temp = Instantiate(uiPrebab);
             temp.transform.SetParent(this.gameObject.transform);
             temp.name = nitroItem.name;
@@ -42,7 +64,8 @@ public class CoolDown : MonoBehaviour
             //set button control (hard coded)
             temp.transform.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Shift";
         }
-        if (stats.HasDash == true){
+        if (stats.HasDash == true)
+        {
             GameObject temp2 = Instantiate(uiPrebab);
             temp2.transform.SetParent(this.gameObject.transform);
             temp2.name = dashItem.name;
@@ -59,7 +82,8 @@ public class CoolDown : MonoBehaviour
                 temp2.transform.localPosition = new Vector3(-850, 225);
             }
             //if not, make this icon top of screen
-            else{
+            else
+            {
                 temp2.transform.localPosition = new Vector3(-850, 425);
             }
             //set button control
@@ -81,7 +105,7 @@ public class CoolDown : MonoBehaviour
         //set icon to ui icon
         temp3.transform.GetComponent<Image>().sprite = kickItem.itemSprite;
         temp3.transform.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "F";
-    
+
         //slide
         GameObject temp4 = Instantiate(uiPrebab);
         //set parent as highlight
@@ -97,7 +121,8 @@ public class CoolDown : MonoBehaviour
 
         ////check if items are there
         //grapple
-        if(stats.HasGrapple == true){
+        if (stats.HasGrapple == true)
+        {
             GameObject temp5 = Instantiate(uiPrebab);
             //set parent as highlight
             temp5.transform.SetParent(boxHighlight.transform);
@@ -114,7 +139,8 @@ public class CoolDown : MonoBehaviour
             posTemp -= 200;
         }
         //glider
-        if(stats.HasGlider == true){
+        if (stats.HasGlider == true)
+        {
             GameObject temp6 = Instantiate(uiPrebab);
             //set parent as highlight
             temp6.transform.SetParent(boxHighlight.transform);
@@ -129,27 +155,6 @@ public class CoolDown : MonoBehaviour
             temp6.transform.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Hold Space";
             //increment counter
             posTemp -= 200;
-        }
-      
-
-
-
-    }
-
-    public void startUICooldown(string name){
-        this.gameObject.transform.Find(name).GetComponent<UICoolDown>().startCoolDown();
-    }
-    // Update is called once per frame
-    void Update(){
-        ////if tap is pressed, set active reversed 
-        //not currently bounded to controller
-        if (Input.GetKeyDown(KeyCode.Tab)){
-            if(boxHighlight.activeInHierarchy == false){
-                boxHighlight.SetActive(true);
-            }
-            else{
-                boxHighlight.SetActive(false);
-            }
         }
     }
 }

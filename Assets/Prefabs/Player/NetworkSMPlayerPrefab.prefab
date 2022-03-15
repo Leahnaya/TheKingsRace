@@ -2197,13 +2197,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c342edd8126e1449a50220a14c9333e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 0}
+  stats: {fileID: 7688428083034862287}
   uiPrebab: {fileID: 8588054010754274200, guid: e38204bb7b42b7642b974d9ee0c6903a, type: 3}
   dashItem: {fileID: 11400000, guid: 3156de54e455b4348b2a6e79383383b0, type: 2}
   nitroItem: {fileID: 11400000, guid: a1c26807795a7ac4f83567455ce978ce, type: 2}
   kickItem: {fileID: 11400000, guid: a96dfb1a70e0d0a4f84c15378f38ce99, type: 2}
   grapple: {fileID: 11400000, guid: 3c5f77adbd146274281d636352eb5018, type: 2}
   Glide: {fileID: 11400000, guid: 8fe830ac457225a4ab1031a499db94fc, type: 2}
+  boxHighlight: {fileID: 8092231625093547256}
 --- !u!1 &3010724135818471905
 GameObject:
   m_ObjectHideFlags: 0
