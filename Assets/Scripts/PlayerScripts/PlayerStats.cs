@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.SceneManagement;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -171,6 +172,30 @@ public class PlayerStats : MonoBehaviour
     private float tempTraction;
     private float tempAcc;
     private float accModification;
+
+    void Start() {
+        // Used mainly for respawning
+        // Sets the weather back up if any particle systems are playing
+
+        // Make sure we are in the game scene
+        if (SceneManager.GetActiveScene().buildIndex == 3) { 
+            if (GameObject.FindGameObjectWithTag("RainSystem").GetComponent<ParticleSystem>().isPlaying) {
+                // Rain Playing
+                SetWeather(Weather.Rain);
+            }
+            else if (GameObject.FindGameObjectWithTag("SnowSystem").GetComponent<ParticleSystem>().isPlaying) {
+                // Snow Playing
+                SetWeather(Weather.Snow);
+            }
+            else if (GameObject.FindGameObjectWithTag("WindSystem").GetComponent<ParticleSystem>().isPlaying) {
+                // Wind Playing
+                SetWeather(Weather.Wind, GameObject.FindGameObjectWithTag("WindSystem").GetComponent<WindDirection>().windDireciton);
+            }
+            else if (GameObject.FindGameObjectWithTag("FogSystem").GetComponent<ParticleSystem>().isPlaying) {
+                SetWeather(Weather.Fog);
+            }
+        }
+    }
 
     //sets weather effect on player
     public void SetWeather(Weather weather, Vector3 windDir = default(Vector3)){

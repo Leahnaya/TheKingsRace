@@ -154,7 +154,6 @@ public class PauseMenu : NetworkBehaviour {
                 ResetZones.Zone curZone = ResetZones.Zone.VALLEY;
                 foreach(ResetZonesGlobal reZone in respawnZones) {
                     if (reZone.gameObject.GetComponent<BoxCollider>().bounds.Intersects(player.GetComponentInChildren<CapsuleCollider>().bounds)) {
-                        Debug.LogError("Current Zone = " + reZone.RespawnZone);
                         curZone = (ResetZones.Zone)reZone.RespawnZone;
                     }
                 }

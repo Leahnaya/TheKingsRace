@@ -14,8 +14,8 @@ public class WeatherWheel : NetworkBehaviour {
 
     public GameObject pointer;
 
-    private float weatherDuration = 30f;
-    private float postWeatherCooldown = 15f;
+    private float weatherDuration = 20f;
+    private float postWeatherCooldown = 10f;
 
     void Start() {
         gameObject.GetComponent<Image>().enabled = false;
@@ -125,6 +125,7 @@ public class WeatherWheel : NetworkBehaviour {
 
         // Allow weather to be spun again
         onCooldown = false;
+        gameObject.GetComponent<Button>().interactable = true;
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -156,11 +157,15 @@ public class WeatherWheel : NetworkBehaviour {
                 break;
             case PlayerStats.Weather.Wind:
                 GameObject.FindGameObjectWithTag("WindSystem").GetComponent<ParticleSystem>().Play();
+
+                // Also store the wind direction
+                GameObject.FindGameObjectWithTag("WindSystem").GetComponent<WindDirection>().windDireciton = windDir;
                 break;
             case PlayerStats.Weather.Fog:
                 GameObject.FindGameObjectWithTag("FogSystem").GetComponent<ParticleSystem>().Play();
                 break;
         }
+
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -192,12 +197,15 @@ public class WeatherWheel : NetworkBehaviour {
     public void SpinWheel() {
 
         // Only spin if not spinning already and not on cooldown
-        if (isSpinning && !onCooldown) { return; }
+        if (isSpinning || onCooldown) { return; }
 
         // Do the spin
         wheelSpeed = Random.Range(4.000f, 5.000f);
         subtractSpeed = Random.Range(0.003f, 0.009f);
         isSpinning = true;
         onCooldown = true;
+
+        // Also make the button uninteractable
+        gameObject.GetComponent<Button>().interactable = false;
     }
 }
