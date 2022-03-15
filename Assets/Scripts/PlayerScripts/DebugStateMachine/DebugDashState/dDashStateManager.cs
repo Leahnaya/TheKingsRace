@@ -24,7 +24,7 @@ public class dDashStateManager : NetworkBehaviour
     ////Scripts Section
     public PlayerStats pStats; // Player Stats
     public dMoveStateManager mSM; // movement state manager
-    public CoolDown driver; // cooldown driver
+    public dCoolDown driver; // cooldown driver
     //// AnimatorManagerScript
     private dAnimationManager animationManager;
     ////

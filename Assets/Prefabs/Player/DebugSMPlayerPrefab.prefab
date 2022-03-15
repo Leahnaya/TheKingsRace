@@ -1173,7 +1173,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   pStats: {fileID: 0}
   mSM: {fileID: 0}
-  driver: {fileID: 5149733669485025623}
+  driver: {fileID: 5799787970557124338}
   dashItem: {fileID: 11400000, guid: 3156de54e455b4348b2a6e79383383b0, type: 2}
 --- !u!114 &1707207228499037412
 MonoBehaviour:
@@ -1223,7 +1223,7 @@ MonoBehaviour:
   animator: {fileID: 0}
   pStats: {fileID: 0}
   mSM: {fileID: 0}
-  driver: {fileID: 5149733669485025623}
+  driver: {fileID: 5799787970557124338}
   nitroItem: {fileID: 11400000, guid: a1c26807795a7ac4f83567455ce978ce, type: 2}
   nitroVelBoost: 40
   nitroAccBoost: 0.4
@@ -4297,7 +4297,7 @@ GameObject:
   - component: {fileID: 8453109168727161684}
   - component: {fileID: 3525475281917159692}
   - component: {fileID: 2091444927438964795}
-  - component: {fileID: 5149733669485025623}
+  - component: {fileID: 5799787970557124338}
   m_Layer: 5
   m_Name: PlayerCanvas
   m_TagString: Untagged
@@ -4387,7 +4387,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &5149733669485025623
+--- !u!114 &5799787970557124338
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4396,7 +4396,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6915241949826709613}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c342edd8126e1449a50220a14c9333e, type: 3}
+  m_Script: {fileID: 11500000, guid: d6160e46c78b9ca45ab7fe770593a1ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   stats: {fileID: 1707207228499037468}
