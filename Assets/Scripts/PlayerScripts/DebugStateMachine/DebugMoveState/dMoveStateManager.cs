@@ -230,17 +230,17 @@ public class dMoveStateManager : NetworkBehaviour
         
         
         //Check if wall is in direction player is moving
-        if (((Physics.Raycast(gameObject.transform.position + new Vector3(0,.4f,0) + rayOffset, driftVel.normalized, out wallHitBot, .18f, layerMask) == true) || ((currentState != SlideState || currentState != CrouchState) && (Physics.Raycast(gameObject.transform.position + new Vector3(0,2.2f,0), driftVel.normalized, out wallHitTop, .18f, layerMask) == true))) && !firstWallHit){
+        if (((Physics.Raycast(gameObject.transform.position + new Vector3(0,.4f,0) + rayOffset, driftVel.normalized, out wallHitBot, .5f, layerMask) == true) || ((currentState != SlideState || currentState != CrouchState) && (Physics.Raycast(gameObject.transform.position + new Vector3(0,2.2f,0), driftVel.normalized, out wallHitTop, .5f, layerMask) == true))) && !firstWallHit){
             CancelMomentum();
-            Debug.Log("Collide");
+            //Debug.Log(wallHitBot.collider.name);
             firstWallHit = true;
         }
         if(((Physics.Raycast(gameObject.transform.position + new Vector3(0,.4f,0) + rayOffset, driftVel.normalized, out wallExitBot, .3f, layerMask) == false) && ((currentState == SlideState || currentState == CrouchState) || (Physics.Raycast(gameObject.transform.position + new Vector3(0,2.2f,0), driftVel.normalized, out wallExitTop, .3f, layerMask) == false))) && firstWallHit){
             firstWallHit = false;
         }
 
-        Debug.DrawRay(gameObject.transform.position + new Vector3(0,.4f,0) + (rayOffset/2), moveXZ.normalized * .2f, Color.red);
-        Debug.DrawRay(gameObject.transform.position + new Vector3(0,2.2f,0) + rayOffset, moveXZ.normalized * .2f, Color.red);
+        Debug.DrawRay(gameObject.transform.position + new Vector3(0,.4f,0) + rayOffset, driftVel.normalized * .5f, Color.red);
+        Debug.DrawRay(gameObject.transform.position + new Vector3(0,2.2f,0) + rayOffset, driftVel.normalized * .5f, Color.red);
         
 
         if(driftVel != Vector3.zero){
