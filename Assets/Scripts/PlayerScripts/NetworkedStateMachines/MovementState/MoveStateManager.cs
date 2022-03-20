@@ -30,6 +30,7 @@ public class MoveStateManager : NetworkBehaviour
 
     ////Objects Sections
     private GameObject parentObj; // Parent object
+    private GameObject playerModel; // player visual model
     public Camera cam; // Camera object
     ////
 
@@ -91,6 +92,7 @@ public class MoveStateManager : NetworkBehaviour
         parentObj = transform.parent.gameObject; // set parent object
         animator = GetComponent<Animator>(); // set animator
         animationManager = GetComponent<AnimationManager>();
+        playerModel = GameObject.FindGameObjectWithTag("PlayerModel");
         ////
 
         ////Initialize Scripts
@@ -213,29 +215,34 @@ public class MoveStateManager : NetworkBehaviour
         moveZ = transform.forward * Input.GetAxis("Vertical") * Time.deltaTime * PlayerSpeed();
         vel = moveX + moveZ;
         Vector3 moveXZ = new Vector3(vel.x, 0, vel.z);
-
-        //Raycast offset
-        Vector3 rayOffset = moveXZ - lastVel;
-        
-        /*
-        //Check if wall is in direction player is moving
-        if (((Physics.Raycast(gameObject.transform.position + new Vector3(0,.4f,0) + rayOffset, moveXZ.normalized, out wallHitBot, .2f, layerMask) == true) || ((Physics.Raycast(gameObject.transform.position + new Vector3(0,2.2f,0), moveXZ.normalized, out wallHitTop, .2f, layerMask) == true))) && !firstWallHit){
-            CancelMomentum();
-            firstWallHit = true;
-        }
-        else if((Physics.Raycast(gameObject.transform.position + new Vector3(0,.4f,0) + rayOffset, moveXZ.normalized, out wallHitBot, .2f, layerMask) == false) || ((Physics.Raycast(gameObject.transform.position + new Vector3(0,2.2f,0), moveXZ.normalized, out wallHitTop, .2f, layerMask) == false))){
-            firstWallHit = false;
-        }
-
-        Debug.DrawRay(gameObject.transform.position + new Vector3(0,.4f,0) + rayOffset, moveXZ.normalized * 1f, Color.red);
-        Debug.DrawRay(gameObject.transform.position + new Vector3(0,2.2f,0) + rayOffset, moveXZ.normalized * 1f, Color.red);
-        */
         
         driftVel = Vector3.Lerp(driftVel, moveXZ, pStats.CurTraction * Time.deltaTime);
         if(currentState == GrappleAirState){
             driftVel = Vector3.zero;
         }
         
+                //Raycast offset
+        Vector3 rayOffset = driftVel - lastVel;
+        
+        
+        //Check if wall is in direction player is moving
+        if (((Physics.Raycast(gameObject.transform.position + new Vector3(0,.4f,0) + rayOffset, driftVel.normalized, out wallHitBot, .18f, layerMask) == true) || ((currentState != SlideState || currentState != CrouchState) && (Physics.Raycast(gameObject.transform.position + new Vector3(0,2.2f,0), driftVel.normalized, out wallHitTop, .18f, layerMask) == true))) && !firstWallHit){
+            CancelMomentum();
+            Debug.Log("Collide");
+            firstWallHit = true;
+        }
+        if(((Physics.Raycast(gameObject.transform.position + new Vector3(0,.4f,0) + rayOffset, driftVel.normalized, out wallExitBot, .3f, layerMask) == false) && ((currentState == SlideState || currentState == CrouchState) || (Physics.Raycast(gameObject.transform.position + new Vector3(0,2.2f,0), driftVel.normalized, out wallExitTop, .3f, layerMask) == false))) && firstWallHit){
+            firstWallHit = false;
+        }
+
+        Debug.DrawRay(gameObject.transform.position + new Vector3(0,.4f,0) + (rayOffset/2), moveXZ.normalized * .2f, Color.red);
+        Debug.DrawRay(gameObject.transform.position + new Vector3(0,2.2f,0) + rayOffset, moveXZ.normalized * .2f, Color.red);
+
+        if(driftVel != Vector3.zero){
+            playerModel.transform.rotation = Quaternion.LookRotation(driftVel.normalized);  
+        }
+        
+
         //Actually move he player
         moveController.Move(driftVel);
     }
