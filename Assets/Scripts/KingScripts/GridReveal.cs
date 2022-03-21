@@ -7,10 +7,10 @@ public class GridReveal : MonoBehaviour
     private GameObject[] Rows;
     private float TempKingPos = 0;
     private int Index = 0;
-    private int ROSCount = 100;
+    private int ROSCount = 105;
     private int BoxSize = 20;
     private int ValleyStr = -670;
-    private int MountainStr = -2960;
+    private int MountainStr = -3700;
 
     void Start() {
         List<GameObject> RowsList = new List<GameObject>();
@@ -40,7 +40,7 @@ public class GridReveal : MonoBehaviour
             }
             else if (MovDir >= 0) { //Moving Right
                 Rows[Index].SetActive(false);//Deactivates Leftmost
-                if (Index <= (Rows.Length - 1) - ROSCount) {//Prevents OfB error
+                if (Index <= (Rows.Length) - ROSCount) {//Prevents OfB error
                     Rows[Index + ROSCount].SetActive(true);//Activates Rightmost
                     Index++;
                 }

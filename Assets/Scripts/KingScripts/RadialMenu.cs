@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RadialMenu : MonoBehaviour
 {
 
     bool UIOn = false;
     public GameObject King;
+    [SerializeField]
+    private Text UItext;
     // Update is called once per frame
     void Update()
     {
@@ -26,6 +29,7 @@ public class RadialMenu : MonoBehaviour
 
     private void MenuOn()
     {
+        UItext.text = "Press E to Close Menu";
         foreach (Transform child in transform) { //Turns on all of the different buttons attached to this panel and stops it from moving
             child.gameObject.SetActive(true);
             UIOn = true;
@@ -34,9 +38,26 @@ public class RadialMenu : MonoBehaviour
 
     public void MenuOff()
     {
+        UItext.text = "Press Q to Open Menu";
         foreach (Transform child in transform) { //Turns off all of the different buttons attached to this panel and starts it moving again
             child.gameObject.SetActive(false);
             UIOn = false;
+        }
+    }
+
+    public void PlaceObj(int ID)
+    {
+        switch (ID)
+        {//Parses in the button clicked into the right object that the King is placing
+            case 0:
+                UItext.text = "Click to Place the Block";
+                break;
+            case 1:
+                UItext.text = "Click and Hold to Resize the Hail's Area";
+                break;
+            case 2:
+                UItext.text = "Click and Hold to Determine the Slime's Direction";
+                break;
         }
     }
 }

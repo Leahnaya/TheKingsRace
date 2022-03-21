@@ -14,6 +14,7 @@ public class KingPlace : NetworkBehaviour
     public GameObject HailObject;
     public GameObject Slime;
     private GameObject Grid;
+    private GameObject MountGrid;
     public GameObject Panel;
     private GameObject Place;
     private GameObject PlaceTemp = null;
@@ -31,6 +32,10 @@ public class KingPlace : NetworkBehaviour
     private KingAbility KASlime = new KingAbility(2, 15);
     private KingAbility KAHail = new KingAbility(2, 15);
     private KingAbility KAThund = new KingAbility(2, 10);
+
+    private float[] MountPlats = { 303.41f, 315.5f, 330.5f, 345.5f, 360.5f, 400.5f, 415.5f, 430.5f, 470.5f, 485.5f, 500.5f };
+    private float[] MountxOffsets = { -50f, -73.4f, -100f, -127f, -134.7f, -130f, -34f, 14.5f, 91.2f, 129f, 129.5f };
+    private float[] MountzOffsets = { 130f, 120f, 97f, 56.6f, 32f, -50f, -135.5f, -138.5f, -105f, -52.5f, 50f };
 
     public GameObject Thunderstorm;
     //Is called when the King clicks on the Thunderstorm button
@@ -50,6 +55,7 @@ public class KingPlace : NetworkBehaviour
     void Awake()
     {
         Grid = GameObject.FindGameObjectWithTag("KingGrid");
+        MountGrid = Grid.transform.Find("MountainGrid").gameObject;
     }
 
     bool Avaliable;
@@ -72,6 +78,7 @@ public class KingPlace : NetworkBehaviour
         }
         if (Avaliable == true) {
             MenuOff();
+            Panel.GetComponent<RadialMenu>().PlaceObj(ID);
             //Create the object that will follow the Mouse
             PlaceTemp = Instantiate(Place);
             //Layout the grid
@@ -109,6 +116,7 @@ public class KingPlace : NetworkBehaviour
             }
             if (Input.GetMouseButtonUp(0)) {//Reads the player releasing the left mouse button
                 CreateHail();
+                MenuOff();
                 KAHail.UseItem();
             }
         }
@@ -120,6 +128,7 @@ public class KingPlace : NetworkBehaviour
                     child.gameObject.SetActive(false);
                 }
                 SlimePlacing = false;
+                MenuOff();
                 KASlime.UseItem();
             }
         }
@@ -138,11 +147,45 @@ public class KingPlace : NetworkBehaviour
 
     int xOffset = 101;
     int zOffset = 906;
+    int boxsize = 20;
+    float MountxOffset = -50f;
+    float MountzOffset = 130f;
     private GameObject Row;
+    private GameObject Platform;
+    Vector3 spawnLoc;
     private void FindGridBox() {
         int RowNumb = 0, Box = 0, x = 0, z = 0;
         if (PlaceTemp.transform.position.x < MontStr.x) {//King is trying to place on the mountain
-            Debug.Log("Mount Place");
+            Platform = null;
+            bool found = false;
+            for(int i = 0; i < MountPlats.Length; i++) {
+                if (MountPlats[i] == PlaceTemp.transform.position.y) {//Finds the platform by comparing y values
+                    Platform = MountGrid.transform.Find("Platform" + i).gameObject;//Sets the platform and offsets for that platform
+                    MountxOffset = MountxOffsets[i];
+                    MountzOffset = MountzOffsets[i];
+                    break;//Breaks out when it finds the platform
+                }
+            }
+            if (Platform != null) {//Makes sure it found a platform, so there are no null refs
+                foreach (Transform row in Platform.transform) { //Looks through every row on the platform
+                    foreach (Transform box in row) {//Looks at every Box in the row
+                        if (PlaceTemp.transform.position.x <= (box.transform.position.x-MountxOffset) + boxsize / 2 && PlaceTemp.transform.position.x >= (box.transform.position.x-MountxOffset) - boxsize / 2) {//Sees if the x fits within the box
+                            if (PlaceTemp.transform.position.z <= (box.transform.position.z-MountzOffset) + boxsize / 2 && PlaceTemp.transform.position.z >= (box.transform.position.z-MountzOffset) - boxsize / 2) {//Sees if the z fits within the box
+                                found = true;
+                                Vector3 rot = row.transform.rotation.eulerAngles;
+                                PlaceTemp.transform.Rotate(0, (rot.y-90), 0);//Sets the object's rotation to the rows rotation
+                                spawnLoc = new Vector3(box.transform.position.x-MountxOffset, PlaceTemp.transform.position.y, box.transform.position.z-MountzOffset);//Sets the object's location
+                                break;//Breaks out from the loops when found
+                            }
+                        }
+                    }
+                    if (found == true) {//Stops it from going through all the rows
+                        Grid.GetComponent<GridReveal>().GridSwitch(false); //Switch off the grid
+                        FirstPlacing = false;
+                        break;
+                    }
+                }
+            }
         }
         else {
             float i = ((PlaceTemp.transform.position.x) - xOffset) / -BoxSize; //Finds the Row the cursor is in
@@ -151,14 +194,14 @@ public class KingPlace : NetworkBehaviour
             Box = (int)y; //Rounds it down
             x = (RowNumb * -BoxSize) + xOffset;//Sets it's X to the X of the Row
             z = (Box * -BoxSize) + zOffset;//Sets its Z to the Z of the Box
+            // Grid Check first for valid location
+            GridCheck(RowNumb, Box, ref FirstPlacing);//Makes sure the Box is a valid position
+            // Calculate the position to spawn at
+            spawnLoc = new Vector3(x, PlaceTemp.transform.position.y, z);
         }
-        // Grid Check first for valid location
-        GridCheck(RowNumb, Box, ref FirstPlacing);//Makes sure the Box is a valid position
 
         // Instantiate a networked box at the position
-        if (FirstPlacing == false) {
-            // Calculate the position to spawn at
-            Vector3 spawnLoc = new Vector3(x, PlaceTemp.transform.position.y, z);
+        if (FirstPlacing == false) {     
 
             PlaceTemp.transform.position = spawnLoc;
 
@@ -168,6 +211,7 @@ public class KingPlace : NetworkBehaviour
 
                 // Remove the reference to PlaceTemp
                 Destroy(PlaceTemp);
+                MenuOff();
                 KABlock.UseItem();
             }
 
@@ -204,15 +248,58 @@ public class KingPlace : NetworkBehaviour
         }
     }
 
-    private void CreateHail() {//TODO make sure it makes a box/actually make the Hail Area
-        float i = ((HailCorner.transform.position.x) - xOffset) / -BoxSize; //Finds the Row the cursor is in
-        int RowNumb = (int)i; //Rounds it down
-        float y = ((HailCorner.transform.position.z) - zOffset) / -BoxSize;  //Finds the Box in the Row the cursor is in
-        int Box = (int)y; //Rounds it down
-        int x = (RowNumb * -BoxSize) + xOffset;//Sets it's X to the X of the Row
-        int z = (Box * -BoxSize) + zOffset;//Sets its Z to the Z of the Box
-        HailCorner.transform.position = new Vector3(x, HailCorner.transform.position.y, z);//fully snaps it to the grid
-        GridCheck(RowNumb, Box, ref HailPlacing);//Makes sure the Box is a valid position
+    private void CreateHail() {
+        if (PlaceTemp.transform.position.x < MontStr.x)
+        {//King is trying to place on the mountain
+            Platform = null;
+            bool found = false;
+            for (int i = 0; i < MountPlats.Length; i++)
+            {
+                if (MountPlats[i] == PlaceTemp.transform.position.y)
+                {//Finds the platform by comparing y values
+                    Platform = MountGrid.transform.Find("Platform" + i).gameObject;//Sets the platform and offsets for that platform
+                    MountxOffset = MountxOffsets[i];
+                    MountzOffset = MountzOffsets[i];
+                    break;//Breaks out when it finds the platform
+                }
+            }
+            if (Platform != null)
+            {//Makes sure it found a platform, so there are no null refs
+                foreach (Transform row in Platform.transform)
+                { //Looks through every row on the platform
+                    foreach (Transform box in row)
+                    {//Looks at every Box in the row
+                        if (HailCorner.transform.position.x <= (box.transform.position.x - MountxOffset) + boxsize / 2 && HailCorner.transform.position.x >= (box.transform.position.x - MountxOffset) - boxsize / 2)
+                        {//Sees if the x fits within the box
+                            if (HailCorner.transform.position.z <= (box.transform.position.z - MountzOffset) + boxsize / 2 && HailCorner.transform.position.z >= (box.transform.position.z - MountzOffset) - boxsize / 2)
+                            {//Sees if the z fits within the box
+                                found = true;
+                                Vector3 rot = row.transform.rotation.eulerAngles;
+                                HailCorner.transform.position = new Vector3(box.transform.position.x - MountxOffset, HailCorner.transform.position.y, box.transform.position.z - MountzOffset);//Sets the object's location
+                                break;//Breaks out from the loops when found
+                            }
+                        }
+                    }
+                    if (found == true)
+                    {//Stops it from going through all the rows
+                        Grid.GetComponent<GridReveal>().GridSwitch(false); //Switch off the grid
+                        HailPlacing = false;
+                        break;
+                    }
+                }
+            }
+        }
+        else
+        {
+            float i = ((HailCorner.transform.position.x) - xOffset) / -BoxSize; //Finds the Row the cursor is in
+            int RowNumb = (int)i; //Rounds it down
+            float y = ((HailCorner.transform.position.z) - zOffset) / -BoxSize;  //Finds the Box in the Row the cursor is in
+            int Box = (int)y; //Rounds it down
+            int x = (RowNumb * -BoxSize) + xOffset;//Sets it's X to the X of the Row
+            int z = (Box * -BoxSize) + zOffset;//Sets its Z to the Z of the Box
+            HailCorner.transform.position = new Vector3(x, HailCorner.transform.position.y, z);//fully snaps it to the grid
+            GridCheck(RowNumb, Box, ref HailPlacing);//Makes sure the Box is a valid position
+        }
         //Instanciate HailArea based on PlaceTemp = Top Left and HailCorner = Bottom Right
         if (HailPlacing == false) {
             GameObject Temp;
