@@ -101,7 +101,7 @@ public class dMoveStateManager : NetworkBehaviour
         ////
 
         ////Initialize Variables
-        layerMask = 1 << 3;
+        layerMask = (1 << 3) | (1 << 6);
         layerMask = ~layerMask;
         ////
 
