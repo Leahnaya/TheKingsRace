@@ -10,14 +10,14 @@ public class PlayerStats : MonoBehaviour
     public enum Weather {Rain, Snow, Wind, Fog};
 
     //Soft cap max speed a player can achieve they can achieve this speed by running
-    [SerializeField] private float maxVel = 40.0f;
+    [SerializeField] private float maxVel = 50.0f;
     public float MaxVel{
         get{ return maxVel; }
         set{ maxVel = value; }
     }
 
     //Minimum possible player speed
-    [SerializeField] private float minVel = 15.0f;
+    [SerializeField] private float minVel = 18.0f;
     public float MinVel{
         get{ return minVel; }
         set{ minVel = value; }
@@ -172,6 +172,8 @@ public class PlayerStats : MonoBehaviour
     private float tempTraction;
     private float tempAcc;
     private float accModification;
+    private bool weatherOn = false;
+    ////
 
     void Start() {
         // Used mainly for respawning
@@ -197,8 +199,11 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
+    ////Weather Functions
     //sets weather effect on player
     public void SetWeather(Weather weather, Vector3 windDir = default(Vector3)){
+
+        weatherOn = true;
 
         switch(weather){
             case Weather.Rain:{
@@ -263,6 +268,8 @@ public class PlayerStats : MonoBehaviour
     //clears weather effects
     public void ClearWeather(){
 
+        weatherOn = false;
+
         acc = tempAcc;
         traction = tempTraction;
 
@@ -277,6 +284,32 @@ public class PlayerStats : MonoBehaviour
     }
     ////
 
+    ////Slime Functions
+    //Apply slime body effect to the player
+
+    float tempSlimeTraction;
+    bool midWeatherOn;
+
+    public void ApplySlimeBody(){
+        maxVel = 25;
+        curVel = minVel;
+    }
+
+    //Clear slime body effect
+    public void ClearSlimeBody(){
+        maxVel = 50;
+    }
+
+    //Apply slime trail effect to the player
+    public void ApplySlimeTrail(){
+        curTraction = 1;
+    }
+
+    //Clear slime trail effect
+    public void ClearSlimeTrail(){
+        curTraction = traction;
+    }
+    ////
     void Update(){
         VariableValidation();
     }
