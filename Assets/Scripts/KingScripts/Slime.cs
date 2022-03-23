@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MLAPI;
+using MLAPI.Messaging;
 
-public class Slime : MonoBehaviour
+public class Slime : NetworkBehaviour
 {
     float MoveSpd;
     int GooTimer = 0;
@@ -13,7 +15,6 @@ public class Slime : MonoBehaviour
     Vector3 MoveDir = new Vector3(0, 0, 1);
     RaycastHit hit;
     public GameObject Goo;
-    public GameObject Folder;
     [SerializeField] private LayerMask LayerMask;
     // Start is called before the first frame update
     void Start()
@@ -29,7 +30,7 @@ public class Slime : MonoBehaviour
             if (GooTimer == 6) {
                 GameObject GooTrail = null;
                 GooTrail = Instantiate(Goo, transform.position - GooOffset, transform.rotation);
-                GooTrail.transform.parent = Folder.transform;
+                GooTrail.GetComponent<NetworkObject>().Spawn(null, true);
                 GooTimer = 0;
             }
             //attempt to move forward(Raycast infront for objects, and also raycast down, to make sure there's still ground underneath it)
@@ -40,13 +41,13 @@ public class Slime : MonoBehaviour
             GooTimer++;
 
             Lifetime++;
-            if (Lifetime == 3000)
-            {
-                Destruction();
+            if (Lifetime == 3000) {
+                DespawnMyselfServerRPC();
             }
         }
     }
 
+    //TODO: FIX THIS
     void OnTriggerStay(Collider other) {
         if (other.tag == "Player") {
             //slow down player
@@ -75,8 +76,8 @@ public class Slime : MonoBehaviour
         }
     }
 
-    void Destruction()
-    {
-        Destroy(gameObject);
+    [ServerRpc(RequireOwnership = false)]
+    private void DespawnMyselfServerRPC() {
+        this.gameObject.GetComponent<NetworkObject>().Despawn(true);
     }
 }

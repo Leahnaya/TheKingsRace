@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MLAPI;
+using MLAPI.Messaging;
 
 public class Goo : MonoBehaviour
 {
@@ -9,7 +11,7 @@ public class Goo : MonoBehaviour
     void FixedUpdate() {
         Lifetime++;
         if(Lifetime == 850) {
-            Destruction();
+            DespawnMyselfServerRPC();
         }
     }
 
@@ -22,7 +24,8 @@ public class Goo : MonoBehaviour
         }
     }
 
-    void Destruction() {
-        Destroy(gameObject);
+    [ServerRpc(RequireOwnership = false)]
+    private void DespawnMyselfServerRPC() {
+        this.gameObject.GetComponent<NetworkObject>().Despawn(true);
     }
 }
