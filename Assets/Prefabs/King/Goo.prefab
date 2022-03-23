@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 9109488354154531992}
   - component: {fileID: 9109488354154531993}
   - component: {fileID: 9109488354154531998}
+  - component: {fileID: 396043756490965690}
   m_Layer: 0
   m_Name: Goo
   m_TagString: Untagged
@@ -109,3 +110,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b6c921b5d2c15a4cb9e536856c88cf6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &396043756490965690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9109488354154531999}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NetworkInstanceId: 0
+  PrefabHash: 15590238258393642794
+  PrefabHashGenerator: Goo
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0

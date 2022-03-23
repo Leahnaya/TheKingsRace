@@ -10,9 +10,11 @@ public class KingPlace : NetworkBehaviour
     public GameObject Block;
     public GameObject BlockWithoutNetwork;
 
+    public GameObject Slime;
+    public GameObject SlimeWithoutNetwork;
+
     public GameObject HailSprite;
     public GameObject HailObject;
-    public GameObject Slime;
     private GameObject Grid;
     private GameObject MountGrid;
     public GameObject Panel;
@@ -50,7 +52,7 @@ public class KingPlace : NetworkBehaviour
 
     private int Energy = 100;
 
-    private GameObject boxPlaced;
+    private GameObject placedObj;
 
     void Awake()
     {
@@ -72,7 +74,7 @@ public class KingPlace : NetworkBehaviour
                 Avaliable = KAHail.IsAvaliable();
                 break;
             case 2:
-                Place = Slime;
+                Place = SlimeWithoutNetwork;
                 Avaliable = KASlime.IsAvaliable();
                 break;
         }
@@ -123,10 +125,14 @@ public class KingPlace : NetworkBehaviour
         if (SlimePlacing == true) {
             SlimeDir = DrawArrow();
             if (Input.GetMouseButtonUp(0)) {//Reads the player releasing the left mouse button
-                PlaceTemp.GetComponent<Slime>().GooStart(SlimeDir);
-                foreach (Transform child in PlaceTemp.transform) {
-                    child.gameObject.SetActive(false);
-                }
+
+                Vector3 slimeLoc = PlaceTemp.transform.position;
+
+                Destroy(PlaceTemp);
+
+                // PLACE NETWORKED VERSION
+                SpawnSlimeServerRPC(slimeLoc, SlimeDir);
+
                 SlimePlacing = false;
                 MenuOff();
                 KASlime.UseItem();
@@ -215,7 +221,7 @@ public class KingPlace : NetworkBehaviour
                 KABlock.UseItem();
             }
 
-            if (Place == Slime) {//If Object is Hail or Slime set the respective Placing value to true so it can launch into the secondary placing function
+            if (Place == SlimeWithoutNetwork) {//If Object is Hail or Slime set the respective Placing value to true so it can launch into the secondary placing function
                 SlimePlacing = true;
             }
             else if (Place == HailSprite) {
@@ -365,7 +371,16 @@ public class KingPlace : NetworkBehaviour
 
     [ServerRpc(RequireOwnership = false)]
     private void SpawnBoxServerRPC(Vector3 spawnLoc) {
-        boxPlaced = Instantiate(Block, spawnLoc, Quaternion.identity);
-        boxPlaced.GetComponent<NetworkObject>().Spawn(null, true);
+        placedObj = Instantiate(Block, spawnLoc, Quaternion.identity);
+        placedObj.GetComponent<NetworkObject>().Spawn(null, true);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void SpawnSlimeServerRPC(Vector3 spawnLoc, int SlimeDir) {
+        placedObj = Instantiate(Slime, spawnLoc, Quaternion.identity);
+
+        placedObj.GetComponent<Slime>().GooStart(SlimeDir);
+
+        placedObj.GetComponent<NetworkObject>().Spawn(null, true);
     }
 }

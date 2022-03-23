@@ -208,9 +208,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Block: {fileID: 8322169750614848705, guid: 14529042a14497c499bdce8f966e884c, type: 3}
   BlockWithoutNetwork: {fileID: 5704254083382235334, guid: f56dedeb24725ab4a844690df1d5d3cd, type: 3}
+  Slime: {fileID: 2350198489747510937, guid: 24f3f8d1ca9cb65499b276dd8f1df901, type: 3}
+  SlimeWithoutNetwork: {fileID: 2511859290852366113, guid: ac312ddeb2b064d47a12cc319328d598, type: 3}
   HailSprite: {fileID: 0}
   HailObject: {fileID: 2793902819963175725, guid: c642a15af2183e94f81d67ead9ec7326, type: 3}
-  Slime: {fileID: 0}
   Panel: {fileID: 3173415396104633710}
   FirstPlacing: 0
   Thunderstorm: {fileID: 0}
