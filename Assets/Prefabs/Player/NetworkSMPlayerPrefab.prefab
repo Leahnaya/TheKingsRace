@@ -3466,7 +3466,7 @@ GameObject:
   - component: {fileID: 5975360321271394397}
   - component: {fileID: 5975360321271394396}
   - component: {fileID: 5975360321271394395}
-  m_Layer: 3
+  m_Layer: 10
   m_Name: Player Indicator Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3559,7 +3559,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5975360321733016165}
   - component: {fileID: 5975360321733016166}
-  m_Layer: 3
+  m_Layer: 5
   m_Name: Player Indicator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3607,7 +3607,7 @@ GameObject:
   - component: {fileID: 5975360322223408463}
   - component: {fileID: 5975360322223408462}
   - component: {fileID: 5975360322223408461}
-  m_Layer: 3
+  m_Layer: 10
   m_Name: Player Indicator Line
   m_TagString: Untagged
   m_Icon: {fileID: 0}

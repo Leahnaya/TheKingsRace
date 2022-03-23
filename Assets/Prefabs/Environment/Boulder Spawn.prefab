@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8808368135834717660}
   - component: {fileID: 8808368135834717661}
   - component: {fileID: 8808368135834717634}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Boulder Spawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RespawnTimer: 10
+  boulderScaleMultiplier: 1
   spawnForce: {x: -4000, y: 0, z: 0}
   SpawnLocation: {x: 380, y: 40, z: 370}
   BoulderPrefab: {fileID: 1779316379582440844, guid: e19c0f39cc7704141bb264ff339eb336, type: 3}

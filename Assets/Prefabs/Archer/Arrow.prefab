@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4134528544430328929}
   - component: {fileID: 7328327193641429076}
   - component: {fileID: 720915480393061250}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -95,3 +95,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 90
+  bumpPower: 30

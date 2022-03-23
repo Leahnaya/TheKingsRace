@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3173415395027047140}
   - component: {fileID: 3173415395027047142}
   - component: {fileID: 3173415395027047143}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -230,7 +230,7 @@ GameObject:
   - component: {fileID: 3173415395421141914}
   - component: {fileID: 3173415395421141915}
   - component: {fileID: 3173415395421141912}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: 'King Canvas '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -267,7 +267,7 @@ Canvas:
   m_GameObject: {fileID: 3173415395421141913}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 3173415396083440353}
   m_PlaneDistance: 2.33
   m_PixelPerfect: 0
@@ -331,7 +331,7 @@ GameObject:
   - component: {fileID: 3173415395512048815}
   - component: {fileID: 3173415395512048812}
   - component: {fileID: 3173415395512048813}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -464,7 +464,7 @@ GameObject:
   - component: {fileID: 3173415395658836172}
   - component: {fileID: 3173415395658836173}
   - component: {fileID: 3173415395658836170}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Slime
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -596,7 +596,7 @@ GameObject:
   - component: {fileID: 3173415395758803272}
   - component: {fileID: 3173415395758803274}
   - component: {fileID: 3173415395758803275}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -727,7 +727,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 63487
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -759,7 +759,7 @@ GameObject:
   - component: {fileID: 3173415396104633696}
   - component: {fileID: 3173415396104633697}
   - component: {fileID: 3173415396104633698}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -774,7 +774,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3173415396104633710}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 500}
+  m_LocalPosition: {x: 0, y: 0, z: 1513}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3173415395512048810}
@@ -840,6 +840,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   King: {fileID: 3173415395305450996}
+  cam: {fileID: 3173415396083440353}
   UItext: {fileID: 3173415396260468956}
 --- !u!1 &3173415396146687108
 GameObject:
@@ -852,7 +853,7 @@ GameObject:
   - component: {fileID: 3173415396146687111}
   - component: {fileID: 3173415396146687129}
   - component: {fileID: 3173415396146687110}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -931,7 +932,7 @@ GameObject:
   - component: {fileID: 3173415396260468957}
   - component: {fileID: 3173415396260468959}
   - component: {fileID: 3173415396260468956}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: UIText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -946,7 +947,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3173415396260468954}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1513}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3173415395030910393}
@@ -954,7 +955,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -350, y: 240}
+  m_AnchoredPosition: {x: 17, y: 407}
   m_SizeDelta: {x: 400, y: 80}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3173415396260468959
@@ -1011,7 +1012,7 @@ GameObject:
   - component: {fileID: 3173415396865756789}
   - component: {fileID: 3173415396865756786}
   - component: {fileID: 3173415396865756787}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Thunder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1143,7 +1144,7 @@ GameObject:
   - component: {fileID: 3173415396963551135}
   - component: {fileID: 3173415396963551121}
   - component: {fileID: 3173415396963551134}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1223,7 +1224,7 @@ GameObject:
   - component: {fileID: 3173415397010263562}
   - component: {fileID: 3173415397010263563}
   - component: {fileID: 3173415397010263560}
-  m_Layer: 5
+  m_Layer: 10
   m_Name: Hail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1351,9 +1352,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3173415395305450956}
     m_Modifications:
+    - target: {fileID: 1087737418930352205, guid: d5667529149c5e945afdabd32b7d86ae, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2034026810393381438, guid: d5667529149c5e945afdabd32b7d86ae, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     - target: {fileID: 2715093778034557172, guid: d5667529149c5e945afdabd32b7d86ae, type: 3}
       propertyPath: m_Name
       value: KingHeadUVd
+      objectReference: {fileID: 0}
+    - target: {fileID: 2715093778034557172, guid: d5667529149c5e945afdabd32b7d86ae, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 3379427927072430670, guid: d5667529149c5e945afdabd32b7d86ae, type: 3}
       propertyPath: m_RootOrder
@@ -1410,6 +1423,34 @@ PrefabInstance:
     - target: {fileID: 3379427927072430670, guid: d5667529149c5e945afdabd32b7d86ae, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4122512599611449400, guid: d5667529149c5e945afdabd32b7d86ae, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4520587546158782462, guid: d5667529149c5e945afdabd32b7d86ae, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 4769080702442509336, guid: d5667529149c5e945afdabd32b7d86ae, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 5903559442808772186, guid: d5667529149c5e945afdabd32b7d86ae, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 7949831522861242146, guid: d5667529149c5e945afdabd32b7d86ae, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 8278050581718577614, guid: d5667529149c5e945afdabd32b7d86ae, type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 9017173250570832128, guid: d5667529149c5e945afdabd32b7d86ae, type: 3}
+      propertyPath: m_Layer
+      value: 11
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d5667529149c5e945afdabd32b7d86ae, type: 3}

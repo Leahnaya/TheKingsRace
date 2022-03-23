@@ -8,13 +8,19 @@ public class RadialMenu : MonoBehaviour
 
     bool UIOn = false;
     public GameObject King;
+    public Camera cam;
+
+    Vector3 screenPoint;
+
     [SerializeField]
     private Text UItext;
     // Update is called once per frame
     void Update()
     {
         if (UIOn == false) {
-            transform.position = Input.mousePosition;//Moved the UI to where the mouse is
+            screenPoint = Input.mousePosition;
+            screenPoint.z = 120f;
+            transform.position = cam.ScreenToWorldPoint(screenPoint);//Moved the UI to where the mouse is
         }
         if(Input.GetAxis("RadialMenu") > 0) {//Pressing Q makes the UI appear
             if (King.GetComponent<KingPlace>().FirstPlacing == true) {

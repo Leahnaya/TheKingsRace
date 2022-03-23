@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 5342244697037577531}
   - component: {fileID: 3689559005048040261}
   - component: {fileID: 7288458195488485932}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Boulder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -141,6 +141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 502e1c22be3238645a39762fd220d3b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bumpPower: 70
 --- !u!114 &3689559005048040261
 MonoBehaviour:
   m_ObjectHideFlags: 0

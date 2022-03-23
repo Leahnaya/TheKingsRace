@@ -101,8 +101,8 @@ public class MoveStateManager : NetworkBehaviour
         ////
 
         ////Initialize Variables
-        layerMask = (1 << 3) | (1 << 6);
-        layerMask = ~layerMask;
+        layerMask = (1 << 0);
+        //layerMask = ~layerMask;
         ////
 
     }
@@ -226,7 +226,7 @@ public class MoveStateManager : NetworkBehaviour
         
         
         //Check if wall is in direction player is moving
-        if (((Physics.Raycast(gameObject.transform.position + new Vector3(0,.4f,0) + rayOffset, driftVel.normalized, out wallHitBot, .5f, layerMask) == true) || ((currentState != SlideState || currentState != CrouchState) && (Physics.Raycast(gameObject.transform.position + new Vector3(0,2.2f,0), driftVel.normalized, out wallHitTop, .5f, layerMask) == true))) && !firstWallHit){
+        if (((Physics.Raycast(gameObject.transform.position + new Vector3(0,.4f,0) + rayOffset, driftVel.normalized, out wallHitBot, .35f, layerMask) == true) || ((currentState != SlideState || currentState != CrouchState) && (Physics.Raycast(gameObject.transform.position + new Vector3(0,2.2f,0), driftVel.normalized, out wallHitTop, .35f, layerMask) == true))) && !firstWallHit){
             CancelMomentum();
             //Debug.Log(wallHitBot.collider.name);
             firstWallHit = true;
