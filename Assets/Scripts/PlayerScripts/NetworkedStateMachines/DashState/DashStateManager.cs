@@ -56,6 +56,13 @@ public class DashStateManager : NetworkBehaviour
 
     void Update(){
 
+        if(currentState == null){
+            //players starting state
+            currentState = NoneState;
+            previousState = NoneState;
+            currentState.EnterState(this, previousState);
+        }
+
         if (!IsLocalPlayer) { return; }
         
         //calls any logic in the update state from current state

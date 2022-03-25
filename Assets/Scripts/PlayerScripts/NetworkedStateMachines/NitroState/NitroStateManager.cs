@@ -69,6 +69,13 @@ public class NitroStateManager : NetworkBehaviour
     }
 
     void Update(){
+        
+        if(currentState == null){
+            //players starting state
+            currentState = NoneState;
+            previousState = NoneState;
+            currentState.EnterState(this, previousState);
+        }
 
         if (!IsLocalPlayer) { return; }
 

@@ -143,6 +143,26 @@ public class AerialStateManager : NetworkBehaviour
     }
 
     void Update(){
+        if(currentState == null){
+            //players starting state
+            currentState = GroundedState;
+            previousState = GroundedState;
+            currentState.EnterState(this, previousState);
+
+            ////Initialize Variables
+            //Wallrun Variables
+            directions = new Vector3[]{ 
+                Vector3.right, 
+                Vector3.right + Vector3.forward,
+                Vector3.forward, 
+                Vector3.left + Vector3.forward, 
+                Vector3.left
+            };
+
+            //Grapple Variables
+            hookPoints = GameObject.FindGameObjectsWithTag("HookPoint");
+            ////
+        }
 
         if (!IsLocalPlayer) { return; }
         

@@ -125,6 +125,20 @@ public class MoveStateManager : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(currentState == null){
+                    //players starting state
+            currentState = IdleState;
+            previousState = IdleState;
+            currentState.EnterState(this, previousState);
+
+            distToGround = GetComponent<Collider>().bounds.extents.y; // set players distance to ground
+
+            if (!IsLocalPlayer) { return; }
+            Cursor.lockState = CursorLockMode.Locked; // Lock cursor on start if you are the local player
+            pStats.CurTraction = pStats.Traction;
+            pStats.CurAcc = pStats.Acc;
+        }
+
         if (!IsLocalPlayer) { return; }
 
         //calculates vel using driftVel will need to be relocated
