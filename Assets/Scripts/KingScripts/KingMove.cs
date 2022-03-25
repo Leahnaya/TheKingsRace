@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MLAPI;
 
-public class KingMove : MonoBehaviour
+public class KingMove : NetworkBehaviour
 {
     public float speed = 240.0f;
 
@@ -33,6 +34,9 @@ public class KingMove : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
+
+        if (!IsLocalPlayer) { return; }
+
         float translation = Input.GetAxis("KingMove") * speed;
 
         // Make it move 10 meters per second instead of 10 meters per frame...
