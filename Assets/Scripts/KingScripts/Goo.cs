@@ -15,12 +15,59 @@ public class Goo : MonoBehaviour
         }
     }
 
-    //Makes the player sliperly whenever they step on the goo
     void OnTriggerEnter(Collider other) {
-        if (other.tag == "Player") {
-            Debug.Log("Slippy!");
-            GameObject player = other.gameObject;//Turns the collider into a game object
-            player.GetComponent<PlayerStats>().Traction = 1.5f;//Make it slippy
+        if (other.transform.gameObject.tag == "PlayerTrigger" && other.gameObject.transform.root.gameObject.GetComponent<NetworkObject>().OwnerClientId == NetworkManager.Singleton.LocalClientId) {
+            ApplyGooServerRPC(other.gameObject.transform.root.gameObject.GetComponent<NetworkObject>().OwnerClientId);
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void ApplyGooServerRPC(ulong playerID) {
+        ClientRpcParams clientRpcParams = new ClientRpcParams {
+            Send = new ClientRpcSendParams {
+                TargetClientIds = new ulong[] { playerID }
+            }
+        };
+
+        ApplyGooClientRPC(playerID, clientRpcParams);
+    }
+
+    [ClientRpc]
+    private void ApplyGooClientRPC(ulong playerID, ClientRpcParams clientRpcParams) {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+
+        foreach (GameObject player in players) {
+            if (player.GetComponent<NetworkObject>().OwnerClientId == playerID) {
+                player.GetComponentInChildren<PlayerStats>().ApplySlimeTrail();
+            }
+        }
+    }
+
+    void OnTriggerExit(Collider other) {
+        if (other.transform.gameObject.tag == "PlayerTrigger" && other.gameObject.transform.root.gameObject.GetComponent<NetworkObject>().OwnerClientId == NetworkManager.Singleton.LocalClientId) {
+            RemoveGooServerRPC(other.gameObject.transform.root.gameObject.GetComponent<NetworkObject>().OwnerClientId);
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void RemoveGooServerRPC(ulong playerID) {
+        ClientRpcParams clientRpcParams = new ClientRpcParams {
+            Send = new ClientRpcSendParams {
+                TargetClientIds = new ulong[] { playerID }
+            }
+        };
+
+        RemoveGooClientRPC(playerID, clientRpcParams);
+    }
+
+    [ClientRpc]
+    private void RemoveGooClientRPC(ulong playerID, ClientRpcParams clientRpcParams) {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+
+        foreach (GameObject player in players) {
+            if (player.GetComponent<NetworkObject>().OwnerClientId == playerID) {
+                player.GetComponentInChildren<PlayerStats>().ClearSlimeTrail();
+            }
         }
     }
 

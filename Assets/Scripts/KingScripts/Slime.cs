@@ -47,14 +47,59 @@ public class Slime : NetworkBehaviour
         }
     }
 
-    //TODO: FIX THIS
-    void OnTriggerStay(Collider other) {
-        if (other.tag == "Player") {
-            //slow down player
-            GameObject player = other.gameObject;//Turns the collider into a game object
-            float CurVel = player.GetComponent<PlayerStats>().CurVel;//Get the Player's speed
-            player.GetComponent<PlayerStats>().CurVel = CurVel - (CurVel / 10);
-            //Cut it in half?
+    void OnTriggerEnter(Collider other) { 
+        if (other.transform.gameObject.tag == "PlayerTrigger" && other.gameObject.transform.root.gameObject.GetComponent<NetworkObject>().OwnerClientId == NetworkManager.Singleton.LocalClientId) {
+            ApplySlimeHeadServerRPC(other.gameObject.transform.root.gameObject.GetComponent<NetworkObject>().OwnerClientId);
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void ApplySlimeHeadServerRPC(ulong playerID) {
+        ClientRpcParams clientRpcParams = new ClientRpcParams {
+            Send = new ClientRpcSendParams {
+                TargetClientIds = new ulong[] { playerID }
+            }
+        };
+
+        ApplySlimeHeadClientRPC(playerID, clientRpcParams);
+    }
+
+    [ClientRpc]
+    private void ApplySlimeHeadClientRPC(ulong playerID, ClientRpcParams clientRpcParams) {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+
+        foreach (GameObject player in players) {
+            if (player.GetComponent<NetworkObject>().OwnerClientId == playerID) {
+                player.GetComponentInChildren<PlayerStats>().ApplySlimeBody();
+            }
+        }
+    }
+
+    void OnTriggerExit(Collider other) {
+        if (other.transform.gameObject.tag == "PlayerTrigger" && other.gameObject.transform.root.gameObject.GetComponent<NetworkObject>().OwnerClientId == NetworkManager.Singleton.LocalClientId) {
+            RemoveSlimeHeadServerRPC(other.gameObject.transform.root.gameObject.GetComponent<NetworkObject>().OwnerClientId);
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void RemoveSlimeHeadServerRPC(ulong playerID) {
+        ClientRpcParams clientRpcParams = new ClientRpcParams {
+            Send = new ClientRpcSendParams {
+                TargetClientIds = new ulong[] { playerID }
+            }
+        };
+
+        RemoveSlimeHeadClientRPC(playerID, clientRpcParams);
+    }
+
+    [ClientRpc]
+    private void RemoveSlimeHeadClientRPC(ulong playerID, ClientRpcParams clientRpcParams) {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+
+        foreach (GameObject player in players) {
+            if (player.GetComponent<NetworkObject>().OwnerClientId == playerID) {
+                player.GetComponentInChildren<PlayerStats>().ClearSlimeBody();
+            }
         }
     }
 
