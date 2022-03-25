@@ -55,16 +55,26 @@ public class PauseMenu : NetworkBehaviour {
             PauseMenuPanel.SetActive(true);
             isViewingRunnerControls = true;
 
-            // Unlock the cursor
-            Cursor.lockState = CursorLockMode.None;
-
             // Disable player controls
             setPlayerControlsStateServerRPC(false);
         }
     }
 
-    [ServerRpc]
-    private void setPlayerControlsStateServerRPC(bool newState) {
+    [ServerRpc(RequireOwnership = false)]
+    private void setPlayerControlsStateServerRPC(bool newState, ServerRpcParams serverRpcParams = default) {
+        ClientRpcParams clientRpcParams = new ClientRpcParams
+        {
+            Send = new ClientRpcSendParams
+            {
+                TargetClientIds = new ulong[] { serverRpcParams.Receive.SenderClientId }
+            }
+        };
+
+        setPlayerControlsStateClientRPC(newState, clientRpcParams);
+    }
+
+    [ClientRpc]
+    private void setPlayerControlsStateClientRPC(bool newState, ClientRpcParams clientRpcParams) {
         // Disable/Enable player controls
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
@@ -76,8 +86,12 @@ public class PauseMenu : NetworkBehaviour {
                     player.GetComponentInChildren<PlayerStats>().IsPaused = !newState;
 
                     // Lock the cursor
-                    if(newState){
+                    if (newState) {
                         Cursor.lockState = CursorLockMode.Locked;
+                        Debug.Log("Locked");
+                    } else {
+                        Cursor.lockState = CursorLockMode.None;
+                        Debug.Log("Unlocked");
                     }
                 }
 
@@ -143,10 +157,12 @@ public class PauseMenu : NetworkBehaviour {
     }
 
     public void RespawnConfirmed() {
-        
-        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+        // Turn off the pause menu
+        RespawnDecline();
+        OnResumeGameClicked();
 
-        
+        // Respawn the player
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
         foreach (GameObject player in players) {
             // Find the local player
@@ -162,10 +178,6 @@ public class PauseMenu : NetworkBehaviour {
                     player.GetComponentInChildren<ResetZones>().GetRespawnPosition(curZone));
             }
         }
-
-        // Turn off the pause menu
-        RespawnDecline();
-        OnResumeGameClicked();
     }
 
     [ServerRpc(RequireOwnership = false)]
