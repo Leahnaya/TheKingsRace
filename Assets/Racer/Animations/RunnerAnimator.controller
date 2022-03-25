@@ -142,28 +142,6 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
---- !u!1101 &-8433332854928053423
-AnimatorStateTransition:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
-  m_DstStateMachine: {fileID: 0}
-  m_DstState: {fileID: -5818761240578026763}
-  m_Solo: 0
-  m_Mute: 0
-  m_IsExit: 0
-  serializedVersion: 3
-  m_TransitionDuration: 0.25
-  m_TransitionOffset: 0
-  m_ExitTime: 0.75
-  m_HasExitTime: 1
-  m_HasFixedDuration: 1
-  m_InterruptionSource: 0
-  m_OrderedInterruption: 1
-  m_CanTransitionToSelf: 1
 --- !u!1101 &-8383962209057096605
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -187,8 +165,8 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.25
   m_TransitionOffset: 0
   m_ExitTime: 0.75
-  m_HasExitTime: 1
-  m_HasFixedDuration: 1
+  m_HasExitTime: 0
+  m_HasFixedDuration: 0
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
@@ -220,8 +198,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: JogToAerialKick
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isAerialKick
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 3
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -3673551861670382782}
   m_Solo: 0
@@ -354,8 +338,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: WalkToAerialKick
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isAerialKick
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 3
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -3673551861670382782}
   m_Solo: 0
@@ -376,8 +366,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: JogToGrappleAir
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isGrappleAiring
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 2
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3593363245546161951}
   m_Solo: 0
@@ -415,8 +411,8 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.25
   m_TransitionOffset: 0
   m_ExitTime: 0.7580645
-  m_HasExitTime: 1
-  m_HasFixedDuration: 1
+  m_HasExitTime: 0
+  m_HasFixedDuration: 0
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
@@ -565,8 +561,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: GlidingToRightWall
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isRIGHTWallRunning
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 2
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 6957616631754143330}
   m_Solo: 0
@@ -587,8 +589,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: CrouchToGrappleAir
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isGrappleAiring
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 2
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3593363245546161951}
   m_Solo: 0
@@ -665,8 +673,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: GlidingToLEFTWall
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isLEFTWallRunning
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 2
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1711631916761867192}
   m_Solo: 0
@@ -704,8 +718,8 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.25
   m_TransitionOffset: 0
   m_ExitTime: 0.75
-  m_HasExitTime: 1
-  m_HasFixedDuration: 1
+  m_HasExitTime: 0
+  m_HasFixedDuration: 0
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
@@ -779,8 +793,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: MovingPunchToRun
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isRunning
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -1531097096785451343}
   m_Solo: 0
@@ -801,8 +821,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: IdleToAerialKick
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isAerialKick
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 3
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -3673551861670382782}
   m_Solo: 0
@@ -823,8 +849,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: IdleKickToRagdoll
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isRagdoll
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 5
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 4637710859641002442}
   m_Solo: 0
@@ -940,7 +972,7 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: JogToKick
+  m_Name: JogToMovingKick
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: isKickingMoving
@@ -990,8 +1022,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: WallIdleLeftToJumping
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isJumping
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 2
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 8268573537025833690}
   m_Solo: 0
@@ -1068,8 +1106,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: RunToMovingPunch
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isPunchingMoving
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 3
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 9215583711882502430}
   m_Solo: 0
@@ -1128,7 +1172,6 @@ AnimatorState:
   - {fileID: -1966216292843669481}
   - {fileID: -1557887230238863548}
   - {fileID: 8448421986670016628}
-  - {fileID: -8433332854928053423}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -1150,8 +1193,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: AerialKickToRagdoll
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isRagdoll
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 5
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 4637710859641002442}
   m_Solo: 0
@@ -1314,8 +1363,8 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.25
   m_TransitionOffset: 0
   m_ExitTime: 0.75
-  m_HasExitTime: 1
-  m_HasFixedDuration: 1
+  m_HasExitTime: 0
+  m_HasFixedDuration: 0
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
@@ -1325,8 +1374,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: WallIdleRightToIdle
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isIdle
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6265091219279623687}
   m_Solo: 0
@@ -1403,8 +1458,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: GlidingToGrappleGrounded
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isGrappleGrounded
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 2
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -4976937471654512337}
   m_Solo: 0
@@ -1568,8 +1629,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: DashToGrappleGrounded
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isGrappleGrounded
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 2
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -4976937471654512337}
   m_Solo: 0
@@ -1749,8 +1816,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: MovingPunchToJog
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isJogging
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3127306146308516746}
   m_Solo: 0
@@ -1799,8 +1872,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: WalkToMovingPunch
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isPunchingMoving
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 3
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 9215583711882502430}
   m_Solo: 0
@@ -1838,8 +1917,8 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.25
   m_TransitionOffset: 0
   m_ExitTime: 0.60526323
-  m_HasExitTime: 1
-  m_HasFixedDuration: 1
+  m_HasExitTime: 0
+  m_HasFixedDuration: 0
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
@@ -1905,8 +1984,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: JogToAerialPunch
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isAerialPunch
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 3
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 2365941622780249164}
   m_Solo: 0
@@ -1955,8 +2040,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: AerialKickToRun
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isRunning
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -1531097096785451343}
   m_Solo: 0
@@ -1977,8 +2068,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: GrappleGroToRightWall
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isRIGHTWallRunning
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 2
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 6957616631754143330}
   m_Solo: 0
@@ -2027,8 +2124,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: AerialPunchToWalk
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isWalking
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -4724635435179957578}
   m_Solo: 0
@@ -2049,8 +2152,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: RunToAerialKick
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isAerialKick
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 3
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -3673551861670382782}
   m_Solo: 0
@@ -2071,8 +2180,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: WallIdleRightToJumping
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isJumping
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 2
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 8268573537025833690}
   m_Solo: 0
@@ -2140,8 +2255,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: GrappleGroToLeftWallRun
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isLEFTWallRunning
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 2
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 1711631916761867192}
   m_Solo: 0
@@ -2162,8 +2283,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: AerialKickToWalk
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isWalking
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -4724635435179957578}
   m_Solo: 0
@@ -2241,8 +2368,8 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.25
   m_TransitionOffset: 0
   m_ExitTime: 0.75
-  m_HasExitTime: 1
-  m_HasFixedDuration: 1
+  m_HasExitTime: 0
+  m_HasFixedDuration: 0
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
@@ -2252,8 +2379,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: AerialPunchToIdle
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isIdle
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6265091219279623687}
   m_Solo: 0
@@ -2385,8 +2518,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: WalkToAerialPunch
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isAerialPunch
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 3
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 2365941622780249164}
   m_Solo: 0
@@ -2433,8 +2572,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: AerialPunchToJog
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isJogging
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3127306146308516746}
   m_Solo: 0
@@ -2455,8 +2600,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: JogToMovingPunch
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isPunchingMoving
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 3
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 9215583711882502430}
   m_Solo: 0
@@ -2855,8 +3006,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: AerialPunchToRun
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isRunning
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -1531097096785451343}
   m_Solo: 0
@@ -2906,7 +3063,13 @@ AnimatorStateTransition:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: toRagdoll
-  m_Conditions: []
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isRagdoll
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 5
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 4637710859641002442}
   m_Solo: 0
@@ -2944,8 +3107,8 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.25
   m_TransitionOffset: 0
   m_ExitTime: 0.75
-  m_HasExitTime: 1
-  m_HasFixedDuration: 1
+  m_HasExitTime: 0
+  m_HasFixedDuration: 0
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
@@ -3056,8 +3219,8 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.25
   m_TransitionOffset: 0
   m_ExitTime: 0.75
-  m_HasExitTime: 1
-  m_HasFixedDuration: 1
+  m_HasExitTime: 0
+  m_HasFixedDuration: 0
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
@@ -3514,8 +3677,8 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.25
   m_TransitionOffset: 0
   m_ExitTime: 0.75
-  m_HasExitTime: 1
-  m_HasFixedDuration: 1
+  m_HasExitTime: 0
+  m_HasFixedDuration: 0
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
@@ -3648,8 +3811,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: GlidingToGrappleAir
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isGrappleAiring
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 2
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3593363245546161951}
   m_Solo: 0
@@ -3755,8 +3924,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: MovingPunchToWalk
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isWalking
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -4724635435179957578}
   m_Solo: 0
@@ -3833,8 +4008,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: RunToAerialPunch
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isAerialPunch
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 3
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 2365941622780249164}
   m_Solo: 0
@@ -4076,7 +4257,7 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: RunToKick
+  m_Name: RunToMovingKick
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: isKickingMoving
@@ -4185,8 +4366,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: RunToGrappleAir
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isGrappleAiring
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 2
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3593363245546161951}
   m_Solo: 0
@@ -4207,8 +4394,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: IdleKickToIdle
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isIdle
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6265091219279623687}
   m_Solo: 0
@@ -4229,8 +4422,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: WallIdleRightToFalling
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isFalling
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 2
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3431606655248150395}
   m_Solo: 0
@@ -4387,8 +4586,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: AerialKickToJog
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isJogging
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3127306146308516746}
   m_Solo: 0
@@ -4487,8 +4692,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: IdleToIdlePunch
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isPunchingIdle
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 3
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 6902663790810407352}
   m_Solo: 0
@@ -4794,8 +5005,8 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.25
   m_TransitionOffset: 0
   m_ExitTime: 0.75
-  m_HasExitTime: 1
-  m_HasFixedDuration: 1
+  m_HasExitTime: 0
+  m_HasFixedDuration: 0
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
@@ -4890,8 +5101,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: IdleToAerialPunch
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isAerialPunch
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 3
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 2365941622780249164}
   m_Solo: 0
@@ -4990,8 +5207,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: WallIdleLeftToFalling
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isFalling
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 2
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3431606655248150395}
   m_Solo: 0
@@ -5040,8 +5263,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: IdlePunchToIdle
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isIdle
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6265091219279623687}
   m_Solo: 0
@@ -5152,8 +5381,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: WalkToGrappleAir
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isGrappleAiring
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 2
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3593363245546161951}
   m_Solo: 0
@@ -5288,8 +5523,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: AerialKickToIdle
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isIdle
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6265091219279623687}
   m_Solo: 0
@@ -5343,87 +5584,87 @@ AnimatorStateMachine:
   m_ChildStates:
   - serializedVersion: 1
     m_State: {fileID: -6265091219279623687}
-    m_Position: {x: -200, y: 290, z: 0}
+    m_Position: {x: -280, y: 130, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4724635435179957578}
-    m_Position: {x: 510, y: 270, z: 0}
+    m_Position: {x: 430, y: 110, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3127306146308516746}
-    m_Position: {x: 500, y: 330, z: 0}
+    m_Position: {x: 420, y: 170, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -1531097096785451343}
-    m_Position: {x: 510, y: 400, z: 0}
+    m_Position: {x: 430, y: 240, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5818761240578026763}
-    m_Position: {x: -210, y: -770, z: 0}
+    m_Position: {x: -290, y: -930, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1073953080501869946}
-    m_Position: {x: 460, y: -530, z: 0}
+    m_Position: {x: 380, y: -690, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5764326617583992875}
-    m_Position: {x: -900, y: 380, z: 0}
+    m_Position: {x: -980, y: 220, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -8931146909624619226}
-    m_Position: {x: -890, y: 230, z: 0}
+    m_Position: {x: -970, y: 70, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6164347813292697704}
-    m_Position: {x: -890, y: 300, z: 0}
+    m_Position: {x: -970, y: 140, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8268573537025833690}
-    m_Position: {x: 490, y: -100, z: 0}
+    m_Position: {x: 410, y: -260, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 704450527122837255}
-    m_Position: {x: 160, y: -170, z: 0}
+    m_Position: {x: 80, y: -330, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1711631916761867192}
-    m_Position: {x: -670, y: -230, z: 0}
+    m_Position: {x: -750, y: -390, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6957616631754143330}
-    m_Position: {x: -650, y: -120, z: 0}
+    m_Position: {x: -730, y: -280, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4976937471654512337}
-    m_Position: {x: -920, y: -60, z: 0}
+    m_Position: {x: -1000, y: -220, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3431606655248150395}
-    m_Position: {x: 480, y: -220, z: 0}
+    m_Position: {x: 400, y: -380, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 3593363245546161951}
-    m_Position: {x: -910, y: -310, z: 0}
+    m_Position: {x: -990, y: -470, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 8118666863962766210}
-    m_Position: {x: -910, y: -220, z: 0}
+    m_Position: {x: -990, y: -380, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -4565651633669448552}
-    m_Position: {x: 460, y: -610, z: 0}
+    m_Position: {x: 380, y: -770, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6902663790810407352}
-    m_Position: {x: -810, y: -660, z: 0}
+    m_Position: {x: -890, y: -820, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 9215583711882502430}
-    m_Position: {x: -810, y: -590, z: 0}
+    m_Position: {x: -890, y: -750, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7328873186455789611}
-    m_Position: {x: -910, y: -130, z: 0}
+    m_Position: {x: -990, y: -290, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 4637710859641002442}
-    m_Position: {x: -370, y: -880, z: 0}
+    m_Position: {x: -450, y: -1040, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 7390660867905571012}
-    m_Position: {x: -80, y: -890, z: 0}
+    m_Position: {x: -160, y: -1050, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3673551861670382782}
-    m_Position: {x: 470, y: -450, z: 0}
+    m_Position: {x: 390, y: -610, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 2365941622780249164}
-    m_Position: {x: -810, y: -500, z: 0}
+    m_Position: {x: -890, y: -660, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
-  m_AnyStatePosition: {x: 660, y: -630, z: 0}
-  m_EntryPosition: {x: 300, y: 630, z: 0}
-  m_ExitPosition: {x: 660, y: -580, z: 0}
+  m_AnyStatePosition: {x: 580, y: -790, z: 0}
+  m_EntryPosition: {x: -240, y: 400, z: 0}
+  m_ExitPosition: {x: 580, y: -740, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: -6265091219279623687}
 --- !u!1101 &7624142832332029540
@@ -5432,8 +5673,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: WallIdleLeftToIdle
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isIdle
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -6265091219279623687}
   m_Solo: 0
@@ -5454,8 +5701,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: IdlePunchToRagdoll
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isRagdoll
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 5
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 4637710859641002442}
   m_Solo: 0
@@ -5476,8 +5729,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: IdleToIdleKick
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: IsKickingIdle
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 3
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -4565651633669448552}
   m_Solo: 0
@@ -5648,8 +5907,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: GrappleGroundedToDash
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isDashing
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 4
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -5818761240578026763}
   m_Solo: 0
@@ -5698,7 +5963,7 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: WalkToKick
+  m_Name: WalkToMovingKick
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: isKickingMoving
@@ -5782,8 +6047,14 @@ AnimatorStateTransition:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: 
-  m_Conditions: []
+  m_Name: AerialPunchToRagdoll
+  m_Conditions:
+  - m_ConditionMode: 1
+    m_ConditionEvent: isRagdoll
+    m_EventTreshold: 0
+  - m_ConditionMode: 6
+    m_ConditionEvent: currentPriority
+    m_EventTreshold: 5
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 4637710859641002442}
   m_Solo: 0
@@ -5821,8 +6092,8 @@ AnimatorStateTransition:
   m_TransitionDuration: 0.25
   m_TransitionOffset: 0
   m_ExitTime: 0.60526323
-  m_HasExitTime: 1
-  m_HasFixedDuration: 1
+  m_HasExitTime: 0
+  m_HasFixedDuration: 0
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1

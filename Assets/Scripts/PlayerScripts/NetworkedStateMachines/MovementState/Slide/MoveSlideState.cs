@@ -15,6 +15,7 @@ public class MoveSlideState : MoveBaseState
         mSM.pStats.CurTraction = 0.01f;
         mSM.moveController.center = new Vector3(0,mSM.moveController.center.y - mSM.moveController.height * .5f,0);
         //mSM.moveController.Move(new Vector3(0,-0.1f,0));
+        mSM.GetComponent<Animator>().SetBool("isSliding", true);
     }
     
     public override void ExitState(MoveStateManager mSM, MoveBaseState nextState){
@@ -32,6 +33,7 @@ public class MoveSlideState : MoveBaseState
         else{
             mSM.pStats.CurTraction = mSM.pStats.Traction;
         }
+        mSM.GetComponent<Animator>().SetBool("isSliding", false);
     }
 
     public override void UpdateState(MoveStateManager mSM){
