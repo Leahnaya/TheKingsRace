@@ -1216,6 +1216,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc1056f56261ef42b09925afe761b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crumbleTime: 0.25
+  respawnTime: 2
 --- !u!65 &38063165
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1433,6 +1435,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc1056f56261ef42b09925afe761b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crumbleTime: 0.25
+  respawnTime: 2
 --- !u!65 &38596241
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2074,6 +2078,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc1056f56261ef42b09925afe761b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crumbleTime: 0.25
+  respawnTime: 2
 --- !u!65 &69305711
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3116,6 +3122,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc1056f56261ef42b09925afe761b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crumbleTime: 0.25
+  respawnTime: 2
 --- !u!65 &108382612
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6060,6 +6068,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc1056f56261ef42b09925afe761b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crumbleTime: 0.25
+  respawnTime: 2
 --- !u!65 &214357128
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6658,6 +6668,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc1056f56261ef42b09925afe761b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crumbleTime: 0.25
+  respawnTime: 2
 --- !u!65 &238468816
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9934,6 +9946,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc1056f56261ef42b09925afe761b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crumbleTime: 0.25
+  respawnTime: 2
 --- !u!65 &335120251
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10247,6 +10261,7 @@ MonoBehaviour:
   kickItem: {fileID: 0}
   grapple: {fileID: 0}
   Glide: {fileID: 0}
+  boxHighlight: {fileID: 0}
 --- !u!114 &358007096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10453,6 +10468,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc1056f56261ef42b09925afe761b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crumbleTime: 0.25
+  respawnTime: 2
 --- !u!65 &361910867
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11798,6 +11815,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc1056f56261ef42b09925afe761b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crumbleTime: 0.25
+  respawnTime: 2
 --- !u!65 &426348335
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15379,6 +15398,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc1056f56261ef42b09925afe761b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crumbleTime: 0.25
+  respawnTime: 2
 --- !u!65 &549672754
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16071,6 +16092,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc1056f56261ef42b09925afe761b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crumbleTime: 0.25
+  respawnTime: 2
 --- !u!65 &602510736
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16481,6 +16504,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc1056f56261ef42b09925afe761b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crumbleTime: 0.25
+  respawnTime: 2
 --- !u!65 &613148112
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16603,6 +16628,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc1056f56261ef42b09925afe761b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crumbleTime: 0.25
+  respawnTime: 2
 --- !u!65 &613978127
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20331,6 +20358,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc1056f56261ef42b09925afe761b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crumbleTime: 0.25
+  respawnTime: 2
 --- !u!65 &768735055
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -20871,6 +20900,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc1056f56261ef42b09925afe761b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crumbleTime: 0.25
+  respawnTime: 2
 --- !u!65 &794336659
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -21692,6 +21723,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc1056f56261ef42b09925afe761b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crumbleTime: 0.25
+  respawnTime: 2
 --- !u!65 &810066541
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -23383,6 +23416,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc1056f56261ef42b09925afe761b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crumbleTime: 0.25
+  respawnTime: 2
 --- !u!65 &873398797
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -25293,6 +25328,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc1056f56261ef42b09925afe761b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crumbleTime: 0.25
+  respawnTime: 2
 --- !u!65 &957600812
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -25415,6 +25452,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc1056f56261ef42b09925afe761b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crumbleTime: 0.25
+  respawnTime: 2
 --- !u!65 &959198984
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -25576,6 +25615,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc1056f56261ef42b09925afe761b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crumbleTime: 0.25
+  respawnTime: 2
 --- !u!65 &963729994
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -27026,6 +27067,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc1056f56261ef42b09925afe761b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crumbleTime: 0.25
+  respawnTime: 2
 --- !u!65 &1009934965
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -27720,6 +27763,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc1056f56261ef42b09925afe761b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crumbleTime: 0.25
+  respawnTime: 2
 --- !u!65 &1040954374
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -28730,6 +28775,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc1056f56261ef42b09925afe761b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crumbleTime: 0.25
+  respawnTime: 2
 --- !u!65 &1062330598
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -29137,6 +29184,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc1056f56261ef42b09925afe761b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crumbleTime: 0.25
+  respawnTime: 2
 --- !u!65 &1069437650
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -29955,6 +30004,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc1056f56261ef42b09925afe761b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crumbleTime: 0.25
+  respawnTime: 2
 --- !u!65 &1091236412
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -33360,6 +33411,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc1056f56261ef42b09925afe761b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crumbleTime: 0.25
+  respawnTime: 2
 --- !u!65 &1199232797
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -38862,6 +38915,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc1056f56261ef42b09925afe761b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crumbleTime: 0.25
+  respawnTime: 2
 --- !u!65 &1362850506
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -38984,6 +39039,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc1056f56261ef42b09925afe761b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crumbleTime: 0.25
+  respawnTime: 2
 --- !u!65 &1364276468
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -41125,6 +41182,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc1056f56261ef42b09925afe761b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crumbleTime: 0.25
+  respawnTime: 2
 --- !u!65 &1444202818
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -42869,6 +42928,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc1056f56261ef42b09925afe761b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crumbleTime: 0.25
+  respawnTime: 2
 --- !u!65 &1522833650
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -43119,6 +43180,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc1056f56261ef42b09925afe761b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crumbleTime: 0.25
+  respawnTime: 2
 --- !u!65 &1537771322
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -45050,6 +45113,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc1056f56261ef42b09925afe761b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crumbleTime: 0.25
+  respawnTime: 2
 --- !u!65 &1580076372
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -45172,6 +45237,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc1056f56261ef42b09925afe761b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crumbleTime: 0.25
+  respawnTime: 2
 --- !u!65 &1589378997
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -46839,6 +46906,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc1056f56261ef42b09925afe761b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crumbleTime: 0.25
+  respawnTime: 2
 --- !u!65 &1658529497
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -48405,6 +48474,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc1056f56261ef42b09925afe761b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crumbleTime: 0.25
+  respawnTime: 2
 --- !u!65 &1692521720
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -49004,6 +49075,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc1056f56261ef42b09925afe761b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crumbleTime: 0.25
+  respawnTime: 2
 --- !u!65 &1713485215
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -50562,6 +50635,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc1056f56261ef42b09925afe761b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crumbleTime: 0.25
+  respawnTime: 2
 --- !u!65 &1769150479
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -55709,6 +55784,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc1056f56261ef42b09925afe761b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crumbleTime: 0.25
+  respawnTime: 2
 --- !u!65 &1936802348
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -58143,6 +58220,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc1056f56261ef42b09925afe761b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crumbleTime: 0.25
+  respawnTime: 2
 --- !u!65 &2019704982
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -60378,6 +60457,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc1056f56261ef42b09925afe761b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crumbleTime: 0.25
+  respawnTime: 2
 --- !u!65 &2088576306
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -60690,6 +60771,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc1056f56261ef42b09925afe761b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crumbleTime: 0.25
+  respawnTime: 2
 --- !u!65 &2091800765
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -62118,6 +62201,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dc1056f56261ef42b09925afe761b68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crumbleTime: 0.25
+  respawnTime: 2
 --- !u!65 &2142541098
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -63853,6 +63938,30 @@ PrefabInstance:
       propertyPath: UItext
       value: 
       objectReference: {fileID: 1277454841}
+    - target: {fileID: 3173415396260468957, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3173415396260468957, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3173415396260468957, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3173415396260468957, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3173415396260468957, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 205
+      objectReference: {fileID: 0}
+    - target: {fileID: 3173415396260468957, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -50
+      objectReference: {fileID: 0}
     - target: {fileID: 3173415396865756785, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -64667,9 +64776,11 @@ MonoBehaviour:
   curVel: 0
   hardCapMaxVel: 60
   acc: 0.1
+  curAcc: 0
   jumpPow: 300
   jumpNum: 2
   traction: 3
+  curTraction: 0
   kickPow: 150
   recovTime: 3
   playerGrav: 20
@@ -64680,6 +64791,9 @@ MonoBehaviour:
   hasNitro: 0
   hasDash: 0
   playerPoints: 15
+  isPaused: 0
+  windOn: 0
+  windDirection: {x: 0, y: 0, z: 0}
 --- !u!1 &8115347870214264672
 GameObject:
   m_ObjectHideFlags: 0
