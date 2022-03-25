@@ -5071,6 +5071,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7adf74561e73e1c4e99ec7e3d6a08738, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerModel: {fileID: 6039924685421813533}
   cam: {fileID: 8193413098731078861}
   moveController: {fileID: 0}
   rB: {fileID: 0}

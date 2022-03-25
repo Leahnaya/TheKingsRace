@@ -30,7 +30,7 @@ public class MoveStateManager : NetworkBehaviour
 
     ////Objects Sections
     private GameObject parentObj; // Parent object
-    private GameObject playerModel; // player visual model
+    public GameObject playerModel; // player visual model
     public Camera cam; // Camera object
     ////
 
@@ -92,7 +92,6 @@ public class MoveStateManager : NetworkBehaviour
         parentObj = transform.parent.gameObject; // set parent object
         animator = GetComponent<Animator>(); // set animator
         animationManager = GetComponent<AnimationManager>();
-        playerModel = GameObject.FindGameObjectWithTag("PlayerModel");
         ////
 
         ////Initialize Scripts
