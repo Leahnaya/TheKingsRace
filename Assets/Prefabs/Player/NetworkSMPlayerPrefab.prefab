@@ -5087,8 +5087,8 @@ MonoBehaviour:
   driftVel: {x: 0, y: 0, z: 0}
   calculatedCurVel: 0
   layerMask: 0
-  minAngle: -18
-  maxAngle: 30
+  minAngle: -20
+  maxAngle: 40
   sensitivity: 200
   dirHit: {x: 0, y: 0, z: 0}
   distToGround: 0

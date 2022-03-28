@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 5
   itemName: Triple Jump
-  description: Your jump height will be reduced slightly but you will gain an extra
-    jump.
+  description: (Passive) Your jump height will be reduced slightly but you will gain
+    an extra jump.
   itemSprite: {fileID: 7158647638258844303, guid: 6752962b9a0f4984fa08cb5a13e7bdfa, type: 3}
   maxVelM: 0
   minVelM: 0

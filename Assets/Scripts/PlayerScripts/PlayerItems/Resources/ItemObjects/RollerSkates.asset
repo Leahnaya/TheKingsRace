@@ -14,15 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 2
   itemName: Roller Skates
-  description: Increases your max speed and acceleration at the cost of traction.
+  description: (Passive) Increases your max speed and acceleration at the cost of
+    traction.
   itemSprite: {fileID: -2256611909853208913, guid: 6752962b9a0f4984fa08cb5a13e7bdfa, type: 3}
   maxVelM: 15
   minVelM: 0
   curVelM: 0
-  accM: 0.1
+  accM: 0.08
   jumpPowM: 0
   jumpNumM: 0
-  tractionM: -4
+  tractionM: -3
   kickPowM: 0
   recovTimeM: 0
   playerGravM: 0
