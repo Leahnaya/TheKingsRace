@@ -74,7 +74,13 @@ public class PlayerInventory : NetworkBehaviour
         foreach(string itemName in items){
             if (itemName == "" || itemName == " ") { continue; }
 
-            AddItem(allItems[itemName]);
+            if(!playerItemDict.ContainsKey(itemName)){
+                AddItem(allItems[itemName]);
+            }
+            else{
+                Debug.Log("Attempted To Equip Item Already in Inventory");
+            }
+                
         }
     }
 
