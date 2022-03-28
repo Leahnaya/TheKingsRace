@@ -21,31 +21,14 @@ public class dOffenseNoneState : dOffenseBaseState
 
         //if grounded then grounded kick states
         else if(oSM.aSM.currentState == oSM.aSM.GroundedState && (Input.GetKeyDown(KeyCode.F) || Input.GetAxis("Kick") != 0) && !oSM.pStats.IsPaused){
-
-            //if power is above 300 then punch
-            if(oSM.pStats.KickPow > 300){
-                oSM.SwitchState(oSM.PunchState);
-            }
-
-            //otherwise kick
-            else{
-                oSM.SwitchState(oSM.KickState);
-            }
-
+            // kick
+            oSM.SwitchState(oSM.KickState);
         }
 
         //if in the air
         else if((Input.GetKeyDown(KeyCode.F) || Input.GetAxis("Kick") != 0) && !oSM.pStats.IsPaused){
-
-            //if power is above 300 air punch
-            if(oSM.pStats.KickPow > 300){
-                oSM.SwitchState(oSM.AirPunchState);
-            }
-
-            //otherwise air kick
-            else{
-                oSM.SwitchState(oSM.AirKickState);
-            }
+            //air kick
+            oSM.SwitchState(oSM.AirKickState);
         }
     }
 

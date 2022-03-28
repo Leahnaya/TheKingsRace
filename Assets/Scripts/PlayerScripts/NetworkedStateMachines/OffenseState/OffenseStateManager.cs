@@ -18,8 +18,6 @@ public class OffenseStateManager : NetworkBehaviour
     //Kick&Punch States
     public OffenseKickState KickState = new OffenseKickState();
     public OffenseAirKickState AirKickState = new OffenseAirKickState();
-    public OffensePunchState PunchState = new OffensePunchState();
-    public OffenseAirPunchState AirPunchState = new OffenseAirPunchState();
     ////
     
     ////Objects Sections

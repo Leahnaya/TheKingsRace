@@ -18,8 +18,6 @@ public class dOffenseStateManager : NetworkBehaviour
     //Kick&Punch States
     public dOffenseKickState KickState = new dOffenseKickState();
     public dOffenseAirKickState AirKickState = new dOffenseAirKickState();
-    public dOffensePunchState PunchState = new dOffensePunchState();
-    public dOffenseAirPunchState AirPunchState = new dOffenseAirPunchState();
     ////
     
     ////Objects Sections
