@@ -15,7 +15,7 @@ public class Archer : NetworkBehaviour
     private float range;
 
     //how fast and how much time before the next shot
-    public float fireRate = 4.0f;
+    public float fireRate = 0.5f;
     private float shootingCooldown = 1.0f;
 
     [Header("Unity Setup Fields")]
