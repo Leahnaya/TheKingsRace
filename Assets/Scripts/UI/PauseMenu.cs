@@ -6,6 +6,7 @@ using MLAPI.Exceptions;
 using MLAPI.Messaging;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PauseMenu : NetworkBehaviour {
 
@@ -27,6 +28,9 @@ public class PauseMenu : NetworkBehaviour {
     private TMP_Text ControlsButtonText;
     [SerializeField]
     private TMP_Text ControlsText;
+
+    [SerializeField]
+    private Button RestartButton;
 
     public Transform runnerPrefab;
 
@@ -57,6 +61,19 @@ public class PauseMenu : NetworkBehaviour {
 
             // Disable player controls
             setPlayerControlsStateServerRPC(false);
+
+            // Turn off "Restart from Checkpoint" button for the king
+            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+
+            foreach (GameObject player in players) { 
+                // Make sure they are the local player
+                if (player.GetComponent<NetworkObject>().IsLocalPlayer) {
+                    // Check for king
+                    if (player.GetComponent<KingMove>() != null) {
+                        RestartButton.interactable = false;
+                    }
+                }
+            }
         }
     }
 
