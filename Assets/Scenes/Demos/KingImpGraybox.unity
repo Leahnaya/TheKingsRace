@@ -10218,7 +10218,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Goo: {fileID: 9109488354154531999, guid: e0a933a7f4d98134ea0c045fabc6a6a0, type: 3}
-  Folder: {fileID: 497375465}
   LayerMask:
     serializedVersion: 2
     m_Bits: 64
@@ -63934,6 +63933,10 @@ PrefabInstance:
       propertyPath: HailSprite
       value: 
       objectReference: {fileID: 454718203}
+    - target: {fileID: 3173415396083440353, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
+      propertyPath: near clip plane
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3173415396104633698, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
       propertyPath: UItext
       value: 
