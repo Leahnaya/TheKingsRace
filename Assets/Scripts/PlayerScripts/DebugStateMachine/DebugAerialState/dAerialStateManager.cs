@@ -45,6 +45,7 @@ public class dAerialStateManager : NetworkBehaviour
     //Jump Variables
     public int curJumpNum; // current Jumps Used
     public bool jumpHeld; // Jump is Held
+    public bool canJump = true; // can the player jump
     bool jumpPressed; // Jamp was pressed
     public float coyJumpTimer = 0.1f; // Default Coyote Jump time
     public float curCoyJumpTimer = 0.1f; // current Coyote Jump time
@@ -300,7 +301,7 @@ public class dAerialStateManager : NetworkBehaviour
         if(jumpHeld) curCoyJumpTimer = 0;
 
         //If space/south face gamepad button isn't being pressed then jump is false
-        if (Input.GetAxis("Jump") == 0){
+        if (!Input.GetButton("Jump")){
            jumpHeld = false;
         }
 

@@ -981,7 +981,7 @@ MonoBehaviour:
   jumpNum: 2
   traction: 5
   curTraction: 0
-  kickPow: 300
+  kickPow: 500
   recovTime: 3
   playerGrav: 200
   gravVel: 0
@@ -1121,6 +1121,7 @@ MonoBehaviour:
   mSM: {fileID: 0}
   curJumpNum: 0
   jumpHeld: 0
+  canJump: 1
   coyJumpTimer: 0.1
   curCoyJumpTimer: 0.13
   lowJumpMultiplier: 0.001
