@@ -1,25 +1,64 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MLAPI;
+using MLAPI.Messaging;
 
-public class SlowTerrain : MonoBehaviour
+public class SlowTerrain : NetworkBehaviour
 {
-    //This will need to change to be dynamic (for things like roller skates)
-    //Also maybe add an isGrounded check?
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.tag == "Player")
-        {
-            other.GetComponent<PlayerStats>().MaxVel = 10.0f; //if player enters trigger slow them down
-            Debug.Log("Slower");
+    void OnTriggerEnter(Collider other) {
+        if (other.transform.gameObject.tag == "PlayerTrigger" && other.gameObject.transform.root.gameObject.GetComponent<NetworkObject>().OwnerClientId == NetworkManager.Singleton.LocalClientId) {
+            ApplySlowdownServerRPC(other.gameObject.transform.root.gameObject.GetComponent<NetworkObject>().OwnerClientId);
         }
     }
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.tag == "Player")
-        {
-            other.GetComponent<PlayerStats>().MaxVel = 45.0f;//if player exits trigger return speed to default
+    [ServerRpc(RequireOwnership = false)]
+    private void ApplySlowdownServerRPC(ulong playerID) {
+        ClientRpcParams clientRpcParams = new ClientRpcParams {
+            Send = new ClientRpcSendParams {
+                TargetClientIds = new ulong[] { playerID }
+            }
+        };
+
+        ApplySlowdownClientRPC(playerID, clientRpcParams);
+    }
+
+    [ClientRpc]
+    private void ApplySlowdownClientRPC(ulong playerID, ClientRpcParams clientRpcParams) {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+
+        foreach (GameObject player in players) {
+            if (player.GetComponent<NetworkObject>().OwnerClientId == playerID) {
+                player.GetComponentInChildren<PlayerStats>().ApplySlimeBody();
+            }
+        }
+    }
+
+    void OnTriggerExit(Collider other) {
+        if (other.transform.gameObject.tag == "PlayerTrigger" && other.gameObject.transform.root.gameObject.GetComponent<NetworkObject>().OwnerClientId == NetworkManager.Singleton.LocalClientId) {
+            RemoveSlowdownServerRPC(other.gameObject.transform.root.gameObject.GetComponent<NetworkObject>().OwnerClientId);
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void RemoveSlowdownServerRPC(ulong playerID) {
+        ClientRpcParams clientRpcParams = new ClientRpcParams {
+            Send = new ClientRpcSendParams {
+                TargetClientIds = new ulong[] { playerID }
+            }
+        };
+
+        RemoveSlowdownClientRPC(playerID, clientRpcParams);
+    }
+
+    [ClientRpc]
+    private void RemoveSlowdownClientRPC(ulong playerID, ClientRpcParams clientRpcParams) {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+
+        foreach (GameObject player in players) {
+            if (player.GetComponent<NetworkObject>().OwnerClientId == playerID) {
+                player.GetComponentInChildren<PlayerStats>().ClearSlimeBody();
+            }
         }
     }
 }
