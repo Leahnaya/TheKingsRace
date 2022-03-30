@@ -6,12 +6,12 @@ public class MoveWalkState : MoveBaseState
 {
     public override void EnterState(MoveStateManager mSM, MoveBaseState previousState){
         mSM.GetComponent<Animator>().SetBool("isWalking", true);
-        Debug.Log("Entered Walk");
+        //Debug.Log("Entered Walk");
     }
     
     public override void ExitState(MoveStateManager mSM, MoveBaseState nextState){
         mSM.GetComponent<Animator>().SetBool("isWalking", false);
-        Debug.Log("Exited Walk");
+        //Debug.Log("Exited Walk");
     }
 
     public override void UpdateState(MoveStateManager mSM){

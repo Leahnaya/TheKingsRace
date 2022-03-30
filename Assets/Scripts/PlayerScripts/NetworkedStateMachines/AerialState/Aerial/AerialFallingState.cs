@@ -16,11 +16,14 @@ public class AerialFallingState : AerialBaseState
 
         //if Grav Vel > 0 then jumping
         if(aSM.pStats.GravVel > 0 && (aSM.mSM.currentState != aSM.mSM.SlideState && aSM.mSM.currentState != aSM.mSM.CrouchState && aSM.mSM.currentState != aSM.mSM.RagdollState && aSM.mSM.currentState != aSM.mSM.RecoveringState)){
+            Debug.Log("Going to Jump From Fall");
             aSM.SwitchState(aSM.JumpingState);
+             
         }
 
         //if jump has been pressed and has glider and is in a state that allows it glide
         else if(Input.GetButton("Jump") && aSM.pStats.HasGlider && (aSM.mSM.currentState != aSM.mSM.SlideState && aSM.mSM.currentState != aSM.mSM.CrouchState && aSM.mSM.currentState != aSM.mSM.RagdollState && aSM.mSM.currentState != aSM.mSM.RecoveringState) && !aSM.pStats.IsPaused){
+            Debug.Log("Going to Glide From Fall");
             aSM.SwitchState(aSM.GlidingState);
         }
 

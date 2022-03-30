@@ -92,7 +92,7 @@ public class NitroStateManager : NetworkBehaviour
     }
 
     public void SwitchState(NitroBaseState state){
-        
+        if (!IsLocalPlayer) { return; }
         currentState.ExitState(this, state);
 
         //Sets the previous State

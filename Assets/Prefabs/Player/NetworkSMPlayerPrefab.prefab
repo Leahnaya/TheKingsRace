@@ -2487,6 +2487,7 @@ GameObject:
   - component: {fileID: 1451039203560339613}
   - component: {fileID: 856506937936150475}
   - component: {fileID: 169813891660997630}
+  - component: {fileID: 2306961581443597869}
   m_Layer: 3
   m_Name: LegHitbox
   m_TagString: Untagged
@@ -2569,6 +2570,24 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!143 &2306961581443597869
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4440570458476415681}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Height: 1.0000001
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4464306020322417161
 GameObject:
@@ -5184,7 +5203,6 @@ GameObject:
   - component: {fileID: 5911456903690389451}
   - component: {fileID: 4668701882978121971}
   - component: {fileID: 5087373364349937524}
-  - component: {fileID: 5863156733035393326}
   m_Layer: 3
   m_Name: Leg
   m_TagString: Untagged
@@ -5256,19 +5274,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &5863156733035393326
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7740096766088430285}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7781019508846381176
 GameObject:
   m_ObjectHideFlags: 0

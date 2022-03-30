@@ -101,7 +101,7 @@ public class OffenseStateManager : NetworkBehaviour
     }
 
     public void SwitchState(OffenseBaseState state){
-        
+        if (!IsLocalPlayer) { return; }
         currentState.ExitState(this, state);
 
         //Sets the previous State
@@ -146,7 +146,9 @@ public class OffenseStateManager : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     private void ApplyKickServerRPC(Vector3 direction, ulong netObjId) {
         GameObject[] kickables = GameObject.FindGameObjectsWithTag("kickable");
-        GameObject[] players = GameObject.FindGameObjectsWithTag("ArcherTarget");
+
+        // Get all players in the scene
+        GameObject[] playableCharacters = GameObject.FindGameObjectsWithTag("ArcherTarget");
 
         foreach (GameObject kickedItem in kickables) { 
             // First check to make sure this is the item we kicked
@@ -164,32 +166,14 @@ public class OffenseStateManager : NetworkBehaviour
             }
         }
 
-        foreach(GameObject kickedPlayer in players){
-            //First check if the player is kicked
-
-            Debug.Log(kickedPlayer.transform.root.GetComponent<NetworkObject>().NetworkObjectId);
-
-            if(kickedPlayer.transform.root.GetComponent<NetworkObject>().NetworkObjectId == netObjId){
-                Debug.Log("Kicked Players NetObjId is equal to the NetObjId");
-            }
-            else{
-                Debug.Log("Kicked Player NetObjId not equal to the NetObjId");
-            }
-
-            if(kickedPlayer.transform.root.GetComponent<NetworkObject>().NetworkObjectId != this.transform.root.GetComponent<NetworkObject>().NetworkObjectId){
-                Debug.Log("Kicked Player Not The Same as Me");
-            }
-            else{
-                Debug.Log("My RPC ID: " + this.transform.root.GetComponent<NetworkObject>().NetworkObjectId);
-                Debug.Log("Their RPC ID: " + kickedPlayer.transform.root.GetComponent<NetworkObject>().NetworkObjectId);
-            }
-
-            if(kickedPlayer.transform.root.GetComponent<NetworkObject>() != null && kickedPlayer.transform.root.GetComponent<NetworkObject>().NetworkObjectId == netObjId){
+        foreach(GameObject character in playableCharacters){
+            if(character.transform.root.GetComponent<NetworkObject>() != null && character.transform.root.GetComponent<NetworkObject>().NetworkObjectId == netObjId){
+                //Apply kick to other player
                 Debug.Log("Kicking other user");
-                kickedPlayer.GetComponent<MoveStateManager>().GetHit(direction, 20);
+                character.GetComponent<MoveStateManager>().GetHit(direction, 20);
+                return;
             }
 
-            return;
         }
     }
 }
