@@ -6,12 +6,12 @@ public class MoveIdleState : MoveBaseState
 {
     public override void EnterState(MoveStateManager mSM, MoveBaseState previousState){
         mSM.GetComponent<Animator>().SetBool("isIdle", true);
-        Debug.Log("Entered Idle");
+        //Debug.Log("Entered Idle");
     }
     
     public override void ExitState(MoveStateManager mSM, MoveBaseState nextState){
         mSM.GetComponent<Animator>().SetBool("isIdle", false);
-        Debug.Log("Exited Idle");
+        //Debug.Log("Exited Idle");
     }
 
     public override void UpdateState(MoveStateManager mSM){

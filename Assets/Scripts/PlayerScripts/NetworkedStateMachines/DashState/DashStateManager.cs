@@ -78,7 +78,7 @@ public class DashStateManager : NetworkBehaviour
     }
 
     public void SwitchState(DashBaseState state){
-        
+        if (!IsLocalPlayer) { return; }
         currentState.ExitState(this, state);
 
         //Sets the previous State

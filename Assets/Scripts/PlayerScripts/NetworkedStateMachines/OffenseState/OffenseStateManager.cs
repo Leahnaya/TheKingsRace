@@ -101,7 +101,7 @@ public class OffenseStateManager : NetworkBehaviour
     }
 
     public void SwitchState(OffenseBaseState state){
-        
+        if (!IsLocalPlayer) { return; }
         currentState.ExitState(this, state);
 
         //Sets the previous State

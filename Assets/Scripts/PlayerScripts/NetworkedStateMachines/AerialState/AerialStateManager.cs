@@ -210,7 +210,8 @@ public class AerialStateManager : NetworkBehaviour
     }
 
     public void SwitchState(AerialBaseState state){
-        
+        if (!IsLocalPlayer) { return; }
+
         currentState.ExitState(this, state);
 
         //Sets the previous State
@@ -304,7 +305,7 @@ public class AerialStateManager : NetworkBehaviour
                     curJumpNum = 0;
                 }
                 else{
-                pStats.GravVel = pStats.JumpPow; 
+                    pStats.GravVel = pStats.JumpPow; 
                 }
                 
                 

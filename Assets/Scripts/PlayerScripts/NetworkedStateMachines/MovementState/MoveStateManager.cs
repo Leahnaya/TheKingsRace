@@ -172,6 +172,7 @@ public class MoveStateManager : NetworkBehaviour
     }
 
     public void SwitchState(MoveBaseState state){
+        if (!IsLocalPlayer) { return; }
         currentState.ExitState(this, state);
 
         //Sets the previous State
@@ -313,9 +314,9 @@ public class MoveStateManager : NetworkBehaviour
 
     //Get hit into a ragdoll
     public void GetHit(Vector3 dir, float force){
+        if (!IsLocalPlayer) { return; }
         dir.Normalize();
         dirHit = dir * force;
-        if (!IsLocalPlayer) { return; }
         SwitchState(RagdollState);
     }
 

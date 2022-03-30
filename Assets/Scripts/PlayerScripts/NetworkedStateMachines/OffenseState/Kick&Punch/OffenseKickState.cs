@@ -48,9 +48,6 @@ public class OffenseKickState : OffenseBaseState
         else{
             legRotation = -90;
         }
-
-        //jitter player upwards because of a weird issue with collider
-        oSM.moveController.Move(new Vector3(0,.002f,0));
     }
 
     //kicking timer
