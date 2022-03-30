@@ -168,7 +168,7 @@ public class OffenseStateManager : NetworkBehaviour
 
         foreach(GameObject character in playableCharacters){
             if(character.transform.root.GetComponent<NetworkObject>() != null && character.transform.root.GetComponent<NetworkObject>().NetworkObjectId == netObjId){
-
+                //Apply kick to other player
                 Debug.Log("Kicking other user");
                 character.GetComponent<MoveStateManager>().GetHit(direction, 20);
                 return;

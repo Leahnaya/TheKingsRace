@@ -51,7 +51,7 @@ public class dOffenseKickState : dOffenseBaseState
         }
 
         //jitter player upwards because of a weird issue with collider
-        oSM.moveController.Move(new Vector3(0,.002f,0));
+        //oSM.moveController.Move(new Vector3(0,.002f,0));
     }
 
     //kicking timer
