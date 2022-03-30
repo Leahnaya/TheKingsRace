@@ -11,7 +11,9 @@ public class Goo : MonoBehaviour
     void FixedUpdate() {
         Lifetime++;
         if(Lifetime == 850) {
-            DespawnMyselfServerRPC();
+            if (NetworkManager.Singleton.IsServer) {
+                DespawnMyselfServerRPC();
+            }
         }
     }
 

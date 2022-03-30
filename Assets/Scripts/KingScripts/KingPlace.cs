@@ -1,8 +1,10 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using MLAPI;
 using MLAPI.Messaging;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class KingPlace : NetworkBehaviour
 {
@@ -54,10 +56,19 @@ public class KingPlace : NetworkBehaviour
 
     private GameObject placedObj;
 
-    void Awake()
-    {
-        Grid = GameObject.FindGameObjectWithTag("KingGrid");
-        MountGrid = Grid.transform.Find("MountainGrid").gameObject;
+    void Start() {
+        // Only try to grab references if we are actually in the game scene
+        if (SceneManager.GetActiveScene().buildIndex == 3) {
+            Grid = GameObject.FindGameObjectWithTag("KingGrid");
+            MountGrid = GameObject.FindGameObjectWithTag("MountainGrid");
+            try
+            {
+                Grid.GetComponent<GridReveal>().ToggleMountainGrid(false);
+            } catch(NullReferenceException e)
+            {
+                Debug.LogError(e);
+            }
+        }
     }
 
     bool Avaliable;

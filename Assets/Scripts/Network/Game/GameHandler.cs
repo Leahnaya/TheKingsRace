@@ -101,7 +101,7 @@ public class GameHandler : NetworkBehaviour
     [ServerRpc]
     private void SpawnCountdownServerRpc(ServerRpcParams serverRpcParams = default) {
         _countdownUI = Instantiate(coundownUI, Vector3.zero, Quaternion.identity).gameObject;
-        _countdownUI.GetComponent<NetworkObject>().Spawn();
+        _countdownUI.GetComponent<NetworkObject>().Spawn(null, true);
     }
 
     [ServerRpc]

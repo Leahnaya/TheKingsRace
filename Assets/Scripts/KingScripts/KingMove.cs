@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using MLAPI;
+using UnityEngine.SceneManagement;
 
 public class KingMove : NetworkBehaviour
 {
@@ -20,10 +21,12 @@ public class KingMove : NetworkBehaviour
         transform.position = KingStrPos;
     }
 
-    void Start()
-    {
+    void Start() {
         // Turn on the king grid after a couple seconds.  Allows scripts to grab their reference to it before it is disabled
-        StartCoroutine(TurnOffGridAtStartOfMatch());
+        // Only try to grab references if we are actually in the game scene
+        if (SceneManager.GetActiveScene().buildIndex == 3) {
+            StartCoroutine(TurnOffGridAtStartOfMatch());
+        }
     }
 
     IEnumerator TurnOffGridAtStartOfMatch()
