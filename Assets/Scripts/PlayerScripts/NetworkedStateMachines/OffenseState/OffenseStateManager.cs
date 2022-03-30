@@ -168,12 +168,34 @@ public class OffenseStateManager : NetworkBehaviour
 
         foreach(GameObject character in playableCharacters){
             if(character.transform.root.GetComponent<NetworkObject>() != null && character.transform.root.GetComponent<NetworkObject>().NetworkObjectId == netObjId){
+
+                ulong kickedPlayerClientID = character.transform.root.GetComponent<NetworkObject>().OwnerClientId;
+
                 //Apply kick to other player
-                Debug.Log("Kicking other user");
-                character.GetComponent<MoveStateManager>().GetHit(direction, 20);
+                ClientRpcParams clientRpcParams = new ClientRpcParams
+                {
+                    Send = new ClientRpcSendParams
+                    {
+                        TargetClientIds = new ulong[] { kickedPlayerClientID }
+                    }
+                };
+
+                ApplyKickToPlayerClientRPC(kickedPlayerClientID, direction, clientRpcParams);
                 return;
             }
 
+        }
+    }
+
+    [ClientRpc]
+    private void ApplyKickToPlayerClientRPC(ulong playerToKickID, Vector3 direction, ClientRpcParams clientRpcParams) {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+
+        foreach (GameObject player in players) { 
+            if (player.GetComponent<NetworkObject>().OwnerClientId == playerToKickID) {
+                player.GetComponentInChildren<MoveStateManager>().GetHit(direction, 20);
+                return;
+            }
         }
     }
 }
