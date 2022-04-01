@@ -11,7 +11,6 @@ public class SlowTerrain : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             other.GetComponent<PlayerStats>().MaxVel = 10.0f; //if player enters trigger slow them down
-            Debug.Log("Slower");
         }
     }
 
