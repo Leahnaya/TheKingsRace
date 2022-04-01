@@ -85,16 +85,12 @@ public class dAerialStateManager : NetworkBehaviour
     Vector3 impact = Vector3.zero; // Impact Vector
 
     //Grapple Variables
-    public float maxGrabDistance = 50;// Max Distance can cast grapple
+    float maxGrabDistance = 25;// Max Distance can cast grapple
     public GameObject hookPoint; // Actual Hook points
     public GameObject[] hookPoints; // Hook point list
     public int hookPointIndex; // Hook point Index
     public float distance; // distance of hookpoints
     public float maxGrappleDistance = 25; // Max Rope Length
-    public float maxSwingSpeed = 50; // max swing speed
-    public float minSwingSpeed = 20; // min swing speed
-    public float swingAcc = 3f; // swing acceleration
-    public float maxSwingMom = 60; // max swing momentum
     public bool release = false; // has player ungrappled
     public Vector3 tempRelease; // temporary release force vector
     public Vector3 lerpRelease; // lerped release force vector
@@ -257,12 +253,6 @@ public class dAerialStateManager : NetworkBehaviour
     void DownwardMovement(){
         Vector3 moveY = new Vector3(0,pStats.GravVel,0) * Time.deltaTime;
 
-
-
-        if(currentState == GrappleAirState){
-            moveY =  (new Vector3(0,pStats.GravVel,0) + forceDirection) * Time.deltaTime;
-        }
-
         moveController.Move(moveY);
         
     }
@@ -279,7 +269,7 @@ public class dAerialStateManager : NetworkBehaviour
                     curJumpNum = 0;
                 }
                 else{
-                pStats.GravVel = pStats.JumpPow; 
+                    pStats.GravVel = pStats.JumpPow; 
                 }
                 
                 
