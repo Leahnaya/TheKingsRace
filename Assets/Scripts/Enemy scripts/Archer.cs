@@ -15,7 +15,7 @@ public class Archer : NetworkBehaviour
     private float range;
 
     //how fast and how much time before the next shot
-    public float fireRate = 0.5f;
+    public float fireRate = 2f;
     private float shootingCooldown = 1.0f;
 
     [Header("Unity Setup Fields")]
@@ -101,8 +101,16 @@ public class Archer : NetworkBehaviour
     private void ShootArrowServerRPC() {
         arrowInScene = Instantiate(ArrowPrefab, firePoint.position, firePoint.rotation).gameObject;
         arrowInScene.GetComponent<NetworkObject>().Spawn(null, true);
-        arrowInScene.GetComponent<Arrow>().Seek(target.position);
-        /*
+        
+        if (target.position != null)
+        {
+            arrowInScene.GetComponent<Arrow>().Seek(target.position); //NULL REFERENCE IS HERE
+        }
+        else if (target.position == null)
+        {
+            return; 
+        }
+            /*
         GameObject arrowGO = Instantiate(ArrowPrefab, firePoint.position, firePoint.rotation).gameObject;
         Arrow arrow = arrowGO.GetComponent<Arrow>();
 
