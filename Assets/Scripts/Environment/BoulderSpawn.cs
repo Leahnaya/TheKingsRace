@@ -7,9 +7,11 @@ using UnityEngine;
 public class BoulderSpawn : NetworkBehaviour
 {
     [SerializeField] private float RespawnTimer = 10.0f;
+    [SerializeField] private float InitialSpawnDelay = 0.0f;
     private float currentTime = 0.0f;
 
     [SerializeField] private float boulderScaleMultiplier = 1.0f;
+
 
     [SerializeField] private Vector3 spawnForce;
 
@@ -40,9 +42,10 @@ public class BoulderSpawn : NetworkBehaviour
         if (!IsHost) { return; }
 
         currentTime += Time.fixedDeltaTime;
-        if (currentTime >= RespawnTimer)
+        if (currentTime >= RespawnTimer + InitialSpawnDelay)
         {
             currentTime = 0.0f;
+            InitialSpawnDelay = 0.0f;
             SpawnBoulderServerRPC();
         }
     }
