@@ -24,7 +24,6 @@ public class AerialStateManager : NetworkBehaviour
     public AerialWallIdleState WallIdleState = new AerialWallIdleState();
 
     //Grappling States
-    public AerialGrappleGroundedState GrappleGroundedState = new AerialGrappleGroundedState();
     public AerialGrappleAirState GrappleAirState = new AerialGrappleAirState();
     ////
 
@@ -89,21 +88,14 @@ public class AerialStateManager : NetworkBehaviour
     Vector3 impact = Vector3.zero; // Impact Vector
 
     //Grapple Variables
-    public float maxGrabDistance = 50;// Max Distance can cast grapple
+    float maxGrabDistance = 25;// Max Distance can cast grapple
     public GameObject hookPoint; // Actual Hook points
     public GameObject[] hookPoints; // Hook point list
     public int hookPointIndex; // Hook point Index
     public float distance; // distance of hookpoints
-    public float maxGrappleDistance = 25; // Max Rope Length
-    public float maxSwingSpeed = 50; // max swing speed
-    public float minSwingSpeed = 20; // min swing speed
-    public float swingAcc = 3f; // swing acceleration
-    public float maxSwingMom = 60; // max swing momentum
     public bool release = false; // has player ungrappled
-    public Vector3 tempRelease; // temporary release force vector
-    public Vector3 lerpRelease; // lerped release force vector
-    public Vector3 forceDirection; // force direction vector
-    public bool eHeld; // is e being held
+    public Vector3 postForceDirection; // force direction vector
+    public float currentForcePower = 0;
     ////
 
     void Awake(){
@@ -283,15 +275,7 @@ public class AerialStateManager : NetworkBehaviour
     //Actually applies the downwards movement
     void DownwardMovement(){
         Vector3 moveY = new Vector3(0,pStats.GravVel,0) * Time.deltaTime;
-
-
-
-        if(currentState == GrappleAirState){
-            moveY =  (new Vector3(0,pStats.GravVel,0) + forceDirection) * Time.deltaTime;
-        }
-
-        moveController.Move(moveY);
-        
+        moveController.Move(moveY); 
     }
 
     //applies Jump values and Variables
@@ -504,16 +488,16 @@ public class AerialStateManager : NetworkBehaviour
     ////
 
     ////Grapple Functions
-    //Checks if the player can grapple
     public bool CheckGrapple(){
         if(!pStats.IsPaused){
             if ((Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.JoystickButton2)) && pStats.HasGrapple) //If grapple button is hit
             {
+                Debug.Log("Checking Hooks");
                 hookPointIndex = FindHookPoint(); //Find the nearest hook point within max distance
                 if (hookPointIndex != -1) //If there is a hookpoint
                     {
+                        Debug.Log("Found Hook");
                         hookPoint = hookPoints[hookPointIndex]; //The point we are grappling from
-                        eHeld = true;
                         return true;
                     }
             }
@@ -540,9 +524,10 @@ public class AerialStateManager : NetworkBehaviour
     //lerped grapple release force and dissipation of it
     public void GrappleReleaseForce(){
         if(release){
-            lerpRelease = Vector3.Lerp(lerpRelease, tempRelease, 9f * Time.deltaTime);
-            tempRelease *= .98f;
-            moveController.Move(lerpRelease);
+            currentForcePower *= .90f;
+            moveController.Move(postForceDirection * currentForcePower);
+
+            if(currentForcePower < .05) release = false;
         }
     }
     ////

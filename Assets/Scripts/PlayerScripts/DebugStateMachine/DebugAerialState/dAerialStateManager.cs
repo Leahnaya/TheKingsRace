@@ -22,7 +22,6 @@ public class dAerialStateManager : NetworkBehaviour
     public dAerialWallIdleState WallIdleState = new dAerialWallIdleState();
 
     //Grappling States
-    public dAerialGrappleGroundedState GrappleGroundedState = new dAerialGrappleGroundedState();
     public dAerialGrappleAirState GrappleAirState = new dAerialGrappleAirState();
     ////
 
@@ -90,12 +89,9 @@ public class dAerialStateManager : NetworkBehaviour
     public GameObject[] hookPoints; // Hook point list
     public int hookPointIndex; // Hook point Index
     public float distance; // distance of hookpoints
-    public float maxGrappleDistance = 25; // Max Rope Length
     public bool release = false; // has player ungrappled
-    public Vector3 tempRelease; // temporary release force vector
-    public Vector3 lerpRelease; // lerped release force vector
-    public Vector3 forceDirection; // force direction vector
-    public bool eHeld; // is e being held
+    public Vector3 postForceDirection; // force direction vector
+    public float currentForcePower = 0;
     ////
 
     void Awake(){
@@ -252,9 +248,7 @@ public class dAerialStateManager : NetworkBehaviour
     //Actually applies the downwards movement
     void DownwardMovement(){
         Vector3 moveY = new Vector3(0,pStats.GravVel,0) * Time.deltaTime;
-
         moveController.Move(moveY);
-        
     }
 
     //applies Jump values and Variables
@@ -472,11 +466,12 @@ public class dAerialStateManager : NetworkBehaviour
         if(!pStats.IsPaused){
             if ((Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.JoystickButton2)) && pStats.HasGrapple) //If grapple button is hit
             {
+                Debug.Log("Checking Hooks");
                 hookPointIndex = FindHookPoint(); //Find the nearest hook point within max distance
                 if (hookPointIndex != -1) //If there is a hookpoint
                     {
+                        Debug.Log("Found Hook");
                         hookPoint = hookPoints[hookPointIndex]; //The point we are grappling from
-                        eHeld = true;
                         return true;
                     }
             }
@@ -503,9 +498,10 @@ public class dAerialStateManager : NetworkBehaviour
     //lerped grapple release force and dissipation of it
     public void GrappleReleaseForce(){
         if(release){
-            lerpRelease = Vector3.Lerp(lerpRelease, tempRelease, 9f * Time.deltaTime);
-            tempRelease *= .98f;
-            moveController.Move(lerpRelease);
+            currentForcePower *= .90f;
+            moveController.Move(postForceDirection * currentForcePower);
+
+            if(currentForcePower < .05) release = false;
         }
     }
     ////

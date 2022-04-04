@@ -7,17 +7,26 @@ public class dAerialGrappleAirState : dAerialBaseState
 
     Vector3 initialForceDirection;
 
-    float distanceBeneathHook = 4f;
-    float distanceAfterHook = 5f;
+    float distanceBeneathHook = -3f;
+    float distanceAfterHook = 8f;
     Vector3 desiredPosition;
 
     bool pointReached = false;
 
+    float initialForcePower = 4;
+
 
     public override void EnterState(dAerialStateManager aSM, dAerialBaseState previousState){
+        
 
+        distanceBeneathHook = -3f;
+        distanceAfterHook = 8f;
+        pointReached = false;
+        initialForcePower = 4;
+        
         //refresh jump number
         aSM.curJumpNum = 0;
+        aSM.release = false;
 
         Vector3 updatedYHookPoint = new Vector3(aSM.hookPoint.transform.position.x, aSM.hookPoint.transform.position.y - distanceBeneathHook, aSM.hookPoint.transform.position.z);
         Vector3 updatedXHookPointDirection = (new Vector3(aSM.transform.position.x, 0, aSM.transform.position.z) - new Vector3(aSM.hookPoint.transform.position.x, 0, aSM.hookPoint.transform.position.z)).normalized;
@@ -27,16 +36,35 @@ public class dAerialGrappleAirState : dAerialBaseState
         initialForceDirection = desiredPosition - aSM.transform.position;
         initialForceDirection = initialForceDirection.normalized;
 
-
+        aSM.postForceDirection = new  Vector3(initialForceDirection.x, 0, initialForceDirection.z).normalized;
+        aSM.currentForcePower = initialForcePower;
 
     }
 
     public override void ExitState(dAerialStateManager aSM, dAerialBaseState nextState){
-
+        if(nextState == aSM.GroundedState || nextState == aSM.WallRunState){
+            aSM.release = false;
+        }
+        else{
+            aSM.release = true;
+            aSM.pStats.GravVel = 10;
+        }
     }
 
     public override void UpdateState(dAerialStateManager aSM){
-
+        if(pointReached){
+            //if grounded at when the point is reached then goto grounded state
+            if(aSM.isGrounded){
+                aSM.SwitchState(aSM.GroundedState);
+            }
+            else if(!aSM.isGrounded){
+                aSM.SwitchState(aSM.FallingState);
+            }
+            //if wallrunning then wallrun
+            else if(aSM.isWallRunning){
+                aSM.SwitchState(aSM.WallRunState);
+            }
+        }
     }
 
     public override void FixedUpdateState(dAerialStateManager aSM){
@@ -45,23 +73,26 @@ public class dAerialGrappleAirState : dAerialBaseState
         //Draw Line between player and hookpoint for debug purposes
         Debug.DrawRay(aSM.transform.position, initialForceDirection); //Visual of line
 
+        Vector3 tempForceDir = desiredPosition - aSM.transform.position;
+        tempForceDir = tempForceDir.normalized;
+        tempForceDir = new Vector3(tempForceDir.x,0,tempForceDir.z).normalized;
+
+        if((aSM.postForceDirection - tempForceDir).magnitude >= .1f && !pointReached){
+            pointReached = true;
+        }
+
         //Apply default gravity
         if(!pointReached){
-            aSM.moveController.Move(initialForceDirection * .1f);
-            aSM.GravityCalculation(.1f); 
+            aSM.moveController.Move(initialForceDirection * initialForcePower);
+            aSM.GravityCalculation(0);
+            aSM.pStats.GravVel = 0;
         }
         else{
+            //currentForcePower;
             aSM.GravityCalculation(aSM.pStats.PlayerGrav); 
         }
     }
 
-    float CalculateInitialForcePower(){
-        return 0;
-    }
 
-    float ForceDissipation(){
-        return 0;
-    }
-
-
+    
 }
