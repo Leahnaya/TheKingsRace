@@ -29,7 +29,7 @@ public class dAerialGroundedState : dAerialBaseState
 
         //can grapple and in state that allows grapple
         else if(aSM.CheckGrapple() && (aSM.mSM.currentState != aSM.mSM.SlideState && aSM.mSM.currentState != aSM.mSM.CrouchState && aSM.mSM.currentState != aSM.mSM.RagdollState && aSM.mSM.currentState != aSM.mSM.RecoveringState)){
-            aSM.SwitchState(aSM.GrappleGroundedState);
+            aSM.SwitchState(aSM.GrappleAirState);
         }
     }
 

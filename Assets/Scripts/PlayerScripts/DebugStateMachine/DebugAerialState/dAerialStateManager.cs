@@ -22,7 +22,6 @@ public class dAerialStateManager : NetworkBehaviour
     public dAerialWallIdleState WallIdleState = new dAerialWallIdleState();
 
     //Grappling States
-    public dAerialGrappleGroundedState GrappleGroundedState = new dAerialGrappleGroundedState();
     public dAerialGrappleAirState GrappleAirState = new dAerialGrappleAirState();
     ////
 
@@ -45,6 +44,7 @@ public class dAerialStateManager : NetworkBehaviour
     //Jump Variables
     public int curJumpNum; // current Jumps Used
     public bool jumpHeld; // Jump is Held
+    public bool canJump = true; // can the player jump
     bool jumpPressed; // Jamp was pressed
     public float coyJumpTimer = 0.1f; // Default Coyote Jump time
     public float curCoyJumpTimer = 0.1f; // current Coyote Jump time
@@ -84,21 +84,14 @@ public class dAerialStateManager : NetworkBehaviour
     Vector3 impact = Vector3.zero; // Impact Vector
 
     //Grapple Variables
-    public float maxGrabDistance = 50;// Max Distance can cast grapple
+    float maxGrabDistance = 25;// Max Distance can cast grapple
     public GameObject hookPoint; // Actual Hook points
     public GameObject[] hookPoints; // Hook point list
     public int hookPointIndex; // Hook point Index
     public float distance; // distance of hookpoints
-    public float maxGrappleDistance = 25; // Max Rope Length
-    public float maxSwingSpeed = 50; // max swing speed
-    public float minSwingSpeed = 20; // min swing speed
-    public float swingAcc = 3f; // swing acceleration
-    public float maxSwingMom = 60; // max swing momentum
     public bool release = false; // has player ungrappled
-    public Vector3 tempRelease; // temporary release force vector
-    public Vector3 lerpRelease; // lerped release force vector
-    public Vector3 forceDirection; // force direction vector
-    public bool eHeld; // is e being held
+    public Vector3 postForceDirection; // force direction vector
+    public float currentForcePower = 0;
     ////
 
     void Awake(){
@@ -255,15 +248,7 @@ public class dAerialStateManager : NetworkBehaviour
     //Actually applies the downwards movement
     void DownwardMovement(){
         Vector3 moveY = new Vector3(0,pStats.GravVel,0) * Time.deltaTime;
-
-
-
-        if(currentState == GrappleAirState){
-            moveY =  (new Vector3(0,pStats.GravVel,0) + forceDirection) * Time.deltaTime;
-        }
-
         moveController.Move(moveY);
-        
     }
 
     //applies Jump values and Variables
@@ -278,7 +263,7 @@ public class dAerialStateManager : NetworkBehaviour
                     curJumpNum = 0;
                 }
                 else{
-                pStats.GravVel = pStats.JumpPow; 
+                    pStats.GravVel = pStats.JumpPow; 
                 }
                 
                 
@@ -300,7 +285,7 @@ public class dAerialStateManager : NetworkBehaviour
         if(jumpHeld) curCoyJumpTimer = 0;
 
         //If space/south face gamepad button isn't being pressed then jump is false
-        if (Input.GetAxis("Jump") == 0){
+        if (!Input.GetButton("Jump")){
            jumpHeld = false;
         }
 
@@ -481,11 +466,12 @@ public class dAerialStateManager : NetworkBehaviour
         if(!pStats.IsPaused){
             if ((Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.JoystickButton2)) && pStats.HasGrapple) //If grapple button is hit
             {
+                Debug.Log("Checking Hooks");
                 hookPointIndex = FindHookPoint(); //Find the nearest hook point within max distance
                 if (hookPointIndex != -1) //If there is a hookpoint
                     {
+                        Debug.Log("Found Hook");
                         hookPoint = hookPoints[hookPointIndex]; //The point we are grappling from
-                        eHeld = true;
                         return true;
                     }
             }
@@ -512,9 +498,10 @@ public class dAerialStateManager : NetworkBehaviour
     //lerped grapple release force and dissipation of it
     public void GrappleReleaseForce(){
         if(release){
-            lerpRelease = Vector3.Lerp(lerpRelease, tempRelease, 9f * Time.deltaTime);
-            tempRelease *= .98f;
-            moveController.Move(lerpRelease);
+            currentForcePower *= .90f;
+            moveController.Move(postForceDirection * currentForcePower);
+
+            if(currentForcePower < .05) release = false;
         }
     }
     ////

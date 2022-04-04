@@ -24,11 +24,6 @@ public class AerialGroundedState : AerialBaseState
         else if(aSM.pStats.GravVel > 0 && (aSM.mSM.currentState != aSM.mSM.SlideState && aSM.mSM.currentState != aSM.mSM.CrouchState && aSM.mSM.currentState != aSM.mSM.RagdollState && aSM.mSM.currentState != aSM.mSM.RecoveringState)){
             aSM.SwitchState(aSM.JumpingState);
         }
-
-        //can grapple and in state that allows grapple
-        else if(aSM.CheckGrapple() && (aSM.mSM.currentState != aSM.mSM.SlideState && aSM.mSM.currentState != aSM.mSM.CrouchState && aSM.mSM.currentState != aSM.mSM.RagdollState && aSM.mSM.currentState != aSM.mSM.RecoveringState)){
-            aSM.SwitchState(aSM.GrappleGroundedState);
-        }
     }
 
     public override void FixedUpdateState(AerialStateManager aSM){
