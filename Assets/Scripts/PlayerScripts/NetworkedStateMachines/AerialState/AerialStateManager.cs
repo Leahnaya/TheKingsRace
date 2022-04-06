@@ -29,6 +29,7 @@ public class AerialStateManager : NetworkBehaviour
 
     ////Objects Sections
     GameObject parentObj; // Parent object
+    public Camera cam;
     ////
 
     ////Components Section
