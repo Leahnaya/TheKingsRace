@@ -27,7 +27,6 @@ public class CoolDown : MonoBehaviour
 
 
     }
-
     public void startUICooldown(string name){
         this.gameObject.transform.Find(name).GetComponent<UICoolDown>().startCoolDown();
     }

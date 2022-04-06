@@ -40,6 +40,8 @@ public class PauseMenu : NetworkBehaviour {
 
     private ResetZonesGlobal[] respawnZones;
 
+    public bool isUsable = false;
+
     void Awake() {
         respawnZones = (ResetZonesGlobal[])GameObject.FindObjectsOfType(typeof(ResetZonesGlobal));
     }
@@ -54,7 +56,7 @@ public class PauseMenu : NetworkBehaviour {
     void Update() { 
         // Listen for Pause button and not already paused
         // TODO: UPDATE TO ALSO LISTEN FOR CONTROLLER PAUSE BUTTON PRESSED
-        if (Input.GetKeyDown(KeyCode.Escape) && PauseMenuPanel.activeInHierarchy != true) {
+        if (isUsable && Input.GetKeyDown(KeyCode.Escape) && PauseMenuPanel.activeInHierarchy != true) {
             // Display Pause Menu
             PauseMenuPanel.SetActive(true);
             isViewingRunnerControls = true;

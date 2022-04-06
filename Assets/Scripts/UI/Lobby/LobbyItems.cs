@@ -21,7 +21,36 @@ public class LobbyItems : MonoBehaviour
     Vector3 position;
     private int pointsLeft;
 
-    
+    ////Runner Body Parts Refs
+    //back parts
+    public GameObject backBattery;
+    public GameObject glider;
+
+    //springs refs
+    public GameObject leftLeg;
+    public GameObject rightLeg;
+    public GameObject leftSpring;
+    public GameObject rightSpring;
+
+    //shoe refs
+    public GameObject leftFoot;
+    public GameObject rightFoot;
+    public GameObject leftWallShoe;
+    public GameObject rightWallShoe;
+
+    //sticky hand 
+    public GameObject rightHand;
+    public GameObject rightStickyHand;
+
+    //roller skates (may need to raise height)
+    public GameObject leftRollerSkate;
+    public GameObject rightRollerSkate;
+
+    //tripple jump 
+    public GameObject leftQuad;
+    public GameObject rightQuad;
+    public GameObject thiccLeftQuad;
+    public GameObject thiccRightQuad;
 
     // Start is called before the first frame update
     void Awake(){
@@ -75,7 +104,9 @@ public class LobbyItems : MonoBehaviour
                 iOpt.transform.GetChild(3).gameObject.SetActive(false);
 
                 //Button Adds item if it can
+                iOpt.GetComponent<Button>().onClick.AddListener(delegate { changeBodyParts(item.Value.id, checkAddPart(item.Value.costM, item.Value)); });
                 iOpt.GetComponent<Button>().onClick.AddListener(delegate{lobbyUI.EquipItems(item.Value, UpdateObject(item.Value.costM, item.Value, iOpt));});
+      
                 
                 //On Hover display tooltip on exit disable
                 EventTrigger.Entry tooltipEntry = new EventTrigger.Entry();
@@ -138,4 +169,145 @@ public class LobbyItems : MonoBehaviour
         }
     }
 
+
+  
+    private int checkAddPart(int itemCost, Item item) {
+        //default (no update)
+        int tempResult = -1;
+
+
+        //remove gameobject
+        if (pInv.PlayerItemDict.ContainsKey(item.name)) {
+            tempResult = 0;
+        }
+        //add gameObject
+        else if (!pInv.PlayerItemDict.ContainsKey(item.name) && (pointsLeft - itemCost) >= 0) {
+            tempResult = 1;
+        }
+        else{
+            tempResult = -1;
+        }
+        return tempResult;
+    }
+    private void changeBodyParts(int itemID, int addPart){
+        //if there is something to update
+        if (addPart != -1){
+            switch (itemID)
+            {
+                //Glider
+                case 2:
+                    //add part
+                    if (addPart == 1)
+                    {
+                        glider.SetActive(true);
+                    }
+                    //remove part
+                    else if (addPart == 0)
+                    {
+                        glider.SetActive(false);
+                    }
+                    break;
+                //grapple
+                case 3:
+                    //add part
+                    if (addPart == 1)
+                    {
+                        rightStickyHand.SetActive(true);
+                        rightHand.GetComponent<SkinnedMeshRenderer>().enabled = false;
+                    }
+                    //remove part
+                    else if (addPart == 0)
+                    {
+                        rightStickyHand.SetActive(false);
+                        rightHand.GetComponent<SkinnedMeshRenderer>().enabled = true;
+                    }
+                    break;
+                //nitro
+                case 4:
+                    ////may use test cse here
+                    //add part
+                    if (addPart == 1){
+                        backBattery.SetActive(true);
+                    }
+                    //remove part
+                    else if(addPart == 0){
+                        backBattery.SetActive(false);
+                    }
+                    break;
+                //roller skates
+                case 5:
+                    //add part
+                    if (addPart == 1)
+                    {
+                        leftRollerSkate.SetActive(true);
+                        rightRollerSkate.SetActive(true);
+                    }
+                    //remove part
+                    else if (addPart == 0)
+                    {
+                        leftRollerSkate.SetActive(false);
+                        rightRollerSkate.SetActive(false);
+                    }
+                    break;
+                //springs
+                case 6:
+                    //add part
+                    if (addPart == 1)
+                    {
+                        leftSpring.SetActive(true);
+                        rightSpring.SetActive(true);
+                        leftLeg.GetComponent<SkinnedMeshRenderer>().enabled = false;
+                        rightLeg.GetComponent<SkinnedMeshRenderer>().enabled = false;
+                    }
+                    //remove part
+                    else if (addPart == 0)
+                    {
+                        leftSpring.SetActive(false);
+                        rightSpring.SetActive(false);
+                        leftLeg.GetComponent<SkinnedMeshRenderer>().enabled = true;
+                        rightLeg.GetComponent<SkinnedMeshRenderer>().enabled = true;
+                    }
+                    break;
+                //tripple jump
+                case 7:
+                    //add part
+                    if (addPart == 1)
+                    {
+                        thiccLeftQuad.SetActive(true);
+                        thiccRightQuad.SetActive(true);
+                        leftQuad.GetComponent<SkinnedMeshRenderer>().enabled = false;
+                        rightQuad.GetComponent<SkinnedMeshRenderer>().enabled = false;
+                    }
+                    //remove part
+                    else if (addPart == 0)
+                    {
+                        thiccLeftQuad.SetActive(false);
+                        thiccRightQuad.SetActive(false);
+                        leftQuad.GetComponent<SkinnedMeshRenderer>().enabled = true;
+                        rightQuad.GetComponent<SkinnedMeshRenderer>().enabled = true;
+                    }
+                    break;
+                //wallrun
+                case 8:
+                    if (addPart == 1)
+                    {
+                        leftWallShoe.SetActive(true);
+                        rightWallShoe.SetActive(true);
+                        leftFoot.GetComponent<SkinnedMeshRenderer>().enabled = false;
+                        rightFoot.GetComponent<SkinnedMeshRenderer>().enabled = false;
+                    }
+                    //remove part
+                    else if (addPart == 0)
+                    {
+                        leftWallShoe.SetActive(false);
+                        rightWallShoe.SetActive(false);
+                        leftFoot.GetComponent<SkinnedMeshRenderer>().enabled = true;
+                        rightFoot.GetComponent<SkinnedMeshRenderer>().enabled = true;
+                    }
+                    break;
+
+            }
+        }
+
+    }
 }
