@@ -29,6 +29,7 @@ public class AerialStateManager : NetworkBehaviour
 
     ////Objects Sections
     GameObject parentObj; // Parent object
+    public Camera cam;
     ////
 
     ////Components Section
@@ -505,17 +506,29 @@ public class AerialStateManager : NetworkBehaviour
         return false;
     }
 
-    //Finds the nearest hook to the player
     int FindHookPoint()
     {
         float least = maxGrabDistance;
         int index = -1;
+        bool inSightLine;
+        bool hookInSight = false;
         for(int i = 0; i<hookPoints.Length; i++)
         {
             distance = Vector3.Distance(gameObject.transform.position, hookPoints[i].transform.position);
+
+            Vector3 screenPoint = cam.WorldToViewportPoint(hookPoints[i].transform.position);
+            inSightLine = screenPoint.z > 0 && screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1;
+
             if (distance <= least)
             {
-                index = i;
+                if(inSightLine){
+                    index = i;
+                    least = distance;
+                    hookInSight = true;
+                }
+                else if(!hookInSight && !inSightLine){
+                    index = i;
+                }
             }
         }
         return index;
