@@ -2136,7 +2136,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 8193413098731078861}
-  m_PlaneDistance: 1
+  m_PlaneDistance: 0.3005
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -2144,7 +2144,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 378093239
-  m_SortingOrder: 10
+  m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &7253959773116390684
 MonoBehaviour:
@@ -5057,12 +5057,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 201caa2b2f1776a46af6bdfd52456028, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cam: {fileID: 8193413098731078861}
   moveController: {fileID: 0}
   animator: {fileID: 0}
   pStats: {fileID: 0}
   mSM: {fileID: 0}
   curJumpNum: 0
   jumpHeld: 0
+  canJump: 1
   coyJumpTimer: 0.1
   curCoyJumpTimer: 0.13
   lowJumpMultiplier: 0.001
@@ -5070,21 +5072,13 @@ MonoBehaviour:
   isGrounded: 0
   groundCheckDistance: 0.05
   isWallRunning: 0
-  maxGrabDistance: 50
   hookPoint: {fileID: 0}
   hookPoints: []
   hookPointIndex: 0
   distance: 0
-  maxGrappleDistance: 25
-  maxSwingSpeed: 50
-  minSwingSpeed: 20
-  swingAcc: 3
-  maxSwingMom: 60
   release: 0
-  tempRelease: {x: 0, y: 0, z: 0}
-  lerpRelease: {x: 0, y: 0, z: 0}
-  forceDirection: {x: 0, y: 0, z: 0}
-  eHeld: 0
+  postForceDirection: {x: 0, y: 0, z: 0}
+  currentForcePower: 0
 --- !u!114 &7688428083034862387
 MonoBehaviour:
   m_ObjectHideFlags: 0

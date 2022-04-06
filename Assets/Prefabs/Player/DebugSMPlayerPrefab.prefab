@@ -1120,6 +1120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ec82a74ea7992f44b37925faefa63b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cam: {fileID: 916243637571042078}
   moveController: {fileID: 0}
   pStats: {fileID: 0}
   mSM: {fileID: 0}
@@ -1137,12 +1138,9 @@ MonoBehaviour:
   hookPoints: []
   hookPointIndex: 0
   distance: 0
-  maxGrappleDistance: 25
   release: 0
-  tempRelease: {x: 0, y: 0, z: 0}
-  lerpRelease: {x: 0, y: 0, z: 0}
-  forceDirection: {x: 0, y: 0, z: 0}
-  eHeld: 0
+  postForceDirection: {x: 0, y: 0, z: 0}
+  currentForcePower: 0
 --- !u!114 &1707207228499037413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4394,7 +4392,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 916243637571042078}
-  m_PlaneDistance: 1
+  m_PlaneDistance: 0.3005
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -4402,7 +4400,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 378093239
-  m_SortingOrder: 10
+  m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &3525475281917159692
 MonoBehaviour:
