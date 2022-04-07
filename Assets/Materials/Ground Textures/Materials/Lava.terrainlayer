@@ -7,8 +7,8 @@ TerrainLayer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Lava
-  m_DiffuseTexture: {fileID: 2800000, guid: e042f8db645af324d8bc82836699905f, type: 3}
-  m_NormalMapTexture: {fileID: 0}
+  m_DiffuseTexture: {fileID: 2800000, guid: c47d3331426b3de4a9452c3bdb7ca263, type: 3}
+  m_NormalMapTexture: {fileID: 2800000, guid: 1bbdfa9dd8d15644886392edd42a2fda, type: 3}
   m_MaskMapTexture: {fileID: 0}
   m_TileSize: {x: 80, y: 80}
   m_TileOffset: {x: 0, y: 0}
