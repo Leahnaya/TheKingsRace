@@ -36,11 +36,24 @@ public class GameHandler : NetworkBehaviour
             if (character.GetComponent<NetworkObject>().OwnerClientId == NetworkManager.Singleton.LocalClientId) {
                 localPlayer = character;
 
-                FindGameObjectInChildWithTag(character, "PlayerCam").GetComponent<Camera>().enabled = true;
-                FindGameObjectInChildWithTag(character, "PlayerCam").GetComponent<AudioListener>().enabled = true;
-                if (FindGameObjectInChildWithTag(character, "PlayerCam").GetComponent<PlayerCam>() != null) {
-                    FindGameObjectInChildWithTag(character, "PlayerCam").GetComponent<PlayerCam>().enabled = true;
+                if(FindGameObjectInChildWithTag(character, "UICam").GetComponent<Camera>() != null){
+                    FindGameObjectInChildWithTag(character, "UICam").GetComponent<Camera>().enabled = true;
+                
+                    GameObject UICamera =  FindGameObjectInChildWithTag(character, "UICam");
+                    FindGameObjectInChildWithTag(UICamera, "PlayerCam").GetComponent<Camera>().enabled = true;
+                    FindGameObjectInChildWithTag(UICamera, "PlayerCam").GetComponent<AudioListener>().enabled = true;
+                    if (FindGameObjectInChildWithTag(UICamera, "PlayerCam").GetComponent<PlayerCam>() != null) {
+                        FindGameObjectInChildWithTag(UICamera, "PlayerCam").GetComponent<PlayerCam>().enabled = true;
+                    }
                 }
+                else{
+                    FindGameObjectInChildWithTag(character, "PlayerCam").GetComponent<Camera>().enabled = true;
+                    FindGameObjectInChildWithTag(character, "PlayerCam").GetComponent<AudioListener>().enabled = true;
+                    if (FindGameObjectInChildWithTag(character, "PlayerCam").GetComponent<PlayerCam>() != null) {
+                        FindGameObjectInChildWithTag(character, "PlayerCam").GetComponent<PlayerCam>().enabled = true;
+                    }                    
+                }
+
             }
         }
 

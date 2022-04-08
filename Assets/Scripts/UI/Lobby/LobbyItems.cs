@@ -66,7 +66,7 @@ public class LobbyItems : MonoBehaviour
         player.GetComponent<NitroStateManager>().enabled = false;
         player.GetComponent<AerialStateManager>().enabled = false;
         player.GetComponent<OffenseStateManager>().enabled = false;
-        pPar.transform.Find("PlayerCam").gameObject.SetActive(false);
+        pPar.transform.Find("UICam").gameObject.SetActive(false);
 
         invMan = GetComponent<InventoryManager>();
     }
@@ -79,11 +79,12 @@ public class LobbyItems : MonoBehaviour
     }
 
     private void InitializeItemB(){
+        Debug.Log("Initialize Items");
         int index = 0;
         if(itemOptPrefab != null){
             foreach(var item in invMan.ItemDict){
-                
-                //Positioning Buttons
+                Debug.Log("Create Button");
+                //Positioning Buttons   
                 if(index < 3){
                     position = new Vector3(((index*200)+250),700,0);
                 }
