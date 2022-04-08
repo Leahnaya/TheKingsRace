@@ -247,8 +247,8 @@ public class dAerialStateManager : NetworkBehaviour
         }
         else if(Physics.Raycast(groundRay, out groundHit, moveController.height + groundSlantDistance) && !jumpPressed){
             if(Vector3.Dot(groundHit.normal, transform.up) > 0f){
-                Debug.Log("On a Slant");
-                Debug.Log("The grounds Normal" + groundHit.normal);
+                // Debug.Log("On a Slant");
+                // Debug.Log("The grounds Normal" + groundHit.normal);
                 moveController.Move(groundHit.normal * 20 * Time.deltaTime);
                 mSM.CancelMomentum();
             }
@@ -476,11 +476,11 @@ public class dAerialStateManager : NetworkBehaviour
         if(!pStats.IsPaused){
             if ((Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.JoystickButton2)) && pStats.HasGrapple) //If grapple button is hit
             {
-                Debug.Log("Checking Hooks");
+                //Debug.Log("Checking Hooks");
                 hookPointIndex = FindHookPoint(); //Find the nearest hook point within max distance
                 if (hookPointIndex != -1) //If there is a hookpoint
                     {
-                        Debug.Log("Found Hook");
+                        //Debug.Log("Found Hook");
                         hookPoint = hookPoints[hookPointIndex]; //The point we are grappling from
                         return true;
                     }
