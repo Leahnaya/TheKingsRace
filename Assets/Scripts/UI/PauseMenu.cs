@@ -278,9 +278,12 @@ public class PauseMenu : NetworkBehaviour {
                 List<string> itemList = itemsAsString.Split(',').ToList();
                 character.GetComponentInChildren<PlayerInventory>().UpdateEquips(itemList, this.gameObject.GetComponent<InventoryManager>().ItemDict);
 
-                GameHandler.FindGameObjectInChildWithTag(character, "PlayerCam").GetComponent<Camera>().enabled = true;
-                GameHandler.FindGameObjectInChildWithTag(character, "PlayerCam").GetComponent<AudioListener>().enabled = true;
-                GameHandler.FindGameObjectInChildWithTag(character, "PlayerCam").GetComponent<PlayerCam>().enabled = true;
+                GameObject UICamera = GameHandler.FindGameObjectInChildWithTag(character, "UICam");
+
+                GameHandler.FindGameObjectInChildWithTag(character, "UICam").GetComponent<Camera>().enabled = true;
+                GameHandler.FindGameObjectInChildWithTag(UICamera, "PlayerCam").GetComponent<Camera>().enabled = true;
+                GameHandler.FindGameObjectInChildWithTag(UICamera, "PlayerCam").GetComponent<AudioListener>().enabled = true;
+                GameHandler.FindGameObjectInChildWithTag(UICamera, "PlayerCam").GetComponent<PlayerCam>().enabled = true;
 
                 character.GetComponentInChildren<MoveStateManager>().enabled = true;
                 character.GetComponentInChildren<DashStateManager>().enabled = true;

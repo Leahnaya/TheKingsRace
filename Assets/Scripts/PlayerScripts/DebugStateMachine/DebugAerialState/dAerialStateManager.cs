@@ -245,7 +245,7 @@ public class dAerialStateManager : NetworkBehaviour
                 }
             }
         }
-        else if(Physics.Raycast(groundRay, out groundHit, moveController.height + groundSlantDistance) && !jumpPressed){
+        else if(Physics.Raycast(groundRay, out groundHit, moveController.height + groundSlantDistance) && !jumpPressed && curCoyJumpTimer <= 0){
             if(Vector3.Dot(groundHit.normal, transform.up) > 0f){
                 moveController.Move(groundHit.normal * 20 * Time.deltaTime);
                 mSM.CancelMomentum();

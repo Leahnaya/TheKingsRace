@@ -83,8 +83,11 @@ public class EndCollider : NetworkBehaviour {
 
         foreach (GameObject character in playableCharacters) {
             if (character.GetComponent<NetworkObject>().OwnerClientId == otherRunnerClientID) {
-                GameHandler.FindGameObjectInChildWithTag(character, "PlayerCam").GetComponent<Camera>().enabled = true;
-                GameHandler.FindGameObjectInChildWithTag(character, "PlayerCam").GetComponent<AudioListener>().enabled = true;
+                GameObject UICamera = GameHandler.FindGameObjectInChildWithTag(character, "UICam");
+
+                //GameHandler.FindGameObjectInChildWithTag(character, "UICam").GetComponent<Camera>().enabled = true;
+                GameHandler.FindGameObjectInChildWithTag(UICamera, "PlayerCam").GetComponent<Camera>().enabled = true;
+                GameHandler.FindGameObjectInChildWithTag(UICamera, "PlayerCam").GetComponent<AudioListener>().enabled = true;
             }
         }
 

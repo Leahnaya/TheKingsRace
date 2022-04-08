@@ -272,7 +272,7 @@ public class AerialStateManager : NetworkBehaviour
                 }
             }
         }
-        else if(Physics.Raycast(groundRay, out groundHit, moveController.height + groundSlantDistance) && !jumpPressed){
+        else if(Physics.Raycast(groundRay, out groundHit, moveController.height + groundSlantDistance) && !jumpPressed && curCoyJumpTimer <= 0 ){
             if(Vector3.Dot(groundHit.normal, transform.up) > 0f){
                 Debug.Log("On a Slant");
                 // Debug.Log("The grounds Normal" + groundHit.normal);
