@@ -11,7 +11,7 @@ public class dMoveCrouchState : dMoveBaseState
     public override void EnterState(dMoveStateManager mSM, dMoveBaseState previousState){
 
         //if not coming from slide state then rotate player and adjust height
-        if(previousState != mSM.SlideState){
+        if(previousState != mSM.SlideState && previousState != mSM.CrouchWalkState){
             mSM.pStats.CurVel = 0;
             mSM.moveController.height *= .5f;
             mSM.moveController.center = new Vector3(0,mSM.moveController.center.y - mSM.moveController.height * .5f,0);
@@ -45,6 +45,9 @@ public class dMoveCrouchState : dMoveBaseState
                 Debug.Log(slideRay.collider.name);
             }
         }
+        else if((Input.GetAxis("Vertical") > 0.0f || Input.GetAxis("Horizontal") > 0.0f)){
+            mSM.SwitchState(mSM.CrouchWalkState);
+        }
 
         //Debug.DrawRay(mSM.gameObject.transform.position + new Vector3(0,1f,0), Vector3.up * 2f, Color.red);
 
@@ -58,8 +61,6 @@ public class dMoveCrouchState : dMoveBaseState
 
     public override void FixedUpdateState(dMoveStateManager mSM){
 
-        mSM.transform.Rotate(Vector3.up * -mSM.sensitivity * Time.deltaTime * Input.GetAxis("Mouse X"));
-
-        mSM.SlideMovement();
+        mSM.CrouchMovement();
     }
 }

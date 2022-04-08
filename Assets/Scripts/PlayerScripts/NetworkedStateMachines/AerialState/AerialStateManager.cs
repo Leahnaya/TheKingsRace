@@ -62,6 +62,7 @@ public class AerialStateManager : NetworkBehaviour
     //Ground Check
     public bool isGrounded; // is player grounded
     public float groundCheckDistance = 0.05f; // offset distance to check ground
+    public float groundSlantDistance = 0.1f;
     const float jumpGroundingPreventionTime = 0.2f; // delay so player doesn't get snapped to ground while jumping
     const float groundCheckDistanceInAir = 0.07f; // How close we have to get to ground to start checking for grounded again
     Ray groundRay; // ground ray
@@ -271,6 +272,14 @@ public class AerialStateManager : NetworkBehaviour
                 }
             }
         }
+        else if(Physics.Raycast(groundRay, out groundHit, moveController.height + groundSlantDistance) && !jumpPressed){
+            if(Vector3.Dot(groundHit.normal, transform.up) > 0f){
+                Debug.Log("On a Slant");
+                // Debug.Log("The grounds Normal" + groundHit.normal);
+                moveController.Move(groundHit.normal * 20 * Time.deltaTime);
+                mSM.CancelMomentum();
+            }
+        }
     }
 
     //Actually applies the downwards movement
@@ -283,7 +292,7 @@ public class AerialStateManager : NetworkBehaviour
     void Jump(){
         if(!pStats.IsPaused){
             //If space/south gamepad button is pressed apply an upwards force to the player
-            if (Input.GetAxis("Jump") != 0 && !jumpHeld && curJumpNum < pStats.JumpNum && (mSM.currentState != mSM.SlideState && mSM.currentState != mSM.CrouchState && mSM.currentState != mSM.RagdollState && mSM.currentState != mSM.RecoveringState && currentState != GlidingState))
+            if (Input.GetAxis("Jump") != 0 && !jumpHeld && curJumpNum < pStats.JumpNum && (mSM.currentState != mSM.SlideState && mSM.currentState != mSM.CrouchState && mSM.currentState != mSM.CrouchWalkState && mSM.currentState != mSM.RagdollState && mSM.currentState != mSM.RecoveringState && currentState != GlidingState))
             {
                 if(currentState == WallRunState){
                     AddImpact((GetWallJumpDirection()), pStats.JumpPow * 8.5f);
@@ -493,11 +502,11 @@ public class AerialStateManager : NetworkBehaviour
         if(!pStats.IsPaused){
             if ((Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.JoystickButton2)) && pStats.HasGrapple) //If grapple button is hit
             {
-                Debug.Log("Checking Hooks");
+                //Debug.Log("Checking Hooks");
                 hookPointIndex = FindHookPoint(); //Find the nearest hook point within max distance
                 if (hookPointIndex != -1) //If there is a hookpoint
                     {
-                        Debug.Log("Found Hook");
+                        //Debug.Log("Found Hook");
                         hookPoint = hookPoints[hookPointIndex]; //The point we are grappling from
                         return true;
                     }

@@ -136,7 +136,7 @@ public class dMoveStateManager : NetworkBehaviour
 
         //if grappling in aerial state manager swap to grapple here
         if(currentState != GrappleAirState){
-            if(aSM.currentState == aSM.GrappleAirState && (currentState != SlideState && currentState != CrouchState && currentState != RagdollState && currentState != RecoveringState)){
+            if(aSM.currentState == aSM.GrappleAirState && (currentState != SlideState && currentState != CrouchState && currentState != CrouchWalkState && currentState != RagdollState && currentState != RecoveringState)){
                 SwitchState(GrappleAirState);
             }
         }
@@ -211,6 +211,40 @@ public class dMoveStateManager : NetworkBehaviour
         }
     }
 
+    public void CrouchMovement(){
+        //Keyboard inputs
+        //Checks if movement keys have been pressed and calculates correct vector
+        if(currentState == CrouchWalkState){
+            float curSpeed = PlayerSpeed();
+            if(curSpeed != 0){
+                moveX = transform.right * Input.GetAxis("Horizontal") * Time.deltaTime * 2;
+                moveZ = transform.forward * Input.GetAxis("Vertical") * Time.deltaTime * 2;
+            }
+            else{
+                moveX = Vector3.zero;
+                moveZ = Vector3.zero;
+            }
+
+            vel = moveX + moveZ;
+            Vector3 moveXZ = new Vector3(vel.x, 0, vel.z);
+
+            driftVel = Vector3.Lerp(driftVel, moveXZ, 10 * Time.deltaTime);
+            if(currentState == GrappleAirState){
+                driftVel = Vector3.zero;
+            }
+        
+            if(driftVel != Vector3.zero){
+                playerModel.transform.rotation = Quaternion.LookRotation(driftVel.normalized);  
+            }
+
+            //Actually move he player
+            moveController.Move(driftVel); 
+            }
+        else{
+            moveController.Move(Vector3.zero); 
+        }
+    }
+
     //Wasd movement using player speed
     public void DirectionalMovement(){
         //Keyboard inputs
@@ -230,12 +264,12 @@ public class dMoveStateManager : NetworkBehaviour
         
         
         //Check if wall is in direction player is moving
-        if (((Physics.Raycast(gameObject.transform.position + new Vector3(0,.4f,0) + rayOffset, driftVel.normalized, out wallHitBot, .35f, layerMask) == true) || ((currentState != SlideState || currentState != CrouchState) && (Physics.Raycast(gameObject.transform.position + new Vector3(0,2.2f,0), driftVel.normalized, out wallHitTop, .35f, layerMask) == true))) && !firstWallHit){
+        if (((Physics.Raycast(gameObject.transform.position + new Vector3(0,.4f,0) + rayOffset, driftVel.normalized, out wallHitBot, .35f, layerMask) == true) || ((currentState != SlideState || currentState != CrouchState || currentState == CrouchWalkState) && (Physics.Raycast(gameObject.transform.position + new Vector3(0,2.2f,0), driftVel.normalized, out wallHitTop, .35f, layerMask) == true))) && !firstWallHit){
             CancelMomentum();
             //Debug.Log(wallHitBot.collider.name);
             firstWallHit = true;
         }
-        if(((Physics.Raycast(gameObject.transform.position + new Vector3(0,.4f,0) + rayOffset, driftVel.normalized, out wallExitBot, .3f, layerMask) == false) && ((currentState == SlideState || currentState == CrouchState) || (Physics.Raycast(gameObject.transform.position + new Vector3(0,2.2f,0), driftVel.normalized, out wallExitTop, .3f, layerMask) == false))) && firstWallHit){
+        if(((Physics.Raycast(gameObject.transform.position + new Vector3(0,.4f,0) + rayOffset, driftVel.normalized, out wallExitBot, .3f, layerMask) == false) && ((currentState == SlideState || currentState == CrouchState || currentState == CrouchWalkState) || (Physics.Raycast(gameObject.transform.position + new Vector3(0,2.2f,0), driftVel.normalized, out wallExitTop, .3f, layerMask) == false))) && firstWallHit){
             firstWallHit = false;
         }
 
@@ -262,11 +296,6 @@ public class dMoveStateManager : NetworkBehaviour
         vel = moveX + moveZ;
         Vector3 moveXZ = new Vector3(vel.x, 0, vel.z);
         driftVel = Vector3.Lerp(driftVel, moveXZ, pStats.CurTraction * Time.deltaTime);
-        
-        //need to have move controller involved for correct movement
-        if(currentState == CrouchState){
-            driftVel = Vector3.zero;
-        }
 
         //Actually move he player
         moveController.Move(driftVel);
@@ -318,11 +347,6 @@ public class dMoveStateManager : NetworkBehaviour
         moveX = Vector3.zero;
         moveZ = Vector3.zero;
         driftVel = Vector3.zero;
-    }
-
-    //Verify Movement
-    private void VerifyMovement(){
-
     }
 
     //Apply Wind movement to the player

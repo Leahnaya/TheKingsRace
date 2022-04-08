@@ -9,32 +9,41 @@ public class MoveCrouchWalkState : MoveBaseState
     }
 
     public override void ExitState(MoveStateManager mSM, MoveBaseState nextState){
-
+        //if next state isn't crouch revert rotation, speed, and height
+        if(nextState != mSM.CrouchState){
+            mSM.gameObject.transform.localEulerAngles = new Vector3(0, 0, 0);
+            mSM.pStats.CurVel = mSM.calculatedCurVel;
+            mSM.moveController.height *= 2.0f;
+            mSM.moveController.center = new Vector3(0,mSM.moveController.center.y + mSM.moveController.height * .25f,0);
+        }
     }
     
     public override void UpdateState(MoveStateManager mSM){
+        if((!Input.GetKey(KeyCode.JoystickButton1) && !Input.GetKey(KeyCode.Q))){
+            mSM.SwitchState(mSM.CrouchState);
+        }
+        else if((Input.GetAxis("Vertical") == 0.0f && Input.GetAxis("Horizontal") == 0.0f)){
+            mSM.SwitchState(mSM.CrouchState);
+        }
 
+                //If falling stop sliding and go to wasd states
+        if(mSM.aSM.currentState == mSM.aSM.FallingState){
+             //Determine which state to go into based on player speed
+            if(mSM.calculatedCurVel < mSM.walkLimit){
+                mSM.SwitchState(mSM.WalkState);
+            }
+            else if(mSM.calculatedCurVel < mSM.runLimit){
+                mSM.SwitchState(mSM.JogState);
+            }
+            else{
+                mSM.SwitchState(mSM.RunState);
+            }
+        }
     }
 
     public override void FixedUpdateState(MoveStateManager mSM){
 
-        /*
-        if(mSM.aSM.currentState == mSM.aSM.FallingState){
-             //Determine which state to go into based on player speed
-                if(mSM.calculatedCurVel < mSM.walkLimit){
-                    SlideToMoveState(mSM);
-                    mSM.SwitchState(mSM.WalkState);
-                }
-                else if(mSM.calculatedCurVel < mSM.runLimit){
-                    SlideToMoveState(mSM);
-                    mSM.SwitchState(mSM.JogState);
-                }
-                else{
-                    SlideToMoveState(mSM);
-                    mSM.SwitchState(mSM.RunState);
-                }
-        }
-        */
+        mSM.CrouchMovement();
     }
 
 }
