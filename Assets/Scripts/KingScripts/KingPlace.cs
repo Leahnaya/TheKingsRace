@@ -15,6 +15,9 @@ public class KingPlace : NetworkBehaviour
     public GameObject Slime;
     public GameObject SlimeWithoutNetwork;
 
+    public GameObject Bumper;
+    public GameObject BumperWithoutNetwork;
+
     public GameObject HailSprite;
     public GameObject HailObject;
     private GameObject Grid;
@@ -33,30 +36,27 @@ public class KingPlace : NetworkBehaviour
     private Vector3 MontStr = new Vector3(-4000, 300, 495);
 
     private KingAbility KABlock = new KingAbility(2, 5);
-    private KingAbility KASlime = new KingAbility(2, 15);
-    private KingAbility KAHail = new KingAbility(2, 15);
-    private KingAbility KAThund = new KingAbility(2, 10);
+    private KingAbility KASlime = new KingAbility(3, 15);
+    private KingAbility KAHail = new KingAbility(4, 15);
+    private KingAbility KABump = new KingAbility(6, 10);
+
 
     private float[] MountPlats = { 303.41f, 315.5f, 330.5f, 345.5f, 360.5f, 400.5f, 415.5f, 430.5f, 470.5f, 485.5f, 500.5f };
     private float[] MountxOffsets = { -50f, -73.4f, -100f, -127f, -134.7f, -130f, -34f, 14.5f, 91.2f, 129f, 129.5f };
     private float[] MountzOffsets = { 130f, 120f, 97f, 56.6f, 32f, -50f, -135.5f, -138.5f, -105f, -52.5f, 50f };
 
-    public GameObject Thunderstorm;
     //Is called when the King clicks on the Thunderstorm button
-    public void OnThunderClicked()
-    {
-        if (KAThund.IsAvaliable()) {
-            //TODO thunderstorm
-            KAThund.UseItem();
-            MenuOff();
-        }
-    }
 
     private int Energy = 100;
 
     private GameObject placedObj;
 
     void Start() {
+        KABlock.KingButton(Panel.transform.GetChild(0).gameObject);//Grabs each button from the 
+        KASlime.KingButton(Panel.transform.GetChild(2).gameObject);
+        KAHail.KingButton(Panel.transform.GetChild(1).gameObject);
+        KABump.KingButton(Panel.transform.GetChild(3).gameObject);
+
         // Only try to grab references if we are actually in the game scene
         if (SceneManager.GetActiveScene().buildIndex == 3) {
             Grid = GameObject.FindGameObjectWithTag("KingGrid");
@@ -73,7 +73,7 @@ public class KingPlace : NetworkBehaviour
 
     bool Avaliable;
     public void PlaceObject(int ID) { //Is called when trhe King clicks the Block,Hail,or Slime button
-        //Switch statement, ID-0 = Block,ID-1 = Hail,ID-2 = Slime
+        //Switch statement, ID-0 = Block,ID-1 = Hail,ID-2 = Slime,ID-3 = Bumper
         Avaliable = false;
         switch (ID) {//Parses in the button clicked into the right object that the King is placing
             case 0:
@@ -87,6 +87,10 @@ public class KingPlace : NetworkBehaviour
             case 2:
                 Place = SlimeWithoutNetwork;
                 Avaliable = KASlime.IsAvaliable();
+                break;
+            case 3:
+                Place = BumperWithoutNetwork;
+                Avaliable = KABump.IsAvaliable();
                 break;
         }
         if (Avaliable == true) {
@@ -232,6 +236,16 @@ public class KingPlace : NetworkBehaviour
                 KABlock.UseItem();
             }
 
+            if (Place == BumperWithoutNetwork) {
+                //Server spawn Bumper
+                SpawnBumperServerRPC(spawnLoc);
+
+                //Remove PlaceTemp
+                Destroy(PlaceTemp);
+                MenuOff();
+                KABump.UseItem();
+            }
+
             if (Place == SlimeWithoutNetwork) {//If Object is Hail or Slime set the respective Placing value to true so it can launch into the secondary placing function
                 SlimePlacing = true;
             }
@@ -361,7 +375,7 @@ public class KingPlace : NetworkBehaviour
         KABlock.Cooldown();
         KAHail.Cooldown();
         KASlime.Cooldown();
-        KAThund.Cooldown();
+        KABump.Cooldown();
     }
 
     private bool SpendEnergy(KingAbility Ability) {
@@ -383,6 +397,12 @@ public class KingPlace : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     private void SpawnBoxServerRPC(Vector3 spawnLoc) {
         placedObj = Instantiate(Block, spawnLoc, Quaternion.identity);
+        placedObj.GetComponent<NetworkObject>().Spawn(null, true);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void SpawnBumperServerRPC(Vector3 spawnLoc) {
+        placedObj = Instantiate(Bumper, spawnLoc, Quaternion.identity);
         placedObj.GetComponent<NetworkObject>().Spawn(null, true);
     }
 

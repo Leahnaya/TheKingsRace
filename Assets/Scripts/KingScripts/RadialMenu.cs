@@ -64,6 +64,9 @@ public class RadialMenu : MonoBehaviour
             case 2:
                 UItext.text = "Click and Hold to Determine the Slime's Direction";
                 break;
+            case 3:
+                UItext.text = "Click to Place the Bumper";
+                break;
         }
     }
 }

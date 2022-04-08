@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class KingAbility
 {
@@ -8,7 +9,9 @@ public class KingAbility
     public int CooldownTimer;
     private int CooldownLength;
     private int FramestoSeconds = 0;
+    private float currenttime = 0f;
     private bool Avaliable = true;
+    private GameObject Button;
 
     private int EnergyCost;
 
@@ -35,7 +38,18 @@ public class KingAbility
                     Avaliable = true;
                 }
             }
+            if (Avaliable == false) {
+                Button.GetComponent<Image>().fillAmount = currenttime / CooldownLength * 1.0f;
+                currenttime += Time.deltaTime;
+            }
+            else {
+                currenttime = 0;
+            }
         }
+    }
+
+    public void KingButton(GameObject button) {
+        Button = button;
     }
 
     public void UseItem() {
