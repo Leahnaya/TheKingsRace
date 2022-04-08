@@ -3466,7 +3466,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1707207228499037468, guid: 0ea305f96ab853340bb9f0ed320dac08, type: 3}
       propertyPath: hasGrapple
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2088235644774667867, guid: 0ea305f96ab853340bb9f0ed320dac08, type: 3}
       propertyPath: m_LocalPosition.y

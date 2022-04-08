@@ -146,7 +146,7 @@ public class MoveStateManager : NetworkBehaviour
 
         //if grappling in aerial state manager swap to grapple here
         if(currentState != GrappleAirState){
-            if(aSM.currentState == aSM.GrappleAirState && (currentState != SlideState && currentState != RagdollState && currentState != RecoveringState)){
+            if(aSM.currentState == aSM.GrappleAirState && (currentState != SlideState && currentState != CrouchState && currentState != CrouchWalkState && currentState != RagdollState && currentState != RecoveringState)){
                 SwitchState(GrappleAirState);
             }
         }
@@ -274,12 +274,12 @@ public class MoveStateManager : NetworkBehaviour
         
         
         //Check if wall is in direction player is moving
-        if (((Physics.Raycast(gameObject.transform.position + new Vector3(0,.4f,0) + rayOffset, driftVel.normalized, out wallHitBot, .35f, layerMask) == true) || ((currentState != SlideState || currentState != CrouchState) && (Physics.Raycast(gameObject.transform.position + new Vector3(0,2.2f,0), driftVel.normalized, out wallHitTop, .35f, layerMask) == true))) && !firstWallHit){
+        if (((Physics.Raycast(gameObject.transform.position + new Vector3(0,.4f,0) + rayOffset, driftVel.normalized, out wallHitBot, .35f, layerMask) == true) || ((currentState != SlideState || currentState != CrouchState || currentState == CrouchWalkState) && (Physics.Raycast(gameObject.transform.position + new Vector3(0,2.2f,0), driftVel.normalized, out wallHitTop, .35f, layerMask) == true))) && !firstWallHit){
             CancelMomentum();
             //Debug.Log(wallHitBot.collider.name);
             firstWallHit = true;
         }
-        if(((Physics.Raycast(gameObject.transform.position + new Vector3(0,.4f,0) + rayOffset, driftVel.normalized, out wallExitBot, .3f, layerMask) == false) && ((currentState == SlideState || currentState == CrouchState) || (Physics.Raycast(gameObject.transform.position + new Vector3(0,2.2f,0), driftVel.normalized, out wallExitTop, .3f, layerMask) == false))) && firstWallHit){
+        if(((Physics.Raycast(gameObject.transform.position + new Vector3(0,.4f,0) + rayOffset, driftVel.normalized, out wallExitBot, .3f, layerMask) == false) && ((currentState == SlideState || currentState == CrouchState || currentState == CrouchWalkState) || (Physics.Raycast(gameObject.transform.position + new Vector3(0,2.2f,0), driftVel.normalized, out wallExitTop, .3f, layerMask) == false))) && firstWallHit){
             firstWallHit = false;
         }
 
