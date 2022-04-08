@@ -17,6 +17,7 @@ public class HailArea : MonoBehaviour
     public GameObject Hail;
 
     int timer = 0;
+    int timeMax = 75;
 
     RaycastHit hit;
     [SerializeField] private LayerMask LayerMask;
@@ -24,7 +25,7 @@ public class HailArea : MonoBehaviour
     // FixedUpdate is called once per .02 seconds (or 50 times a second)
     void FixedUpdate()
     {
-        if (timer == 50) {
+        if (timer == timeMax) {
             timer = 0;
             //Random diameter 4->8
             float diameter = Random.Range(4, 8);
@@ -63,6 +64,27 @@ public class HailArea : MonoBehaviour
         Xmax = RightBound;
         Zmax = TopBound;
         Zmin = BottomBound;
+        float distance = Mathf.Sqrt(Mathf.Pow((Xmax - Xmin), 2) - Mathf.Pow((Zmax - Zmin), 2)); //Finds the size of the box
+        //Converts it into a timer for spawing things properly
+        if(distance < 0) {
+            distance *= -1;
+        }
+        if(distance <= 40) {
+            Debug.Log("100 Frames");
+            timeMax = 100;
+        }
+        else if(distance > 40  && distance <= 180) {
+            Debug.Log("75 Frames");
+            timeMax = 75;
+        }
+        else if (distance > 180 && distance <= 400) {
+            Debug.Log("50 Frames");
+            timeMax = 50;
+        }
+        else if (distance > 400) {
+            Debug.Log("25 Frames");
+            timeMax = 25;
+        }
     }
 
     void Destruction() {
