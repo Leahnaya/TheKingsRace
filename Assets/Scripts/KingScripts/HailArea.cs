@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using MLAPI;
+using MLAPI.Messaging;
 
-public class HailArea : MonoBehaviour
+public class HailArea : NetworkBehaviour
 {
     // Update is called once per frame
     private float Xmax = 15f;
@@ -15,6 +17,8 @@ public class HailArea : MonoBehaviour
     int Lifetime = 0;
 
     public GameObject Hail;
+
+    private GameObject spawnedHail;
 
     int timer = 0;
     int timeMax = 75;
@@ -39,24 +43,33 @@ public class HailArea : MonoBehaviour
             }
             position = new Vector3(position.x, 100+height, position.z); //find ground and set y occordingly
 
-            SpawnHail(diameter, position);
+            SpawnHailServerRPC(diameter, position);
         }
         timer++;
 
         Lifetime++;
         if (Lifetime == 3000) {
-            Destruction();
+            DespawnMyselfServerRPC();
         }
     }
 
     // Spawns a singular Hail piece
-    void SpawnHail(float size, Vector3 pos)
-    {
-        //Spawn HailBall and its shadow
-        GameObject HailTemp = null;
-        HailTemp = Instantiate(Hail);
-        HailTemp.transform.position = pos;
-        HailTemp.transform.localScale = new Vector3(size, size, size);
+    [ServerRpc(RequireOwnership = false)]
+    void SpawnHailServerRPC(float size, Vector3 pos) {
+        spawnedHail = Instantiate(Hail, pos, Quaternion.identity);
+        spawnedHail.GetComponent<NetworkObject>().Spawn(null, true);
+        ResizeHailClientRPC(spawnedHail.GetComponent<NetworkObject>().NetworkObjectId, size);
+    }
+
+    [ClientRpc]
+    private void ResizeHailClientRPC(ulong hailID, float size) {
+        GameObject[] hails = GameObject.FindGameObjectsWithTag("Hail");
+
+        foreach (GameObject hail in hails) { 
+            if (hail.GetComponent<NetworkObject>().NetworkObjectId == hailID) {
+                hail.transform.localScale = new Vector3(size, size, size);
+            }
+        }
     }
 
     public void SetArea(float LeftBound, float RightBound, float TopBound, float BottomBound) {
@@ -87,7 +100,8 @@ public class HailArea : MonoBehaviour
         }
     }
 
-    void Destruction() {
-        Destroy(gameObject);
+    [ServerRpc(RequireOwnership = false)]
+    private void DespawnMyselfServerRPC() {
+        this.gameObject.GetComponent<NetworkObject>().Despawn(true);
     }
 }

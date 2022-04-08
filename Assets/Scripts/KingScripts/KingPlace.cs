@@ -332,10 +332,10 @@ public class KingPlace : NetworkBehaviour
             GridCheck(RowNumb, Box, ref HailPlacing);//Makes sure the Box is a valid position
         }
         //Instanciate HailArea based on PlaceTemp = Top Left and HailCorner = Bottom Right
-        if (HailPlacing == false) {
-            GameObject Temp;
-            Temp = Instantiate(HailObject);
-            Temp.GetComponent<HailArea>().SetArea(PlaceTemp.transform.position.x, HailCorner.transform.position.x, PlaceTemp.transform.position.z, HailCorner.transform.position.z);
+        if (HailPlacing == false) {     
+            Vector4 spawnLoc = new Vector4(PlaceTemp.transform.position.x, HailCorner.transform.position.x, PlaceTemp.transform.position.z, HailCorner.transform.position.z);
+            SpawnHailServerRPC(spawnLoc);
+
             Destroy(PlaceTemp);
             Destroy(HailCorner);
         }
@@ -411,6 +411,15 @@ public class KingPlace : NetworkBehaviour
         placedObj = Instantiate(Slime, spawnLoc, Quaternion.identity);
 
         placedObj.GetComponent<Slime>().GooStart(SlimeDir);
+
+        placedObj.GetComponent<NetworkObject>().Spawn(null, true);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void SpawnHailServerRPC(Vector4 spawnLoc) {
+        placedObj = Instantiate(HailObject, Vector3.zero, Quaternion.identity);
+
+        placedObj.GetComponent<HailArea>().SetArea(spawnLoc.x, spawnLoc.y, spawnLoc.z, spawnLoc.w);
 
         placedObj.GetComponent<NetworkObject>().Spawn(null, true);
     }
