@@ -89,8 +89,9 @@ public class Archer : NetworkBehaviour
         
         // Actually shoot it
         
-        if (shootingCooldown <= 0f) {
-            ShootArrowServerRPC();
+        if (target != null && shootingCooldown <= 0f) {
+            Vector3 position = target.position;
+            ShootArrowServerRPC(position);
             shootingCooldown = 1f/ fireRate;
         }
 
@@ -98,25 +99,14 @@ public class Archer : NetworkBehaviour
     }
 
     [ServerRpc(RequireOwnership = false)]
-    private void ShootArrowServerRPC() {
+    private void ShootArrowServerRPC(Vector3 tar) {
+
+        if (tar == null) { return; }
+
         arrowInScene = Instantiate(ArrowPrefab, firePoint.position, firePoint.rotation).gameObject; //Note from vinny - Maybe put this bit in the if check? seems that if target goes out of range while the RPC is being called is when we get null refs, maybe have a bool toggle that makes it so we dont look for new targets while we are still shooting through the rpc?
         arrowInScene.GetComponent<NetworkObject>().Spawn(null, true);
         
-        if (target.position != null)
-        {
-            arrowInScene.GetComponent<Arrow>().Seek(target.position); //NULL REFERENCE IS HERE
-        }
-        else if (target.position == null)
-        {
-            return; 
-        }
-            /*
-        GameObject arrowGO = Instantiate(ArrowPrefab, firePoint.position, firePoint.rotation).gameObject;
-        Arrow arrow = arrowGO.GetComponent<Arrow>();
-
-        if (arrow != null) {
-            arrow.Seek(target.position);
-        }*/
+        arrowInScene.GetComponent<Arrow>().Seek(tar);
     }
 
 

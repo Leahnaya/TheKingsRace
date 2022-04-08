@@ -9,7 +9,7 @@ public class EndCollider : NetworkBehaviour {
 
     // When player collides with the trigger for the end zone
     private void OnTriggerEnter(Collider other) {
-        if (other.gameObject.transform.parent.gameObject.GetComponent<NetworkObject>().OwnerClientId == NetworkManager.Singleton.LocalClientId) {
+        if (other.transform.gameObject.tag == "PlayerTrigger" && other.gameObject.transform.root.gameObject.GetComponent<NetworkObject>().OwnerClientId == NetworkManager.Singleton.LocalClientId) {
             RunnerFinishedMapServerRPC();
         }
     }
