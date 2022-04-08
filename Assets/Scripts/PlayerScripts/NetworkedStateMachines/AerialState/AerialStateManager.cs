@@ -62,6 +62,7 @@ public class AerialStateManager : NetworkBehaviour
     //Ground Check
     public bool isGrounded; // is player grounded
     public float groundCheckDistance = 0.05f; // offset distance to check ground
+    public float groundSlantDistance = 0.1f;
     const float jumpGroundingPreventionTime = 0.2f; // delay so player doesn't get snapped to ground while jumping
     const float groundCheckDistanceInAir = 0.07f; // How close we have to get to ground to start checking for grounded again
     Ray groundRay; // ground ray
@@ -269,6 +270,14 @@ public class AerialStateManager : NetworkBehaviour
                 {
                     moveController.Move(Vector3.down * groundHit.distance);
                 }
+            }
+        }
+        else if(Physics.Raycast(groundRay, out groundHit, moveController.height + groundSlantDistance) && !jumpPressed){
+            if(Vector3.Dot(groundHit.normal, transform.up) > 0f){
+                Debug.Log("On a Slant");
+                Debug.Log("The grounds Normal" + groundHit.normal);
+                moveController.Move(groundHit.normal * 20 * Time.deltaTime);
+                mSM.CancelMomentum();
             }
         }
     }

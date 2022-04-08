@@ -13,7 +13,7 @@ public class AerialGrappleAirState : AerialBaseState
 
     bool pointReached = false;
 
-    float initialForcePower = 4;
+    float initialForcePower = 100;
 
 
     public override void EnterState(AerialStateManager aSM, AerialBaseState previousState){
@@ -22,7 +22,7 @@ public class AerialGrappleAirState : AerialBaseState
         distanceBeneathHook = -3f;
         distanceAfterHook = 8f;
         pointReached = false;
-        initialForcePower = 4;
+        initialForcePower = 100;
         
         //refresh jump number
         aSM.curJumpNum = 0;
@@ -83,7 +83,7 @@ public class AerialGrappleAirState : AerialBaseState
 
         //Apply default gravity
         if(!pointReached){
-            aSM.moveController.Move(initialForceDirection * initialForcePower);
+            aSM.moveController.Move(initialForceDirection * initialForcePower * Time.deltaTime);
             aSM.GravityCalculation(0);
             aSM.pStats.GravVel = 0;
         }
