@@ -84,7 +84,7 @@ public class Archer : NetworkBehaviour
         Quaternion lookRotation = Quaternion.LookRotation(dir);//how to rotate to look that way.
         //convert into a VEC 3 from Quaternion
         Vector3 rotation = Quaternion.Lerp(this.gameObject.transform.rotation, lookRotation, Time.deltaTime * rotationSpeed).eulerAngles;
-        Debug.Log("Look Rot: " + lookRotation + " Rot: " + rotation);
+        //Debug.Log("Look Rot: " + lookRotation + " Rot: " + rotation);
         this.gameObject.transform.rotation = Quaternion.Euler (0f, rotation.y, 0f);
         
         // Actually shoot it
@@ -99,7 +99,7 @@ public class Archer : NetworkBehaviour
 
     [ServerRpc(RequireOwnership = false)]
     private void ShootArrowServerRPC() {
-        arrowInScene = Instantiate(ArrowPrefab, firePoint.position, firePoint.rotation).gameObject;
+        arrowInScene = Instantiate(ArrowPrefab, firePoint.position, firePoint.rotation).gameObject; //Note from vinny - Maybe put this bit in the if check? seems that if target goes out of range while the RPC is being called is when we get null refs, maybe have a bool toggle that makes it so we dont look for new targets while we are still shooting through the rpc?
         arrowInScene.GetComponent<NetworkObject>().Spawn(null, true);
         
         if (target.position != null)
