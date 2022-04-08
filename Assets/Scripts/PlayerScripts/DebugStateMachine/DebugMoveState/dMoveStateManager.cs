@@ -211,6 +211,40 @@ public class dMoveStateManager : NetworkBehaviour
         }
     }
 
+    public void CrouchMovement(){
+        //Keyboard inputs
+        //Checks if movement keys have been pressed and calculates correct vector
+        if(currentState == CrouchWalkState){
+            float curSpeed = PlayerSpeed();
+            if(curSpeed != 0){
+                moveX = transform.right * Input.GetAxis("Horizontal") * Time.deltaTime * 2;
+                moveZ = transform.forward * Input.GetAxis("Vertical") * Time.deltaTime * 2;
+            }
+            else{
+                moveX = Vector3.zero;
+                moveZ = Vector3.zero;
+            }
+
+            vel = moveX + moveZ;
+            Vector3 moveXZ = new Vector3(vel.x, 0, vel.z);
+
+            driftVel = Vector3.Lerp(driftVel, moveXZ, 10 * Time.deltaTime);
+            if(currentState == GrappleAirState){
+                driftVel = Vector3.zero;
+            }
+        
+            if(driftVel != Vector3.zero){
+                playerModel.transform.rotation = Quaternion.LookRotation(driftVel.normalized);  
+            }
+
+            //Actually move he player
+            moveController.Move(driftVel); 
+            }
+        else{
+            moveController.Move(Vector3.zero); 
+        }
+    }
+
     //Wasd movement using player speed
     public void DirectionalMovement(){
         //Keyboard inputs
@@ -262,11 +296,6 @@ public class dMoveStateManager : NetworkBehaviour
         vel = moveX + moveZ;
         Vector3 moveXZ = new Vector3(vel.x, 0, vel.z);
         driftVel = Vector3.Lerp(driftVel, moveXZ, pStats.CurTraction * Time.deltaTime);
-        
-        //need to have move controller involved for correct movement
-        if(currentState == CrouchState){
-            driftVel = Vector3.zero;
-        }
 
         //Actually move he player
         moveController.Move(driftVel);
@@ -318,11 +347,6 @@ public class dMoveStateManager : NetworkBehaviour
         moveX = Vector3.zero;
         moveZ = Vector3.zero;
         driftVel = Vector3.zero;
-    }
-
-    //Verify Movement
-    private void VerifyMovement(){
-
     }
 
     //Apply Wind movement to the player

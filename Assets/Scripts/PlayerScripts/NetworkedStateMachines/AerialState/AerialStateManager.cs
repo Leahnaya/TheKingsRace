@@ -274,7 +274,7 @@ public class AerialStateManager : NetworkBehaviour
         }
         else if(Physics.Raycast(groundRay, out groundHit, moveController.height + groundSlantDistance) && !jumpPressed){
             if(Vector3.Dot(groundHit.normal, transform.up) > 0f){
-                //Debug.Log("On a Slant");
+                Debug.Log("On a Slant");
                 // Debug.Log("The grounds Normal" + groundHit.normal);
                 moveController.Move(groundHit.normal * 20 * Time.deltaTime);
                 mSM.CancelMomentum();

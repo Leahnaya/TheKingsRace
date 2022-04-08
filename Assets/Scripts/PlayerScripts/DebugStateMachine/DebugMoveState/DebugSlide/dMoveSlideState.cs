@@ -32,6 +32,7 @@ public class dMoveSlideState : dMoveBaseState
         //if state is crouch revert traction
         else{
             mSM.pStats.CurTraction = mSM.pStats.Traction;
+            mSM.gameObject.transform.localEulerAngles = new Vector3(0, 0, 0);
         }
         mSM.GetComponent<Animator>().SetBool("isSliding", false);
     }
