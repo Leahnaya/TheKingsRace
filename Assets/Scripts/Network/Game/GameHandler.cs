@@ -36,7 +36,7 @@ public class GameHandler : NetworkBehaviour
             if (character.GetComponent<NetworkObject>().OwnerClientId == NetworkManager.Singleton.LocalClientId) {
                 localPlayer = character;
 
-                if(FindGameObjectInChildWithTag(character, "UICam").GetComponent<Camera>() != null){
+                if(FindGameObjectInChildWithTag(character, "UICam") != null){
                     FindGameObjectInChildWithTag(character, "UICam").GetComponent<Camera>().enabled = true;
                 
                     GameObject UICamera =  FindGameObjectInChildWithTag(character, "UICam");
