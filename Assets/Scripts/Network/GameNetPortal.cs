@@ -46,7 +46,7 @@ public class GameNetPortal : MonoBehaviour {
     private void SetOptions() { 
         // Set the Use MLAPI Relay Option if it doesn't yet exist
         if (!PlayerPrefs.HasKey("UseMLAPIRelay")) {
-            PlayerPrefs.SetInt("UseMLAPIRelay", 1);
+            PlayerPrefs.SetInt("UseMLAPIRelay", 0);
         } else { 
             if (PlayerPrefs.GetInt("UseMLAPIRelay") == 0) {
                 GameObject.FindGameObjectWithTag("NetworkManager").GetComponent<UNetTransport>().UseMLAPIRelay = false;
