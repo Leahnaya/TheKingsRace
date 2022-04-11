@@ -101,7 +101,7 @@ public class AerialStateManager : NetworkBehaviour
     Vector3 impact = Vector3.zero; // Impact Vector
 
     //Grapple Variables
-    float maxGrabDistance = 25;// Max Distance can cast grapple
+    float maxGrabDistance = 30;// Max Distance can cast grapple
     public GameObject hookPoint; // Actual Hook points
     public GameObject[] hookPoints; // Hook point list
     public int hookPointIndex; // Hook point Index
@@ -317,7 +317,7 @@ public class AerialStateManager : NetworkBehaviour
             }
             else if(Physics.Raycast(angleRayLeft, out groundHit, moveController.height + groundSlantDistance) && !jumpPressed && curCoyJumpTimer <= 0){
                 if(Vector3.Dot(groundHit.normal, transform.up) <= .8f){
-                    Debug.Log("Left");
+
                     moveController.Move(groundHit.normal * 20 * Time.deltaTime);
                     mSM.CancelMomentum();
                 }
