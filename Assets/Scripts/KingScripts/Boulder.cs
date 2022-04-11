@@ -19,14 +19,14 @@ public class Boulder : NetworkBehaviour
             Debug.Log("Bump");
             MoveStateManager playerMovement = objectHit.GetComponent<MoveStateManager>();
 
-            float DirBumpX = playerMovement.driftVel.x * -1;//Inverts the Player Velocity x
-            float DirBumpY = .1f;
-            float DirBumpZ = playerMovement.driftVel.z * -1;//Inverts the Player Velocity z
+            Vector3 dirBump = objectHit.transform.position - transform.position;
 
-            Vector3 DirBump = new Vector3(DirBumpX, DirBumpY, DirBumpZ);//Creates a direction to launch the player
-            DirBump = Vector3.Normalize(DirBump);//Normalizes the vector to be used as a bump direction
+            dirBump.y = .1f;
+            if(dirBump.x == 0 && dirBump.z == 0){
+                dirBump = new Vector3(1,.1f,1);
+            }
 
-            playerMovement.GetHit(DirBump, bumpPower);
+            playerMovement.GetHit(dirBump.normalized, bumpPower);
         }
     }
 

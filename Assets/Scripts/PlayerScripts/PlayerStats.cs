@@ -169,9 +169,8 @@ public class PlayerStats : MonoBehaviour
     }
 
     //temp values for reseting stuff
-    private float tempTraction;
-    private float tempAcc;
     private float accModification;
+    private float tractionModification;
     private bool weatherOn = false;
     ////
 
@@ -209,17 +208,13 @@ public class PlayerStats : MonoBehaviour
             case Weather.Rain:{
                 Debug.Log("Rain");
 
-                tempTraction = traction;
-                tempAcc = acc;
-
-                traction -= 4;
-                if(curTraction - 4 > 0){
-                   curTraction -= 4; 
-                }
-
-                acc += 2;
-                curAcc += 2;
-                accModification = 2;
+                tractionModification = .5f;
+                traction *= tractionModification;
+                curTraction *= tractionModification;
+                 
+                accModification = 5;
+                acc *= accModification;
+                curAcc *= accModification;
 
                 break;
             }
@@ -227,17 +222,13 @@ public class PlayerStats : MonoBehaviour
             case Weather.Snow:{
                 Debug.Log("Snow");
 
-                tempTraction = traction;
-                tempAcc = acc;
-
-                traction += 2;
-                if(curTraction > .01 && curTraction != 1){
-                   curTraction += 2;
-                }
-
-                acc *= .5f;
-                curAcc *= .5f;
-                accModification = -acc;
+                tractionModification = 2f;
+                traction *= tractionModification;
+                curTraction *= tractionModification;
+                 
+                accModification = .5f;
+                acc *= accModification;
+                curAcc *= accModification;
 
                 curVel *= .5f;
 
@@ -270,14 +261,15 @@ public class PlayerStats : MonoBehaviour
 
         weatherOn = false;
 
-        acc = tempAcc;
-        traction = tempTraction;
+        acc *= (1/tractionModification);
+        traction *= (1/accModification);
 
-        if(curTraction > .01 && curTraction != 1){
-            curTraction = traction;
-        }
 
-        curAcc -= accModification;
+        curTraction *= (1/tractionModification);
+        curAcc *= (1/accModification);
+
+        tractionModification = 1;
+        accModification = 1;
 
         windOn = false;
 
@@ -291,23 +283,25 @@ public class PlayerStats : MonoBehaviour
     bool midWeatherOn;
 
     public void ApplySlimeBody(){
-        maxVel = 25;
+        maxVel *= .4f;
         curVel = minVel;
     }
 
     //Clear slime body effect
     public void ClearSlimeBody(){
-        maxVel = 50;
+        maxVel *= (1/.4f);
     }
 
     //Apply slime trail effect to the player
     public void ApplySlimeTrail(){
-        curTraction = 1;
+        traction *= .3f;
+        curTraction *= .3f;
     }
 
     //Clear slime trail effect
     public void ClearSlimeTrail(){
-        curTraction = traction;
+        traction *= (1 / .3f);
+        curTraction *= (1 / .3f);
     }
     ////
     void Update(){
