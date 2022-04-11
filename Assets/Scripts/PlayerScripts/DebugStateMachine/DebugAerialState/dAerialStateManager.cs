@@ -139,8 +139,8 @@ public class dAerialStateManager : NetworkBehaviour
 
         //Grapple Variables
         hookPoints = GameObject.FindGameObjectsWithTag("HookPoint");
-        lastPos = transform.position;
         ////
+        lastPos = transform.position;
     }
 
     void Update(){
