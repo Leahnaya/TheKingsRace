@@ -4988,10 +4988,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxVel: 50
-  minVel: 18
+  minVel: 20
   curVel: 0
   hardCapMaxVel: 90
-  acc: 0.02
+  acc: 0.04
   curAcc: 0
   jumpPow: 60
   jumpNum: 2

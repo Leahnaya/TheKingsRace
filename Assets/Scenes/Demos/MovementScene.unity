@@ -3625,18 +3625,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1707207228499037414, guid: 0ea305f96ab853340bb9f0ed320dac08, type: 3}
-      propertyPath: groundSlantDistance
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1707207228499037464, guid: 0ea305f96ab853340bb9f0ed320dac08, type: 3}
-      propertyPath: m_SlopeLimit
-      value: 45
-      objectReference: {fileID: 0}
-    - target: {fileID: 1707207228499037464, guid: 0ea305f96ab853340bb9f0ed320dac08, type: 3}
-      propertyPath: m_StepOffset
-      value: 0.3
-      objectReference: {fileID: 0}
     - target: {fileID: 5759777694531189237, guid: 0ea305f96ab853340bb9f0ed320dac08, type: 3}
       propertyPath: m_RootOrder
       value: 13

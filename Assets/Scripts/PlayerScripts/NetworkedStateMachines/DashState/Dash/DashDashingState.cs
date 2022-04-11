@@ -7,7 +7,7 @@ public class DashDashingState : DashBaseState
 
     Vector3 moveDirection; // direction vector
     const float maxDashTime = .8f; // max dash time
-    float dashDistance = 10; // distance to dash
+    float dashDistance = 15; // distance to dash
     float dashStoppingSpeed = 0.1f; // how quickly they stop
     float currentDashTime = maxDashTime; // current dash time
     float dashSpeed = 12; // dash speed
@@ -27,6 +27,7 @@ public class DashDashingState : DashBaseState
         if(currentDashTime < maxDashTime){
             moveDirection = dSM.transform.forward * dashDistance;
             currentDashTime += dashStoppingSpeed;
+            dSM.pStats.GravVel = 0;
         }
 
         //if dashtimer runs out then cooldown
