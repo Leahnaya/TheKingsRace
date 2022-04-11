@@ -4988,10 +4988,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxVel: 50
-  minVel: 18
+  minVel: 20
   curVel: 0
   hardCapMaxVel: 90
-  acc: 0.02
+  acc: 0.04
   curAcc: 0
   jumpPow: 60
   jumpNum: 2
@@ -5140,13 +5140,12 @@ MonoBehaviour:
   curJumpNum: 0
   jumpHeld: 0
   canJump: 1
-  coyJumpTimer: 0.1
+  coyJumpTimer: 0.13
   curCoyJumpTimer: 0.13
   lowJumpMultiplier: 0.001
   fallMultiplier: 1.6
   isGrounded: 0
   groundCheckDistance: 0.05
-  groundSlantDistance: 0.1
   isWallRunning: 0
   hookPoint: {fileID: 0}
   hookPoints: []

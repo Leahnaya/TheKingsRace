@@ -47,8 +47,8 @@ public class dAerialStateManager : NetworkBehaviour
     public bool jumpHeld; // Jump is Held
     public bool canJump = true; // can the player jump
     bool jumpPressed; // Jamp was pressed
-    public float coyJumpTimer = 0.1f; // Default Coyote Jump time
-    public float curCoyJumpTimer = 0.1f; // current Coyote Jump time
+    public float coyJumpTimer = 0.13f; // Default Coyote Jump time
+    public float curCoyJumpTimer = 0.13f; // current Coyote Jump time
     public float lowJumpMultiplier; // Short jump multiplier
     public float fallMultiplier; // High Jump Multiplier
 
@@ -58,10 +58,20 @@ public class dAerialStateManager : NetworkBehaviour
     //Ground Check
     public bool isGrounded; // is player grounded
     public float groundCheckDistance = 0.05f; // offset distance to check ground
-    public float groundSlantDistance = 0.1f;
+    private float groundSlantDistance = .3f;
     const float jumpGroundingPreventionTime = 0.2f; // delay so player doesn't get snapped to ground while jumping
     const float groundCheckDistanceInAir = 0.07f; // How close we have to get to ground to start checking for grounded again
+    Vector3 raycastOffset;
+    Vector3 lastPos;
     Ray groundRay; // ground ray
+    Ray angleRayLeft;
+    Ray angleRayRight;
+    Ray angleRayForward;
+    Ray angleRayBackwards;
+    Ray angleRayLeftR;
+    Ray angleRayRightL;
+    Ray angleRayForwardB;
+    Ray angleRayBackwardsF;
     RaycastHit groundHit; // ground raycast
     
     //Wallrun
@@ -86,7 +96,7 @@ public class dAerialStateManager : NetworkBehaviour
     Vector3 impact = Vector3.zero; // Impact Vector
 
     //Grapple Variables
-    float maxGrabDistance = 25;// Max Distance can cast grapple
+    float maxGrabDistance = 30;// Max Distance can cast grapple
     public GameObject hookPoint; // Actual Hook points
     public GameObject[] hookPoints; // Hook point list
     public int hookPointIndex; // Hook point Index
@@ -130,6 +140,7 @@ public class dAerialStateManager : NetworkBehaviour
         //Grapple Variables
         hookPoints = GameObject.FindGameObjectsWithTag("HookPoint");
         ////
+        lastPos = transform.position;
     }
 
     void Update(){
@@ -225,17 +236,41 @@ public class dAerialStateManager : NetworkBehaviour
         
     //Checks if player is grounded
     void GroundCheck(){
+        raycastOffset = transform.position - lastPos;
+        lastPos = transform.position;
         // Make sure that the ground check distance while already in air is very small, to prevent suddenly snapping to ground
         float chosenGroundCheckDistance = isGrounded ? (moveController.skinWidth + groundCheckDistance) : groundCheckDistanceInAir;
 
         // reset values before the ground check
         isGrounded = false;
-        groundRay = new Ray(moveController.transform.position, Vector3.down);
+        groundRay = new Ray(moveController.transform.position + raycastOffset, Vector3.down);
+
+        angleRayLeft = new Ray(moveController.transform.position + raycastOffset , Quaternion.AngleAxis(45, Vector3.forward) * Vector3.left);
+        angleRayRight = new Ray(moveController.transform.position + raycastOffset, Quaternion.AngleAxis(-45, Vector3.forward) * -Vector3.left);
+        angleRayForward = new Ray(moveController.transform.position + raycastOffset, Quaternion.AngleAxis(-45, Vector3.left) * Vector3.forward);
+        angleRayBackwards = new Ray(moveController.transform.position + raycastOffset, Quaternion.AngleAxis(45, Vector3.left) * -Vector3.forward);
+
+        angleRayLeftR = new Ray(moveController.transform.position + raycastOffset, Quaternion.AngleAxis(-45, Vector3.up) * (Quaternion.AngleAxis(45, Vector3.forward) * Vector3.left));
+        angleRayRightL = new Ray(moveController.transform.position + raycastOffset, Quaternion.AngleAxis(-45, Vector3.up) * (Quaternion.AngleAxis(-45, -Vector3.forward) * -Vector3.left));
+        angleRayForwardB = new Ray(moveController.transform.position + raycastOffset, Quaternion.AngleAxis(-45, Vector3.up) * (Quaternion.AngleAxis(-45, Vector3.left) * Vector3.forward));
+        angleRayBackwardsF = new Ray(moveController.transform.position + raycastOffset, Quaternion.AngleAxis(-45, Vector3.up) * (Quaternion.AngleAxis(45, -Vector3.left) * Vector3.forward));
+
+        Debug.DrawRay(moveController.transform.position, Quaternion.AngleAxis(-45, Vector3.up) * (Quaternion.AngleAxis(45, Vector3.forward) * Vector3.left) * 1000,Color.yellow);
+        Debug.DrawRay(moveController.transform.position, Quaternion.AngleAxis(-45, Vector3.up) * (Quaternion.AngleAxis(-45, Vector3.forward) * -Vector3.left) * 1000,Color.blue);
+        Debug.DrawRay(moveController.transform.position, Quaternion.AngleAxis(-45, Vector3.up) * (Quaternion.AngleAxis(-45, Vector3.left) * Vector3.forward) * 1000,Color.red);
+        Debug.DrawRay(moveController.transform.position, Quaternion.AngleAxis(-45, Vector3.up) * (Quaternion.AngleAxis(45, Vector3.left) * -Vector3.forward) * 1000,Color.white);
+
+        Debug.DrawRay(moveController.transform.position, Quaternion.AngleAxis(45, Vector3.forward) * Vector3.left * 1000,Color.yellow);
+        Debug.DrawRay(moveController.transform.position, Quaternion.AngleAxis(-45, Vector3.forward) * -Vector3.left * 1000,Color.blue);
+        Debug.DrawRay(moveController.transform.position, Quaternion.AngleAxis(-45, Vector3.left) * Vector3.forward * 1000,Color.red);
+        Debug.DrawRay(moveController.transform.position, Quaternion.AngleAxis(45, Vector3.left) * -Vector3.forward * 1000,Color.white);
+        //Debug.DrawRay(moveController.transform.position, Quaternion.AngleAxis(-45, Vector3.up) * (Quaternion.AngleAxis(45, Vector3.left) * Vector3.forward) * 1000,Color.white);
 
         if (Physics.Raycast(groundRay, out groundHit, moveController.height + groundCheckDistance) && !jumpPressed)
         {
+            //Debug.Log(Vector3.Dot(groundHit.normal, transform.up));
             // Only consider this a valid ground hit if the ground normal goes in the same direction as the character up
-            if (Vector3.Dot(groundHit.normal, transform.up) > 0f)
+            if (Vector3.Dot(groundHit.normal, transform.up) > .8f)
             {
                 isGrounded = true;
                 // handle snapping to the ground
@@ -245,10 +280,60 @@ public class dAerialStateManager : NetworkBehaviour
                 }
             }
         }
-        else if(Physics.Raycast(groundRay, out groundHit, moveController.height + groundSlantDistance) && !jumpPressed && curCoyJumpTimer <= 0){
-            if(Vector3.Dot(groundHit.normal, transform.up) > 0f){
-                moveController.Move(groundHit.normal * 20 * Time.deltaTime);
-                mSM.CancelMomentum();
+        else if(currentState != WallRunState){
+            if(Physics.Raycast(groundRay, out groundHit, moveController.height + groundSlantDistance) && !jumpPressed && curCoyJumpTimer <= 0){
+                if(Vector3.Dot(groundHit.normal, transform.up) <= .8f){
+                    moveController.Move(groundHit.normal * 20 * Time.deltaTime);
+                    mSM.CancelMomentum();
+                }
+            }
+            else if(Physics.Raycast(angleRayLeft, out groundHit, moveController.height + groundSlantDistance) && !jumpPressed && curCoyJumpTimer <= 0){
+                if(Vector3.Dot(groundHit.normal, transform.up) <= .8f){
+                    moveController.Move(groundHit.normal * 20 * Time.deltaTime);
+                    mSM.CancelMomentum();
+                }
+            }
+            else if(Physics.Raycast(angleRayRight, out groundHit, moveController.height + groundSlantDistance) && !jumpPressed && curCoyJumpTimer <= 0){
+                if(Vector3.Dot(groundHit.normal, transform.up) <= .8f){
+                    moveController.Move(groundHit.normal * 20 * Time.deltaTime);
+                    mSM.CancelMomentum();
+                }
+            }
+            else if(Physics.Raycast(angleRayForward, out groundHit, moveController.height + groundSlantDistance) && !jumpPressed && curCoyJumpTimer <= 0){
+                if(Vector3.Dot(groundHit.normal, transform.up) <= .8f){
+                    moveController.Move(groundHit.normal * 20 * Time.deltaTime);
+                    mSM.CancelMomentum();
+                }
+            }
+            else if(Physics.Raycast(angleRayBackwards, out groundHit, moveController.height + groundSlantDistance) && !jumpPressed && curCoyJumpTimer <= 0){
+                if(Vector3.Dot(groundHit.normal, transform.up) <= .8f){
+                    moveController.Move(groundHit.normal * 20 * Time.deltaTime);
+                    mSM.CancelMomentum();
+                }
+            }
+            else if(Physics.Raycast(angleRayLeftR, out groundHit, moveController.height + groundSlantDistance) && !jumpPressed && curCoyJumpTimer <= 0){
+                if(Vector3.Dot(groundHit.normal, transform.up) <= .8f){
+                    moveController.Move(groundHit.normal * 20 * Time.deltaTime);
+                    mSM.CancelMomentum();
+                }
+            }
+            else if(Physics.Raycast(angleRayRightL, out groundHit, moveController.height + groundSlantDistance) && !jumpPressed && curCoyJumpTimer <= 0){
+                if(Vector3.Dot(groundHit.normal, transform.up) <= .8f){
+                    moveController.Move(groundHit.normal * 20 * Time.deltaTime);
+                    mSM.CancelMomentum();
+                }
+            }
+            else if(Physics.Raycast(angleRayForwardB, out groundHit, moveController.height + groundSlantDistance) && !jumpPressed && curCoyJumpTimer <= 0){
+                if(Vector3.Dot(groundHit.normal, transform.up) <= .8f){
+                    moveController.Move(groundHit.normal * 20 * Time.deltaTime);
+                    mSM.CancelMomentum();
+                }
+            }
+            else if(Physics.Raycast(angleRayBackwardsF, out groundHit, moveController.height + groundSlantDistance) && !jumpPressed && curCoyJumpTimer <= 0){
+                if(Vector3.Dot(groundHit.normal, transform.up) <= .8f){
+                    moveController.Move(groundHit.normal * 20 * Time.deltaTime);
+                    mSM.CancelMomentum();
+                }
             }
         }
     }

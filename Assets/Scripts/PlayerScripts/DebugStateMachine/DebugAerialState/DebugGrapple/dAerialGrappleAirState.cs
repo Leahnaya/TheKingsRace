@@ -7,13 +7,13 @@ public class dAerialGrappleAirState : dAerialBaseState
 
     Vector3 initialForceDirection;
 
-    float distanceBeneathHook = -3f;
-    float distanceAfterHook = 8f;
+    float distanceBeneathHook;
+    float distanceAfterHook;
     Vector3 desiredPosition;
 
-    bool pointReached = false;
+    bool pointReached;
 
-    float initialForcePower = 100;
+    float initialForcePower;
 
 
     public override void EnterState(dAerialStateManager aSM, dAerialBaseState previousState){
@@ -22,7 +22,7 @@ public class dAerialGrappleAirState : dAerialBaseState
         distanceBeneathHook = -3f;
         distanceAfterHook = 8f;
         pointReached = false;
-        initialForcePower = 100;
+        initialForcePower = 80;
         
         //refresh jump number
         aSM.curJumpNum = 0;
