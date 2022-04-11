@@ -201,7 +201,7 @@ public class WeatherWheel : NetworkBehaviour {
 
         // Do the spin
         wheelSpeed = Random.Range(4.000f, 5.000f);
-        subtractSpeed = Random.Range(0.003f, 0.009f);
+        subtractSpeed = 0.009f;
         isSpinning = true;
         onCooldown = true;
 
