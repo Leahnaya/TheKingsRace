@@ -58,7 +58,7 @@ public class dAerialStateManager : NetworkBehaviour
     //Ground Check
     public bool isGrounded; // is player grounded
     public float groundCheckDistance = 0.05f; // offset distance to check ground
-    private float groundSlantDistance = .1f;
+    private float groundSlantDistance = .05f;
     const float jumpGroundingPreventionTime = 0.2f; // delay so player doesn't get snapped to ground while jumping
     const float groundCheckDistanceInAir = 0.07f; // How close we have to get to ground to start checking for grounded again
     Ray groundRay; // ground ray
@@ -256,35 +256,30 @@ public class dAerialStateManager : NetworkBehaviour
             }
         }
         else if(Physics.Raycast(groundRay, out groundHit, moveController.height + groundSlantDistance) && !jumpPressed && curCoyJumpTimer <= 0){
-            Debug.Log(groundHit.distance);
             if(Vector3.Dot(groundHit.normal, transform.up) <= .8f){
                 moveController.Move(groundHit.normal * 20 * Time.deltaTime);
                 mSM.CancelMomentum();
             }
         }
         else if(Physics.Raycast(angleRayLeft, out groundHit, moveController.height + groundSlantDistance) && !jumpPressed && curCoyJumpTimer <= 0){
-            Debug.Log(groundHit.distance);
             if(Vector3.Dot(groundHit.normal, transform.up) <= .8f){
                 moveController.Move(groundHit.normal * 20 * Time.deltaTime);
                 mSM.CancelMomentum();
             }
         }
         else if(Physics.Raycast(angleRayRight, out groundHit, moveController.height + groundSlantDistance) && !jumpPressed && curCoyJumpTimer <= 0){
-            Debug.Log(groundHit.distance);
             if(Vector3.Dot(groundHit.normal, transform.up) <= .8f){
                 moveController.Move(groundHit.normal * 20 * Time.deltaTime);
                 mSM.CancelMomentum();
             }
         }
         else if(Physics.Raycast(angleRayForward, out groundHit, moveController.height + groundSlantDistance) && !jumpPressed && curCoyJumpTimer <= 0){
-            Debug.Log(groundHit.distance);
             if(Vector3.Dot(groundHit.normal, transform.up) <= .8f){
                 moveController.Move(groundHit.normal * 20 * Time.deltaTime);
                 mSM.CancelMomentum();
             }
         }
         else if(Physics.Raycast(angleRayBackwards, out groundHit, moveController.height + groundSlantDistance) && !jumpPressed && curCoyJumpTimer <= 0){
-            Debug.Log(groundHit.distance);
             if(Vector3.Dot(groundHit.normal, transform.up) <= .8f){
                 moveController.Move(groundHit.normal * 20 * Time.deltaTime);
                 mSM.CancelMomentum();
