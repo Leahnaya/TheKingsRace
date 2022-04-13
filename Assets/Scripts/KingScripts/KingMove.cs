@@ -14,6 +14,7 @@ public class KingMove : NetworkBehaviour
     private Vector3 KingMontStr = new Vector3(-4500, 825, 1130);
     private Vector3 KingMontEnd = new Vector3(-4500, 825, -110);
     private GameObject Grid;
+    public int mouseSensitivity;
 
     void Awake()
     {
@@ -71,5 +72,8 @@ public class KingMove : NetworkBehaviour
             Debug.Log("Aw, Beans");
             transform.position = KingStrPos;
         }
+
     }
+
+
 }

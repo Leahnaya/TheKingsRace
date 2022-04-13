@@ -57,23 +57,39 @@ public class PauseMenu : NetworkBehaviour {
         // Listen for Pause button and not already paused
         // TODO: UPDATE TO ALSO LISTEN FOR CONTROLLER PAUSE BUTTON PRESSED
         if (isUsable && Input.GetKeyDown(KeyCode.Escape) && PauseMenuPanel.activeInHierarchy != true) {
-            // Display Pause Menu
-            PauseMenuPanel.SetActive(true);
-            isViewingRunnerControls = true;
-
-            // Disable player controls
-            setPlayerControlsStateServerRPC(false);
-
-            // Turn off "Restart from Checkpoint" button for the king
             GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
-            foreach (GameObject player in players) { 
-                // Make sure they are the local player
-                if (player.GetComponent<NetworkObject>().IsLocalPlayer) {
+            foreach(GameObject player in players){
+                if(player.GetComponent<NetworkObject>().IsLocalPlayer){
+
+                    if(player.GetComponent<KingMove>() == null){
+
+                        if(!player.GetComponentInChildren<PlayerStats>().IsRespawning){
+                            // Display Pause Menu
+                            PauseMenuPanel.SetActive(true);
+                            isViewingRunnerControls = true;
+
+                            // Disable player controls
+                            setPlayerControlsStateServerRPC(false); 
+                        }
+                    }
+
                     // Check for king
-                    if (player.GetComponent<KingMove>() != null) {
+                    else{
+
+                        // Display Pause Menu
+                        PauseMenuPanel.SetActive(true);
+                        isViewingRunnerControls = true;
+
+                        // Disable player controls
+                        setPlayerControlsStateServerRPC(false); 
+
+                        // Turn off "Restart from Checkpoint" button for the king
                         RestartButton.interactable = false;
                     }
+
+                    
+                      
                 }
             }
         }
@@ -193,6 +209,8 @@ public class PauseMenu : NetworkBehaviour {
                     }
                 }
 
+                player.GetComponentInChildren<PlayerStats>().IsRespawning = true;
+
                 RespawnPlayerServerRPC(player.GetComponent<NetworkObject>().OwnerClientId, 
                     player.GetComponentInChildren<ResetZones>().GetRespawnPosition(curZone));
             }
@@ -229,7 +247,6 @@ public class PauseMenu : NetworkBehaviour {
 
                         // Handle Client Spawning Locally
                         string itemsAsString = string.Join(",", playerData.pInv.NetworkItemList);
-                        
                         StartCoroutine(SpawnClient(clientID, itemsAsString));
                     }
                 }
@@ -291,6 +308,7 @@ public class PauseMenu : NetworkBehaviour {
                 character.GetComponentInChildren<AerialStateManager>().enabled = true;
                 character.GetComponentInChildren<OffenseStateManager>().enabled = true;
                 character.GetComponentInChildren<CoolDown>().populatePlayerCanvas();
+                character.GetComponentInChildren<PlayerStats>().IsRespawning = false;
             }
         }
         

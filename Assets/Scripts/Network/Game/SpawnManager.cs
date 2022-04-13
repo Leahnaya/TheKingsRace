@@ -40,7 +40,7 @@ public class SpawnManager : NetworkBehaviour {
                         _runner.GetComponentInChildren<PlayerInventory>().UpdateEquips(playerData.pInv.NetworkItemList, this.gameObject.GetComponent<InventoryManager>().ItemDict);
                         _runner.GetComponentInChildren<CoolDown>().populatePlayerCanvas();
                         _runner.GetComponent<NetworkObject>().SpawnAsPlayerObject(NetworkManager.Singleton.LocalClientId, null, true);
-      
+                        _runner.GetComponentInChildren<PlayerStats>().IsRespawning = false;
                         // Increment runners
                         runnersSpawned++;
                     }
@@ -75,7 +75,7 @@ public class SpawnManager : NetworkBehaviour {
                     // Spawn as player
                     _runner = Instantiate(runnerPrefab, runnersSpawnPoints[runnersSpawned], Quaternion.Euler(0, -90, 0)).gameObject;
                     _runner.GetComponent<NetworkObject>().SpawnAsPlayerObject(clientId, null, true);
-
+                    _runner.GetComponentInChildren<PlayerStats>().IsRespawning = false;
                     // Increment runners
                     runnersSpawned++;
 
@@ -114,9 +114,9 @@ public class SpawnManager : NetworkBehaviour {
             // Find the local player
             if (character.GetComponent<NetworkObject>().OwnerClientId == clientID) {
                 List<string> itemList = itemsAsString.Split(',').ToList();
-
                 character.GetComponentInChildren<PlayerInventory>().UpdateEquips(itemList, this.gameObject.GetComponent<InventoryManager>().ItemDict);
                 character.GetComponentInChildren<CoolDown>().populatePlayerCanvas();
+                
             }
         }
     }
