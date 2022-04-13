@@ -5008,6 +5008,7 @@ MonoBehaviour:
   hasDash: 0
   playerPoints: 15
   isPaused: 0
+  isRespawning: 1
   windOn: 0
   windDirection: {x: 0, y: 0, z: 0}
 --- !u!114 &7688428083034862284

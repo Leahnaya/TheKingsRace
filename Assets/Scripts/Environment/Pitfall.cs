@@ -18,6 +18,7 @@ public class Pitfall : NetworkBehaviour
 
     private void OnTriggerEnter(Collider other) {
         if (cooldown == false && other.transform.gameObject.tag == "PlayerTrigger" && other.gameObject.transform.root.gameObject.GetComponent<NetworkObject>().OwnerClientId == NetworkManager.Singleton.LocalClientId) {
+            other.transform.root.GetComponentInChildren<PlayerStats>().IsRespawning = true;
             RespawnPlayerServerRPC(other.gameObject.transform.root.gameObject.GetComponent<NetworkObject>().OwnerClientId);
             cooldown = true;
             StartCoroutine(CoolItDown());
@@ -135,6 +136,7 @@ public class Pitfall : NetworkBehaviour
                 character.GetComponentInChildren<AerialStateManager>().enabled = true;
                 character.GetComponentInChildren<OffenseStateManager>().enabled = true;
                 character.GetComponentInChildren<CoolDown>().populatePlayerCanvas();
+                character.GetComponentInChildren<PlayerStats>().IsRespawning = false;
             }
         }
 

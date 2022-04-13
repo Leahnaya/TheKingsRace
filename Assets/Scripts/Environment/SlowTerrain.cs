@@ -29,7 +29,7 @@ public class SlowTerrain : NetworkBehaviour
 
         foreach (GameObject player in players) {
             if (player.GetComponent<NetworkObject>().OwnerClientId == playerID) {
-                player.GetComponentInChildren<PlayerStats>().ApplySlimeBody();
+                player.GetComponentInChildren<PlayerStats>().ApplySuperSlow();
             }
         }
     }
@@ -57,7 +57,7 @@ public class SlowTerrain : NetworkBehaviour
 
         foreach (GameObject player in players) {
             if (player.GetComponent<NetworkObject>().OwnerClientId == playerID) {
-                player.GetComponentInChildren<PlayerStats>().ClearSlimeBody();
+                player.GetComponentInChildren<PlayerStats>().ClearSuperSlow();
             }
         }
     }
