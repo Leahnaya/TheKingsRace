@@ -44,6 +44,7 @@ public class WeatherWheel : NetworkBehaviour {
                     gameObject.GetComponent<Image>().enabled = true;
                     gameObject.GetComponent<Button>().interactable = true;
                     pointer.SetActive(true);
+                    pointer.GetComponent<Button>().interactable = true;
                 }
             }
         }
@@ -126,6 +127,7 @@ public class WeatherWheel : NetworkBehaviour {
         // Allow weather to be spun again
         onCooldown = false;
         gameObject.GetComponent<Button>().interactable = true;
+        pointer.GetComponent<Button>().interactable = true;
     }
 
     [ServerRpc(RequireOwnership = false)]
@@ -207,5 +209,6 @@ public class WeatherWheel : NetworkBehaviour {
 
         // Also make the button uninteractable
         gameObject.GetComponent<Button>().interactable = false;
+        pointer.GetComponent<Button>().interactable = false;
     }
 }
