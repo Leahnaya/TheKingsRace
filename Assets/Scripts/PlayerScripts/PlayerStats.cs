@@ -154,6 +154,12 @@ public class PlayerStats : MonoBehaviour
         set{ isPaused = value; }
     }
 
+    [SerializeField] private bool isRespawning = true;
+    public bool IsRespawning{
+        get{ return isRespawning; }
+        set{ isRespawning = value; }
+    }
+
     ////Weather Related stats
     //Is wind on
     [SerializeField] private bool windOn = false;
@@ -283,13 +289,13 @@ public class PlayerStats : MonoBehaviour
     bool midWeatherOn;
 
     public void ApplySlimeBody(){
-        maxVel *= .4f;
+        maxVel *= .5f;
         curVel = minVel;
     }
 
     //Clear slime body effect
     public void ClearSlimeBody(){
-        maxVel *= (1/.4f);
+        maxVel *= (1/.5f);
     }
 
     //Apply slime trail effect to the player
@@ -303,6 +309,21 @@ public class PlayerStats : MonoBehaviour
         traction *= (1 / .3f);
         curTraction *= (1 / .3f);
     }
+
+    public void ApplySuperSlow(){
+        minVel *=.2f;
+        maxVel *=.2f;
+        acc *= .2f;
+
+        curVel = minVel;
+    }
+
+    public void ClearSuperSlow(){
+        minVel *= (1/.2f);
+        maxVel *= (1/.2f);
+        acc *= (1/.2f);
+    }
+
     ////
     void Update(){
         VariableValidation();
