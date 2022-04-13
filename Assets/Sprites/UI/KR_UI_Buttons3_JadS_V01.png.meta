@@ -1,40 +1,40 @@
 fileFormatVersion: 2
-guid: 6752962b9a0f4984fa08cb5a13e7bdfa
+guid: 6f81bdd0a5c7c0946bf59a2f2d299bf2
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4914967321489272866
-    second: Grapple
+      213: 2529865050070236663
+    second: RedTallUp
   - first:
-      213: 3495826128427586484
-    second: Nitro
+      213: -9178075151235286286
+    second: RedShortUp
   - first:
-      213: 7727917336835008987
-    second: Spring
+      213: -7005677058688560667
+    second: NameTag
   - first:
-      213: 4561481026067350109
-    second: Glide
+      213: 5811198691356850489
+    second: RedTallDown
   - first:
-      213: 7158647638258844303
-    second: TripleJump
+      213: -2859604919383965494
+    second: RedShortDown
   - first:
-      213: -2256611909853208913
-    second: RollerSkate
+      213: -8065580037879564448
+    second: Controls
   - first:
-      213: -3112451982961217212
-    second: Punch
+      213: -5050749554365645883
+    second: RedWideUp
   - first:
-      213: 2061666376165797104
-    second: Dash
+      213: 4101046700870373558
+    second: Options
   - first:
-      213: 4715863182911615046
-    second: Wallrun
+      213: 4627547820906541278
+    second: Credits
   - first:
-      213: 2806683812711548962
-    second: UpdatedItemSprites 1_9
+      213: -319824156379252158
+    second: RedWideDown
   - first:
-      213: 4642952349583748055
-    second: UpdatedItemSprites 1_10
+      213: 2333330309668589871
+    second: Quit
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -120,17 +120,77 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Lumin
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Grapple
+      name: RedTallUp
       rect:
         serializedVersion: 2
-        x: 154
-        y: 2281
-        width: 965
-        height: 868
+        x: 101
+        y: 802
+        width: 355
+        height: 232
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -138,20 +198,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 22075000db8753440800000000000000
-      internalID: 4914967321489272866
+      spriteID: 7fdbc17fbd2eb1320800000000000000
+      internalID: 2529865050070236663
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Nitro
+      name: RedShortUp
       rect:
         serializedVersion: 2
-        x: 2564
-        y: 1264
-        width: 1280
-        height: 719
+        x: 504
+        y: 797
+        width: 355
+        height: 150
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -159,20 +219,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4b39475975ba38030800000000000000
-      internalID: 3495826128427586484
+      spriteID: 2faf7c8074de0a080800000000000000
+      internalID: -9178075151235286286
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Spring
+      name: NameTag
       rect:
         serializedVersion: 2
-        x: 1541
-        y: 2270
-        width: 591
-        height: 986
+        x: 984
+        y: 740
+        width: 871
+        height: 296
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -180,20 +240,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bd922a3afd31f3b60800000000000000
-      internalID: 7727917336835008987
+      spriteID: 5e1d3c135d5d6ce90800000000000000
+      internalID: -7005677058688560667
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Glide
+      name: RedTallDown
       rect:
         serializedVersion: 2
-        x: 2577
-        y: 2430
-        width: 1226
-        height: 661
+        x: 101
+        y: 493
+        width: 355
+        height: 232
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -201,20 +261,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d52cd6053d2ad4f30800000000000000
-      internalID: 4561481026067350109
+      spriteID: 9393a85bb6685a050800000000000000
+      internalID: 5811198691356850489
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TripleJump
+      name: RedShortDown
       rect:
         serializedVersion: 2
-        x: 164
-        y: 1065
-        width: 910
-        height: 1042
+        x: 505
+        y: 598
+        width: 356
+        height: 150
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -222,20 +282,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f828b9e4910a85360800000000000000
-      internalID: 7158647638258844303
+      spriteID: ac0c8260a74a058d0800000000000000
+      internalID: -2859604919383965494
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RollerSkate
+      name: Controls
       rect:
         serializedVersion: 2
-        x: 1465
-        y: 1118
-        width: 787
-        height: 894
+        x: 1299
+        y: 537
+        width: 545
+        height: 135
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -243,20 +303,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fae984d8c67eea0e0800000000000000
-      internalID: -2256611909853208913
+      spriteID: 067f4b650bd411090800000000000000
+      internalID: -8065580037879564448
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Punch
+      name: RedWideUp
       rect:
         serializedVersion: 2
-        x: 154
-        y: 56
-        width: 957
-        height: 859
+        x: 104
+        y: 258
+        width: 753
+        height: 149
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -264,20 +324,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 441f22779695ec4d0800000000000000
-      internalID: -3112451982961217212
+      spriteID: 5cbb2925a0228e9b0800000000000000
+      internalID: -5050749554365645883
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Dash
+      name: Options
       rect:
         serializedVersion: 2
-        x: 2540
-        y: 111
-        width: 1256
-        height: 709
+        x: 1301
+        y: 362
+        width: 547
+        height: 136
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -285,20 +345,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0fcaabc55a28c9c10800000000000000
-      internalID: 2061666376165797104
+      spriteID: 6b09aa40f38d9e830800000000000000
+      internalID: 4101046700870373558
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wallrun
+      name: Credits
       rect:
         serializedVersion: 2
-        x: 1450
-        y: 166
-        width: 825
-        height: 660
+        x: 1308
+        y: 194
+        width: 545
+        height: 135
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -306,20 +366,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6403ac2449c127140800000000000000
-      internalID: 4715863182911615046
+      spriteID: ed0744ea93a583040800000000000000
+      internalID: 4627547820906541278
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UpdatedItemSprites 1_9
+      name: RedWideDown
       rect:
         serializedVersion: 2
-        x: 1878
-        y: 144
-        width: 7
-        height: 8
+        x: 107
+        y: 27
+        width: 753
+        height: 149
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -327,20 +387,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 228c285ae0853f620800000000000000
-      internalID: 2806683812711548962
+      spriteID: 24afc60df91cf8bf0800000000000000
+      internalID: -319824156379252158
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UpdatedItemSprites 1_10
+      name: Quit
       rect:
         serializedVersion: 2
-        x: 1886
-        y: 117
-        width: 7
-        height: 7
+        x: 1307
+        y: 25
+        width: 547
+        height: 136
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -348,8 +408,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7db210200941f6040800000000000000
-      internalID: 4642952349583748055
+      spriteID: f21d27bdd87a16020800000000000000
+      internalID: 2333330309668589871
       vertices: []
       indices: 
       edges: []
@@ -357,7 +417,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: e0e4d5017e25d8b40a2f9546507827ea
+    spriteID: f368677f66a964447beee05f2c68f225
     internalID: 0
     vertices: []
     indices: 

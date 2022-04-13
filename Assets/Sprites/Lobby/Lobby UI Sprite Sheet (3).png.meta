@@ -127,9 +127,9 @@ TextureImporter:
         x: 1509
         y: 3122
         width: 1161
-        height: 995
+        height: 960
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -145,12 +145,12 @@ TextureImporter:
       name: Lobby UI Sprite Sheet (3)_1
       rect:
         serializedVersion: 2
-        x: 2837
-        y: 2988
+        x: 2829
+        y: 3040
         width: 1080
-        height: 1079
+        height: 937
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -166,12 +166,12 @@ TextureImporter:
       name: Lobby UI Sprite Sheet (3)_2
       rect:
         serializedVersion: 2
-        x: 4064
-        y: 3026
-        width: 989
-        height: 965
+        x: 4089
+        y: 3085
+        width: 866
+        height: 828
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -187,12 +187,12 @@ TextureImporter:
       name: Lobby UI Sprite Sheet (3)_3
       rect:
         serializedVersion: 2
-        x: 5180
-        y: 2980
-        width: 909
-        height: 1062
+        x: 5188
+        y: 3025
+        width: 870
+        height: 836
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -208,12 +208,12 @@ TextureImporter:
       name: Lobby UI Sprite Sheet (3)_4
       rect:
         serializedVersion: 2
-        x: 1530
-        y: 1516
-        width: 1164
-        height: 1176
+        x: 1547
+        y: 1540
+        width: 1129
+        height: 1102
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -230,11 +230,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 2871
-        y: 1591
-        width: 1069
-        height: 1096
+        y: 1712
+        width: 975
+        height: 949
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -251,11 +251,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 4048
-        y: 1575
-        width: 1063
-        height: 1103
+        y: 1742
+        width: 993
+        height: 907
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -271,12 +271,12 @@ TextureImporter:
       name: Lobby UI Sprite Sheet (3)_7
       rect:
         serializedVersion: 2
-        x: 1514
-        y: 170
-        width: 1181
-        height: 1102
+        x: 1589
+        y: 193
+        width: 1090
+        height: 1028
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -292,12 +292,12 @@ TextureImporter:
       name: Lobby UI Sprite Sheet (3)_8
       rect:
         serializedVersion: 2
-        x: 2852
+        x: 2886
         y: 325
-        width: 1130
-        height: 1049
+        width: 1053
+        height: 1023
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -313,12 +313,12 @@ TextureImporter:
       name: Lobby UI Sprite Sheet (3)_9
       rect:
         serializedVersion: 2
-        x: 4208
-        y: 512
-        width: 978
-        height: 970
+        x: 4240
+        y: 602
+        width: 926
+        height: 814
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
