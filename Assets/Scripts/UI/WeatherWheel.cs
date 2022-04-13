@@ -70,14 +70,6 @@ public class WeatherWheel : NetworkBehaviour {
 
             if (finalAngle <= 45 || finalAngle > 315)
             {
-                // Snow
-                SpawnWeatherServerRPC(PlayerStats.Weather.Snow);
-
-                // Set angle back to centered
-                transform.localRotation = Quaternion.Euler(0, 0, 0);
-            }
-            else if (finalAngle > 45 && finalAngle <= 135)
-            {
                 // Windy
 
                 // Calculate the wind direction
@@ -88,21 +80,29 @@ public class WeatherWheel : NetworkBehaviour {
                 // Set angle back to centered
                 transform.localRotation = Quaternion.Euler(0, 0, 90);
             }
-            else if (finalAngle > 135 && finalAngle <= 225)
+            else if (finalAngle > 45 && finalAngle <= 135)
             {
-                // Fog
-                SpawnWeatherServerRPC(PlayerStats.Weather.Fog);
+                // Snow
+                SpawnWeatherServerRPC(PlayerStats.Weather.Snow);
 
                 // Set angle back to centered
-                transform.localRotation = Quaternion.Euler(0, 0, 180);
+                transform.localRotation = Quaternion.Euler(0, 0, 0);
             }
-            else if (finalAngle > 225 && finalAngle <= 315)
+            else if (finalAngle > 135 && finalAngle <= 225)
             {
                 // Rain
                 SpawnWeatherServerRPC(PlayerStats.Weather.Rain);
 
                 // Set angle back to centered
                 transform.localRotation = Quaternion.Euler(0, 0, 270);
+            }
+            else if (finalAngle > 225 && finalAngle <= 315)
+            {
+                // Fog
+                SpawnWeatherServerRPC(PlayerStats.Weather.Fog);
+
+                // Set angle back to centered
+                transform.localRotation = Quaternion.Euler(0, 0, 180);
             }
 
             // Start an IEnum to turn off the weather

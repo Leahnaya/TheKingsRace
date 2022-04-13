@@ -127,13 +127,13 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1804086046075697506}
-  m_LocalRotation: {x: 0, y: 0, z: -0.38268343, w: 0.92387956}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4677622022843481040}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -45}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 792, y: 386}
@@ -167,7 +167,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4f3ff2a93920421488d4b875bb5126c5, type: 3}
+  m_Sprite: {fileID: -8110203004865104281, guid: e50aa6ca2e43edf4dbd8ea82e0c022c9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -359,6 +359,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: WheelButton
       objectReference: {fileID: 0}
+    - target: {fileID: 6684661378602331443, guid: f09106d98169c264fa587fb2909ff027, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1775862099188547160, guid: e50aa6ca2e43edf4dbd8ea82e0c022c9, type: 3}
     - target: {fileID: 8829519900378791275, guid: f09106d98169c264fa587fb2909ff027, type: 3}
       propertyPath: pointer
       value: 
