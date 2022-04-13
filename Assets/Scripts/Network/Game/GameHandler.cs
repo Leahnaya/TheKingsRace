@@ -119,7 +119,7 @@ public class GameHandler : NetworkBehaviour
 
     [ServerRpc]
     private void DespawnCountdownServerRpc(ServerRpcParams serverRpcParams = default) {
-        _countdownUI.GetComponent<NetworkObject>().Despawn();
+        _countdownUI.GetComponent<NetworkObject>().Despawn(true);
         Destroy(_countdownUI);
     }
 
