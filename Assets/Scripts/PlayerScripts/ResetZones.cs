@@ -12,13 +12,15 @@ public class ResetZones : MonoBehaviour {
     private Transform ValleyRespawnPoint;
     private Transform PlainsRespawnPoint;
     private Transform FoothillsRespawnPoint;
-    private Transform MountainRespawnPoint;
+    private Transform MountainVerticalRespawnPoint;
+    private Transform MountainUpperRespawnPoint;
 
     public enum Zone { 
         VALLEY,
         PLAINS,
         FOOTHILLS,
-        MOUNTAIN
+        MOUNTAIN_VERTICAL,
+        MOUNTAIN_UPPER
     }
 
     private Zone currentZone;
@@ -30,7 +32,8 @@ public class ResetZones : MonoBehaviour {
             ValleyRespawnPoint = GameObject.FindGameObjectWithTag("ValleyRespawnPoint").transform;
             PlainsRespawnPoint = GameObject.FindGameObjectWithTag("PlainsRespawnPoint").transform;
             FoothillsRespawnPoint = GameObject.FindGameObjectWithTag("FoothillsRespawnPoint").transform;
-            MountainRespawnPoint = GameObject.FindGameObjectWithTag("MountainRespawnPoint").transform;
+            MountainVerticalRespawnPoint = GameObject.FindGameObjectWithTag("MountainRespawnPoint").transform;
+            MountainUpperRespawnPoint = GameObject.FindGameObjectWithTag("MountainUpperRespawnPoint").transform;
         }
 
         // Starting zone is the valley
@@ -51,8 +54,10 @@ public class ResetZones : MonoBehaviour {
                 return PlainsRespawnPoint.position;
             case Zone.FOOTHILLS:
                 return FoothillsRespawnPoint.position;
-            case Zone.MOUNTAIN:
-                return MountainRespawnPoint.position;
+            case Zone.MOUNTAIN_VERTICAL:
+                return MountainVerticalRespawnPoint.position;
+            case Zone.MOUNTAIN_UPPER:
+                return MountainUpperRespawnPoint.position;
             default:
             case Zone.VALLEY:
                 return ValleyRespawnPoint.position;
