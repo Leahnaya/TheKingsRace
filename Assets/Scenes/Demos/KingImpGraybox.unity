@@ -63866,8 +63866,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6693924812654725878, guid: 779115152a7c03340ab739e77b4eab49, type: 3}
     - target: {fileID: 3173415396083440353, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
+      propertyPath: field of view
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 3173415396083440353, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
       propertyPath: near clip plane
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3173415396104633697, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3173415396104633698, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
       propertyPath: UItext
@@ -63896,6 +63904,10 @@ PrefabInstance:
     - target: {fileID: 3173415396104633699, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
       propertyPath: m_SizeDelta.y
       value: 350
+      objectReference: {fileID: 0}
+    - target: {fileID: 3173415396104633710, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3173415396260468957, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
       propertyPath: m_AnchorMax.x

@@ -72,6 +72,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TempBumper
       objectReference: {fileID: 0}
+    - target: {fileID: 6693924812654725878, guid: 779115152a7c03340ab739e77b4eab49, type: 3}
+      propertyPath: m_Layer
+      value: 18
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 779115152a7c03340ab739e77b4eab49, type: 3}
 --- !u!1 &8337410631319514038 stripped

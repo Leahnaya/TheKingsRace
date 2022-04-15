@@ -30,6 +30,7 @@ TagManager:
   - MountainGrid
   - Shadows
   - Hail
+  - Arrow
   layers:
   - Default
   - TransparentFX
@@ -49,7 +50,7 @@ TagManager:
   - PlayerKicking
   - InvisibleWall
   - KingBlock
-  - 
+  - KingPlaceable
   - 
   - 
   - 

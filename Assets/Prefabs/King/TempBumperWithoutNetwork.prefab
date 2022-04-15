@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1093892204678916335}
   - component: {fileID: 10017695625894551}
   - component: {fileID: 5573311107389572129}
-  - component: {fileID: 6693924812654725864}
   - component: {fileID: 6693924812654725879}
   m_Layer: 0
   m_Name: TempBumperWithoutNetwork
@@ -84,20 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &6693924812654725864
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6693924812654725878}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 189474581528608548, guid: e517743df9a91064b852e4b16df5b6ad, type: 3}
 --- !u!114 &6693924812654725879
 MonoBehaviour:
   m_ObjectHideFlags: 0
