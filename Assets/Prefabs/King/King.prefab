@@ -208,8 +208,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Block: {fileID: 8322169750614848705, guid: 14529042a14497c499bdce8f966e884c, type: 3}
   BlockWithoutNetwork: {fileID: 5704254083382235334, guid: f56dedeb24725ab4a844690df1d5d3cd, type: 3}
-  Slime: {fileID: 2350198489747510937, guid: 24f3f8d1ca9cb65499b276dd8f1df901, type: 3}
-  SlimeWithoutNetwork: {fileID: 2511859290852366113, guid: ac312ddeb2b064d47a12cc319328d598, type: 3}
+  Slime: {fileID: 4712084825249301457, guid: fb0559f90611429409ab7c260946e561, type: 3}
+  SlimeWithoutNetwork: {fileID: 5526862129129345011, guid: e73f9de6af399ab41bf6fa0678de174a, type: 3}
   Bumper: {fileID: 8337410631319514038, guid: 7637747d23035f14ca81f867f4c3ec31, type: 3}
   BumperWithoutNetwork: {fileID: 6693924812654725878, guid: 779115152a7c03340ab739e77b4eab49, type: 3}
   HailSprite: {fileID: 7196861874458538651, guid: 69eee063ae6700a41a40964271faf676, type: 3}
@@ -220,6 +220,9 @@ MonoBehaviour:
   LayerMask:
     serializedVersion: 2
     m_Bits: 64
+  GroundMask:
+    serializedVersion: 2
+    m_Bits: 393224
 --- !u!1 &3173415395421141913
 GameObject:
   m_ObjectHideFlags: 0
@@ -729,7 +732,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 194559
+    m_Bits: 456703
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -786,10 +789,10 @@ RectTransform:
   m_Father: {fileID: 3173415395030910393}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 350, y: 350}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3173415396104633696
 CanvasRenderer:

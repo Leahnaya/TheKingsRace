@@ -82,20 +82,16 @@ public class HailArea : NetworkBehaviour
         if(distance < 0) {
             distance *= -1;
         }
-        if(distance <= 40) {
-            Debug.Log("100 Frames");
+        if(distance <= 60) {
             timeMax = 100;
         }
-        else if(distance > 40  && distance <= 180) {
-            Debug.Log("75 Frames");
+        else if(distance > 60  && distance <= 250) {
             timeMax = 75;
         }
-        else if (distance > 180 && distance <= 400) {
-            Debug.Log("50 Frames");
+        else if (distance > 250 && distance <= 500) {
             timeMax = 50;
         }
-        else if (distance > 400) {
-            Debug.Log("25 Frames");
+        else if (distance > 500) {
             timeMax = 25;
         }
     }

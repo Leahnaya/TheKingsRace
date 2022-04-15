@@ -141,12 +141,13 @@ public class KingPlace : NetworkBehaviour
             SlimeDir = DrawArrow();
             if (Input.GetMouseButtonUp(0)) {//Reads the player releasing the left mouse button
 
-                Vector3 slimeLoc = PlaceTemp.transform.position;
+                Vector3 slimeLoc = PlaceTemp.transform.position;//Gets the Slime's position and rotation
+                Quaternion slimeRot = PlaceTemp.transform.rotation;
 
                 Destroy(PlaceTemp);
 
                 // PLACE NETWORKED VERSION
-                SpawnSlimeServerRPC(slimeLoc, SlimeDir);
+                SpawnSlimeServerRPC(slimeLoc, slimeRot, SlimeDir);
 
                 SlimePlacing = false;
                 MenuOff();
@@ -174,6 +175,7 @@ public class KingPlace : NetworkBehaviour
     private GameObject Row;
     private GameObject Platform;
     Vector3 spawnLoc;
+    Quaternion spawnRot = Quaternion.identity;
     private void FindGridBox() {
         int RowNumb = 0, Box = 0, x = 0, z = 0;
         if (PlaceTemp.transform.position.x < MontStr.x) {//King is trying to place on the mountain
@@ -195,6 +197,7 @@ public class KingPlace : NetworkBehaviour
                                 found = true;
                                 Vector3 rot = row.transform.rotation.eulerAngles;
                                 PlaceTemp.transform.Rotate(0, (rot.y-90), 0);//Sets the object's rotation to the rows rotation
+                                spawnRot = PlaceTemp.transform.rotation;
                                 spawnLoc = new Vector3(box.transform.position.x-MountxOffset, PlaceTemp.transform.position.y, box.transform.position.z-MountzOffset);//Sets the object's location
                                 break;//Breaks out from the loops when found
                             }
@@ -228,7 +231,7 @@ public class KingPlace : NetworkBehaviour
 
             if (Place == BlockWithoutNetwork) {
                 // Have the server spawn the box
-                SpawnBoxServerRPC(spawnLoc);
+                SpawnBoxServerRPC(spawnLoc, spawnRot);
 
                 // Remove the reference to PlaceTemp
                 Destroy(PlaceTemp);
@@ -238,7 +241,7 @@ public class KingPlace : NetworkBehaviour
 
             if (Place == BumperWithoutNetwork) {
                 //Server spawn Bumper
-                SpawnBumperServerRPC(spawnLoc);
+                SpawnBumperServerRPC(spawnLoc, spawnRot);
 
                 //Remove PlaceTemp
                 Destroy(PlaceTemp);
@@ -257,6 +260,8 @@ public class KingPlace : NetworkBehaviour
         }
     }
 
+    [SerializeField] private LayerMask GroundMask;
+
     private void GridCheck(int Row, int Box, ref bool Placing) {//Makes it so items can only be placed in valid positions
         GameObject RowTrue;
         GameObject BoxTrue;
@@ -273,8 +278,12 @@ public class KingPlace : NetworkBehaviour
                 BoxTrue = null;
             }
             if (BoxTrue != null) {
-                Grid.GetComponent<GridReveal>().GridSwitch(false); //Switch off the grid
-                Placing = false;//Stop placing
+                //Check if there's something in the box, unless it's Hail, then it skips past
+                if (Physics.CheckSphere(BoxTrue.transform.GetChild(0).transform.position, BoxSize-1.5f, GroundMask) == false || PlaceTemp == HailSprite || Placing == HailPlacing)
+                {
+                    Grid.GetComponent<GridReveal>().GridSwitch(false); //Switch off the grid
+                    Placing = false;//Stop placing
+                }
             }
         }
     }
@@ -305,7 +314,6 @@ public class KingPlace : NetworkBehaviour
                             if (HailCorner.transform.position.z <= (box.transform.position.z - MountzOffset) + boxsize / 2 && HailCorner.transform.position.z >= (box.transform.position.z - MountzOffset) - boxsize / 2)
                             {//Sees if the z fits within the box
                                 found = true;
-                                Vector3 rot = row.transform.rotation.eulerAngles;
                                 HailCorner.transform.position = new Vector3(box.transform.position.x - MountxOffset, HailCorner.transform.position.y, box.transform.position.z - MountzOffset);//Sets the object's location
                                 break;//Breaks out from the loops when found
                             }
@@ -348,7 +356,9 @@ public class KingPlace : NetworkBehaviour
             MosPos = RayCastHit.point;
         }
         foreach (Transform child in PlaceTemp.transform) {
-            child.gameObject.SetActive(false);
+            if (child.gameObject.tag == "Arrow") { // Makes sure not to turn off the model
+                child.gameObject.SetActive(false);
+            }
         }//y=x(PlaceTemp.y - PlaceTemp.x) y=-x(PlaceTemp.y - PlaceTemp.x)
         if (MosPos.x > PlaceTemp.transform.position.x && MosPos.z < PlaceTemp.transform.position.z) {//Temp function to change Slime's dir
             PlaceTemp.transform.Find("ArrowUP").gameObject.SetActive(true);
@@ -394,21 +404,23 @@ public class KingPlace : NetworkBehaviour
         }
     }
 
+
+    //ServerRPCs for spawning the King's abilities
     [ServerRpc(RequireOwnership = false)]
-    private void SpawnBoxServerRPC(Vector3 spawnLoc) {
-        placedObj = Instantiate(Block, spawnLoc, Quaternion.identity);
+    private void SpawnBoxServerRPC(Vector3 spawnLoc, Quaternion spawnRot) {
+        placedObj = Instantiate(Block, spawnLoc, spawnRot);
         placedObj.GetComponent<NetworkObject>().Spawn(null, true);
     }
 
     [ServerRpc(RequireOwnership = false)]
-    private void SpawnBumperServerRPC(Vector3 spawnLoc) {
-        placedObj = Instantiate(Bumper, spawnLoc, Quaternion.identity);
+    private void SpawnBumperServerRPC(Vector3 spawnLoc, Quaternion spawnRot) {
+        placedObj = Instantiate(Bumper, spawnLoc, spawnRot);
         placedObj.GetComponent<NetworkObject>().Spawn(null, true);
     }
 
     [ServerRpc(RequireOwnership = false)]
-    private void SpawnSlimeServerRPC(Vector3 spawnLoc, int SlimeDir) {
-        placedObj = Instantiate(Slime, spawnLoc, Quaternion.identity);
+    private void SpawnSlimeServerRPC(Vector3 spawnLoc, Quaternion spawnRot, int SlimeDir) {
+        placedObj = Instantiate(Slime, spawnLoc, spawnRot);
 
         placedObj.GetComponent<Slime>().GooStart(SlimeDir);
 

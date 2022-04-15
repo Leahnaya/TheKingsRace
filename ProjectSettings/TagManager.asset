@@ -33,6 +33,7 @@ TagManager:
   - UICam
   - hasEvent
   - MountainUpperRespawnPoint
+  - Arrow
   layers:
   - Default
   - TransparentFX
@@ -53,6 +54,7 @@ TagManager:
   - InvisibleWall
   - KingBlock
   - hasEvent
+  - KingPlaceable
   - 
   - 
   - 
