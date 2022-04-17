@@ -83,6 +83,7 @@ public class LobbyItems : MonoBehaviour
     }
 
     void Start(){
+
         player.GetComponent<CapsuleCollider>().enabled = true;
         InitializeItemB();
         pointsLeft = pStats.PlayerPoints;
@@ -134,10 +135,20 @@ public class LobbyItems : MonoBehaviour
                 iOpt.GetComponent<EventTrigger>().triggers.Add(tooltipExit);
 
                 //Changes Button Texts
-                iOpt.transform.Find("Name").GetComponent<Text>().text = item.Value.itemName;
                 iOpt.GetComponent<Image>().sprite = itemBG[index];
+                iOpt.transform.Find("Name").GetComponent<Text>().text = item.Value.itemName;
+                iOpt.transform.Find("Name").localPosition = itemNamePos[index];
+                iOpt.transform.Find("Name").localEulerAngles = itemNameRot[index];
+               
                 iOpt.transform.Find("Cost").GetComponent<Text>().text = item.Value.costM.ToString();
-                iOpt.transform.Find("ItemImg").GetComponent<Image>().sprite = item.Value.itemSprite; // IMPLEMENT WHEN ITEM OBJECT CONTAIN IMAGE REFERENCE
+                iOpt.transform.Find("Cost").localPosition = itemCostPos[index];
+                iOpt.transform.Find("Cost").localEulerAngles = itemCostRot[index];
+
+                iOpt.transform.Find("ItemImg").GetComponent<Image>().sprite = item.Value.itemSprite;
+                iOpt.transform.Find("ItemImg").localPosition = itemImgPos[index];
+                iOpt.transform.Find("ItemImg").localEulerAngles = itemImgRot[index];
+
+                iOpt.transform.Find("Pin").localPosition = itemPinPos[index];  
 
                 index++;
             }
