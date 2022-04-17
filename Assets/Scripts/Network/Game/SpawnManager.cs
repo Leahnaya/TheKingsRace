@@ -116,6 +116,7 @@ public class SpawnManager : NetworkBehaviour {
                 List<string> itemList = itemsAsString.Split(',').ToList();
                 character.GetComponentInChildren<PlayerInventory>().UpdateEquips(itemList, this.gameObject.GetComponent<InventoryManager>().ItemDict);
                 character.GetComponentInChildren<CoolDown>().populatePlayerCanvas();
+                character.GetComponentInChildren<PlayerStats>().IsRespawning = false;
                 
             }
         }

@@ -1,40 +1,43 @@
 fileFormatVersion: 2
-guid: 6752962b9a0f4984fa08cb5a13e7bdfa
+guid: 129d6de3c52ce5747b4594049bbc9a0b
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4914967321489272866
-    second: Grapple
+      213: 4389422209477925189
+    second: GreenTallUp
   - first:
-      213: 3495826128427586484
-    second: Nitro
+      213: -6886762294741261117
+    second: GreenShortUp
   - first:
-      213: 7727917336835008987
-    second: Spring
+      213: 2294593992367377160
+    second: OrangeTallUp
   - first:
-      213: 4561481026067350109
-    second: Glide
+      213: 2515438966158048107
+    second: OrangeShortUp
   - first:
-      213: 7158647638258844303
-    second: TripleJump
+      213: 2698180387258833827
+    second: GreenTallDown
   - first:
-      213: -2256611909853208913
-    second: RollerSkate
+      213: 7325435568865295178
+    second: GreenShortDown
   - first:
-      213: -3112451982961217212
-    second: Punch
+      213: 1840919964890053311
+    second: OrangeTallDown
   - first:
-      213: 2061666376165797104
-    second: Dash
+      213: -6863374245361519383
+    second: OrangeShortDown
   - first:
-      213: 4715863182911615046
-    second: Wallrun
+      213: 4644922802074394440
+    second: GreenWideUp
   - first:
-      213: 2806683812711548962
-    second: UpdatedItemSprites 1_9
+      213: -3778901795496232556
+    second: OrangeWideUp
   - first:
-      213: 4642952349583748055
-    second: UpdatedItemSprites 1_10
+      213: 1037044256758305162
+    second: GreenWideDown
+  - first:
+      213: 3013060722868002094
+    second: OrangeWideDown
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -120,17 +123,77 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Lumin
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Grapple
+      name: GreenTallUp
       rect:
         serializedVersion: 2
-        x: 154
-        y: 2281
-        width: 965
-        height: 868
+        x: 101
+        y: 814
+        width: 355
+        height: 232
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -138,20 +201,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 22075000db8753440800000000000000
-      internalID: 4914967321489272866
+      spriteID: 549542d4e3c5aec30800000000000000
+      internalID: 4389422209477925189
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Nitro
+      name: GreenShortUp
       rect:
         serializedVersion: 2
-        x: 2564
-        y: 1264
-        width: 1280
-        height: 719
+        x: 504
+        y: 810
+        width: 355
+        height: 149
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -159,20 +222,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4b39475975ba38030800000000000000
-      internalID: 3495826128427586484
+      spriteID: 3c4a4693e2e4d60a0800000000000000
+      internalID: -6886762294741261117
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Spring
+      name: OrangeTallUp
       rect:
         serializedVersion: 2
-        x: 1541
-        y: 2270
-        width: 591
-        height: 986
+        x: 1115
+        y: 813
+        width: 355
+        height: 232
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -180,20 +243,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bd922a3afd31f3b60800000000000000
-      internalID: 7727917336835008987
+      spriteID: 80b8dca241908df10800000000000000
+      internalID: 2294593992367377160
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Glide
+      name: OrangeShortUp
       rect:
         serializedVersion: 2
-        x: 2577
-        y: 2430
-        width: 1226
-        height: 661
+        x: 1518
+        y: 809
+        width: 355
+        height: 149
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -201,20 +264,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d52cd6053d2ad4f30800000000000000
-      internalID: 4561481026067350109
+      spriteID: b6bb6009962a8e220800000000000000
+      internalID: 2515438966158048107
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TripleJump
+      name: GreenTallDown
       rect:
         serializedVersion: 2
-        x: 164
-        y: 1065
-        width: 910
-        height: 1042
+        x: 101
+        y: 505
+        width: 355
+        height: 232
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -222,20 +285,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f828b9e4910a85360800000000000000
-      internalID: 7158647638258844303
+      spriteID: 3ab1d7244ccd17520800000000000000
+      internalID: 2698180387258833827
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RollerSkate
+      name: GreenShortDown
       rect:
         serializedVersion: 2
-        x: 1465
-        y: 1118
-        width: 787
-        height: 894
+        x: 506
+        y: 610
+        width: 355
+        height: 150
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -243,20 +306,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fae984d8c67eea0e0800000000000000
-      internalID: -2256611909853208913
+      spriteID: a4b3a3b86dc29a560800000000000000
+      internalID: 7325435568865295178
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Punch
+      name: OrangeTallDown
       rect:
         serializedVersion: 2
-        x: 154
-        y: 56
-        width: 957
-        height: 859
+        x: 1119
+        y: 505
+        width: 355
+        height: 254
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -264,20 +327,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 441f22779695ec4d0800000000000000
-      internalID: -3112451982961217212
+      spriteID: fba323754f24c8910800000000000000
+      internalID: 1840919964890053311
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Dash
+      name: OrangeShortDown
       rect:
         serializedVersion: 2
-        x: 2540
-        y: 111
-        width: 1256
-        height: 709
+        x: 1520
+        y: 610
+        width: 355
+        height: 149
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -285,20 +348,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0fcaabc55a28c9c10800000000000000
-      internalID: 2061666376165797104
+      spriteID: 9e479a0dc7560c0a0800000000000000
+      internalID: -6863374245361519383
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wallrun
+      name: GreenWideUp
       rect:
         serializedVersion: 2
-        x: 1450
-        y: 166
-        width: 825
-        height: 660
+        x: 104
+        y: 270
+        width: 753
+        height: 149
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -306,20 +369,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6403ac2449c127140800000000000000
-      internalID: 4715863182911615046
+      spriteID: 84f91cabda4167040800000000000000
+      internalID: 4644922802074394440
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UpdatedItemSprites 1_9
+      name: OrangeWideUp
       rect:
         serializedVersion: 2
-        x: 1878
-        y: 144
-        width: 7
-        height: 8
+        x: 1119
+        y: 270
+        width: 752
+        height: 149
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -327,20 +390,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 228c285ae0853f620800000000000000
-      internalID: 2806683812711548962
+      spriteID: 4997c56a6d4ae8bc0800000000000000
+      internalID: -3778901795496232556
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UpdatedItemSprites 1_10
+      name: GreenWideDown
       rect:
         serializedVersion: 2
-        x: 1886
-        y: 117
-        width: 7
-        height: 7
+        x: 107
+        y: 39
+        width: 753
+        height: 149
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -348,8 +411,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7db210200941f6040800000000000000
-      internalID: 4642952349583748055
+      spriteID: a81107cc142546e00800000000000000
+      internalID: 1037044256758305162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: OrangeWideDown
+      rect:
+        serializedVersion: 2
+        x: 1122
+        y: 39
+        width: 752
+        height: 149
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2d9a3973ca80d920800000000000000
+      internalID: 3013060722868002094
       vertices: []
       indices: 
       edges: []
@@ -357,7 +441,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: e0e4d5017e25d8b40a2f9546507827ea
+    spriteID: c49b06beeb02b1f498ffd89afca302e9
     internalID: 0
     vertices: []
     indices: 

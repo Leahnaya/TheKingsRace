@@ -1,40 +1,46 @@
 fileFormatVersion: 2
-guid: 6752962b9a0f4984fa08cb5a13e7bdfa
+guid: 81773d5ce89537c4b920f5caf313c271
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4914967321489272866
-    second: Grapple
+      213: 7627111236641680476
+    second: GroupedPostIts_0
   - first:
-      213: 3495826128427586484
-    second: Nitro
+      213: 1118100524556035779
+    second: GroupedPostIts_1
   - first:
-      213: 7727917336835008987
-    second: Spring
+      213: 1225044057733196227
+    second: GroupedPostIts_2
   - first:
-      213: 4561481026067350109
-    second: Glide
+      213: -8752588132252905848
+    second: GroupedPostIts_3
   - first:
-      213: 7158647638258844303
-    second: TripleJump
+      213: 132792604522639551
+    second: GroupedPostIts_4
   - first:
-      213: -2256611909853208913
-    second: RollerSkate
+      213: 7087882886416545144
+    second: GroupedPostIts_5
   - first:
-      213: -3112451982961217212
-    second: Punch
+      213: 1614331561838156711
+    second: GroupedPostIts_6
   - first:
-      213: 2061666376165797104
-    second: Dash
+      213: -1173945591962468489
+    second: GroupedPostIts_7
   - first:
-      213: 4715863182911615046
-    second: Wallrun
+      213: 115389660041812874
+    second: GroupedPostIts_8
   - first:
-      213: 2806683812711548962
-    second: UpdatedItemSprites 1_9
+      213: -3851350451553387837
+    second: GroupedPostIts_9
   - first:
-      213: 4642952349583748055
-    second: UpdatedItemSprites 1_10
+      213: 8569659413756512392
+    second: TripleTop
+  - first:
+      213: -5130149983770082968
+    second: TripleMid
+  - first:
+      213: -4695303131370400285
+    second: DoubleBottom
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -124,223 +130,223 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Grapple
+      name: GroupedPostIts_0
       rect:
         serializedVersion: 2
-        x: 154
-        y: 2281
-        width: 965
-        height: 868
+        x: 1509
+        y: 3122
+        width: 1161
+        height: 960
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 22075000db8753440800000000000000
-      internalID: 4914967321489272866
+      spriteID: c5cea627241f8d960800000000000000
+      internalID: 7627111236641680476
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Nitro
+      name: GroupedPostIts_1
       rect:
         serializedVersion: 2
-        x: 2564
-        y: 1264
-        width: 1280
-        height: 719
+        x: 2829
+        y: 3040
+        width: 1080
+        height: 937
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 4b39475975ba38030800000000000000
-      internalID: 3495826128427586484
+      spriteID: 3c6275dc08a448f00800000000000000
+      internalID: 1118100524556035779
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Spring
+      name: GroupedPostIts_2
       rect:
         serializedVersion: 2
-        x: 1541
-        y: 2270
-        width: 591
-        height: 986
+        x: 4089
+        y: 3085
+        width: 866
+        height: 828
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: bd922a3afd31f3b60800000000000000
-      internalID: 7727917336835008987
+      spriteID: 3c9e367741b300110800000000000000
+      internalID: 1225044057733196227
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Glide
+      name: GroupedPostIts_3
       rect:
         serializedVersion: 2
-        x: 2577
-        y: 2430
-        width: 1226
-        height: 661
+        x: 5188
+        y: 3025
+        width: 870
+        height: 836
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d52cd6053d2ad4f30800000000000000
-      internalID: 4561481026067350109
+      spriteID: 88e04c7877f888680800000000000000
+      internalID: -8752588132252905848
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: TripleJump
+      name: GroupedPostIts_4
       rect:
         serializedVersion: 2
-        x: 164
-        y: 1065
-        width: 910
-        height: 1042
+        x: 1547
+        y: 1540
+        width: 1129
+        height: 1102
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f828b9e4910a85360800000000000000
-      internalID: 7158647638258844303
+      spriteID: fb0fe559b26c7d100800000000000000
+      internalID: 132792604522639551
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: RollerSkate
+      name: GroupedPostIts_5
       rect:
         serializedVersion: 2
-        x: 1465
-        y: 1118
-        width: 787
-        height: 894
+        x: 2871
+        y: 1712
+        width: 975
+        height: 949
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fae984d8c67eea0e0800000000000000
-      internalID: -2256611909853208913
+      spriteID: 875bd669ee73d5260800000000000000
+      internalID: 7087882886416545144
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Punch
+      name: GroupedPostIts_6
       rect:
         serializedVersion: 2
-        x: 154
-        y: 56
-        width: 957
-        height: 859
+        x: 4048
+        y: 1742
+        width: 993
+        height: 907
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 441f22779695ec4d0800000000000000
-      internalID: -3112451982961217212
+      spriteID: 7ab901d9002476610800000000000000
+      internalID: 1614331561838156711
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Dash
+      name: GroupedPostIts_7
       rect:
         serializedVersion: 2
-        x: 2540
-        y: 111
-        width: 1256
-        height: 709
+        x: 1589
+        y: 193
+        width: 1090
+        height: 1028
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0fcaabc55a28c9c10800000000000000
-      internalID: 2061666376165797104
+      spriteID: 77ff07534be45bfe0800000000000000
+      internalID: -1173945591962468489
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Wallrun
+      name: GroupedPostIts_8
       rect:
         serializedVersion: 2
-        x: 1450
-        y: 166
-        width: 825
-        height: 660
+        x: 2886
+        y: 325
+        width: 1053
+        height: 1023
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6403ac2449c127140800000000000000
-      internalID: 4715863182911615046
+      spriteID: a8b9b81d842f99100800000000000000
+      internalID: 115389660041812874
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UpdatedItemSprites 1_9
+      name: GroupedPostIts_9
       rect:
         serializedVersion: 2
-        x: 1878
-        y: 144
-        width: 7
-        height: 8
+        x: 4240
+        y: 602
+        width: 926
+        height: 814
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 228c285ae0853f620800000000000000
-      internalID: 2806683812711548962
+      spriteID: 3cabe9d6b214d8ac0800000000000000
+      internalID: -3851350451553387837
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: UpdatedItemSprites 1_10
+      name: TripleTop
       rect:
         serializedVersion: 2
-        x: 1886
-        y: 117
-        width: 7
-        height: 7
+        x: 1375
+        y: 2900
+        width: 3700
+        height: 1225
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -348,8 +354,50 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7db210200941f6040800000000000000
-      internalID: 4642952349583748055
+      spriteID: 8880a0335db8de670800000000000000
+      internalID: 8569659413756512392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TripleMid
+      rect:
+        serializedVersion: 2
+        x: 1375
+        y: 1540
+        width: 3700
+        height: 1125
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86188ec35cb0ec8b0800000000000000
+      internalID: -5130149983770082968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DoubleBottom
+      rect:
+        serializedVersion: 2
+        x: 1525
+        y: 190
+        width: 2500
+        height: 1180
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e553e5cdaee6deb0800000000000000
+      internalID: -4695303131370400285
       vertices: []
       indices: 
       edges: []
@@ -357,7 +405,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: e0e4d5017e25d8b40a2f9546507827ea
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 

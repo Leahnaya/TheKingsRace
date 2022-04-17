@@ -130,10 +130,10 @@ TextureImporter:
       name: Resume_Up
       rect:
         serializedVersion: 2
-        x: 779
-        y: 860
-        width: 600
-        height: 150
+        x: 808
+        y: 863
+        width: 525
+        height: 141
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -151,10 +151,10 @@ TextureImporter:
       name: Controls_Up
       rect:
         serializedVersion: 2
-        x: 827
-        y: 699
-        width: 600
-        height: 150
+        x: 870
+        y: 705
+        width: 518
+        height: 129
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -172,10 +172,10 @@ TextureImporter:
       name: Quit_Up
       rect:
         serializedVersion: 2
-        x: 793
-        y: 528
-        width: 600
-        height: 150
+        x: 828
+        y: 533
+        width: 520
+        height: 140
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -193,10 +193,10 @@ TextureImporter:
       name: Resume_Down
       rect:
         serializedVersion: 2
-        x: 70
-        y: 858
-        width: 600
-        height: 150
+        x: 96
+        y: 863
+        width: 525
+        height: 140
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -214,10 +214,10 @@ TextureImporter:
       name: Controls_Down
       rect:
         serializedVersion: 2
-        x: 119
-        y: 699
-        width: 600
-        height: 150
+        x: 158
+        y: 705
+        width: 518
+        height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -235,10 +235,10 @@ TextureImporter:
       name: Quit_Down
       rect:
         serializedVersion: 2
-        x: 80
-        y: 529
-        width: 600
-        height: 150
+        x: 116
+        y: 532
+        width: 521
+        height: 140
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -256,10 +256,10 @@ TextureImporter:
       name: Yes_Up
       rect:
         serializedVersion: 2
-        x: 233
-        y: 239
-        width: 400
-        height: 200
+        x: 252
+        y: 267
+        width: 358
+        height: 157
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -277,10 +277,10 @@ TextureImporter:
       name: Yes_Down
       rect:
         serializedVersion: 2
-        x: 248
-        y: 19
-        width: 400
-        height: 200
+        x: 262
+        y: 36
+        width: 358
+        height: 157
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -298,10 +298,10 @@ TextureImporter:
       name: No_Up
       rect:
         serializedVersion: 2
-        x: 812
-        y: 254
-        width: 400
-        height: 200
+        x: 834
+        y: 279
+        width: 357
+        height: 157
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -319,10 +319,10 @@ TextureImporter:
       name: No_Down
       rect:
         serializedVersion: 2
-        x: 820
-        y: 29
-        width: 400
-        height: 200
+        x: 843
+        y: 49
+        width: 358
+        height: 156
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -340,10 +340,10 @@ TextureImporter:
       name: Checkpoint_Up
       rect:
         serializedVersion: 2
-        x: 1520
-        y: 762
-        width: 400
-        height: 200
+        x: 1543
+        y: 767
+        width: 295
+        height: 187
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -361,10 +361,10 @@ TextureImporter:
       name: Checkpoint_Down
       rect:
         serializedVersion: 2
-        x: 1520
-        y: 488
-        width: 400
-        height: 200
+        x: 1536
+        y: 495
+        width: 295
+        height: 187
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

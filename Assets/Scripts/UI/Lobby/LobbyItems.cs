@@ -21,7 +21,18 @@ public class LobbyItems : MonoBehaviour
     Vector3 position;
     private int pointsLeft;
 
+    //Item Image and Offsets
+    public Sprite[] itemBG;
+    public Vector3[] itemImgPos;
+    public Vector3[] itemImgRot;
+    public Vector3[] itemNamePos;
+    public Vector3[] itemNameRot;
+    public Vector3[] itemCostPos;
+    public Vector3[] itemCostRot;
+    public Vector3[] itemPinPos;
+
     ////Runner Body Parts Refs
+    public GameObject[] runnerBodyModifiers;
     //back parts
     public GameObject backBattery;
     public GameObject glider;
@@ -72,6 +83,7 @@ public class LobbyItems : MonoBehaviour
     }
 
     void Start(){
+
         player.GetComponent<CapsuleCollider>().enabled = true;
         InitializeItemB();
         pointsLeft = pStats.PlayerPoints;
@@ -123,9 +135,20 @@ public class LobbyItems : MonoBehaviour
                 iOpt.GetComponent<EventTrigger>().triggers.Add(tooltipExit);
 
                 //Changes Button Texts
+                iOpt.GetComponent<Image>().sprite = itemBG[index];
                 iOpt.transform.Find("Name").GetComponent<Text>().text = item.Value.itemName;
+                iOpt.transform.Find("Name").localPosition = itemNamePos[index];
+                iOpt.transform.Find("Name").localEulerAngles = itemNameRot[index];
+               
                 iOpt.transform.Find("Cost").GetComponent<Text>().text = item.Value.costM.ToString();
-                iOpt.transform.Find("ItemImg").GetComponent<Image>().sprite = item.Value.itemSprite; // IMPLEMENT WHEN ITEM OBJECT CONTAIN IMAGE REFERENCE
+                iOpt.transform.Find("Cost").localPosition = itemCostPos[index];
+                iOpt.transform.Find("Cost").localEulerAngles = itemCostRot[index];
+
+                iOpt.transform.Find("ItemImg").GetComponent<Image>().sprite = item.Value.itemSprite;
+                iOpt.transform.Find("ItemImg").localPosition = itemImgPos[index];
+                iOpt.transform.Find("ItemImg").localEulerAngles = itemImgRot[index];
+
+                iOpt.transform.Find("Pin").localPosition = itemPinPos[index];  
 
                 index++;
             }

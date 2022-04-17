@@ -1,25 +1,22 @@
 fileFormatVersion: 2
-guid: 827eb2c03f1391542975f74191d7c32f
+guid: 32029ffa3d1f9ff4486840a730a390c9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4961362372881410234
-    second: KR-UIPaper-CamO_0
+      213: -5654205203021383117
+    second: TimerUnfill
   - first:
-      213: -7878662621293769924
-    second: KR-UIPaper-CamO_1
+      213: -1202942145392526561
+    second: BlankTextBox
   - first:
-      213: 8953198066205750476
-    second: KR-UIPaper-CamO_2
+      213: -6982426883100310337
+    second: TimerFill
   - first:
-      213: -6103285600961616840
-    second: KR-UIPaper-CamO_3
+      213: -9183974432431927198
+    second: NameTextBox
   - first:
-      213: -8487237290780451639
-    second: KR-UIPaper-CamO_4
-  - first:
-      213: -8077703910084242262
-    second: KR-UIPaper-CamO_5
+      213: 4257827091474203356
+    second: Timer
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -105,17 +102,77 @@ TextureImporter:
     overridden: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Lumin
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: KR-UIPaper-CamO_0
+      name: TimerUnfill
       rect:
         serializedVersion: 2
-        x: 5630
-        y: 441
-        width: 1191
-        height: 743
+        x: 97
+        y: 761
+        width: 670
+        height: 188
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -123,20 +180,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6471a625533b52bb0800000000000000
-      internalID: -4961362372881410234
+      spriteID: 33abeba335a3881b0800000000000000
+      internalID: -5654205203021383117
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KR-UIPaper-CamO_1
+      name: BlankTextBox
       rect:
         serializedVersion: 2
-        x: 7200
-        y: 436
-        width: 1191
-        height: 743
+        x: 905
+        y: 752
+        width: 954
+        height: 204
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -144,20 +201,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c3b03a0c61e59a290800000000000000
-      internalID: -7878662621293769924
+      spriteID: f1b38820e7a4e4fe0800000000000000
+      internalID: -1202942145392526561
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KR-UIPaper-CamO_2
+      name: TimerFill
       rect:
         serializedVersion: 2
-        x: 8805
-        y: 337
-        width: 1057
-        height: 872
+        x: 97
+        y: 541
+        width: 670
+        height: 188
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -165,20 +222,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cc478e38436204c70800000000000000
-      internalID: 8953198066205750476
+      spriteID: fb40baa8ebf691f90800000000000000
+      internalID: -6982426883100310337
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KR-UIPaper-CamO_3
+      name: NameTextBox
       rect:
         serializedVersion: 2
-        x: 5113
-        y: 3440
-        width: 4898
-        height: 3048
+        x: 922
+        y: 417
+        width: 906
+        height: 285
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -186,20 +243,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8342def1516cc4ba0800000000000000
-      internalID: -6103285600961616840
+      spriteID: 26010a899e7fb8080800000000000000
+      internalID: -9183974432431927198
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: KR-UIPaper-CamO_4
+      name: Timer
       rect:
         serializedVersion: 2
-        x: 5224
-        y: 1740
-        width: 4822
-        height: 1373
+        x: 83
+        y: 54
+        width: 808
+        height: 427
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -207,29 +264,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9cc159eb6a6473a80800000000000000
-      internalID: -8487237290780451639
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: KR-UIPaper-CamO_5
-      rect:
-        serializedVersion: 2
-        x: 80
-        y: 327
-        width: 4832
-        height: 6280
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: aa415ae571b36ef80800000000000000
-      internalID: -8077703910084242262
+      spriteID: cd2ca564e27d61b30800000000000000
+      internalID: 4257827091474203356
       vertices: []
       indices: 
       edges: []
@@ -237,7 +273,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 1c6b5603df0255f4889d9dbd49600e39
+    spriteID: 8ad87f861419c7145a1649102acd6409
     internalID: 0
     vertices: []
     indices: 
