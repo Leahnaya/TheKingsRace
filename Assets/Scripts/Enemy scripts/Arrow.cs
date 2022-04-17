@@ -62,6 +62,8 @@ public class Arrow : NetworkBehaviour {
 
     // Is called whenever something collides with the bumper
     void OnTriggerEnter(Collider objectHit) {
+        if (objectHit != null) { return; }
+
         if (objectHit.transform.parent.gameObject.tag == "Player") {
             //Checks if the other object is the player
             MoveStateManager playerMovement = objectHit.GetComponent<MoveStateManager>();
