@@ -3769,7 +3769,92 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemOptPrefab: {fileID: 8447329698821624902, guid: 51a78c57dc85625428c8f1e6448d113f, type: 3}
   tooltip: {fileID: 0}
-  itemBG: []
+  itemBG:
+  - {fileID: 7627111236641680476, guid: 81773d5ce89537c4b920f5caf313c271, type: 3}
+  - {fileID: 1118100524556035779, guid: 81773d5ce89537c4b920f5caf313c271, type: 3}
+  - {fileID: 1225044057733196227, guid: 81773d5ce89537c4b920f5caf313c271, type: 3}
+  - {fileID: 132792604522639551, guid: 81773d5ce89537c4b920f5caf313c271, type: 3}
+  - {fileID: 7087882886416545144, guid: 81773d5ce89537c4b920f5caf313c271, type: 3}
+  - {fileID: 1614331561838156711, guid: 81773d5ce89537c4b920f5caf313c271, type: 3}
+  - {fileID: -1173945591962468489, guid: 81773d5ce89537c4b920f5caf313c271, type: 3}
+  - {fileID: 115389660041812874, guid: 81773d5ce89537c4b920f5caf313c271, type: 3}
+  itemImgPos:
+  - {x: -3.7, y: 0, z: 0}
+  - {x: -4, y: 6.2, z: 0}
+  - {x: 0.5, y: -0.5, z: 0}
+  - {x: -2.5, y: 7.1, z: 0}
+  - {x: 5.5, y: -0.9, z: 0}
+  - {x: -3, y: 6.3, z: 0}
+  - {x: -8.2, y: 5.4, z: 0}
+  - {x: 0.8, y: 6.2, z: 0}
+  itemImgRot:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 3}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 6.146}
+  - {x: 0, y: 0, z: -9.345}
+  - {x: 0, y: 0, z: 11.156}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 7.056}
+  itemNamePos:
+  - {x: -2.2, y: 26, z: 0}
+  - {x: -7.3, y: 32.3, z: 0}
+  - {x: 2.6, y: 32.8, z: 0}
+  - {x: -5.4, y: 34.4, z: 0}
+  - {x: 6.2, y: 33.4, z: 0}
+  - {x: -8.8, y: 36.3, z: 0}
+  - {x: -7.3, y: 39, z: 0}
+  - {x: -6.8, y: 35.5, z: 0}
+  itemNameRot:
+  - {x: 0, y: 0, z: -3.192}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: -5.86}
+  - {x: 0, y: 0, z: 2.372}
+  - {x: 0, y: 0, z: -6.83}
+  - {x: 0, y: 0, z: 8.835}
+  - {x: 0, y: 0, z: 0.921}
+  - {x: 0, y: 0, z: 9.219}
+  itemCostPos:
+  - {x: -1.8, y: -29, z: 0}
+  - {x: 1.8, y: -25, z: 0}
+  - {x: -0.2, y: -36.7, z: 0}
+  - {x: 4.9, y: -24.9, z: 0}
+  - {x: 1.8, y: -33.6, z: 0}
+  - {x: 4.89, y: -25.3, z: 0}
+  - {x: 3.2, y: -27, z: 0}
+  - {x: 2.4, y: -25.5, z: 0}
+  itemCostRot:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 3.78}
+  - {x: 0, y: 0, z: -2.84}
+  - {x: 0, y: 0, z: 6.935}
+  - {x: 0, y: 0, z: -3.33}
+  - {x: 0, y: 0, z: 14}
+  - {x: 0, y: 0, z: 5.334}
+  - {x: 0, y: 0, z: 11.667}
+  itemPinPos:
+  - {x: -6.9, y: 40, z: 0}
+  - {x: 3.6, y: 50, z: 0}
+  - {x: 13.3, y: 50.7, z: 0}
+  - {x: 3.2, y: 54.7, z: 0}
+  - {x: 16.7, y: 49.2, z: 0}
+  - {x: 0.2, y: 51, z: 0}
+  - {x: 4, y: 56.6, z: 0}
+  - {x: 0.6, y: 52.2, z: 0}
+  runnerBodyModifiers:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   backBattery: {fileID: 0}
   glider: {fileID: 0}
   leftLeg: {fileID: 0}
