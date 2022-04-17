@@ -139,7 +139,21 @@ public class OffenseStateManager : NetworkBehaviour
         }
 
         if (collision.transform.CompareTag("destroyable") && myCollider == legHitbox.GetComponent<Collider>()){
-            collision.transform.gameObject.GetComponent<BreakableBlock>().damage(pStats.KickPow);
+            //collision.transform.gameObject.GetComponent<BreakableBlock>().damage(pStats.KickPow);
+            BreakBlockServerRPC(collision.transform.gameObject.GetComponent<NetworkObject>().NetworkObjectId);
+        }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void BreakBlockServerRPC(ulong NetObjID) {
+        GameObject[] destroyables = GameObject.FindGameObjectsWithTag("destroyable");
+
+        foreach (GameObject destroyable in destroyables) {
+            if (destroyable.GetComponent<NetworkObject>() != null) {
+                if (destroyable.GetComponent<NetworkObject>().NetworkObjectId == NetObjID) {
+                    destroyable.GetComponent<NetworkObject>().Despawn(true);
+                }
+            }
         }
     }
 
