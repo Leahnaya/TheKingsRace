@@ -3,12 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using MLAPI;
+using MLAPI.Messaging;
 using MLAPI.SceneManagement;
 using MLAPI.Spawning;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ServerGameNetPortal : MonoBehaviour {
+public class ServerGameNetPortal : NetworkBehaviour {
 
     [Header("Settings")]
     [SerializeField] private int maxPlayers = 3;
@@ -99,7 +100,21 @@ public class ServerGameNetPortal : MonoBehaviour {
     {
         gameInProgress = false;
 
+        // Remove any networked objects that might persist back to the Lobby
+        DestroyPersistingNetObjectsServerRPC();
+
         NetworkSceneManager.SwitchScene("Lobby");
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void DestroyPersistingNetObjectsServerRPC() {
+        NetworkObject[] networkObjects = FindObjectsOfType<NetworkObject>();
+
+        foreach(NetworkObject nObj in networkObjects) {
+            GameObject netObj = nObj.gameObject;
+
+            netObj.GetComponent<NetworkObject>().Despawn(true);
+        }
     }
 
     private void HandleNetworkReadied()
