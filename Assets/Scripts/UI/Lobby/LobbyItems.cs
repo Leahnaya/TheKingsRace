@@ -21,7 +21,18 @@ public class LobbyItems : MonoBehaviour
     Vector3 position;
     private int pointsLeft;
 
+    //Item Image and Offsets
+    public Sprite[] itemBG;
+    public Vector3[] itemImgPos;
+    public Vector3[] itemImgRot;
+    public Vector3[] itemNamePos;
+    public Vector3[] itemNameRot;
+    public Vector3[] itemCostPos;
+    public Vector3[] itemCostRot;
+    public Vector3[] itemPinPos;
+
     ////Runner Body Parts Refs
+    public GameObject[] runnerBodyModifiers;
     //back parts
     public GameObject backBattery;
     public GameObject glider;
@@ -124,6 +135,7 @@ public class LobbyItems : MonoBehaviour
 
                 //Changes Button Texts
                 iOpt.transform.Find("Name").GetComponent<Text>().text = item.Value.itemName;
+                iOpt.GetComponent<Image>().sprite = itemBG[index];
                 iOpt.transform.Find("Cost").GetComponent<Text>().text = item.Value.costM.ToString();
                 iOpt.transform.Find("ItemImg").GetComponent<Image>().sprite = item.Value.itemSprite; // IMPLEMENT WHEN ITEM OBJECT CONTAIN IMAGE REFERENCE
 

@@ -1,7 +1,10 @@
 fileFormatVersion: 2
 guid: db50a3118adc9524d861c170fa86d2ea
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 3636362083630020540
+    second: KR_Marketing_Otto_0
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -149,11 +152,32 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: KR_Marketing_Otto_0
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 917
+        width: 1911
+        height: 1074
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb7777d7c04f67230800000000000000
+      internalID: 3636362083630020540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 1443d438dd8f6644aa7710ddac339682
     internalID: 0
     vertices: []
     indices: 
