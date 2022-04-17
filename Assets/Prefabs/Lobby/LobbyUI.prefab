@@ -3855,24 +3855,11 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  backBattery: {fileID: 0}
-  glider: {fileID: 0}
-  leftLeg: {fileID: 0}
-  rightLeg: {fileID: 0}
-  leftSpring: {fileID: 0}
-  rightSpring: {fileID: 0}
-  leftFoot: {fileID: 0}
-  rightFoot: {fileID: 0}
-  leftWallShoe: {fileID: 0}
-  rightWallShoe: {fileID: 0}
-  rightHand: {fileID: 0}
-  rightStickyHand: {fileID: 0}
-  leftRollerSkate: {fileID: 0}
-  rightRollerSkate: {fileID: 0}
-  leftQuad: {fileID: 0}
-  rightQuad: {fileID: 0}
-  thiccLeftQuad: {fileID: 0}
-  thiccRightQuad: {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &1900253489175822351
 MonoBehaviour:
   m_ObjectHideFlags: 0

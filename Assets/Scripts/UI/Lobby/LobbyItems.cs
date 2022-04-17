@@ -33,35 +33,6 @@ public class LobbyItems : MonoBehaviour
 
     ////Runner Body Parts Refs
     public GameObject[] runnerBodyModifiers;
-    //back parts
-    public GameObject backBattery;
-    public GameObject glider;
-
-    //springs refs
-    public GameObject leftLeg;
-    public GameObject rightLeg;
-    public GameObject leftSpring;
-    public GameObject rightSpring;
-
-    //shoe refs
-    public GameObject leftFoot;
-    public GameObject rightFoot;
-    public GameObject leftWallShoe;
-    public GameObject rightWallShoe;
-
-    //sticky hand 
-    public GameObject rightHand;
-    public GameObject rightStickyHand;
-
-    //roller skates (may need to raise height)
-    public GameObject leftRollerSkate;
-    public GameObject rightRollerSkate;
-
-    //tripple jump 
-    public GameObject leftQuad;
-    public GameObject rightQuad;
-    public GameObject thiccLeftQuad;
-    public GameObject thiccRightQuad;
 
     // Start is called before the first frame update
     void Awake(){
@@ -223,12 +194,14 @@ public class LobbyItems : MonoBehaviour
                     //add part
                     if (addPart == 1)
                     {
-                        glider.SetActive(true);
+                        runnerBodyModifiers[1].SetActive(true);
+                        //glider.SetActive(true);
                     }
                     //remove part
                     else if (addPart == 0)
                     {
-                        glider.SetActive(false);
+                        runnerBodyModifiers[1].SetActive(false);
+                        //glider.SetActive(false);
                     }
                     break;
                 //grapple
@@ -236,14 +209,14 @@ public class LobbyItems : MonoBehaviour
                     //add part
                     if (addPart == 1)
                     {
-                        rightStickyHand.SetActive(true);
-                        rightHand.GetComponent<SkinnedMeshRenderer>().enabled = false;
+                        runnerBodyModifiers[11].SetActive(true);
+                        runnerBodyModifiers[10].GetComponent<SkinnedMeshRenderer>().enabled = false;
                     }
                     //remove part
                     else if (addPart == 0)
                     {
-                        rightStickyHand.SetActive(false);
-                        rightHand.GetComponent<SkinnedMeshRenderer>().enabled = true;
+                        runnerBodyModifiers[11].SetActive(false);
+                        runnerBodyModifiers[10].GetComponent<SkinnedMeshRenderer>().enabled = true;
                     }
                     break;
                 //nitro
@@ -251,11 +224,11 @@ public class LobbyItems : MonoBehaviour
                     ////may use test cse here
                     //add part
                     if (addPart == 1){
-                        backBattery.SetActive(true);
+                        runnerBodyModifiers[0].SetActive(true);
                     }
                     //remove part
                     else if(addPart == 0){
-                        backBattery.SetActive(false);
+                        runnerBodyModifiers[0].SetActive(false);
                     }
                     break;
                 //roller skates
@@ -263,14 +236,14 @@ public class LobbyItems : MonoBehaviour
                     //add part
                     if (addPart == 1)
                     {
-                        leftRollerSkate.SetActive(true);
-                        rightRollerSkate.SetActive(true);
+                        runnerBodyModifiers[12].SetActive(true);
+                        runnerBodyModifiers[13].SetActive(true);
                     }
                     //remove part
                     else if (addPart == 0)
                     {
-                        leftRollerSkate.SetActive(false);
-                        rightRollerSkate.SetActive(false);
+                        runnerBodyModifiers[12].SetActive(false);
+                        runnerBodyModifiers[13].SetActive(false);
                     }
                     break;
                 //springs
@@ -278,18 +251,18 @@ public class LobbyItems : MonoBehaviour
                     //add part
                     if (addPart == 1)
                     {
-                        leftSpring.SetActive(true);
-                        rightSpring.SetActive(true);
-                        leftLeg.GetComponent<SkinnedMeshRenderer>().enabled = false;
-                        rightLeg.GetComponent<SkinnedMeshRenderer>().enabled = false;
+                        runnerBodyModifiers[4].SetActive(true);
+                        runnerBodyModifiers[5].SetActive(true);
+                        runnerBodyModifiers[2].GetComponent<SkinnedMeshRenderer>().enabled = false;
+                        runnerBodyModifiers[3].GetComponent<SkinnedMeshRenderer>().enabled = false;
                     }
                     //remove part
                     else if (addPart == 0)
                     {
-                        leftSpring.SetActive(false);
-                        rightSpring.SetActive(false);
-                        leftLeg.GetComponent<SkinnedMeshRenderer>().enabled = true;
-                        rightLeg.GetComponent<SkinnedMeshRenderer>().enabled = true;
+                        runnerBodyModifiers[4].SetActive(false);
+                        runnerBodyModifiers[5].SetActive(false);
+                        runnerBodyModifiers[2].GetComponent<SkinnedMeshRenderer>().enabled = true;
+                        runnerBodyModifiers[3].GetComponent<SkinnedMeshRenderer>().enabled = true;
                     }
                     break;
                 //tripple jump
@@ -297,36 +270,36 @@ public class LobbyItems : MonoBehaviour
                     //add part
                     if (addPart == 1)
                     {
-                        thiccLeftQuad.SetActive(true);
-                        thiccRightQuad.SetActive(true);
-                        leftQuad.GetComponent<SkinnedMeshRenderer>().enabled = false;
-                        rightQuad.GetComponent<SkinnedMeshRenderer>().enabled = false;
+                        runnerBodyModifiers[16].SetActive(true);
+                        runnerBodyModifiers[17].SetActive(true);
+                        runnerBodyModifiers[14].GetComponent<SkinnedMeshRenderer>().enabled = false;
+                        runnerBodyModifiers[15].GetComponent<SkinnedMeshRenderer>().enabled = false;
                     }
                     //remove part
                     else if (addPart == 0)
                     {
-                        thiccLeftQuad.SetActive(false);
-                        thiccRightQuad.SetActive(false);
-                        leftQuad.GetComponent<SkinnedMeshRenderer>().enabled = true;
-                        rightQuad.GetComponent<SkinnedMeshRenderer>().enabled = true;
+                        runnerBodyModifiers[16].SetActive(false);
+                        runnerBodyModifiers[17].SetActive(false);
+                        runnerBodyModifiers[14].GetComponent<SkinnedMeshRenderer>().enabled = true;
+                        runnerBodyModifiers[15].GetComponent<SkinnedMeshRenderer>().enabled = true;
                     }
                     break;
                 //wallrun
                 case 8:
                     if (addPart == 1)
                     {
-                        leftWallShoe.SetActive(true);
-                        rightWallShoe.SetActive(true);
-                        leftFoot.GetComponent<SkinnedMeshRenderer>().enabled = false;
-                        rightFoot.GetComponent<SkinnedMeshRenderer>().enabled = false;
+                        runnerBodyModifiers[8].SetActive(true);
+                        runnerBodyModifiers[9].SetActive(true);
+                        runnerBodyModifiers[6].GetComponent<SkinnedMeshRenderer>().enabled = false;
+                        runnerBodyModifiers[7].GetComponent<SkinnedMeshRenderer>().enabled = false;
                     }
                     //remove part
                     else if (addPart == 0)
                     {
-                        leftWallShoe.SetActive(false);
-                        rightWallShoe.SetActive(false);
-                        leftFoot.GetComponent<SkinnedMeshRenderer>().enabled = true;
-                        rightFoot.GetComponent<SkinnedMeshRenderer>().enabled = true;
+                        runnerBodyModifiers[8].SetActive(false);
+                        runnerBodyModifiers[9].SetActive(false);
+                        runnerBodyModifiers[6].GetComponent<SkinnedMeshRenderer>().enabled = true;
+                        runnerBodyModifiers[7].GetComponent<SkinnedMeshRenderer>().enabled = true;
                     }
                     break;
 
