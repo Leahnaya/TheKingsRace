@@ -25,7 +25,7 @@ public class dCoolDown : MonoBehaviour
 
     public void startUICooldown(string name)
     {
-        this.gameObject.transform.Find(name).GetComponent<UICoolDown>().startCoolDown();
+        boxHighlight.transform.Find(name).GetComponent<UICoolDown>().startCoolDown();
     }
     // Update is called once per frame
     void Update()
@@ -34,65 +34,65 @@ public class dCoolDown : MonoBehaviour
         //not currently bounded to controller
         if (Input.GetKeyDown(KeyCode.Tab))
         {
-            if (boxHighlight.activeInHierarchy == false)
+            if (boxHighlight.GetComponent<Image>().enabled == false)
             {
-                boxHighlight.SetActive(true);
+                ////due to setup, I will have to manually turn the other ones back on so cooldown works
+                //try turning on nitro
+                for (int i = 0; i < boxHighlight.transform.childCount; i++)
+                {
+                    Transform temp = boxHighlight.transform.GetChild(i);
+                    //turn off all but the special items
+                    if (!temp.transform.name.Equals(nitroItem.name) && !temp.transform.gameObject.name.Equals(dashItem.name))
+                    {
+                        temp.gameObject.SetActive(true);
+                    }
+                }
+                boxHighlight.GetComponent<Image>().enabled = true;
+                if (stats.HasNitro == true)
+                {
+                    boxHighlight.transform.Find(nitroItem.name).GetComponent<Image>().enabled = true;
+                    boxHighlight.transform.Find(nitroItem.name).GetChild(0).gameObject.SetActive(true);
+                }
+                if (stats.HasDash == true)
+                {
+                    boxHighlight.transform.Find(dashItem.name).GetComponent<Image>().enabled = true;
+                    boxHighlight.transform.Find(dashItem.name).GetChild(0).gameObject.SetActive(true);
+                }
+
+                //turn on highlights and its children
             }
             else
             {
-                boxHighlight.SetActive(false);
+                for(int i =0; i < boxHighlight.transform.childCount; i++){
+                    Transform temp = boxHighlight.transform.GetChild(i);
+                    //turn off all but the special items
+                    if(!temp.transform.name.Equals(nitroItem.name) && !temp.transform.gameObject.name.Equals(dashItem.name))
+                    {
+                        temp.gameObject.SetActive(false);
+                    }
+                }
+                boxHighlight.GetComponent<Image>().enabled = false;
+    
+                if(stats.HasNitro == true)
+                {
+                    boxHighlight.transform.Find(nitroItem.name).GetComponent<Image>().enabled = false;
+                    boxHighlight.transform.Find(nitroItem.name).GetChild(0).gameObject.SetActive(false);
+                } 
+                if(stats.HasDash == true)
+                {
+                    boxHighlight.transform.Find(dashItem.name).GetComponent<Image>().enabled = false;
+                    boxHighlight.transform.Find(dashItem.name).GetChild(0).gameObject.SetActive(false);
+                }
             }
         }
     }
     public void populatePlayerCanvas()
     {
-        //apply special items (can condense and simplify if needed)
-        if (stats.HasNitro == true)
-        {
-            GameObject temp = Instantiate(uiPrebab);
-            temp.transform.SetParent(this.gameObject.transform);
-            temp.name = nitroItem.name;
-            temp.transform.localRotation = Quaternion.identity;
-            temp.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            temp.transform.localRotation.Set(0f, 0f, 0f, 0f);
-            temp.GetComponent<UICoolDown>().setCoolDownTime(nitroItem.cooldownM);
-            //set position on canvas
-            //due to low number, gonna hardcode this to be first
-            temp.transform.localPosition = new Vector3(-850, 425);
-            //set icon to ui icon
-            temp.transform.GetComponent<Image>().sprite = nitroItem.itemSprite;
-            //set button control (hard coded)
-            temp.transform.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Shift";
-        }
-        if (stats.HasDash == true)
-        {
-            GameObject temp2 = Instantiate(uiPrebab);
-            temp2.transform.SetParent(this.gameObject.transform);
-            temp2.name = dashItem.name;
-            temp2.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            temp2.transform.localRotation = Quaternion.identity;
-            temp2.GetComponent<UICoolDown>().setCoolDownTime(dashItem.cooldownM);
-
-            //set image 
-            temp2.transform.GetComponent<Image>().sprite = dashItem.itemSprite;
-
-            //if has nitro, make it below nitro icon
-            if (stats.HasNitro == true)
-            {
-                temp2.transform.localPosition = new Vector3(-850, 225);
-            }
-            //if not, make this icon top of screen
-            else
-            {
-                temp2.transform.localPosition = new Vector3(-850, 425);
-            }
-            //set button control
-            temp2.transform.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "R";
-        }
-
         ////display guranteed items
         // temp pos var
         float posTemp = 0f;
+        int itemsAdded = 0;
+
         //kick
         GameObject temp3 = Instantiate(uiPrebab);
         //set parent as highlight
@@ -101,7 +101,7 @@ public class dCoolDown : MonoBehaviour
         temp3.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
         temp3.transform.localRotation = Quaternion.identity;
         //due to low number, gonna hardcode this to be first
-        temp3.transform.localPosition = new Vector3(-100, -100);
+        temp3.transform.localPosition = new Vector3(100, -100);
         //set icon to ui icon
         temp3.transform.GetComponent<Image>().sprite = kickItem.itemSprite;
         temp3.transform.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "F";
@@ -114,13 +114,73 @@ public class dCoolDown : MonoBehaviour
         temp4.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
         temp4.transform.localRotation = Quaternion.identity;
         //due to low number, gonna hardcode this to be first
-        temp4.transform.localPosition = new Vector3(100, -100);
+        temp4.transform.localPosition = new Vector3(-75, -100);
         //set icon to ui icon
         //doesn't exists
         temp4.transform.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Slide \n Q";
 
         ////check if items are there
         //grapple
+
+        //apply special items (can condense and simplify if needed)
+        if (stats.HasNitro == true)
+        {
+            GameObject temp = Instantiate(uiPrebab);
+            temp.transform.SetParent(boxHighlight.transform);
+            temp.name = nitroItem.name;
+            temp.transform.localRotation = Quaternion.identity;
+            temp.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            temp.transform.localRotation.Set(0f, 0f, 0f, 0f);
+            temp.GetComponent<UICoolDown>().setCoolDownTime(nitroItem.cooldownM);
+            //set position on canvas
+            //due to low number, gonna hardcode this to be first
+
+            //increment items
+            if (itemsAdded == 0)
+            {
+                temp.transform.localPosition = new Vector3(-250, -100);
+                itemsAdded++;
+            }
+            //increment items
+            else if (itemsAdded >= 1)
+            {
+                temp.transform.localPosition = new Vector3(100 + posTemp, 100);
+                posTemp -= 175;
+                itemsAdded++;
+            }
+            //set icon to ui icon
+            temp.transform.GetComponent<Image>().sprite = nitroItem.itemSprite;
+            //set button control (hard coded)
+            temp.transform.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Shift";
+        }
+        if (stats.HasDash == true)
+        {
+            GameObject temp2 = Instantiate(uiPrebab);
+            temp2.transform.SetParent(boxHighlight.transform);
+            temp2.name = dashItem.name;
+            temp2.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            temp2.transform.localRotation = Quaternion.identity;
+            //increment items
+            if (itemsAdded == 0)
+            {
+                temp2.transform.localPosition = new Vector3(-250, -100);
+                itemsAdded++;
+            }
+            //increment items
+            else if (itemsAdded >= 1)
+            {
+                temp2.transform.localPosition = new Vector3(100 + posTemp, 100);
+                posTemp -= 175;
+                itemsAdded++;
+            }
+            temp2.GetComponent<UICoolDown>().setCoolDownTime(dashItem.cooldownM);
+            //set image 
+            temp2.transform.GetComponent<Image>().sprite = dashItem.itemSprite;
+            //set button control
+            temp2.transform.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "R";
+
+
+        }
         if (stats.HasGrapple == true)
         {
             GameObject temp5 = Instantiate(uiPrebab);
@@ -129,14 +189,24 @@ public class dCoolDown : MonoBehaviour
             temp5.name = grapple.itemName;
             temp5.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
             temp5.transform.localRotation = Quaternion.identity;
-            //due to low number, gonna hardcode this to be first
-            temp5.transform.localPosition = new Vector3(100 + posTemp, 100);
+            //increment items
+            if (itemsAdded == 0)
+            {
+                temp5.transform.localPosition = new Vector3(-250, -100);
+                itemsAdded++;
+            }
+            //increment items
+            else if (itemsAdded >= 1)
+            {
+                temp5.transform.localPosition = new Vector3(100 + posTemp, 100);
+                posTemp -= 175;
+                itemsAdded++;
+            }
             //set icon to ui icon
             temp5.transform.GetComponent<Image>().sprite = grapple.itemSprite;
             //doesn't exists
             temp5.transform.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "E";
             //increment counter
-            posTemp -= 200;
         }
         //glider
         if (stats.HasGlider == true)
@@ -147,14 +217,25 @@ public class dCoolDown : MonoBehaviour
             temp6.name = Glide.itemName;
             temp6.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
             temp6.transform.localRotation = Quaternion.identity;
-            //due to low number, gonna hardcode this to be first
-            temp6.transform.localPosition = new Vector3(100 + posTemp, 100);
+            //increment items
+            if (itemsAdded == 0)
+            {
+                temp6.transform.localPosition = new Vector3(-250, -100);
+                itemsAdded++;
+            }
+            //increment items
+            else if (itemsAdded >= 1)
+            {
+                temp6.transform.localPosition = new Vector3(100 + posTemp, 100);
+                posTemp -= 175;
+                itemsAdded++;
+            }
             //set icon to ui icon
             temp6.transform.GetComponent<Image>().sprite = Glide.itemSprite;
             //doesn't exists
             temp6.transform.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Hold Space";
             //increment counter
-            posTemp -= 200;
         }
+
     }
 }

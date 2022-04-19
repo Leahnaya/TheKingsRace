@@ -19,12 +19,7 @@ public class CoolDown : MonoBehaviour
     public Item Glide;
     public GameObject boxHighlight;
     // Start is called before the first frame update
-    void Start(){
-
-      
-      
-
-
+    void Start() { 
 
     }
     public void startUICooldown(string name){
@@ -45,53 +40,12 @@ public class CoolDown : MonoBehaviour
     }
     public void populatePlayerCanvas()
     {
-        //apply special items (can condense and simplify if needed)
-        if (stats.HasNitro == true)
-        {
-            GameObject temp = Instantiate(uiPrebab);
-            temp.transform.SetParent(this.gameObject.transform);
-            temp.name = nitroItem.name;
-            temp.transform.localRotation = Quaternion.identity;
-            temp.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            temp.transform.localRotation.Set(0f, 0f, 0f, 0f);
-            temp.GetComponent<UICoolDown>().setCoolDownTime(nitroItem.cooldownM);
-            //set position on canvas
-            //due to low number, gonna hardcode this to be first
-            temp.transform.localPosition = new Vector3(-850, 425);
-            //set icon to ui icon
-            temp.transform.GetComponent<Image>().sprite = nitroItem.itemSprite;
-            //set button control (hard coded)
-            temp.transform.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Shift";
-        }
-        if (stats.HasDash == true)
-        {
-            GameObject temp2 = Instantiate(uiPrebab);
-            temp2.transform.SetParent(this.gameObject.transform);
-            temp2.name = dashItem.name;
-            temp2.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
-            temp2.transform.localRotation = Quaternion.identity;
-            temp2.GetComponent<UICoolDown>().setCoolDownTime(dashItem.cooldownM);
-
-            //set image 
-            temp2.transform.GetComponent<Image>().sprite = dashItem.itemSprite;
-
-            //if has nitro, make it below nitro icon
-            if (stats.HasNitro == true)
-            {
-                temp2.transform.localPosition = new Vector3(-850, 225);
-            }
-            //if not, make this icon top of screen
-            else
-            {
-                temp2.transform.localPosition = new Vector3(-850, 425);
-            }
-            //set button control
-            temp2.transform.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "R";
-        }
 
         ////display guranteed items
         // temp pos var
         float posTemp = 0f;
+        int itemsAdded = 0;
+
         //kick
         GameObject temp3 = Instantiate(uiPrebab);
         //set parent as highlight
@@ -100,7 +54,7 @@ public class CoolDown : MonoBehaviour
         temp3.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
         temp3.transform.localRotation = Quaternion.identity;
         //due to low number, gonna hardcode this to be first
-        temp3.transform.localPosition = new Vector3(-100, -100);
+        temp3.transform.localPosition = new Vector3(100, -100);
         //set icon to ui icon
         temp3.transform.GetComponent<Image>().sprite = kickItem.itemSprite;
         temp3.transform.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "F";
@@ -113,13 +67,73 @@ public class CoolDown : MonoBehaviour
         temp4.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
         temp4.transform.localRotation = Quaternion.identity;
         //due to low number, gonna hardcode this to be first
-        temp4.transform.localPosition = new Vector3(100, -100);
+        temp4.transform.localPosition = new Vector3(-75, -100);
         //set icon to ui icon
         //doesn't exists
         temp4.transform.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Slide \n Q";
 
         ////check if items are there
         //grapple
+
+        //apply special items (can condense and simplify if needed)
+        if (stats.HasNitro == true)
+        {
+            GameObject temp = Instantiate(uiPrebab);
+            temp.transform.SetParent(boxHighlight.transform);
+            temp.name = nitroItem.name;
+            temp.transform.localRotation = Quaternion.identity;
+            temp.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            temp.transform.localRotation.Set(0f, 0f, 0f, 0f);
+            temp.GetComponent<UICoolDown>().setCoolDownTime(nitroItem.cooldownM);
+            //set position on canvas
+            //due to low number, gonna hardcode this to be first
+            
+            //increment items
+            if(itemsAdded == 0)
+            {
+                temp.transform.localPosition = new Vector3(-250, -100);
+                itemsAdded++;
+            }
+            //increment items
+            else if (itemsAdded >= 1)
+            {
+                temp.transform.localPosition = new Vector3(100 + posTemp, 100);
+                posTemp -= 175;
+                itemsAdded++;
+            }
+            //set icon to ui icon
+            temp.transform.GetComponent<Image>().sprite = nitroItem.itemSprite;
+            //set button control (hard coded)
+            temp.transform.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Shift";
+        }
+        if (stats.HasDash == true)
+        {
+            GameObject temp2 = Instantiate(uiPrebab);
+            temp2.transform.SetParent(boxHighlight.transform);
+            temp2.name = dashItem.name;
+            temp2.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            temp2.transform.localRotation = Quaternion.identity;
+            //increment items
+            if (itemsAdded == 0)
+            {
+                temp2.transform.localPosition = new Vector3(-250, -100);
+                itemsAdded++;
+            }
+            //increment items
+            else if (itemsAdded >= 1)
+            {
+                temp2.transform.localPosition = new Vector3(100 + posTemp, 100);
+                posTemp -= 175;
+                itemsAdded++;
+            }
+            temp2.GetComponent<UICoolDown>().setCoolDownTime(dashItem.cooldownM);
+            //set image 
+            temp2.transform.GetComponent<Image>().sprite = dashItem.itemSprite;
+            //set button control
+            temp2.transform.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "R";
+
+
+        }
         if (stats.HasGrapple == true)
         {
             GameObject temp5 = Instantiate(uiPrebab);
@@ -128,15 +142,25 @@ public class CoolDown : MonoBehaviour
             temp5.name = grapple.itemName;
             temp5.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
             temp5.transform.localRotation = Quaternion.identity;
-            //due to low number, gonna hardcode this to be first
-            temp5.transform.localPosition = new Vector3(100 + posTemp, 100);
+            //increment items
+            if (itemsAdded == 0)
+            {
+                temp5.transform.localPosition = new Vector3(-250, -100);
+                itemsAdded++;
+            }
+            //increment items
+            else if (itemsAdded >= 1)
+            {
+                temp5.transform.localPosition = new Vector3(100 + posTemp, 100);
+                posTemp -= 175;
+                itemsAdded++;
+            }
             //set icon to ui icon
             temp5.transform.GetComponent<Image>().sprite = grapple.itemSprite;
             //doesn't exists
             temp5.transform.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "E";
             //increment counter
-            posTemp -= 200;
-        }
+            }
         //glider
         if (stats.HasGlider == true)
         {
@@ -146,14 +170,25 @@ public class CoolDown : MonoBehaviour
             temp6.name = Glide.itemName;
             temp6.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
             temp6.transform.localRotation = Quaternion.identity;
-            //due to low number, gonna hardcode this to be first
-            temp6.transform.localPosition = new Vector3(100 + posTemp, 100);
+            //increment items
+            if (itemsAdded == 0)
+            {
+                temp6.transform.localPosition = new Vector3(-250, -100);
+                itemsAdded++;
+            }
+            //increment items
+            else if (itemsAdded >= 1)
+            {
+                temp6.transform.localPosition = new Vector3(100 + posTemp, 100);
+                posTemp -= 175;
+                itemsAdded++;
+            }
             //set icon to ui icon
             temp6.transform.GetComponent<Image>().sprite = Glide.itemSprite;
             //doesn't exists
             temp6.transform.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Hold Space";
             //increment counter
-            posTemp -= 200;
         }
+
     }
 }
