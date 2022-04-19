@@ -7,21 +7,19 @@ public class KingTooltips : MonoBehaviour
 {
     
     ////Weather Wheel Variables
-    public GameObject curWeatherSpriteObj;
     public Text curWeatherText;
-    public Image curWeatherImage;
-    float curSpriteRotation;
+    public Text curWeatherTitle;
 
     string rainExplanation = "Increases the players acceleration & decreases the players traction.";
+    string rainTitle = "Rain";
     string snowExplanation = "Increases the players traction & decreases the players acceleration.";
+    string snowTitle = "Snow";
     string windExplanation = "Pushes the player in a random direction altering their movement.";
+    string windTitle = "Wind";
     string fogExplanation = "Obscures the players vision.";
+    string fogTitle = "Fog";
+    string defaultWeatherTitle;
     string defaultWeatherExplanation;
-
-    public Sprite rain;
-    public Sprite snow;
-    public Sprite wind;
-    public Sprite fog;
     ////
 
     ////Placeables Variables
@@ -30,55 +28,47 @@ public class KingTooltips : MonoBehaviour
     public Image curPlaceablesImage;
 
     string blockExplanation = "Place a block on the grid to obstruct a players movement.";
-    string thunderExplanation = "Places Thunder Above both players forcing them to the ground if they stay aerial for too long.";
+    string bumperExplanation = "Places a bumper on the grid to obstruct and knock the players back.";
     string slimeExplanation = "Click and hold the mouse to place and then choose the direction the slowing slime goes.";
     string hailExplanation = "Click and hold the mouse to adjust the hail size dropping papers";
     string defaultPlaceablesExplanation;
 
     public Sprite block;
-    public Sprite thunder;
+    public Sprite bumper;
     public Sprite slime;
     public Sprite hail;
 
 
     void Start(){
+        defaultWeatherTitle = curWeatherTitle.text;
         defaultWeatherExplanation = curWeatherText.text;
         defaultPlaceablesExplanation = curPlaceablesText.text;
-        curWeatherSpriteObj.SetActive(false);
         curPlaceablesSpriteObj.SetActive(false);
     }
 
     ////Weather Wheel Functions
     public void OnEnterRain(){
-        curWeatherSpriteObj.SetActive(true);
-        curWeatherSpriteObj.transform.localEulerAngles = new Vector3(0, 0, 135);
-        curWeatherImage.sprite = rain;
+        curWeatherTitle.text = rainTitle;
         curWeatherText.text = rainExplanation;
     }
 
     public void OnEnterSnow(){
-        curWeatherSpriteObj.SetActive(true);
-        curWeatherSpriteObj.transform.localEulerAngles = new Vector3(0, 0, -135);
-        curWeatherImage.sprite = snow;
+        curWeatherTitle.text = snowTitle;
         curWeatherText.text = snowExplanation;
     }
 
     public void OnEnterWind(){
-        curWeatherSpriteObj.SetActive(true);
-        curWeatherSpriteObj.transform.localEulerAngles = new Vector3(0, 0, -45);
-        curWeatherImage.sprite = wind;
+        curWeatherTitle.text = windTitle;
         curWeatherText.text = windExplanation;
     }
 
     public void OnEnterFog(){
-        curWeatherSpriteObj.SetActive(true);
-        curWeatherSpriteObj.transform.localEulerAngles = new Vector3(0, 0, 45);
-        curWeatherImage.sprite = fog;
+        curWeatherTitle.text = fogTitle;
         curWeatherText.text = fogExplanation;
     }
 
     public void OnExitWeather(){
-        curWeatherSpriteObj.SetActive(false);
+        curWeatherTitle.text = defaultWeatherTitle;
         curWeatherText.text = defaultWeatherExplanation;
     }
     ////
@@ -90,10 +80,10 @@ public class KingTooltips : MonoBehaviour
         curPlaceablesText.text = blockExplanation;
     }
 
-    public void OnEnterThunder(){
+    public void OnEnterBumper(){
         curPlaceablesSpriteObj.SetActive(true);
-        curPlaceablesImage.sprite = thunder;
-        curPlaceablesText.text = thunderExplanation;
+        curPlaceablesImage.sprite = bumper;
+        curPlaceablesText.text = bumperExplanation;
     }
 
     public void OnEnterSlime(){

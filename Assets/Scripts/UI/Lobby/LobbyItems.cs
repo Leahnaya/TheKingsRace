@@ -12,6 +12,9 @@ public class LobbyItems : MonoBehaviour
     LobbyUI lobbyUI;
     PlayerInventory pInv;
     public GameObject itemOptPrefab;
+    public GameObject costPointer;
+    public Text costPointerText;
+    public Vector3[] costPointerPos;
     private Slider glueGooSlider;
 
     private PlayerStats pStats;
@@ -135,7 +138,9 @@ public class LobbyItems : MonoBehaviour
         if(pInv.PlayerItemDict.ContainsKey(item.name)){
             //Player can remove the item
             pointsLeft += itemCost;
-            
+            costPointer.transform.localPosition = costPointerPos[pointsLeft];
+            costPointerText.text = pointsLeft.ToString();
+
             //Glue level
             glueGooSlider.value += itemCost;
 
@@ -148,6 +153,8 @@ public class LobbyItems : MonoBehaviour
         else if(!pInv.PlayerItemDict.ContainsKey(item.name) && (pointsLeft - itemCost) >= 0){
             //Player can add the item
             pointsLeft -= itemCost;
+            costPointer.transform.localPosition = costPointerPos[pointsLeft];
+            costPointerText.text = pointsLeft.ToString();
 
             //glue level
             glueGooSlider.value -= itemCost;
