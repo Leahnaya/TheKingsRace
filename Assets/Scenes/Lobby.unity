@@ -683,77 +683,77 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3670971460473670880, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
-      propertyPath: glider
-      value: 
-      objectReference: {fileID: 1557924177}
-    - target: {fileID: 3670971460473670880, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
-      propertyPath: leftLeg
-      value: 
-      objectReference: {fileID: 830458338}
-    - target: {fileID: 3670971460473670880, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
-      propertyPath: leftFoot
-      value: 
-      objectReference: {fileID: 1412069676}
-    - target: {fileID: 3670971460473670880, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
-      propertyPath: leftQuad
-      value: 
-      objectReference: {fileID: 1964031227}
-    - target: {fileID: 3670971460473670880, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
-      propertyPath: rightLeg
-      value: 
-      objectReference: {fileID: 1981709688}
-    - target: {fileID: 3670971460473670880, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
-      propertyPath: rightFoot
-      value: 
-      objectReference: {fileID: 919153051}
-    - target: {fileID: 3670971460473670880, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
-      propertyPath: rightHand
-      value: 
-      objectReference: {fileID: 238421040}
-    - target: {fileID: 3670971460473670880, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
-      propertyPath: rightQuad
-      value: 
-      objectReference: {fileID: 535173809}
-    - target: {fileID: 3670971460473670880, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
-      propertyPath: leftSpring
-      value: 
-      objectReference: {fileID: 49756914}
-    - target: {fileID: 3670971460473670880, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
-      propertyPath: backBattery
+      propertyPath: runnerBodyModifiers.Array.data[0]
       value: 
       objectReference: {fileID: 242966128}
     - target: {fileID: 3670971460473670880, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
-      propertyPath: rightSpring
+      propertyPath: runnerBodyModifiers.Array.data[1]
+      value: 
+      objectReference: {fileID: 1557924177}
+    - target: {fileID: 3670971460473670880, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
+      propertyPath: runnerBodyModifiers.Array.data[2]
+      value: 
+      objectReference: {fileID: 830458338}
+    - target: {fileID: 3670971460473670880, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
+      propertyPath: runnerBodyModifiers.Array.data[3]
+      value: 
+      objectReference: {fileID: 1981709688}
+    - target: {fileID: 3670971460473670880, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
+      propertyPath: runnerBodyModifiers.Array.data[4]
+      value: 
+      objectReference: {fileID: 49756914}
+    - target: {fileID: 3670971460473670880, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
+      propertyPath: runnerBodyModifiers.Array.data[5]
       value: 
       objectReference: {fileID: 631883696}
     - target: {fileID: 3670971460473670880, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
-      propertyPath: leftWallShoe
+      propertyPath: runnerBodyModifiers.Array.data[6]
+      value: 
+      objectReference: {fileID: 1412069676}
+    - target: {fileID: 3670971460473670880, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
+      propertyPath: runnerBodyModifiers.Array.data[7]
+      value: 
+      objectReference: {fileID: 919153051}
+    - target: {fileID: 3670971460473670880, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
+      propertyPath: runnerBodyModifiers.Array.data[8]
       value: 
       objectReference: {fileID: 1129569242}
     - target: {fileID: 3670971460473670880, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
-      propertyPath: rightWallShoe
+      propertyPath: runnerBodyModifiers.Array.data[9]
       value: 
       objectReference: {fileID: 1129569241}
     - target: {fileID: 3670971460473670880, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
-      propertyPath: thiccLeftQuad
+      propertyPath: runnerBodyModifiers.Array.data[10]
       value: 
-      objectReference: {fileID: 1129569237}
+      objectReference: {fileID: 238421040}
     - target: {fileID: 3670971460473670880, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
-      propertyPath: thiccRightQuad
-      value: 
-      objectReference: {fileID: 1129569243}
-    - target: {fileID: 3670971460473670880, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
-      propertyPath: leftRollerSkate
-      value: 
-      objectReference: {fileID: 1129569239}
-    - target: {fileID: 3670971460473670880, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
-      propertyPath: rightStickyHand
+      propertyPath: runnerBodyModifiers.Array.data[11]
       value: 
       objectReference: {fileID: 1129569240}
     - target: {fileID: 3670971460473670880, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
-      propertyPath: rightRollerSkate
+      propertyPath: runnerBodyModifiers.Array.data[12]
+      value: 
+      objectReference: {fileID: 1129569239}
+    - target: {fileID: 3670971460473670880, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
+      propertyPath: runnerBodyModifiers.Array.data[13]
       value: 
       objectReference: {fileID: 1129569238}
+    - target: {fileID: 3670971460473670880, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
+      propertyPath: runnerBodyModifiers.Array.data[14]
+      value: 
+      objectReference: {fileID: 1964031227}
+    - target: {fileID: 3670971460473670880, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
+      propertyPath: runnerBodyModifiers.Array.data[15]
+      value: 
+      objectReference: {fileID: 535173809}
+    - target: {fileID: 3670971460473670880, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
+      propertyPath: runnerBodyModifiers.Array.data[16]
+      value: 
+      objectReference: {fileID: 1129569237}
+    - target: {fileID: 3670971460473670880, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
+      propertyPath: runnerBodyModifiers.Array.data[17]
+      value: 
+      objectReference: {fileID: 1129569243}
     - target: {fileID: 7203582894680926279, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
