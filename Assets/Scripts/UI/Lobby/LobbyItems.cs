@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using TMPro;
+
 
 public class LobbyItems : MonoBehaviour
 {
@@ -13,7 +15,7 @@ public class LobbyItems : MonoBehaviour
     PlayerInventory pInv;
     public GameObject itemOptPrefab;
     public GameObject costPointer;
-    public Text costPointerText;
+    public GameObject costPointerText;
     public Vector3[] costPointerPos;
     private Slider glueGooSlider;
 
@@ -110,11 +112,11 @@ public class LobbyItems : MonoBehaviour
 
                 //Changes Button Texts
                 iOpt.GetComponent<Image>().sprite = itemBG[index];
-                iOpt.transform.Find("Name").GetComponent<Text>().text = item.Value.itemName;
+                iOpt.transform.Find("Name").GetComponent<TextMeshProUGUI>().text = item.Value.itemName;
                 iOpt.transform.Find("Name").localPosition = itemNamePos[index];
                 iOpt.transform.Find("Name").localEulerAngles = itemNameRot[index];
                
-                iOpt.transform.Find("Cost").GetComponent<Text>().text = item.Value.costM.ToString();
+                iOpt.transform.Find("Cost").GetComponent<TextMeshProUGUI>().text = item.Value.costM.ToString();
                 iOpt.transform.Find("Cost").localPosition = itemCostPos[index];
                 iOpt.transform.Find("Cost").localEulerAngles = itemCostRot[index];
 
@@ -139,7 +141,7 @@ public class LobbyItems : MonoBehaviour
             //Player can remove the item
             pointsLeft += itemCost;
             costPointer.transform.localPosition = costPointerPos[pointsLeft];
-            costPointerText.text = pointsLeft.ToString();
+            costPointerText.GetComponent<TextMeshProUGUI>().text = pointsLeft.ToString();
 
             //Glue level
             glueGooSlider.value += itemCost;
@@ -154,7 +156,7 @@ public class LobbyItems : MonoBehaviour
             //Player can add the item
             pointsLeft -= itemCost;
             costPointer.transform.localPosition = costPointerPos[pointsLeft];
-            costPointerText.text = pointsLeft.ToString();
+            costPointerText.GetComponent<TextMeshProUGUI>().text = pointsLeft.ToString();
 
             //glue level
             glueGooSlider.value -= itemCost;

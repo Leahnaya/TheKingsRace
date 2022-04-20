@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Tooltip : MonoBehaviour
 {
 
-    private Text tooltipText;
+    private TextMeshProUGUI tooltipText;
 
     private void Start(){
-        tooltipText = transform.Find("Text").GetComponent<Text>();
+        tooltipText = transform.Find("Text").GetComponent<TextMeshProUGUI>();
         HideTooltip();
     }
 
