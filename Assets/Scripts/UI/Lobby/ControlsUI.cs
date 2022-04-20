@@ -8,8 +8,8 @@ public class ControlsUI : MonoBehaviour
     public GameObject controlsMenu;
     public TMP_Text ControlsHeader;
     public TMP_Text ControlsButtonText;
-    public TMP_Text ControlsText;
-    private bool isViewingRunnerControls = true;
+    public GameObject runnerControls;
+    public GameObject kingControls;
 
 
 
@@ -29,19 +29,21 @@ public class ControlsUI : MonoBehaviour
 
     public void ToggleControlsScreen()
     {
-        if (isViewingRunnerControls)
+        if (runnerControls.active)
         {
-            isViewingRunnerControls = false;
             ControlsHeader.text = "King Controls";
             ControlsButtonText.text = "Runner Controls";
-            ControlsText.text = "To-Do: Put the King's Controls here";
+
+            runnerControls.SetActive(false);
+            kingControls.SetActive(true);
         }
         else
         {
-            isViewingRunnerControls = true;
             ControlsHeader.text = "Runner Controls";
             ControlsButtonText.text = "King Controls";
-            ControlsText.text = "To-Do: Put the Runner's Controls here";
+
+            runnerControls.SetActive(true);
+            kingControls.SetActive(false);
         }
     }
 }
