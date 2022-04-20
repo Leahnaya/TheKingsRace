@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.8674563, g: 0.8218122, b: 0.7859322, a: 1}
+  m_IndirectSpecularColor: {r: 0.8672222, g: 0.82182354, b: 0.78585345, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -123,11 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &49756914 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3287131508589137792, guid: 1e178f956ddfe5143b2b9e77e76db7f0, type: 3}
-  m_PrefabInstance: {fileID: 1129569235}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &238421040 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2865501194676526530, guid: 1e178f956ddfe5143b2b9e77e76db7f0, type: 3}
@@ -141,11 +136,6 @@ GameObject:
 --- !u!1 &535173809 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6530546244197494214, guid: 1e178f956ddfe5143b2b9e77e76db7f0, type: 3}
-  m_PrefabInstance: {fileID: 1129569235}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &631883696 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5521973095483032952, guid: 1e178f956ddfe5143b2b9e77e76db7f0, type: 3}
   m_PrefabInstance: {fileID: 1129569235}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &651583808
@@ -345,6 +335,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NetworkSMPlayerPrefab
       objectReference: {fileID: 0}
+    - target: {fileID: 2990189160485986625, guid: 1e178f956ddfe5143b2b9e77e76db7f0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3669633515805984294, guid: 1e178f956ddfe5143b2b9e77e76db7f0, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -405,6 +399,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4748546854517208321, guid: 1e178f956ddfe5143b2b9e77e76db7f0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e178f956ddfe5143b2b9e77e76db7f0, type: 3}
 --- !u!1 &1129569236 stripped
@@ -445,6 +443,16 @@ GameObject:
 --- !u!1 &1129569243 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5602340108049884658, guid: 1e178f956ddfe5143b2b9e77e76db7f0, type: 3}
+  m_PrefabInstance: {fileID: 1129569235}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1129569244 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2990189160485986625, guid: 1e178f956ddfe5143b2b9e77e76db7f0, type: 3}
+  m_PrefabInstance: {fileID: 1129569235}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1129569245 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4748546854517208321, guid: 1e178f956ddfe5143b2b9e77e76db7f0, type: 3}
   m_PrefabInstance: {fileID: 1129569235}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1412069676 stripped
@@ -701,11 +709,11 @@ PrefabInstance:
     - target: {fileID: 3670971460473670880, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
       propertyPath: runnerBodyModifiers.Array.data[4]
       value: 
-      objectReference: {fileID: 49756914}
+      objectReference: {fileID: 1129569245}
     - target: {fileID: 3670971460473670880, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
       propertyPath: runnerBodyModifiers.Array.data[5]
       value: 
-      objectReference: {fileID: 631883696}
+      objectReference: {fileID: 1129569244}
     - target: {fileID: 3670971460473670880, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
       propertyPath: runnerBodyModifiers.Array.data[6]
       value: 
