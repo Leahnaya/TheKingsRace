@@ -14,8 +14,12 @@ public class ConnectButtons : MonoBehaviour {
     public GameObject ErrorPanel;
     public Text ErrorText;
 
+    public GameObject ipAddressObject;
     public InputField ipAddressField;
     public TMP_InputField playerNameField;
+
+    public GameObject hostButton;
+    public GameObject joinButton;
 
     private int connectionTimeoutTime = 5;
 
@@ -77,6 +81,19 @@ public class ConnectButtons : MonoBehaviour {
 
         // Run a coroutine to check if the client connects to the server
         StartCoroutine(checkIsConnectedClient());
+    }
+
+    public void ToggleIPAddress(){
+        if(ipAddressObject.active){
+            ipAddressObject.SetActive(false);
+            hostButton.SetActive(true);
+            joinButton.SetActive(true);
+        }
+        else{
+            ipAddressObject.SetActive(true);
+            hostButton.SetActive(false);
+            joinButton.SetActive(false);
+        }
     }
 
     IEnumerator checkIsConnectedClient() {

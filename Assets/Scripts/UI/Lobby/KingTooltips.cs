@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class KingTooltips : MonoBehaviour
 {
     
     ////Weather Wheel Variables
-    public Text curWeatherText;
-    public Text curWeatherTitle;
+    public TextMeshProUGUI curWeatherText;
+    public TextMeshProUGUI curWeatherTitle;
 
     string rainExplanation = "Increases the players acceleration & decreases the players traction.";
     string rainTitle = "Rain";
@@ -24,13 +25,13 @@ public class KingTooltips : MonoBehaviour
 
     ////Placeables Variables
     public GameObject curPlaceablesSpriteObj;
-    public Text curPlaceablesText;
+    public TextMeshProUGUI curPlaceablesText;
     public Image curPlaceablesImage;
 
     string blockExplanation = "Place a block on the grid to obstruct a players movement.";
     string bumperExplanation = "Places a bumper on the grid to obstruct and knock the players back.";
     string slimeExplanation = "Click and hold the mouse to place and then choose the direction the slowing slime goes.";
-    string hailExplanation = "Click and hold the mouse to adjust the hail size dropping papers";
+    string hailExplanation = "Click and hold the mouse to adjust the hail size dropping paper balls.";
     string defaultPlaceablesExplanation;
 
     public Sprite block;
