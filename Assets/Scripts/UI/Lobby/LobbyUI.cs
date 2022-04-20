@@ -329,13 +329,13 @@ public class LobbyUI : NetworkBehaviour {
         LobbyStatusText = stateText;
     }
 
-    //Taken from Goodgulf
+    // Code by: Goodgulf
     IEnumerator GetIPAddress() {
         UnityWebRequest www = UnityWebRequest.Get("http://checkip.dyndns.org");
         yield return www.SendWebRequest();
 
         if (www.result == UnityWebRequest.Result.ConnectionError || www.result == UnityWebRequest.Result.ProtocolError) {
-            hostIpAddress.Value = "Host IP: Network Error";
+            hostIpAddress.Value = "Network Error - Try Again";
         } else {
             string result = www.downloadHandler.text;
 
@@ -350,6 +350,10 @@ public class LobbyUI : NetworkBehaviour {
 
             hostIpAddress.Value = "Host IP: " + a4;
         }
+    }
+
+    public void RefreshIPAddress() {
+        StartCoroutine(GetIPAddress());
     }
 
     void Update() {
