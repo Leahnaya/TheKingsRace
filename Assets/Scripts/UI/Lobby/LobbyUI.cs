@@ -251,13 +251,13 @@ public class LobbyUI : NetworkBehaviour {
     private void HandleLobbyPlayersStateChanged(NetworkListEvent<LobbyPlayerState> lobbyState) { 
         for (int i = 0; i < lobbyPlayerCards.Length; i++)
         {
-            if (lobbyPlayers.Count > i)
-            {
+            if (lobbyPlayers.Count > i) {
                 lobbyPlayerCards[i].UpdateDisplay(lobbyPlayers[i]);
+                //Debug.Log("A");
             }
-            else
-            {
+            else {
                 lobbyPlayerCards[i].DisableDisplay();
+                //Debug.Log("B");
             }
         }
 
