@@ -10,6 +10,8 @@ public class KingTooltips : MonoBehaviour
     ////Weather Wheel Variables
     public TextMeshProUGUI curWeatherText;
     public TextMeshProUGUI curWeatherTitle;
+    public GameObject curWeatherSpriteObj;
+    public Image curWeatherImage;
 
     string rainExplanation = "Increases the players acceleration & decreases the players traction.";
     string rainTitle = "Rain";
@@ -21,6 +23,11 @@ public class KingTooltips : MonoBehaviour
     string fogTitle = "Fog";
     string defaultWeatherTitle;
     string defaultWeatherExplanation;
+
+    public Sprite rain;
+    public Sprite fog;
+    public Sprite snow;
+    public Sprite wind;
     ////
 
     ////Placeables Variables
@@ -38,37 +45,47 @@ public class KingTooltips : MonoBehaviour
     public Sprite bumper;
     public Sprite slime;
     public Sprite hail;
-
+    ////
 
     void Start(){
         defaultWeatherTitle = curWeatherTitle.text;
         defaultWeatherExplanation = curWeatherText.text;
         defaultPlaceablesExplanation = curPlaceablesText.text;
         curPlaceablesSpriteObj.SetActive(false);
+        curWeatherSpriteObj.SetActive(false);
     }
 
     ////Weather Wheel Functions
     public void OnEnterRain(){
+        curWeatherSpriteObj.SetActive(true);
+        curWeatherImage.sprite = rain;
         curWeatherTitle.text = rainTitle;
         curWeatherText.text = rainExplanation;
     }
 
     public void OnEnterSnow(){
+        curWeatherSpriteObj.SetActive(true);
+        curWeatherImage.sprite = snow;
         curWeatherTitle.text = snowTitle;
         curWeatherText.text = snowExplanation;
     }
 
     public void OnEnterWind(){
+        curWeatherSpriteObj.SetActive(true);
+        curWeatherImage.sprite = wind;
         curWeatherTitle.text = windTitle;
         curWeatherText.text = windExplanation;
     }
 
     public void OnEnterFog(){
+        curWeatherSpriteObj.SetActive(true);
+        curWeatherImage.sprite = fog;
         curWeatherTitle.text = fogTitle;
         curWeatherText.text = fogExplanation;
     }
 
     public void OnExitWeather(){
+        curWeatherSpriteObj.SetActive(false);
         curWeatherTitle.text = defaultWeatherTitle;
         curWeatherText.text = defaultWeatherExplanation;
     }

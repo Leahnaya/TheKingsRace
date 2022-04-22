@@ -630,14 +630,6 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1129569236}
-    - target: {fileID: 2240580173848419138, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2240580173848419138, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2890392181480129907, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
       propertyPath: m_Camera
       value: 
@@ -762,17 +754,5 @@ PrefabInstance:
       propertyPath: runnerBodyModifiers.Array.data[17]
       value: 
       objectReference: {fileID: 1129569243}
-    - target: {fileID: 7203582894680926279, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7203582894680926279, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7203582894680926279, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
