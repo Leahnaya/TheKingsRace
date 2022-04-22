@@ -5,11 +5,24 @@ using UnityEngine.SceneManagement;
 
 public class ReturnToTitle : MonoBehaviour
 {
-    public void backToSettings(){
-        SceneManager.LoadScene("Options");
+    //reference to canvas  (used to clal rebindManager)
+    public Canvas canvasRef;
+    public GameObject warningBox;
+
+    public void backToSettings()
+    {
+        //if there are no duplicates, let them go back
+        if (canvasRef.GetComponent<RebindManager>().areThereDuplicates() == false){
+            SceneManager.LoadScene("Options");
+        }
+        //bring 
+        else
+        {
+            warningBox.SetActive(true);
+        }
     }
 
-    public void backToTitle(){
-        SceneManager.LoadScene("TitleScene");
-    }
+        public void backToTitle() {
+            SceneManager.LoadScene("TitleScene");
+        }
 }

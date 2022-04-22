@@ -13,7 +13,7 @@ public class OffenseKickState : OffenseBaseState
 
         oSM.leg.SetActive(true); // activate leg
         kicked = false; // haven't kicked
-        oSM.animator.SetBool("IsKicking", true);
+        oSM.animator.SetBool("IsKickingIdle", true);
         //start kicking routine
         oSM.StartCoroutine(kicking(1f));
     }
@@ -22,7 +22,7 @@ public class OffenseKickState : OffenseBaseState
         legRotation = 0; // reset leg angle
         oSM.leg.transform.eulerAngles = new Vector3(legRotation, oSM.leg.transform.eulerAngles.y, oSM.leg.transform.eulerAngles.z); // rotate leg
         oSM.leg.SetActive(false); // reset leg angle
-        oSM.animator.SetBool("IsKicking", false);
+        oSM.animator.SetBool("IsKickingIdle", false);
     }
 
     public override void UpdateState(OffenseStateManager oSM){
