@@ -26,21 +26,21 @@ public class GameManager : MonoBehaviour
 
 
         //for keyboard
-/*        walkForward = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("walkForwardKey", "W"));
-        walkBackward = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("walkBackwardKey", "S"));
-        walkLeft = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("walkLeftKey", "A"));
-        walkRight = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("walkRightKey", "D"));*/
-        KeyCode jump = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("jumpKey", "Space"));
-        KeyCode kick = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("kickKey", "F"));
+        /*        walkForward = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("walkForwardKey", "W"));
+                walkBackward = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("walkBackwardKey", "S"));
+                walkLeft = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("walkLeftKey", "A"));
+                walkRight = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("walkRightKey", "D"));*/
+        //KeyCode jump = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("jumpKey", "Space"));
         KeyCode slide = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("slideKey", "Q"));
+        KeyCode kick = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("kickKey", "F"));
         KeyCode dash = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("dashKey", "R"));
         KeyCode nitro = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("nitroKey", "LeftShift"));
         KeyCode grapple = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("grappleKey", "E"));
 
 
-        bindableActions.Add("jumpKey", jump);
-        bindableActions.Add("kickKey", kick);
+        //bindableActions.Add("jumpKey", jump);
         bindableActions.Add("slideKey", slide);
+        bindableActions.Add("kickKey", kick);
         bindableActions.Add("dashKey", dash);
         bindableActions.Add("nitroKey", nitro);
         bindableActions.Add("grappleKey", grapple);
