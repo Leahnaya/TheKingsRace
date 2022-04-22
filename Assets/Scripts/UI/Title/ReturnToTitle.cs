@@ -8,4 +8,8 @@ public class ReturnToTitle : MonoBehaviour
     public void backToSettings(){
         SceneManager.LoadScene("Options");
     }
+
+    public void backToTitle(){
+        SceneManager.LoadScene("TitleScene");
+    }
 }
