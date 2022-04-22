@@ -47,4 +47,8 @@ public class OptionsMenu : MonoBehaviour {
     public void OnReturnToTitleClicked() {
         SceneManager.LoadScene("TitleScene");
     }
+    public void GoToControls()
+    {
+        SceneManager.LoadScene("Controls");
+    }
 }
