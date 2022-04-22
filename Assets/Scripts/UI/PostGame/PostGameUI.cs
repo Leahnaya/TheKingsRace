@@ -11,6 +11,9 @@ public class PostGameUI : NetworkBehaviour {
     [SerializeField] private int ReturnToLobbyTimer;
 
     [SerializeField] private TMP_Text HeaderText;
+    [SerializeField] private GameObject king;
+    [SerializeField] private GameObject player1;
+    [SerializeField] private GameObject player2;
 
     void Start() {
         ReturnToLobbyText.text = "Returning to the lobby in " + ReturnToLobbyTimer + " seconds...";
