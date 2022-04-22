@@ -353,6 +353,7 @@ public class LobbyUI : NetworkBehaviour {
     }
 
     public void RefreshIPAddress() {
+        if (!IsServer) { return; }
         StartCoroutine(GetIPAddress());
     }
 

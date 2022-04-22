@@ -53,6 +53,27 @@ public class PauseMenu : NetworkBehaviour {
         ControlsPanel.SetActive(false);
         ConfirmationPanel.SetActive(false);
         RespawnConfirmationPanel.SetActive(false);
+
+        InvokeRepeating("checkForPaused", 0f, 2f);
+    }
+
+    private void checkForPaused() {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+
+        foreach (GameObject player in players) {
+            if (player.GetComponent<NetworkObject>().IsLocalPlayer) {
+                if (player.GetComponentInChildren<PlayerStats>() != null)
+                {
+                    if (!player.GetComponentInChildren<PlayerStats>().IsPaused)
+                    {
+                        PauseMenuPanel.SetActive(false);
+                        ControlsPanel.SetActive(false);
+                        ConfirmationPanel.SetActive(false);
+                        RespawnConfirmationPanel.SetActive(false);
+                    }
+                }
+            }
+        }
     }
 
     void Update() { 
@@ -89,8 +110,6 @@ public class PauseMenu : NetworkBehaviour {
                         // Turn off "Restart from Checkpoint" button for the king
                         RestartButton.interactable = false;
                     }
-
-                    
                       
                 }
             }
@@ -98,7 +117,29 @@ public class PauseMenu : NetworkBehaviour {
     }
 
     [ServerRpc(RequireOwnership = false)]
-    private void setPlayerControlsStateServerRPC(bool newState, ServerRpcParams serverRpcParams = default) {
+    public void TurnOffPanelServerRPC(ServerRpcParams serverRpcParams = default) {
+        ClientRpcParams clientRpcParams = new ClientRpcParams
+        {
+            Send = new ClientRpcSendParams
+            {
+                TargetClientIds = new ulong[] { serverRpcParams.Receive.SenderClientId }
+            }
+        };
+
+        TurnOffPanelClientRPC(clientRpcParams);
+    }
+
+    [ClientRpc]
+    private void TurnOffPanelClientRPC(ClientRpcParams clientRpcParams)
+    {
+        PauseMenuPanel.SetActive(false);
+        ControlsPanel.SetActive(false);
+        ConfirmationPanel.SetActive(false);
+        RespawnConfirmationPanel.SetActive(false);
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void setPlayerControlsStateServerRPC(bool newState, ServerRpcParams serverRpcParams = default) {
         ClientRpcParams clientRpcParams = new ClientRpcParams
         {
             Send = new ClientRpcSendParams
