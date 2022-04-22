@@ -201,6 +201,18 @@ public class PlayerStats : MonoBehaviour
             else if (GameObject.FindGameObjectWithTag("FogSystem").GetComponent<ParticleSystem>().isPlaying) {
                 SetWeather(Weather.Fog);
             }
+
+            StartCoroutine(UnPause());
+        }
+    }
+
+    IEnumerator UnPause() {
+        yield return new WaitForSecondsRealtime(3f);
+
+        if (gameObject.transform.root.GetComponentInChildren<PlayerStats>().IsPaused) {
+            GameObject PauseMenu = GameObject.FindGameObjectWithTag("PauseMenu");
+            PauseMenu.GetComponent<PauseMenu>().setPlayerControlsStateServerRPC(true);
+            PauseMenu.GetComponent<PauseMenu>().TurnOffPanelServerRPC();
         }
     }
 
