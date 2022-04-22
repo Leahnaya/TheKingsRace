@@ -11,7 +11,9 @@ public class Slime : NetworkBehaviour
     int Lifetime = 0;
     bool GooGo = false;
     Vector3 GooOffset = new Vector3(0.0f, -0.1f, 0.0f);
-    Vector3 RayOffset = new Vector3(0.0f, -0.5f, 0.0f);
+    Vector3 ForwardOffset = new Vector3(0.0f, 0.5f, 0.0f);
+    bool ForwardRaycast = false;
+    bool DownRaycast = true;
     Vector3 MoveDir = new Vector3(0, 0, 1);
     RaycastHit hit;
     public GameObject Goo;
@@ -27,15 +29,27 @@ public class Slime : NetworkBehaviour
     {
         if (GooGo == true) {//Makes it make goo and move only if it's already placed
             //create goo underneath them slime
-            if (GooTimer == 6) {
+            if (GooTimer == 35) {
                 GameObject GooTrail = null;
                 GooTrail = Instantiate(Goo, transform.position - GooOffset, transform.rotation);
+                if(MoveDir == Vector3.left || MoveDir == Vector3.right){
+                    GooTrail.transform.Rotate(90, 90, 0);
+                }
+                else
+                {
+                    GooTrail.transform.Rotate(90, 0, 0);
+                }
                 GooTrail.GetComponent<NetworkObject>().Spawn(null, true);
                 GooTimer = 0;
             }
             //attempt to move forward(Raycast infront for objects, and also raycast down, to make sure there's still ground underneath it)
-            if (Physics.Raycast(transform.position, transform.TransformDirection(MoveDir), out hit, 2f, LayerMask) || Physics.Raycast(transform.position + RayOffset, transform.TransformDirection(Vector3.down), out hit, 50f, LayerMask)) {//turns it around when it hits something or is going to go over a pit//TODO hit more than terrain
+            Debug.DrawRay(transform.position + ForwardOffset, transform.TransformDirection(MoveDir), Color.green, 20f);
+            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down), Color.red, 50f);
+            ForwardRaycast = Physics.Raycast(transform.position + ForwardOffset, transform.TransformDirection(MoveDir), out hit, 20f, LayerMask);
+            DownRaycast = Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 50f, LayerMask);
+            if (ForwardRaycast || !DownRaycast) {//turns it around when it hits something or is going to go over a pit
                 MoveDir = -MoveDir;
+                transform.GetChild(0).Rotate(0, 180, 0);
             }
             transform.Translate(MoveSpd*MoveDir);//moving forward
             GooTimer++;

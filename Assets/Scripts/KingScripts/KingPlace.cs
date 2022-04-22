@@ -32,6 +32,8 @@ public class KingPlace : NetworkBehaviour
     private bool SlimePlacing = false;
 
     private int SlimeDir;
+    private GameObject SlimeBody = null;
+
     private int BoxSize = 20;
     private Vector3 MontStr = new Vector3(-4000, 300, 495);
 
@@ -45,7 +47,6 @@ public class KingPlace : NetworkBehaviour
     private float[] MountxOffsets = { -50f, -73.4f, -100f, -127f, -134.7f, -130f, -34f, 14.5f, 91.2f, 129f, 129.5f };
     private float[] MountzOffsets = { 130f, 120f, 97f, 56.6f, 32f, -50f, -135.5f, -138.5f, -105f, -52.5f, 50f };
 
-    //Is called when the King clicks on the Thunderstorm button
 
     private int Energy = 100;
 
@@ -143,11 +144,12 @@ public class KingPlace : NetworkBehaviour
 
                 Vector3 slimeLoc = PlaceTemp.transform.position;//Gets the Slime's position and rotation
                 Quaternion slimeRot = PlaceTemp.transform.rotation;
+                Quaternion slimeBodyRot = SlimeBody.transform.rotation;
 
                 Destroy(PlaceTemp);
 
                 // PLACE NETWORKED VERSION
-                SpawnSlimeServerRPC(slimeLoc, slimeRot, SlimeDir);
+                SpawnSlimeServerRPC(slimeLoc, slimeRot, slimeBodyRot, SlimeDir);
 
                 SlimePlacing = false;
                 MenuOff();
@@ -349,8 +351,10 @@ public class KingPlace : NetworkBehaviour
         }
     }
 
-    private int DrawArrow() {
+    private int DrawArrow() { //TODO Fix how it determines where to point
         Vector3 MosPos = new Vector3(0, 0, 0);
+        GameObject Arrow = null;
+        int DirNumber = 2;//Defaults to down, just in case
         Ray Ray = KingCam.ScreenPointToRay(Input.mousePosition);//Raycast to find the point where the mouse cursor is
         if (Physics.Raycast(Ray, out RaycastHit RayCastHit, float.MaxValue, LayerMask)) {
             MosPos = RayCastHit.point;
@@ -359,26 +363,36 @@ public class KingPlace : NetworkBehaviour
             if (child.gameObject.tag == "Arrow") { // Makes sure not to turn off the model
                 child.gameObject.SetActive(false);
             }
-        }//y=x(PlaceTemp.y - PlaceTemp.x) y=-x(PlaceTemp.y - PlaceTemp.x)
+            else
+            {
+                SlimeBody = child.gameObject;
+            }
+        }
+        //Vector1 = Point1 - Placetemp.pos
+        //Vector2 = point2 - PlaceTemp.pos
+
+        //Take Cross products of Mouse Pas and the Vectors (-/+ = direction)
         if (MosPos.x > PlaceTemp.transform.position.x && MosPos.z < PlaceTemp.transform.position.z) {//Temp function to change Slime's dir
-            PlaceTemp.transform.Find("ArrowUP").gameObject.SetActive(true);
-            return 0;//Up
+            Arrow = PlaceTemp.transform.Find("ArrowUP").gameObject;
+            DirNumber = 0;//Up
         }
         else if (MosPos.x < PlaceTemp.transform.position.x && MosPos.z < PlaceTemp.transform.position.z) {
-            PlaceTemp.transform.Find("ArrowRIGHT").gameObject.SetActive(true);
-            return 1;//Right
+            Arrow = PlaceTemp.transform.Find("ArrowRIGHT").gameObject;
+            DirNumber = 1;//Right
         }
         else if (MosPos.x < PlaceTemp.transform.position.x && MosPos.z > PlaceTemp.transform.position.z)  {
-            PlaceTemp.transform.Find("ArrowDOWN").gameObject.SetActive(true);
-            return 2;//Down
+            Arrow = PlaceTemp.transform.Find("ArrowDOWN").gameObject;
+            DirNumber = 2;//Down
         }
         else if (MosPos.x > PlaceTemp.transform.position.x && MosPos.z > PlaceTemp.transform.position.z) {
-            PlaceTemp.transform.Find("ArrowLEFT").gameObject.SetActive(true);
-            return 3;//Left
+            Arrow = PlaceTemp.transform.Find("ArrowLEFT").gameObject;
+            DirNumber = 3;//Left
         }
-        else {
-            return 2;//Defaults to down, just in case
-        }
+
+        Arrow.SetActive(true);
+        SlimeBody.transform.LookAt(Arrow.transform);
+        SlimeBody.transform.Rotate(0, -90, 0);
+        return DirNumber;
     } 
 
     private void CooldownTimer() {// Function for tracking the individual cooldowns of the items. It's done in a two-teired system to allow the cooldowns to be eaisly converted as seconds
@@ -419,9 +433,9 @@ public class KingPlace : NetworkBehaviour
     }
 
     [ServerRpc(RequireOwnership = false)]
-    private void SpawnSlimeServerRPC(Vector3 spawnLoc, Quaternion spawnRot, int SlimeDir) {
+    private void SpawnSlimeServerRPC(Vector3 spawnLoc, Quaternion spawnRot, Quaternion slimeBodyRot, int SlimeDir) {
         placedObj = Instantiate(Slime, spawnLoc, spawnRot);
-
+        placedObj.transform.GetChild(0).rotation = slimeBodyRot;
         placedObj.GetComponent<Slime>().GooStart(SlimeDir);
 
         placedObj.GetComponent<NetworkObject>().Spawn(null, true);
