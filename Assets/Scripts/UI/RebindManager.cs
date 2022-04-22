@@ -117,14 +117,6 @@ public class RebindManager : MonoBehaviour
         switch (keyName)
         {
             //player prefs are used to keep key binds after game has closed (won't do anything until then). They are commented out for now for SGX
-            case "jump":
-                GameManager.GM.bindableActions["jumpKey"] = newKey;
-                //replace image of button
-                //currentButtonObject.GetComponent<Image>().sprite =
-                //PlayerPrefs.SetString("jumpKey", GameManager.GM.bindableActions["jumpKey"].ToString());
-                //revert flag
-                hasPressedValidKey = false;
-                break;
             case "kick":
                 GameManager.GM.bindableActions["kickKey"] = newKey;
                 //replace image of button
