@@ -22,25 +22,72 @@ public class CoolDown : MonoBehaviour
     void Start() { 
 
     }
-    public void startUICooldown(string name){
-        this.gameObject.transform.Find(name).GetComponent<UICoolDown>().startCoolDown();
+    public void startUICooldown(string name)
+    {
+        boxHighlight.transform.Find(name).GetComponent<UICoolDown>().startCoolDown();
     }
     // Update is called once per frame
-    void Update(){
+    void Update()
+    {
         ////if tap is pressed, set active reversed 
         //not currently bounded to controller
-        if (Input.GetKeyDown(KeyCode.Tab)){
-            if(boxHighlight.activeInHierarchy == false){
-                boxHighlight.SetActive(true);
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            if (boxHighlight.GetComponent<Image>().enabled == false)
+            {
+                ////due to setup, I will have to manually turn the other ones back on so cooldown works
+                //try turning on nitro
+                for (int i = 0; i < boxHighlight.transform.childCount; i++)
+                {
+                    Transform temp = boxHighlight.transform.GetChild(i);
+                    //turn off all but the special items
+                    if (!temp.transform.name.Equals(nitroItem.name) && !temp.transform.gameObject.name.Equals(dashItem.name))
+                    {
+                        temp.gameObject.SetActive(true);
+                    }
+                }
+                boxHighlight.GetComponent<Image>().enabled = true;
+                if (stats.HasNitro == true)
+                {
+                    boxHighlight.transform.Find(nitroItem.name).GetComponent<Image>().enabled = true;
+                    boxHighlight.transform.Find(nitroItem.name).GetChild(0).gameObject.SetActive(true);
+                }
+                if (stats.HasDash == true)
+                {
+                    boxHighlight.transform.Find(dashItem.name).GetComponent<Image>().enabled = true;
+                    boxHighlight.transform.Find(dashItem.name).GetChild(0).gameObject.SetActive(true);
+                }
+
+                //turn on highlights and its children
             }
-            else{
-                boxHighlight.SetActive(false);
+            else
+            {
+                for (int i = 0; i < boxHighlight.transform.childCount; i++)
+                {
+                    Transform temp = boxHighlight.transform.GetChild(i);
+                    //turn off all but the special items
+                    if (!temp.transform.name.Equals(nitroItem.name) && !temp.transform.gameObject.name.Equals(dashItem.name))
+                    {
+                        temp.gameObject.SetActive(false);
+                    }
+                }
+                boxHighlight.GetComponent<Image>().enabled = false;
+
+                if (stats.HasNitro == true)
+                {
+                    boxHighlight.transform.Find(nitroItem.name).GetComponent<Image>().enabled = false;
+                    boxHighlight.transform.Find(nitroItem.name).GetChild(0).gameObject.SetActive(false);
+                }
+                if (stats.HasDash == true)
+                {
+                    boxHighlight.transform.Find(dashItem.name).GetComponent<Image>().enabled = false;
+                    boxHighlight.transform.Find(dashItem.name).GetChild(0).gameObject.SetActive(false);
+                }
             }
         }
     }
     public void populatePlayerCanvas()
     {
-
         ////display guranteed items
         // temp pos var
         float posTemp = 0f;
@@ -87,9 +134,9 @@ public class CoolDown : MonoBehaviour
             temp.GetComponent<UICoolDown>().setCoolDownTime(nitroItem.cooldownM);
             //set position on canvas
             //due to low number, gonna hardcode this to be first
-            
+
             //increment items
-            if(itemsAdded == 0)
+            if (itemsAdded == 0)
             {
                 temp.transform.localPosition = new Vector3(-250, -100);
                 itemsAdded++;
@@ -160,7 +207,7 @@ public class CoolDown : MonoBehaviour
             //doesn't exists
             temp5.transform.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "E";
             //increment counter
-            }
+        }
         //glider
         if (stats.HasGlider == true)
         {
@@ -192,3 +239,4 @@ public class CoolDown : MonoBehaviour
 
     }
 }
+
