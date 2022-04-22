@@ -131,6 +131,9 @@ public class KingPlace : NetworkBehaviour
             Ray Ray = KingCam.ScreenPointToRay(Input.mousePosition);//Raycast to find the point where the mouse cursor is
             if (Physics.Raycast(Ray, out RaycastHit RayCastHit, float.MaxValue, LayerMask)) {
                 HailCorner.transform.position = RayCastHit.point;
+                HailCorner.GetComponent<LineRenderer>().SetPosition(1, new Vector3(HailCorner.transform.position.x, HailCorner.transform.position.y + 35, PlaceTemp.transform.position.z));
+                HailCorner.GetComponent<LineRenderer>().SetPosition(2, new Vector3(HailCorner.transform.position.x, HailCorner.transform.position.y + 35, HailCorner.transform.position.z));
+                HailCorner.GetComponent<LineRenderer>().SetPosition(3, new Vector3(PlaceTemp.transform.position.x, HailCorner.transform.position.y + 35, HailCorner.transform.position.z));
             }
             if (Input.GetMouseButtonUp(0)) {//Reads the player releasing the left mouse button
                 CreateHail();
@@ -258,6 +261,7 @@ public class KingPlace : NetworkBehaviour
                 Grid.GetComponent<GridReveal>().GridSwitch(true);
                 HailPlacing = true;
                 HailCorner = Instantiate(Place);
+                HailCorner.GetComponent<LineRenderer>().SetPosition(0, new Vector3(PlaceTemp.transform.position.x, PlaceTemp.transform.position.y + 35, PlaceTemp.transform.position.z));
             }
         }
     }
@@ -368,25 +372,27 @@ public class KingPlace : NetworkBehaviour
                 SlimeBody = child.gameObject;
             }
         }
-        //Vector1 = Point1 - Placetemp.pos
-        //Vector2 = point2 - PlaceTemp.pos
 
-        //Take Cross products of Mouse Pas and the Vectors (-/+ = direction)
-        if (MosPos.x > PlaceTemp.transform.position.x && MosPos.z < PlaceTemp.transform.position.z) {//Temp function to change Slime's dir
+        Vector3 Dir = (MosPos - PlaceTemp.transform.position).normalized;//Finds the direction to the Mouse
+
+        if (Dir.z <= -.8f) {//Set of If statements that determine the direction of the Slime, relative to the Mouse's Position
             Arrow = PlaceTemp.transform.Find("ArrowUP").gameObject;
             DirNumber = 0;//Up
         }
-        else if (MosPos.x < PlaceTemp.transform.position.x && MosPos.z < PlaceTemp.transform.position.z) {
+        else if (Dir.x <= -.8f) {
             Arrow = PlaceTemp.transform.Find("ArrowRIGHT").gameObject;
             DirNumber = 1;//Right
         }
-        else if (MosPos.x < PlaceTemp.transform.position.x && MosPos.z > PlaceTemp.transform.position.z)  {
+        else if (Dir.z >= .8f) {
             Arrow = PlaceTemp.transform.Find("ArrowDOWN").gameObject;
             DirNumber = 2;//Down
         }
-        else if (MosPos.x > PlaceTemp.transform.position.x && MosPos.z > PlaceTemp.transform.position.z) {
+        else if (Dir.x >= .8f) {
             Arrow = PlaceTemp.transform.Find("ArrowLEFT").gameObject;
             DirNumber = 3;//Left
+        }
+        else {
+            Arrow = PlaceTemp.transform.Find("ArrowDOWN").gameObject; //Defaults to down
         }
 
         Arrow.SetActive(true);
