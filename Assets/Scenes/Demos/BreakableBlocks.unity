@@ -702,6 +702,20 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5339804152290053153, guid: 0ea305f96ab853340bb9f0ed320dac08, type: 3}
+      propertyPath: m_Avatar
+      value: 
+      objectReference: {fileID: 9000000, guid: 01a0b68d9b1816a498269ee32c17f8aa, type: 3}
+    - target: {fileID: 5339804152290053153, guid: 0ea305f96ab853340bb9f0ed320dac08, type: 3}
+      propertyPath: m_WarningMessage
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tTransform 'R_Wrist_Joint'\n\tTransform 'Root_Joint'\n\tTransform
+        'R_Wrist_Joint'\n\tTransform 'R_Ankle_Joint'\n\tTransform 'L_Elbow_Joint'\n\tTransform
+        'L_Ankle_Joint'\n\tTransform 'L_Shoulder_Joint'\n\tTransform 'L_Knee_Joint'\n\tTransform
+        'Spine2_Joint'\n\tTransform 'Neck_Joint'\n\tand more ...\n\tFrom animation
+        clip 'Take 001'"
+      objectReference: {fileID: 0}
     - target: {fileID: 5474104329426587794, guid: 0ea305f96ab853340bb9f0ed320dac08, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -757,6 +771,10 @@ PrefabInstance:
     - target: {fileID: 7053551988629990270, guid: 0ea305f96ab853340bb9f0ed320dac08, type: 3}
       propertyPath: m_Name
       value: DebugSMPlayerPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 8869624430673171230, guid: 0ea305f96ab853340bb9f0ed320dac08, type: 3}
+      propertyPath: m_TagString
+      value: PlayerModel
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0ea305f96ab853340bb9f0ed320dac08, type: 3}
