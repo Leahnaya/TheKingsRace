@@ -27,7 +27,9 @@ public class PauseMenu : NetworkBehaviour {
     [SerializeField]
     private TMP_Text ControlsButtonText;
     [SerializeField]
-    private TMP_Text ControlsText;
+    private GameObject ControlsDisplayRunner;
+    [SerializeField]
+    private GameObject ControlsDisplayKing;
 
     [SerializeField]
     private Button RestartButton;
@@ -164,6 +166,8 @@ public class PauseMenu : NetworkBehaviour {
     }
 
     public void OnBackButtonClicked() {
+        ControlsDisplayRunner.SetActive(true);
+        ControlsDisplayKing.SetActive(false);
         ControlsPanel.SetActive(false);
         isViewingRunnerControls = true;
     }
@@ -174,12 +178,14 @@ public class PauseMenu : NetworkBehaviour {
             isViewingRunnerControls = false;
             ControlsHeader.text = "King Controls";
             ControlsButtonText.text = "Runner Controls";
-            ControlsText.text = "To-Do: Put the King's Controls here";
+            ControlsDisplayRunner.SetActive(false);
+            ControlsDisplayKing.SetActive(true);
         } else {
             isViewingRunnerControls = true;
             ControlsHeader.text = "Runner Controls";
             ControlsButtonText.text = "King Controls";
-            ControlsText.text = "To-Do: Put the Runner's Controls here";
+            ControlsDisplayRunner.SetActive(true);
+            ControlsDisplayKing.SetActive(false);
         }
     }
 
