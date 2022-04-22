@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -3220977901539271234}
   m_Layer: 0
   m_Name: ResetZoneMountain
-  m_TagString: Untagged
+  m_TagString: MountainUpperRespawnPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43,8 +43,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1400, y: 2500, z: 1200}
-  m_Center: {x: -4400, y: 0, z: 500}
+  m_Size: {x: 1000, y: 2500, z: 1200}
+  m_Center: {x: -4500, y: 0, z: 500}
 --- !u!114 &-3220977901539271234
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57,4 +57,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6560db454bf09ef49bdb0240a370b8aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RespawnZone: 3
+  RespawnZone: 4
