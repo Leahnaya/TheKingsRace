@@ -26,9 +26,7 @@ public class Countdown : NetworkBehaviour {
         countdown_text.text = "1";
         yield return new WaitForSecondsRealtime(1f);
         countdown_text.text = "Go!";
-        if (IsHost){
-            EnablePauseMenuServerRPC();
-        }
+        EnablePauseMenuServerRPC();
     }
     [ServerRpc(RequireOwnership = false)]
     private void EnablePauseMenuServerRPC(){
