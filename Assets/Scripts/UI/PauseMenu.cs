@@ -76,7 +76,7 @@ public class PauseMenu : NetworkBehaviour {
         }
     }
 
-    void Update() { 
+    void Update() {
         // Listen for Pause button and not already paused
         // TODO: UPDATE TO ALSO LISTEN FOR CONTROLLER PAUSE BUTTON PRESSED
         if (isUsable && Input.GetKeyDown(KeyCode.Escape) && PauseMenuPanel.activeInHierarchy != true) {

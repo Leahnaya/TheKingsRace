@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 1043847408052489032}
   - component: {fileID: 564767176013578446}
   - component: {fileID: 292422149206273730}
+  - component: {fileID: 989170304343932963}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -63,3 +64,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coundownUI: {fileID: 6417009877132845026, guid: 7c3682087ff9b234cb9abf6a8fa941b5, type: 3}
   playerHUD: {fileID: 1623539175747816640, guid: 19c3c5fda3dc2b54d9275bb39ace73ec, type: 3}
+--- !u!114 &989170304343932963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1043847408052489033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66519fc5420181e45850c591aa1179ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allItems: []

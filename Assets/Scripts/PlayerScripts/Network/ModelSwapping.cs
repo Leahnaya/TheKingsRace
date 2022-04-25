@@ -7,8 +7,9 @@ using MLAPI.Messaging;
 using System.Linq;
 
 public class ModelSwapping : NetworkBehaviour {
-    
 
+    // Runner Body Parts Refs
+    public GameObject[] runnerBodyModifiers;
 
     void Start()
     {
@@ -53,6 +54,56 @@ public class ModelSwapping : NetworkBehaviour {
     public void SwapModels(string itemsAsString) {
         List<string> itemList = itemsAsString.Split(',').ToList();
 
+        if (itemList.Count <= 0) { return; }
 
+        foreach (string itemString in itemList) {
+            GameObject.FindGameObjectWithTag("GameManager").GetComponent<InventoryManager>().ItemDict.TryGetValue(itemString, out Item refItem);
+
+            if (refItem == null) { continue; }
+
+            switch (refItem.id) {
+                //Glider
+                case 2:
+                    runnerBodyModifiers[1].SetActive(true);
+                    //glider.SetActive(true);
+                    break;
+                //grapple
+                case 3:
+                    runnerBodyModifiers[11].SetActive(true);
+                    runnerBodyModifiers[10].GetComponent<SkinnedMeshRenderer>().enabled = false;
+                    break;
+                //nitro
+                case 4:
+                    runnerBodyModifiers[0].SetActive(true);
+                    break;
+                //roller skates
+                case 5:
+                    runnerBodyModifiers[12].SetActive(true);
+                    runnerBodyModifiers[13].SetActive(true);
+                    break;
+                //springs
+                case 6:
+                    runnerBodyModifiers[4].SetActive(true);
+                    runnerBodyModifiers[5].SetActive(true);
+                    runnerBodyModifiers[2].GetComponent<SkinnedMeshRenderer>().enabled = false;
+                    runnerBodyModifiers[3].GetComponent<SkinnedMeshRenderer>().enabled = false;
+                    break;
+                //tripple jump
+                case 7:
+                    runnerBodyModifiers[16].SetActive(true);
+                    runnerBodyModifiers[17].SetActive(true);
+                    runnerBodyModifiers[14].GetComponent<SkinnedMeshRenderer>().enabled = false;
+                    runnerBodyModifiers[15].GetComponent<SkinnedMeshRenderer>().enabled = false;
+                    break;
+                //wallrun
+                case 8:
+                    runnerBodyModifiers[8].SetActive(true);
+                    runnerBodyModifiers[9].SetActive(true);
+                    runnerBodyModifiers[6].GetComponent<SkinnedMeshRenderer>().enabled = false;
+                    runnerBodyModifiers[7].GetComponent<SkinnedMeshRenderer>().enabled = false;
+                    break;
+
+            }
+        }
     }
 }
