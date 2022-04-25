@@ -20,7 +20,7 @@ public class OffenseNoneState : OffenseBaseState
         }
 
         //if grounded then grounded kick states
-        else if(oSM.aSM.currentState == oSM.aSM.GroundedState && (Input.GetKeyDown(KeyCode.F) || Input.GetAxis("Kick") != 0) && !oSM.pStats.IsPaused){
+        else if(oSM.aSM.currentState == oSM.aSM.GroundedState && (Input.GetKeyDown(GameManager.GM.bindableActions["kickKey"]) || Input.GetAxis("Kick") != 0) && !oSM.pStats.IsPaused){
             //Regular Kick
             oSM.SwitchState(oSM.KickState);
         }

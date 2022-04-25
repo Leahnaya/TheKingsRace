@@ -590,7 +590,7 @@ public class AerialStateManager : NetworkBehaviour
     ////Grapple Functions
     public bool CheckGrapple(){
         if(!pStats.IsPaused){
-            if ((Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.JoystickButton2)) && pStats.HasGrapple) //If grapple button is hit
+            if ((Input.GetKeyDown(GameManager.GM.bindableActions["grappleKey"]) || Input.GetKeyDown(KeyCode.JoystickButton2)) && pStats.HasGrapple) //If grapple button is hit
             {
                 //Debug.Log("Checking Hooks");
                 hookPointIndex = FindHookPoint(); //Find the nearest hook point within max distance

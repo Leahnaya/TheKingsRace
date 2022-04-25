@@ -134,13 +134,6 @@ public class dMoveStateManager : NetworkBehaviour
         //calculates vel using driftVel will need to be relocated
         calculatedCurVel = driftVel.magnitude * 50f;
 
-        //if grappling in aerial state manager swap to grapple here
-        if(currentState != GrappleAirState){
-            if(aSM.currentState == aSM.GrappleAirState && (currentState != SlideState && currentState != CrouchState && currentState != CrouchWalkState && currentState != RagdollState && currentState != RecoveringState)){
-                SwitchState(GrappleAirState);
-            }
-        }
-
         //calls any logic in the update state from current state
         currentState.UpdateState(this);
     }
