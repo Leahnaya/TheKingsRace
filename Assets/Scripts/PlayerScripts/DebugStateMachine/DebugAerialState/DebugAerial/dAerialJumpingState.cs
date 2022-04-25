@@ -26,12 +26,12 @@ public class dAerialJumpingState : dAerialBaseState
         }
         
         //if is wall running and in a state that allows it wallrun
-        else if(aSM.isWallRunning){
+        else if(aSM.isWallRunning && (aSM.isWallRunning && (aSM.mSM.currentState != aSM.mSM.SlideState && aSM.mSM.currentState != aSM.mSM.CrouchState && aSM.mSM.currentState != aSM.mSM.CrouchWalkState && aSM.mSM.currentState != aSM.mSM.RagdollState && aSM.mSM.currentState != aSM.mSM.RecoveringState))){
             aSM.SwitchState(aSM.WallRunState);
         }
 
         //if can grapple and in a state that allows it grapple
-        else if(aSM.CheckGrapple()){
+        else if(aSM.CheckGrapple() && (aSM.CheckGrapple() && (aSM.mSM.currentState != aSM.mSM.SlideState && aSM.mSM.currentState != aSM.mSM.CrouchState && aSM.mSM.currentState != aSM.mSM.CrouchWalkState && aSM.mSM.currentState != aSM.mSM.RagdollState && aSM.mSM.currentState != aSM.mSM.RecoveringState))){
             aSM.SwitchState(aSM.GrappleAirState);
         }
     }

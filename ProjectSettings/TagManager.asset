@@ -34,6 +34,7 @@ TagManager:
   - hasEvent
   - MountainUpperRespawnPoint
   - Arrow
+  - PlayerHand
   layers:
   - Default
   - TransparentFX
@@ -55,7 +56,6 @@ TagManager:
   - KingBlock
   - hasEvent
   - KingPlaceable
-  - 
   - 
   - 
   - 

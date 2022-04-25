@@ -10,8 +10,11 @@ public class dAerialGrappleAirState : dAerialBaseState
     float distanceBeneathHook;
     float distanceAfterHook;
     Vector3 desiredPosition;
+    Vector3 playerOffset;
+    Vector3 lastPos;
 
     bool pointReached;
+    bool handReached = false;
 
     float initialForcePower;
 
@@ -19,10 +22,10 @@ public class dAerialGrappleAirState : dAerialBaseState
     public override void EnterState(dAerialStateManager aSM, dAerialBaseState previousState){
         
 
-        distanceBeneathHook = -3f;
+        distanceBeneathHook = -2f;
         distanceAfterHook = 8f;
         pointReached = false;
-        initialForcePower = 80;
+        initialForcePower = 100;
         
         //refresh jump number
         aSM.curJumpNum = 0;
@@ -39,9 +42,17 @@ public class dAerialGrappleAirState : dAerialBaseState
         aSM.postForceDirection = new  Vector3(initialForceDirection.x, 0, initialForceDirection.z).normalized;
         aSM.currentForcePower = initialForcePower;
 
+        lastPos = aSM.transform.position;
+        handReached = false;
+
     }
 
     public override void ExitState(dAerialStateManager aSM, dAerialBaseState nextState){
+        aSM.stickyHandParent.transform.localEulerAngles = Vector3.zero;
+        aSM.handController.enabled = false;
+        aSM.stickyHandParent.SetActive(false);
+        aSM.lr.enabled = false;
+
         if(nextState == aSM.GroundedState || nextState == aSM.WallRunState){
             aSM.release = false;
         }
@@ -65,10 +76,14 @@ public class dAerialGrappleAirState : dAerialBaseState
                 aSM.SwitchState(aSM.WallRunState);
             }
         }
+
+
     }
 
     public override void FixedUpdateState(dAerialStateManager aSM){
-        
+        playerOffset = aSM.transform.position - lastPos;
+        lastPos = aSM.transform.position;
+
         ////////ADD A LINE RENDERER WHEN WE GET THE HAND MODEL
         //Draw Line between player and hookpoint for debug purposes
         Debug.DrawRay(aSM.transform.position, initialForceDirection); //Visual of line
@@ -82,7 +97,12 @@ public class dAerialGrappleAirState : dAerialBaseState
         }
 
         //Apply default gravity
-        if(!pointReached){
+        if(!handReached){
+            ThrowStickyHand(aSM);
+            aSM.GravityCalculation(aSM.pStats.PlayerGrav);
+        }
+        else if(!pointReached && handReached){
+            RetrieveStickyHand(aSM);
             aSM.moveController.Move(initialForceDirection * initialForcePower * Time.deltaTime);
             aSM.GravityCalculation(0);
             aSM.pStats.GravVel = 0;
@@ -90,6 +110,40 @@ public class dAerialGrappleAirState : dAerialBaseState
         else{
             //currentForcePower;
             aSM.GravityCalculation(aSM.pStats.PlayerGrav); 
+        }
+
+        if(aSM.stickyHandParent.active){
+            aSM.stickyHandParent.transform.localRotation = Quaternion.Euler(0.0f, 0.0f, aSM.stickyHandParent.transform.parent.rotation.z * -1.0f);
+        }
+
+    }
+
+    public void ThrowStickyHand(dAerialStateManager aSM){
+        if(!aSM.stickyHandParent.active){
+            aSM.stickyHandParent.SetActive(true);
+            aSM.lr.enabled = true;
+            aSM.stickyHandParent.transform.position = aSM.handPosition.position;
+            aSM.handController.enabled = true;
+        }
+
+        aSM.lr.SetPosition(0,aSM.stickyHandParent.transform.position);
+        aSM.lr.SetPosition(1,aSM.handPosition.transform.position);
+
+        Vector3 throwDir = (aSM.hookPoint.transform.position -  aSM.stickyHandParent.transform.position).normalized;
+
+        aSM.stickyHandParent.GetComponent<CharacterController>().Move(throwDir * 80 * Time.deltaTime);
+        if(Vector3.Distance(aSM.hookPoint.transform.position, aSM.stickyHandParent.transform.position) <= 3f){
+            handReached = true;
+        }
+    }
+
+    public void RetrieveStickyHand(dAerialStateManager aSM){
+        aSM.lr.SetPosition(0,aSM.stickyHandParent.transform.position);
+        aSM.lr.SetPosition(1,aSM.handPosition.transform.position);
+
+        Vector3 catchDir = (aSM.handPosition.transform.position -  aSM.stickyHandParent.transform.position).normalized;
+        if(Vector3.Distance(aSM.handPosition.transform.position, aSM.stickyHandParent.transform.position) > .5f){
+            aSM.stickyHandParent.GetComponent<CharacterController>().Move(catchDir * 30 * Time.deltaTime);
         }
     }
 
