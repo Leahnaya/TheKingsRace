@@ -47,6 +47,7 @@ MonoBehaviour:
   item: {fileID: 0}
   uiPrebab: {fileID: 5756063885148329735, guid: 8150580546fbb0d48bcd414238e2be89, type: 3}
   message: 
+  slideSprite: {fileID: -8570435183877795321, guid: afc7e66828e7a4a49b3e6609a02bd820, type: 3}
 --- !u!65 &7386518789294782352
 BoxCollider:
   m_ObjectHideFlags: 0

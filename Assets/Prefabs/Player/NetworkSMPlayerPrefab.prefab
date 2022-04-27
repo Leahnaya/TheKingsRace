@@ -2434,6 +2434,7 @@ MonoBehaviour:
   nitroItem: {fileID: 11400000, guid: a1c26807795a7ac4f83567455ce978ce, type: 2}
   kickItem: {fileID: 11400000, guid: a96dfb1a70e0d0a4f84c15378f38ce99, type: 2}
   slide: {fileID: -8570435183877795321, guid: afc7e66828e7a4a49b3e6609a02bd820, type: 3}
+  spaceBarIcon: {fileID: -5974897767074471648, guid: 333692572c859df4a8f79e4e00fa57ec, type: 3}
   grapple: {fileID: 11400000, guid: 3c5f77adbd146274281d636352eb5018, type: 2}
   Glide: {fileID: 11400000, guid: 8fe830ac457225a4ab1031a499db94fc, type: 2}
   boxHighlight: {fileID: 5887255329340465546}
@@ -3743,8 +3744,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 675, y: -415}
-  m_SizeDelta: {x: 600, y: 300}
+  m_AnchoredPosition: {x: 625, y: -415}
+  m_SizeDelta: {x: 750, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2264754566127494481
 CanvasRenderer:

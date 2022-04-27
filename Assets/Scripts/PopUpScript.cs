@@ -9,6 +9,7 @@ public class PopUpScript : MonoBehaviour
     public Item item;
     public GameObject uiPrebab;
     public string message;
+    public Sprite slideSprite;
 
     //for some reason on enter was triggering twice (shouldn't happen but couldn't figure out why
     private bool isPop = false;
@@ -72,7 +73,7 @@ public class PopUpScript : MonoBehaviour
             temp.name = item.name + "PopUp";
             temp.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
             //due to low number, gonna hardcode this to be first
-            temp.transform.localPosition = new Vector3(0, 0);
+            temp.transform.localPosition = new Vector3(-250, -430);
             temp.transform.localRotation = Quaternion.identity;
             //set icon to ui icon
             temp.transform.GetComponent<Image>().sprite = item.itemSprite;
@@ -105,7 +106,9 @@ public class PopUpScript : MonoBehaviour
             temp.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
             temp.transform.localRotation = Quaternion.identity;
             //due to low number, gonna hardcode this to be first
-            temp.transform.localPosition = new Vector3(0, 0);
+            temp.transform.localPosition = new Vector3(-250, -430);
+            //set icon to ui icon
+            temp.transform.GetComponent<Image>().sprite = slideSprite;
             //set text
             temp.transform.Find("Prompt").GetComponent<TMPro.TextMeshProUGUI>().text = message;
             //no longer allow instnatiation

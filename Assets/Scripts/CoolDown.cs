@@ -16,6 +16,7 @@ public class CoolDown : MonoBehaviour
     //regular items with buttons
     public Item kickItem;
     public Sprite slide;
+    public Sprite spaceBarIcon;
     public Item grapple;
     public Item Glide;
     public GameObject boxHighlight;
@@ -101,9 +102,21 @@ public class CoolDown : MonoBehaviour
         temp3.name = kickItem.name;
         temp3.transform.localRotation = Quaternion.identity;
         //due to low number, gonna hardcode this to be first
-        temp3.transform.localPosition = new Vector3(-90, -40);
+        temp3.transform.localPosition = new Vector3(-100, -40);
         temp3.transform.localScale = new Vector3(.75f,.75f,.75f);
         //set icon to ui icon
+
+        if (GameManager.GM.bindableActions["kickKey"] == KeyCode.LeftShift)
+        {
+            temp3.transform.Find("keyBoardIcon").GetComponent<RectTransform>().sizeDelta = new Vector2(145, 100);
+        }
+        //else set to regular size
+        else
+        {
+            temp3.transform.Find("keyBoardIcon").GetComponent<RectTransform>().sizeDelta = new Vector2(100, 100);
+        }
+
+        temp3.transform.Find("keyBoardIcon").GetComponent<Image>().sprite = GameManager.GM.keyToSpriteDict[GameManager.GM.bindableActions["kickKey"]];
         temp3.transform.GetComponent<Image>().sprite = kickItem.itemSprite;
 
 
@@ -114,8 +127,20 @@ public class CoolDown : MonoBehaviour
         temp4.name = "slide";
         temp4.transform.localRotation = Quaternion.identity;
         //due to low number, gonna hardcode this to be first
-        temp4.transform.localPosition = new Vector3(-240, -40);
+        temp4.transform.localPosition = new Vector3(-260, -40);
         temp4.transform.localScale = new Vector3(.75f,.75f,.75f);
+
+        if (GameManager.GM.bindableActions["slideKey"] == KeyCode.LeftShift)
+        {
+            temp4.transform.Find("keyBoardIcon").GetComponent<RectTransform>().sizeDelta = new Vector2(145, 100);
+        }
+        //else set to regular size
+        else
+        {
+            temp4.transform.Find("keyBoardIcon").GetComponent<RectTransform>().sizeDelta = new Vector2(100, 100);
+        }
+
+        temp4.transform.Find("keyBoardIcon").GetComponent<Image>().sprite = GameManager.GM.keyToSpriteDict[GameManager.GM.bindableActions["slideKey"]];
         temp4.transform.GetComponent<Image>().sprite = slide;
         //set icon to ui icon
         //doesn't exists
@@ -140,17 +165,29 @@ public class CoolDown : MonoBehaviour
             //increment items
             if (itemsAdded == 0)
             {
-                temp.transform.localPosition = new Vector3(210, 80);
+                temp.transform.localPosition = new Vector3(220, 80);
                 itemsAdded++;
             }
             //increment items
             else if (itemsAdded >= 1)
             {
                 temp.transform.localPosition = new Vector3(60 + posTemp, 80);
-                posTemp -= 150;
+                posTemp -= 160;
                 itemsAdded++;
             }
+
+            if (GameManager.GM.bindableActions["nitroKey"] == KeyCode.LeftShift)
+            {
+                temp.transform.Find("keyBoardIcon").GetComponent<RectTransform>().sizeDelta = new Vector2(145, 100);
+            }
+            //else set to regular size
+            else
+            {
+                temp.transform.Find("keyBoardIcon").GetComponent<RectTransform>().sizeDelta = new Vector2(100, 100);
+            }
+
             //set icon to ui icon
+            temp.transform.Find("keyBoardIcon").GetComponent<Image>().sprite = GameManager.GM.keyToSpriteDict[GameManager.GM.bindableActions["nitroKey"]];
             temp.transform.GetComponent<Image>().sprite = nitroItem.itemSprite;
             //set button control (hard coded)
         }
@@ -164,18 +201,31 @@ public class CoolDown : MonoBehaviour
             //increment items
             if (itemsAdded == 0)
             {
-                temp2.transform.localPosition = new Vector3(210, 80);
+                temp2.transform.localPosition = new Vector3(220, 80);
                 itemsAdded++;
             }
             //increment items
             else if (itemsAdded >= 1)
             {
                 temp2.transform.localPosition = new Vector3(60 + posTemp, 80);
-                posTemp -= 150;
+                posTemp -= 160;
                 itemsAdded++;
             }
             temp2.GetComponent<UICoolDown>().setCoolDownTime(dashItem.cooldownM);
             //set image 
+
+            if (GameManager.GM.bindableActions["dashKey"] == KeyCode.LeftShift)
+            {
+                temp2.transform.Find("keyBoardIcon").GetComponent<RectTransform>().sizeDelta = new Vector2(145, 100);
+            }
+            //else set to regular size
+            else
+            {
+                temp2.transform.Find("keyBoardIcon").GetComponent<RectTransform>().sizeDelta = new Vector2(100, 100);
+            }
+
+
+            temp2.transform.Find("keyBoardIcon").GetComponent<Image>().sprite = GameManager.GM.keyToSpriteDict[GameManager.GM.bindableActions["dashKey"]];
             temp2.transform.GetComponent<Image>().sprite = dashItem.itemSprite;
             //set button control
 
@@ -192,17 +242,29 @@ public class CoolDown : MonoBehaviour
             //increment items
             if (itemsAdded == 0)
             {
-                temp5.transform.localPosition = new Vector3(210, 80);
+                temp5.transform.localPosition = new Vector3(220, 80);
                 itemsAdded++;
             }
             //increment items
             else if (itemsAdded >= 1)
             {
                 temp5.transform.localPosition = new Vector3(60 + posTemp, 80);
-                posTemp -= 150;
+                posTemp -= 160;
                 itemsAdded++;
             }
             //set icon to ui icon
+            if (GameManager.GM.bindableActions["grappleKey"] == KeyCode.LeftShift)
+            {
+                temp5.transform.Find("keyBoardIcon").GetComponent<RectTransform>().sizeDelta = new Vector2(145, 100);
+            }
+            //else set to regular size
+            else
+            {
+                temp5.transform.Find("keyBoardIcon").GetComponent<RectTransform>().sizeDelta = new Vector2(100, 100);
+            }
+
+
+            temp5.transform.Find("keyBoardIcon").GetComponent<Image>().sprite = GameManager.GM.keyToSpriteDict[GameManager.GM.bindableActions["grappleKey"]];
             temp5.transform.GetComponent<Image>().sprite = grapple.itemSprite;
             //doesn't exists
             //increment counter
@@ -219,17 +281,19 @@ public class CoolDown : MonoBehaviour
             //increment items
             if (itemsAdded == 0)
             {
-                temp6.transform.localPosition = new Vector3(210, 80);
+                temp6.transform.localPosition = new Vector3(220, 80);
                 itemsAdded++;
             }
             //increment items
             else if (itemsAdded >= 1)
             {
                 temp6.transform.localPosition = new Vector3(60 + posTemp, 80);
-                posTemp -= 150;
+                posTemp -= 160;
                 itemsAdded++;
             }
             //set icon to ui icon
+            temp6.transform.Find("keyBoardIcon").GetComponent<Image>().sprite = spaceBarIcon;
+            temp6.transform.Find("keyBoardIcon").GetComponent<RectTransform>().sizeDelta = new Vector2(145, 100);
             temp6.transform.GetComponent<Image>().sprite = Glide.itemSprite;
             //doesn't exists
             //increment counter
