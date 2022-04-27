@@ -6,16 +6,13 @@ public class dAerialFallingState : dAerialBaseState
 {
     bool shouldGlide;
     public override void EnterState(dAerialStateManager aSM, dAerialBaseState previousState){
-<<<<<<< HEAD
         if(previousState == aSM.JumpingState && aSM.jumpHeld){
             shouldGlide = true;
         }
         else{
             shouldGlide = false;
         }
-=======
         aSM.GetComponent<Animator>().SetBool("isFalling", true);
->>>>>>> animations4
     }
 
     public override void ExitState(dAerialStateManager aSM, dAerialBaseState nextState){
