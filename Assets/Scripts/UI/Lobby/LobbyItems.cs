@@ -40,6 +40,10 @@ public class LobbyItems : MonoBehaviour
     ////Runner Body Parts Refs
     public GameObject[] runnerBodyModifiers;
 
+    //Sound fx
+    public AudioSource hoverButton;
+    public AudioSource selectButton;
+
     // Start is called before the first frame update
     void Awake(){
         pPar = GameObject.Find("NetworkSMPlayerPrefab");
@@ -67,6 +71,8 @@ public class LobbyItems : MonoBehaviour
         //pointText.text = "Points Left: " + pointsLeft;
     }
 
+    
+
     private void InitializeItemB(){
         Debug.Log("Initialize Items");
         int index = 0;
@@ -88,6 +94,8 @@ public class LobbyItems : MonoBehaviour
                 //Button Adds item if it can
                 iOpt.GetComponent<Button>().onClick.AddListener(delegate { changeBodyParts(item.Value.id, checkAddPart(item.Value.costM, item.Value)); });
                 iOpt.GetComponent<Button>().onClick.AddListener(delegate{lobbyUI.EquipItems(item.Value, UpdateObject(item.Value.costM, item.Value, iOpt));});
+
+                iOpt.GetComponent<Button>().onClick.AddListener(delegate { selectButton.Play(); });//Button play sound on click
       
                 
                 //On Hover display tooltip on exit disable
@@ -98,6 +106,7 @@ public class LobbyItems : MonoBehaviour
                 tooltipExit.eventID = EventTriggerType.PointerExit;
 
                 tooltipEntry.callback.AddListener((data) => {tooltip.ShowTooltip(item.Value.description);});
+                tooltipEntry.callback.AddListener((data) => {hoverButton.Play(); }); //Button on hover play Sound
                 tooltipExit.callback.AddListener((data) => {tooltip.HideTooltip();});
 
                 iOpt.GetComponent<EventTrigger>().triggers.Add(tooltipEntry);
