@@ -41,28 +41,39 @@ public class PostGameUI : NetworkBehaviour {
                 }
             }
         }
-
+        bool[] active = { false, false, false };
         if (winnerCount > 0) {
             // Runners win
             switch (winnerCount) {
                 case 1:
                     winText = "And the winner is the Runner " + playerFinishedNames[0] + "!";
+                    active[1] = true;
+                    player1.SetActive(active[1]);
                     break;
                 case 2:
                     winText = "And the winners are the Runners " + playerFinishedNames[0] + " and " + playerFinishedNames[1] + "!";
+                    active[1] = true;
+                    active[2] = true;
+                    player1.SetActive(active[1]);
+                    player2.SetActive(active[2]);
                     break;
             }
         } else {
             // King wins
             winText = "And the winner is King " + kingName + "!";
+            active[0] = true;
+            king.SetActive(active[0]);
         }
 
-        UpdateWinnerTextClientRPC(winText);
+        UpdateWinnerTextClientRPC(winText, active);
     }
 
     [ClientRpc]
-    private void UpdateWinnerTextClientRPC(string winnerText) {
+    private void UpdateWinnerTextClientRPC(string winnerText, bool[] active) {
         HeaderText.text = winnerText;
+        king.SetActive(active[0]);
+        player1.SetActive(active[1]);
+        player2.SetActive(active[2]);
     }
 
     IEnumerator BeginCountdown() { 

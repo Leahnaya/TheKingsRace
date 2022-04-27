@@ -10,7 +10,7 @@ public class Bumper : MonoBehaviour {
     void OnTriggerEnter(Collider objectHit) {
         if (objectHit.gameObject.tag == "ArcherTarget") {//Checks if the other object is the player
         
-            Debug.Log("Bump");
+            //Debug.Log("Bump");
             MoveStateManager playerMovement = objectHit.GetComponent<MoveStateManager>();
 
             Vector3 dirBump = objectHit.transform.position - transform.position;
