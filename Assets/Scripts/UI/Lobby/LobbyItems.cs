@@ -27,6 +27,7 @@ public class LobbyItems : MonoBehaviour
     private int pointsLeft;
 
     //Item Image and Offsets
+    public Transform[] postItPos;
     public Sprite[] itemBG;
     public Vector3[] itemImgPos;
     public Vector3[] itemImgRot;
@@ -72,16 +73,8 @@ public class LobbyItems : MonoBehaviour
         if(itemOptPrefab != null){
             foreach(var item in invMan.ItemDict){
                 Debug.Log("Create Button");
-                //Positioning Buttons   
-                if(index < 3){
-                    position = new Vector3(((index*200)+250),700,0);
-                }
-                else if(index < 6){
-                    position = new Vector3(((index-3)*200)+250,500,0);
-                }
-                else{
-                    position = new Vector3(((index-6)*200)+250,300,0);
-                }
+
+                position = postItPos[index].position;
 
                 //Creates Button
                 var iOpt = Instantiate(itemOptPrefab, position, Quaternion.identity);
@@ -193,6 +186,7 @@ public class LobbyItems : MonoBehaviour
         }
         return tempResult;
     }
+    
     private void changeBodyParts(int itemID, int addPart){
         //if there is something to update
         if (addPart != -1){

@@ -47,7 +47,7 @@ public class MoveSlideState : MoveBaseState
         mSM.pStats.CurTraction += .004f;
         
         //If player isn't pressing either Q or the joystick button they stop sliding if nothing is above them
-        if((!Input.GetKey(KeyCode.JoystickButton1) && !Input.GetKey(KeyCode.Q))){
+        if((!Input.GetKey(KeyCode.JoystickButton1) && !Input.GetKey(GameManager.GM.bindableActions["slideKey"]))){
             if ((Physics.Raycast(mSM.gameObject.transform.position + new Vector3(0,1f,0), Vector3.up, out slideRay, 2f, mSM.layerMask) == false)){
 
                 //Determine which state to go into based on player speed

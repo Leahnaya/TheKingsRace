@@ -66,6 +66,8 @@ public class dMoveStateManager : NetworkBehaviour
     RaycastHit wallHitTop, wallHitBot, wallExitTop, wallExitBot; // Raycast for momentum loss on wall hit
     private Vector3 lastVel; // previous vel
     private bool firstWallHit = false; // hit the wall for the first time
+    private float tempCurVel;
+    private bool setTempVel = false;
 
     //Camera Variables
     private Vector3 camRotation; // cameras camera rotation vector
@@ -134,13 +136,6 @@ public class dMoveStateManager : NetworkBehaviour
         //calculates vel using driftVel will need to be relocated
         calculatedCurVel = driftVel.magnitude * 50f;
 
-        //if grappling in aerial state manager swap to grapple here
-        if(currentState != GrappleAirState){
-            if(aSM.currentState == aSM.GrappleAirState && (currentState != SlideState && currentState != CrouchState && currentState != CrouchWalkState && currentState != RagdollState && currentState != RecoveringState)){
-                SwitchState(GrappleAirState);
-            }
-        }
-
         //calls any logic in the update state from current state
         currentState.UpdateState(this);
     }
@@ -179,10 +174,43 @@ public class dMoveStateManager : NetworkBehaviour
     ////Broad Functions
     //Player Speed Calculator
     public float PlayerSpeed(){
-        //If nothing is pressed speed is 0
-        if ((Input.GetAxis("Vertical") == 0.0f && Input.GetAxis("Horizontal") == 0.0f) || pStats.IsPaused)
+        //If nothing is pressed speed is 0 set a tempVel
+        if (((Input.GetAxis("Vertical") == 0.0f && Input.GetAxis("Horizontal") == 0.0f) && !setTempVel) || pStats.IsPaused)
         {
+            if(pStats.CurVel > 0.0f){
+                tempCurVel = pStats.CurVel;
+                setTempVel = true;
+            }
+
             pStats.CurVel = 0.0f;
+            return pStats.CurVel;
+        }
+        //
+        else if((Input.GetAxis("Vertical") == 0.0f && Input.GetAxis("Horizontal") == 0.0f) && setTempVel){
+
+            tempCurVel -= .35f;
+            if(tempCurVel <= 0){
+                setTempVel = false;
+                tempCurVel = 0;
+            }
+
+            pStats.CurVel = 0.0f;
+            return pStats.CurVel;
+        }
+        else if(tempCurVel > 0){
+
+            if(tempCurVel < pStats.MinVel){
+
+                pStats.CurVel = pStats.MinVel;
+                tempCurVel = 0;
+                setTempVel = false;
+                return pStats.MinVel;
+            }
+
+            pStats.CurVel = tempCurVel;
+            tempCurVel = 0;
+            setTempVel = false;
+
             return pStats.CurVel;
         }
         //If current speed is below min when pressed set to minimum speed

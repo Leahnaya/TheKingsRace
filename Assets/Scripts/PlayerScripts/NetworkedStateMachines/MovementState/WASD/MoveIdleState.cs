@@ -22,7 +22,7 @@ public class MoveIdleState : MoveBaseState
         }
 
         //If Q or joystick button1 crouch state
-        else if((Input.GetKey(KeyCode.JoystickButton1) || Input.GetKey(KeyCode.Q)) && (mSM.aSM.currentState != mSM.aSM.FallingState && mSM.aSM.currentState != mSM.aSM.GlidingState && mSM.aSM.currentState != mSM.aSM.WallRunState && mSM.aSM.currentState != mSM.aSM.WallIdleState) && !mSM.pStats.IsPaused){
+        else if((Input.GetKey(KeyCode.JoystickButton1) || Input.GetKeyDown(GameManager.GM.bindableActions["slideKey"])) && (mSM.aSM.currentState != mSM.aSM.GrappleAirState && mSM.aSM.currentState != mSM.aSM.FallingState && mSM.aSM.currentState != mSM.aSM.GlidingState && mSM.aSM.currentState != mSM.aSM.WallRunState && mSM.aSM.currentState != mSM.aSM.WallIdleState) && !mSM.pStats.IsPaused){
             mSM.SwitchState(mSM.CrouchState);
         }
     }

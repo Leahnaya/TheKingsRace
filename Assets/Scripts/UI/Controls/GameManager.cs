@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
+        //
 
         //for keyboard
         /*        walkForward = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("walkForwardKey", "W"));

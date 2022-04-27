@@ -19,7 +19,7 @@ public class MoveCrouchWalkState : MoveBaseState
     }
     
     public override void UpdateState(MoveStateManager mSM){
-        if((!Input.GetKey(KeyCode.JoystickButton1) && !Input.GetKey(KeyCode.Q))){
+        if((!Input.GetKey(KeyCode.JoystickButton1) && !Input.GetKey(GameManager.GM.bindableActions["slideKey"]))){
             mSM.SwitchState(mSM.CrouchState);
         }
         else if((Input.GetAxis("Vertical") == 0.0f && Input.GetAxis("Horizontal") == 0.0f)){
