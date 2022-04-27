@@ -15,6 +15,7 @@ public class CoolDown : MonoBehaviour
     public SpecialItem nitroItem;
     //regular items with buttons
     public Item kickItem;
+    public Sprite slide;
     public Item grapple;
     public Item Glide;
     public GameObject boxHighlight;
