@@ -68,7 +68,7 @@ public class AnimationManager : NetworkBehaviour
             highestPriority = 3;
         }
         //if current state in aerialManager is not grounded
-        else if (aerialState.currentState.GetType() != typeof(AerialGroundedState))
+        else if (aerialState.currentState.GetType() == typeof(AerialJumpingState) || aerialState.currentState.GetType() == typeof(AerialFallingState) || aerialState.currentState.GetType() == typeof(dAerialWallRunState) || aerialState.currentState.GetType() == typeof(AerialGrappleAirState))
         {
             highestPriority = 2;
         }

@@ -43,6 +43,7 @@ public class dAerialStateManager : NetworkBehaviour
     ////Scripts Section
     public PlayerStats pStats; // Player Stats
     public dMoveStateManager mSM;
+    private dAnimationManager animationManager;
     ////
 
     ////Variables Section
@@ -117,6 +118,7 @@ public class dAerialStateManager : NetworkBehaviour
         rB = GetComponent<Rigidbody>(); //set Rigid Body
         parentObj = transform.parent.gameObject; // set parent object
         animator = GetComponent<Animator>(); // set animator
+        animationManager = GetComponent<dAnimationManager>();
         ////
 
         ////Initialize Scripts
@@ -201,6 +203,7 @@ public class dAerialStateManager : NetworkBehaviour
 
         //updates current state and calls logic for entering
         currentState = state;
+        animationManager.updateCurrentPriority();
         currentState.EnterState(this, previousState);
     }
 
@@ -491,7 +494,7 @@ public class dAerialStateManager : NetworkBehaviour
     }
 
     //Calculate wall direction
-    float CalculateSide(){
+    public float CalculateSide(){
         if(isWallRunning)
         {
             Vector3 heading = lastWallPosition - transform.position;

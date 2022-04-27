@@ -63,7 +63,8 @@ public class dAnimationManager : MonoBehaviour
             highestPriority = 3;
         }
         //if current state in aerialManager is not grounded
-        else if (aerialState.currentState.GetType() != typeof(dAerialGroundedState)){
+        else if (aerialState.currentState.GetType() == typeof(dAerialJumpingState) || aerialState.currentState.GetType() == typeof(dAerialFallingState) || aerialState.currentState.GetType() == typeof(dAerialWallRunState) || aerialState.currentState.GetType() == typeof(dAerialGrappleAirState))
+        {
             highestPriority = 2;
         }
         //ground movement is the only state with a animation right now

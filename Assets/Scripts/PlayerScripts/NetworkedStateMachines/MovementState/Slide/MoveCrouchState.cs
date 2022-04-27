@@ -17,6 +17,7 @@ public class MoveCrouchState : MoveBaseState
             mSM.moveController.center = new Vector3(0,mSM.moveController.center.y - mSM.moveController.height * .5f,0);
             //mSM.moveController.Move(new Vector3(0,-mSM.moveController.height * .5f,0));
         }
+        mSM.animator.SetBool("isCrouching", true);
     }
     
     public override void ExitState(MoveStateManager mSM, MoveBaseState nextState){
@@ -28,7 +29,7 @@ public class MoveCrouchState : MoveBaseState
             mSM.moveController.height *= 2.0f;
             mSM.moveController.center = new Vector3(0,mSM.moveController.center.y + mSM.moveController.height * .25f,0);
         }
-        
+        mSM.animator.SetBool("isCrouching", false);
     }
 
     public override void UpdateState(MoveStateManager mSM){

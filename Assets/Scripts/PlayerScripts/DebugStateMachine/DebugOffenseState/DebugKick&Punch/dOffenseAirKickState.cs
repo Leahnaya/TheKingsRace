@@ -17,12 +17,14 @@ public class dOffenseAirKickState : dOffenseBaseState
 
         //start kicking routine
         oSM.StartCoroutine(kicking(8f));
+        oSM.GetComponent<Animator>().SetBool("isAerialKick", true);
     }
 
     public override void ExitState(dOffenseStateManager oSM, dOffenseBaseState nextState){
         legRotation = 0; // reset leg angle
         oSM.leg.transform.eulerAngles = new Vector3(legRotation, oSM.leg.transform.eulerAngles.y, oSM.leg.transform.eulerAngles.z); // rotate leg
         oSM.leg.SetActive(false); // reset leg angle
+        oSM.GetComponent<Animator>().SetBool("isAerialKick", false);
     }
 
     public override void UpdateState(dOffenseStateManager oSM){
