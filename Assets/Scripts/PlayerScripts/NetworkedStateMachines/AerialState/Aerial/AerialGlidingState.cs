@@ -9,7 +9,7 @@ public class AerialGlidingState : AerialBaseState
 
         //Modify base traction
         aSM.pStats.CurTraction = 1.0f;
-        aSM.pStats.GravVel = -1;
+        aSM.pStats.GravVel = -4;
     }
 
     public override void ExitState(AerialStateManager aSM, AerialBaseState nextState){
@@ -44,7 +44,7 @@ public class AerialGlidingState : AerialBaseState
     public override void FixedUpdateState(AerialStateManager aSM){
         
         //modified gravity calculation to fall slower
-        aSM.GravityCalculation(8);
+        aSM.GravityCalculation(9);
 
         //if grapple released apply release force
         if(aSM.pStats.HasGrapple){

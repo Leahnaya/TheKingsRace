@@ -175,8 +175,8 @@ public class PlayerStats : MonoBehaviour
     }
 
     //temp values for reseting stuff
-    private float accModification;
-    private float tractionModification;
+    private float accModification = 1;
+    private float tractionModification = 1;
     private bool weatherOn = false;
     ////
 
@@ -244,11 +244,11 @@ public class PlayerStats : MonoBehaviour
                 traction *= tractionModification;
                 curTraction *= tractionModification;
                  
-                accModification = .5f;
+                accModification = .3f;
                 acc *= accModification;
                 curAcc *= accModification;
 
-                curVel *= .5f;
+                curVel *= .3f;
 
                 break;
             }
