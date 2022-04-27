@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     //public KeyCode glide;
     [SerializeField]
     public Dictionary<string,KeyCode> bindableActions = new Dictionary<string, KeyCode>();
+    public Dictionary<KeyCode, Sprite> keyToSpriteDict = new Dictionary<KeyCode, Sprite>();
+    public Sprite[] allSprites;
 
     private void Awake()
     {
@@ -44,6 +46,13 @@ public class GameManager : MonoBehaviour
         bindableActions.Add("dashKey", dash);
         bindableActions.Add("nitroKey", nitro);
         bindableActions.Add("grappleKey", grapple);
+
+        //dictionary with keycode as key and value as sprites
+        keyToSpriteDict.Add(KeyCode.Q, allSprites[0]);
+        keyToSpriteDict.Add(KeyCode.E, allSprites[1]);
+        keyToSpriteDict.Add(KeyCode.R, allSprites[2]);
+        keyToSpriteDict.Add(KeyCode.F, allSprites[3]);
+        keyToSpriteDict.Add(KeyCode.LeftShift, allSprites[4]);
     }
     // Start is called before the first frame update
     void Start()

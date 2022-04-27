@@ -242,6 +242,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5df0ae8b0ae70844496f4608ba6d6747, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allSprites:
+  - {fileID: 7136259645469174369, guid: 333692572c859df4a8f79e4e00fa57ec, type: 3}
+  - {fileID: 2508556123498468650, guid: 333692572c859df4a8f79e4e00fa57ec, type: 3}
+  - {fileID: -157329293977272682, guid: 333692572c859df4a8f79e4e00fa57ec, type: 3}
+  - {fileID: -5907697010799613142, guid: 333692572c859df4a8f79e4e00fa57ec, type: 3}
+  - {fileID: -1157620234444397289, guid: 333692572c859df4a8f79e4e00fa57ec, type: 3}
 --- !u!4 &751229572
 Transform:
   m_ObjectHideFlags: 0

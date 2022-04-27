@@ -11,12 +11,9 @@ public class RebindManager : MonoBehaviour
     //const array of valid input
     readonly KeyCode[] valildKeys = {KeyCode.Q, KeyCode.E, KeyCode.R, KeyCode.F, KeyCode.LeftShift};
 
-    //dictionary with keycode as key and value as sprites
-    public Dictionary<KeyCode, Sprite> keyToSpriteDict = new Dictionary<KeyCode, Sprite>();
+
     //holds ref to all game buttons in scene (should be assigned in editor)
     public List<GameObject> allButtonObjects = new List<GameObject>();
-    //holds ref to all sprites
-    public Sprite[] allSprites;
 
     //currently waiting for input from user
     bool waitingForKey;
@@ -32,19 +29,12 @@ public class RebindManager : MonoBehaviour
         }
 
 
-        waitingForKey = false;
-        keyToSpriteDict.Add(KeyCode.Q, allSprites[0]);
-        keyToSpriteDict.Add(KeyCode.E, allSprites[1]);
-        keyToSpriteDict.Add(KeyCode.R, allSprites[2]);
-        keyToSpriteDict.Add(KeyCode.F, allSprites[3]);
-        keyToSpriteDict.Add(KeyCode.LeftShift, allSprites[4]);
-
         //currently hardcoded
-        allButtonObjects[0].GetComponent<Image>().sprite = keyToSpriteDict[GameManager.GM.bindableActions["grappleKey"]];
-        allButtonObjects[1].GetComponent<Image>().sprite = keyToSpriteDict[GameManager.GM.bindableActions["slideKey"]];
-        allButtonObjects[2].GetComponent<Image>().sprite = keyToSpriteDict[GameManager.GM.bindableActions["kickKey"]];
-        allButtonObjects[3].GetComponent<Image>().sprite = keyToSpriteDict[GameManager.GM.bindableActions["dashKey"]];
-        allButtonObjects[4].GetComponent<Image>().sprite = keyToSpriteDict[GameManager.GM.bindableActions["nitroKey"]];
+        allButtonObjects[0].GetComponent<Image>().sprite = GameManager.GM.keyToSpriteDict[GameManager.GM.bindableActions["grappleKey"]];
+        allButtonObjects[1].GetComponent<Image>().sprite = GameManager.GM.keyToSpriteDict[GameManager.GM.bindableActions["slideKey"]];
+        allButtonObjects[2].GetComponent<Image>().sprite = GameManager.GM.keyToSpriteDict[GameManager.GM.bindableActions["kickKey"]];
+        allButtonObjects[3].GetComponent<Image>().sprite = GameManager.GM.keyToSpriteDict[GameManager.GM.bindableActions["dashKey"]];
+        allButtonObjects[4].GetComponent<Image>().sprite = GameManager.GM.keyToSpriteDict[GameManager.GM.bindableActions["nitroKey"]];
 
         //if any of them are shift, set them to correct dimension
         //hardcoded, if anythem are bound to leftshift
@@ -174,11 +164,11 @@ public class RebindManager : MonoBehaviour
         PlayerPrefs.SetString("grappleKey", GameManager.GM.bindableActions["grappleKey"].ToString());*/
 
         //set all sprites done (probs doesn't set scale back to default)
-        allButtonObjects[0].GetComponent<Image>().sprite = keyToSpriteDict[GameManager.GM.bindableActions["grappleKey"]];
-        allButtonObjects[1].GetComponent<Image>().sprite = keyToSpriteDict[GameManager.GM.bindableActions["slideKey"]];
-        allButtonObjects[2].GetComponent<Image>().sprite = keyToSpriteDict[GameManager.GM.bindableActions["kickKey"]];
-        allButtonObjects[3].GetComponent<Image>().sprite = keyToSpriteDict[GameManager.GM.bindableActions["dashKey"]];
-        allButtonObjects[4].GetComponent<Image>().sprite = keyToSpriteDict[GameManager.GM.bindableActions["nitroKey"]];
+        allButtonObjects[0].GetComponent<Image>().sprite = GameManager.GM.keyToSpriteDict[GameManager.GM.bindableActions["grappleKey"]];
+        allButtonObjects[1].GetComponent<Image>().sprite = GameManager.GM.keyToSpriteDict[GameManager.GM.bindableActions["slideKey"]];
+        allButtonObjects[2].GetComponent<Image>().sprite = GameManager.GM.keyToSpriteDict[GameManager.GM.bindableActions["kickKey"]];
+        allButtonObjects[3].GetComponent<Image>().sprite = GameManager.GM.keyToSpriteDict[GameManager.GM.bindableActions["dashKey"]];
+        allButtonObjects[4].GetComponent<Image>().sprite = GameManager.GM.keyToSpriteDict[GameManager.GM.bindableActions["nitroKey"]];
     }
     public IEnumerator AssignKey(string keyName)
     {
@@ -192,7 +182,7 @@ public class RebindManager : MonoBehaviour
             case "kick":
                 GameManager.GM.bindableActions["kickKey"] = newKey;
                 //replace image of button
-                currentButtonObject.GetComponent<Image>().sprite = keyToSpriteDict[newKey];
+                currentButtonObject.GetComponent<Image>().sprite = GameManager.GM.keyToSpriteDict[newKey];
 
                 if (newKey == KeyCode.LeftShift)
                 {
@@ -210,7 +200,7 @@ public class RebindManager : MonoBehaviour
             case "slide":
                 GameManager.GM.bindableActions["slideKey"] = newKey;
                 //replace image of button
-                currentButtonObject.GetComponent<Image>().sprite = keyToSpriteDict[newKey];
+                currentButtonObject.GetComponent<Image>().sprite = GameManager.GM.keyToSpriteDict[newKey];
 
                 //if the new button is LeftShift, resie
                 if(newKey == KeyCode.LeftShift)
@@ -229,7 +219,7 @@ public class RebindManager : MonoBehaviour
             case "dash":
                  GameManager.GM.bindableActions["dashKey"] = newKey;
                 //replace image of button
-                currentButtonObject.GetComponent<Image>().sprite = keyToSpriteDict[newKey];
+                currentButtonObject.GetComponent<Image>().sprite = GameManager.GM.keyToSpriteDict[newKey];
 
                 //if the new button is LeftShift, resize (sprite image requires it)
                 if (newKey == KeyCode.LeftShift)
@@ -248,7 +238,7 @@ public class RebindManager : MonoBehaviour
             case "nitro":
                 GameManager.GM.bindableActions["nitroKey"] = newKey;
                 //replace image of button
-                currentButtonObject.GetComponent<Image>().sprite = keyToSpriteDict[newKey];
+                currentButtonObject.GetComponent<Image>().sprite = GameManager.GM.keyToSpriteDict[newKey];
                 //if the new button is LeftShift, resie
                 if (newKey == KeyCode.LeftShift)
                 {
@@ -266,7 +256,7 @@ public class RebindManager : MonoBehaviour
             case "grapple":
                 GameManager.GM.bindableActions["grappleKey"] = newKey;
                 //replace image of button
-                currentButtonObject.GetComponent<Image>().sprite = keyToSpriteDict[newKey];
+                currentButtonObject.GetComponent<Image>().sprite = GameManager.GM.keyToSpriteDict[newKey];
                 //if the new button is LeftShift, resie
                 if (newKey == KeyCode.LeftShift)
                 {

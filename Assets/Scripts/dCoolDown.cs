@@ -15,6 +15,7 @@ public class dCoolDown : MonoBehaviour
     public SpecialItem nitroItem;
     //regular items with buttons
     public Item kickItem;
+    public Sprite slideSprite;
     public Item grapple;
     public Item Glide;
     public GameObject boxHighlight;
@@ -101,10 +102,10 @@ public class dCoolDown : MonoBehaviour
         temp3.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
         temp3.transform.localRotation = Quaternion.identity;
         //due to low number, gonna hardcode this to be first
-        temp3.transform.localPosition = new Vector3(100, -100);
+        temp3.transform.localPosition = new Vector3(165, -56);
         //set icon to ui icon
         temp3.transform.GetComponent<Image>().sprite = kickItem.itemSprite;
-        temp3.transform.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "F";
+        //temp3.transform.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "F";
 
         //slide
         GameObject temp4 = Instantiate(uiPrebab);
@@ -114,10 +115,11 @@ public class dCoolDown : MonoBehaviour
         temp4.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
         temp4.transform.localRotation = Quaternion.identity;
         //due to low number, gonna hardcode this to be first
-        temp4.transform.localPosition = new Vector3(-75, -100);
+        temp4.transform.localPosition = new Vector3(-10, -56);
         //set icon to ui icon
         //doesn't exists
-        temp4.transform.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Slide \n Q";
+        temp4.transform.GetComponent<Image>().sprite = slideSprite;
+        //temp4.transform.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Slide \n Q";
 
         ////check if items are there
         //grapple
@@ -138,20 +140,20 @@ public class dCoolDown : MonoBehaviour
             //increment items
             if (itemsAdded == 0)
             {
-                temp.transform.localPosition = new Vector3(-250, -100);
+                temp.transform.localPosition = new Vector3(-184, -56);
                 itemsAdded++;
             }
             //increment items
             else if (itemsAdded >= 1)
             {
-                temp.transform.localPosition = new Vector3(100 + posTemp, 100);
+                temp.transform.localPosition = new Vector3(165 + posTemp, 144);
                 posTemp -= 175;
                 itemsAdded++;
             }
             //set icon to ui icon
             temp.transform.GetComponent<Image>().sprite = nitroItem.itemSprite;
             //set button control (hard coded)
-            temp.transform.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Shift";
+            //temp.transform.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Shift";
         }
         if (stats.HasDash == true)
         {
@@ -163,13 +165,13 @@ public class dCoolDown : MonoBehaviour
             //increment items
             if (itemsAdded == 0)
             {
-                temp2.transform.localPosition = new Vector3(-250, -100);
+                temp2.transform.localPosition = new Vector3(-184, -56);
                 itemsAdded++;
             }
             //increment items
             else if (itemsAdded >= 1)
             {
-                temp2.transform.localPosition = new Vector3(100 + posTemp, 100);
+                temp2.transform.localPosition = new Vector3(165 + posTemp, 144);
                 posTemp -= 175;
                 itemsAdded++;
             }
@@ -177,7 +179,7 @@ public class dCoolDown : MonoBehaviour
             //set image 
             temp2.transform.GetComponent<Image>().sprite = dashItem.itemSprite;
             //set button control
-            temp2.transform.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "R";
+            //temp2.transform.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "R";
 
 
         }
@@ -192,20 +194,20 @@ public class dCoolDown : MonoBehaviour
             //increment items
             if (itemsAdded == 0)
             {
-                temp5.transform.localPosition = new Vector3(-250, -100);
+                temp5.transform.localPosition = new Vector3(-184, -56);
                 itemsAdded++;
             }
             //increment items
             else if (itemsAdded >= 1)
             {
-                temp5.transform.localPosition = new Vector3(100 + posTemp, 100);
+                temp5.transform.localPosition = new Vector3(165 + posTemp, 144);
                 posTemp -= 175;
                 itemsAdded++;
             }
             //set icon to ui icon
             temp5.transform.GetComponent<Image>().sprite = grapple.itemSprite;
             //doesn't exists
-            temp5.transform.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "E";
+            //temp5.transform.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "E";
             //increment counter
         }
         //glider
@@ -220,20 +222,20 @@ public class dCoolDown : MonoBehaviour
             //increment items
             if (itemsAdded == 0)
             {
-                temp6.transform.localPosition = new Vector3(-250, -100);
+                temp6.transform.localPosition = new Vector3(-184, -56);
                 itemsAdded++;
             }
             //increment items
             else if (itemsAdded >= 1)
             {
-                temp6.transform.localPosition = new Vector3(100 + posTemp, 100);
+                temp6.transform.localPosition = new Vector3(165 + posTemp, 144);
                 posTemp -= 175;
                 itemsAdded++;
             }
             //set icon to ui icon
             temp6.transform.GetComponent<Image>().sprite = Glide.itemSprite;
             //doesn't exists
-            temp6.transform.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Hold Space";
+            //temp6.transform.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = "Hold Space";
             //increment counter
         }
 
