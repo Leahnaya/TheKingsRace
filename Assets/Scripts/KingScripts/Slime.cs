@@ -45,7 +45,7 @@ public class Slime : NetworkBehaviour
             //attempt to move forward(Raycast infront for objects, and also raycast down, to make sure there's still ground underneath it)
             ForwardRaycast = Physics.Raycast(transform.position + RayOffset, transform.TransformDirection(MoveDir), out hit, 16f, LayerMask);
             DownRaycast = Physics.Raycast(transform.position + MoveDir * 10 + RayOffset * 2, transform.TransformDirection(Vector3.down+MoveDir), out hit, 4f, LayerMask);
-            Debug.Log(ForwardRaycast + " :False | True: " + DownRaycast);
+
             if (ForwardRaycast || !DownRaycast) {//turns it around when it hits something or is going to go over a pit
                 MoveDir = -MoveDir;
                 transform.GetChild(0).Rotate(0, 180, 0);
