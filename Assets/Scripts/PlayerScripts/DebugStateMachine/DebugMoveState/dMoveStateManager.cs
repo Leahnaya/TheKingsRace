@@ -67,7 +67,7 @@ public class dMoveStateManager : NetworkBehaviour
     private Vector3 lastVel; // previous vel
     private bool firstWallHit = false; // hit the wall for the first time
     private float tempCurVel;
-    private bool setTempVel = false;
+    private bool setTempVel = false;//
 
     //Camera Variables
     private Vector3 camRotation; // cameras camera rotation vector
