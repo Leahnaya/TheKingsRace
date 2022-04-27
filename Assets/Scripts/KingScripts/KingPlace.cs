@@ -285,7 +285,7 @@ public class KingPlace : NetworkBehaviour
             }
             if (BoxTrue != null) {
                 //Check if there's something in the box, unless it's Hail, then it skips past
-                if (Physics.CheckSphere(BoxTrue.transform.GetChild(0).transform.position, BoxSize-1.5f, GroundMask) == false || PlaceTemp == HailSprite || Placing == HailPlacing)
+                if (Physics.CheckSphere(BoxTrue.transform.GetChild(0).transform.position, BoxSize-3f, GroundMask) == false || PlaceTemp == HailSprite || Placing == HailPlacing)
                 {
                     Grid.GetComponent<GridReveal>().GridSwitch(false); //Switch off the grid
                     Placing = false;//Stop placing

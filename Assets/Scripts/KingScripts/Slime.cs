@@ -11,7 +11,7 @@ public class Slime : NetworkBehaviour
     int Lifetime = 0;
     bool GooGo = false;
     Vector3 GooOffset = new Vector3(0.0f, -0.1f, 0.0f);
-    Vector3 ForwardOffset = new Vector3(0.0f, 0.5f, 0.0f);
+    Vector3 RayOffset = new Vector3(0.0f, 0.5f, 0.0f);
     bool ForwardRaycast = false;
     bool DownRaycast = true;
     Vector3 MoveDir = new Vector3(0, 0, 1);
@@ -43,10 +43,9 @@ public class Slime : NetworkBehaviour
                 GooTimer = 0;
             }
             //attempt to move forward(Raycast infront for objects, and also raycast down, to make sure there's still ground underneath it)
-            Debug.DrawRay(transform.position + ForwardOffset, transform.TransformDirection(MoveDir), Color.green, 20f);
-            Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.down), Color.red, 50f);
-            ForwardRaycast = Physics.Raycast(transform.position + ForwardOffset, transform.TransformDirection(MoveDir), out hit, 20f, LayerMask);
-            DownRaycast = Physics.Raycast(transform.position, transform.TransformDirection(Vector3.down), out hit, 50f, LayerMask);
+            ForwardRaycast = Physics.Raycast(transform.position + RayOffset, transform.TransformDirection(MoveDir), out hit, 16f, LayerMask);
+            DownRaycast = Physics.Raycast(transform.position + MoveDir * 10 + RayOffset * 2, transform.TransformDirection(Vector3.down+MoveDir), out hit, 4f, LayerMask);
+            Debug.Log(ForwardRaycast + " :False | True: " + DownRaycast);
             if (ForwardRaycast || !DownRaycast) {//turns it around when it hits something or is going to go over a pit
                 MoveDir = -MoveDir;
                 transform.GetChild(0).Rotate(0, 180, 0);
