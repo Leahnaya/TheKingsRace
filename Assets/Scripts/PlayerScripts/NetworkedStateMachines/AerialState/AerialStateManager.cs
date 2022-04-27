@@ -123,6 +123,7 @@ public class AerialStateManager : NetworkBehaviour
         rB = GetComponent<Rigidbody>(); //set Rigid Body
         parentObj = transform.parent.gameObject; // set parent object
         animator = GetComponent<Animator>(); // set animator
+        animationManager = GetComponent<AnimationManager>();
         ////
 
         ////Initialize Scripts
@@ -514,7 +515,7 @@ public class AerialStateManager : NetworkBehaviour
     }
 
     //Calculate wall direction
-    float CalculateSide(){
+    public float CalculateSide(){
         if(isWallRunning)
         {
             Vector3 heading = lastWallPosition - transform.position;

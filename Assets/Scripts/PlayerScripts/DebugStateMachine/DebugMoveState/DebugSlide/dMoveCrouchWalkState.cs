@@ -5,7 +5,7 @@ using UnityEngine;
 public class dMoveCrouchWalkState : dMoveBaseState
 {
     public override void EnterState(dMoveStateManager mSM, dMoveBaseState previousState){
-
+        mSM.animator.SetBool("isCrouchWalking", true);
     }
 
     public override void ExitState(dMoveStateManager mSM, dMoveBaseState nextState){
@@ -16,6 +16,7 @@ public class dMoveCrouchWalkState : dMoveBaseState
             mSM.moveController.height *= 2.0f;
             mSM.moveController.center = new Vector3(0,mSM.moveController.center.y + mSM.moveController.height * .25f,0);
         }
+        mSM.animator.SetBool("isCrouchWalking", false);
     }
     
     public override void UpdateState(dMoveStateManager mSM){

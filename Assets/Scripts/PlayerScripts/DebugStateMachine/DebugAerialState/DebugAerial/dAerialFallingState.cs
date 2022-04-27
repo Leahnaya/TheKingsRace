@@ -5,11 +5,11 @@ using UnityEngine;
 public class dAerialFallingState : dAerialBaseState
 {
     public override void EnterState(dAerialStateManager aSM, dAerialBaseState previousState){
-
+        aSM.GetComponent<Animator>().SetBool("isFalling", true);
     }
 
     public override void ExitState(dAerialStateManager aSM, dAerialBaseState nextState){
-
+        aSM.GetComponent<Animator>().SetBool("isFalling", false);
     }   
 
     public override void UpdateState(dAerialStateManager aSM){
