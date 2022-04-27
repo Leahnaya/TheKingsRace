@@ -25,13 +25,13 @@ public class AerialJumpingState : AerialBaseState
             aSM.SwitchState(aSM.GroundedState);
         }
         
-        //if is wall running and in a state that allows it wallrun
-        else if(aSM.isWallRunning){
+        //if is wallrunning ands is in a state that allows it wallrun
+        else if(aSM.isWallRunning && (aSM.mSM.currentState != aSM.mSM.SlideState && aSM.mSM.currentState != aSM.mSM.CrouchState && aSM.mSM.currentState != aSM.mSM.CrouchWalkState && aSM.mSM.currentState != aSM.mSM.RagdollState && aSM.mSM.currentState != aSM.mSM.RecoveringState)){
             aSM.SwitchState(aSM.WallRunState);
         }
 
-        //if can grapple and in a state that allows it grapple
-        else if(aSM.CheckGrapple()){
+        //if grapple is possible and in state that allows it grapple air
+        else if(aSM.CheckGrapple() && (aSM.mSM.currentState != aSM.mSM.SlideState && aSM.mSM.currentState != aSM.mSM.CrouchState && aSM.mSM.currentState != aSM.mSM.CrouchWalkState && aSM.mSM.currentState != aSM.mSM.RagdollState && aSM.mSM.currentState != aSM.mSM.RecoveringState)){
             aSM.SwitchState(aSM.GrappleAirState);
         }
     }

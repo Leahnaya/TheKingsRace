@@ -9,7 +9,7 @@ public class dAerialGlidingState : dAerialBaseState
 
         //Modify base traction
         aSM.pStats.CurTraction = 1.0f;
-
+        aSM.pStats.GravVel = -1;
 
     }
 

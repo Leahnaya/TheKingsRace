@@ -54,8 +54,7 @@ public class AerialStateManager : NetworkBehaviour
     //Jump Variables
     public int curJumpNum; // current Jumps Used
     public bool jumpHeld; // Jump is Held
-    public bool canJump = true; // can the player jump
-    bool jumpPressed; // Jamp was pressed
+    public bool jumpPressed; // Jamp was pressed
     public float coyJumpTimer = 0.13f; // Default Coyote Jump time
     public float curCoyJumpTimer = 0.13f; // current Coyote Jump time
     public float lowJumpMultiplier; // Short jump multiplier
@@ -106,7 +105,7 @@ public class AerialStateManager : NetworkBehaviour
     Vector3 impact = Vector3.zero; // Impact Vector
 
     //Grapple Variables
-    float maxGrabDistance = 30;// Max Distance can cast grapple
+    float maxGrabDistance = 60;// Max Distance can cast grapple
     public GameObject hookPoint; // Actual Hook points
     public GameObject[] hookPoints; // Hook point list
     public int hookPointIndex; // Hook point Index
@@ -216,8 +215,6 @@ public class AerialStateManager : NetworkBehaviour
             pStats.GravVel -= pStats.PlayerGrav * Time.deltaTime;
             rB.AddForce(new Vector3(0,pStats.GravVel,0));
         }
-        
-
         
     }
 
@@ -395,8 +392,8 @@ public class AerialStateManager : NetworkBehaviour
                 
                 
                 curJumpNum++;
-                jumpHeld = true;
                 jumpPressed = true;
+                jumpHeld = true;
             }
         }
 
@@ -637,7 +634,7 @@ public class AerialStateManager : NetworkBehaviour
     public void GrappleReleaseForce(){
         if(release){
             currentForcePower *= .90f;
-            moveController.Move(postForceDirection * currentForcePower);
+            moveController.Move(postForceDirection * currentForcePower * Time.deltaTime);
 
             if(currentForcePower < .05) release = false;
         }

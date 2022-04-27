@@ -34,7 +34,7 @@ public class MoveCrouchState : MoveBaseState
     public override void UpdateState(MoveStateManager mSM){
 
         //If player isn't pressing either Q or the joystick button they stop crouching if nothing is above them
-        if((!Input.GetKey(KeyCode.JoystickButton1) && !Input.GetKeyDown(GameManager.GM.bindableActions["slideKey"]))){
+        if((!Input.GetKey(KeyCode.JoystickButton1) && !Input.GetKey(GameManager.GM.bindableActions["slideKey"]))){
 
             if ((Physics.Raycast(mSM.gameObject.transform.position + new Vector3(0,1f,0), Vector3.up, out slideRay, 2f, mSM.layerMask) == false)){
 
