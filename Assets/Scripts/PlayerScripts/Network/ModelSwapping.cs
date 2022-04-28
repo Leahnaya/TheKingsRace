@@ -70,7 +70,7 @@ public class ModelSwapping : NetworkBehaviour {
                 //grapple
                 case 3:
                     runnerBodyModifiers[11].SetActive(true);
-                    runnerBodyModifiers[10].GetComponent<SkinnedMeshRenderer>().enabled = false;
+                    runnerBodyModifiers[10].SetActive(false);
                     break;
                 //nitro
                 case 4:
@@ -85,22 +85,25 @@ public class ModelSwapping : NetworkBehaviour {
                 case 6:
                     runnerBodyModifiers[4].SetActive(true);
                     runnerBodyModifiers[5].SetActive(true);
-                    runnerBodyModifiers[2].GetComponent<SkinnedMeshRenderer>().enabled = false;
-                    runnerBodyModifiers[3].GetComponent<SkinnedMeshRenderer>().enabled = false;
+
+                    runnerBodyModifiers[2].SetActive(false);
+                    runnerBodyModifiers[3].SetActive(false);
                     break;
                 //tripple jump
                 case 7:
                     runnerBodyModifiers[16].SetActive(true);
                     runnerBodyModifiers[17].SetActive(true);
-                    runnerBodyModifiers[14].GetComponent<SkinnedMeshRenderer>().enabled = false;
-                    runnerBodyModifiers[15].GetComponent<SkinnedMeshRenderer>().enabled = false;
+
+                    runnerBodyModifiers[14].SetActive(false);
+                    runnerBodyModifiers[15].SetActive(false);
                     break;
                 //wallrun
                 case 8:
                     runnerBodyModifiers[8].SetActive(true);
                     runnerBodyModifiers[9].SetActive(true);
-                    runnerBodyModifiers[6].GetComponent<SkinnedMeshRenderer>().enabled = false;
-                    runnerBodyModifiers[7].GetComponent<SkinnedMeshRenderer>().enabled = false;
+
+                    runnerBodyModifiers[6].SetActive(false);
+                    runnerBodyModifiers[7].SetActive(false);
                     break;
 
             }

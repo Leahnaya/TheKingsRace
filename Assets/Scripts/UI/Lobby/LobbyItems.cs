@@ -222,13 +222,13 @@ public class LobbyItems : MonoBehaviour
                     if (addPart == 1)
                     {
                         runnerBodyModifiers[11].SetActive(true);
-                        runnerBodyModifiers[10].GetComponent<SkinnedMeshRenderer>().enabled = false;
+                        runnerBodyModifiers[10].SetActive(false);
                     }
                     //remove part
                     else if (addPart == 0)
                     {
                         runnerBodyModifiers[11].SetActive(false);
-                        runnerBodyModifiers[10].GetComponent<SkinnedMeshRenderer>().enabled = true;
+                        runnerBodyModifiers[10].SetActive(true);
                     }
                     break;
                 //nitro
@@ -265,16 +265,18 @@ public class LobbyItems : MonoBehaviour
                     {
                         runnerBodyModifiers[4].SetActive(true);
                         runnerBodyModifiers[5].SetActive(true);
-                        runnerBodyModifiers[2].GetComponent<SkinnedMeshRenderer>().enabled = false;
-                        runnerBodyModifiers[3].GetComponent<SkinnedMeshRenderer>().enabled = false;
+
+                        runnerBodyModifiers[2].SetActive(false);
+                        runnerBodyModifiers[3].SetActive(false);
                     }
                     //remove part
                     else if (addPart == 0)
                     {
                         runnerBodyModifiers[4].SetActive(false);
                         runnerBodyModifiers[5].SetActive(false);
-                        runnerBodyModifiers[2].GetComponent<SkinnedMeshRenderer>().enabled = true;
-                        runnerBodyModifiers[3].GetComponent<SkinnedMeshRenderer>().enabled = true;
+
+                        runnerBodyModifiers[2].SetActive(true);
+                        runnerBodyModifiers[3].SetActive(true);
                     }
                     break;
                 //tripple jump
@@ -284,16 +286,18 @@ public class LobbyItems : MonoBehaviour
                     {
                         runnerBodyModifiers[16].SetActive(true);
                         runnerBodyModifiers[17].SetActive(true);
-                        runnerBodyModifiers[14].GetComponent<SkinnedMeshRenderer>().enabled = false;
-                        runnerBodyModifiers[15].GetComponent<SkinnedMeshRenderer>().enabled = false;
+
+                        runnerBodyModifiers[14].SetActive(false);
+                        runnerBodyModifiers[15].SetActive(false);
                     }
                     //remove part
                     else if (addPart == 0)
                     {
                         runnerBodyModifiers[16].SetActive(false);
                         runnerBodyModifiers[17].SetActive(false);
-                        runnerBodyModifiers[14].GetComponent<SkinnedMeshRenderer>().enabled = true;
-                        runnerBodyModifiers[15].GetComponent<SkinnedMeshRenderer>().enabled = true;
+
+                        runnerBodyModifiers[14].SetActive(true);
+                        runnerBodyModifiers[15].SetActive(true);
                     }
                     break;
                 //wallrun
@@ -302,16 +306,18 @@ public class LobbyItems : MonoBehaviour
                     {
                         runnerBodyModifiers[8].SetActive(true);
                         runnerBodyModifiers[9].SetActive(true);
-                        runnerBodyModifiers[6].GetComponent<SkinnedMeshRenderer>().enabled = false;
-                        runnerBodyModifiers[7].GetComponent<SkinnedMeshRenderer>().enabled = false;
+
+                        runnerBodyModifiers[6].SetActive(false);
+                        runnerBodyModifiers[7].SetActive(false);
                     }
                     //remove part
                     else if (addPart == 0)
                     {
                         runnerBodyModifiers[8].SetActive(false);
                         runnerBodyModifiers[9].SetActive(false);
-                        runnerBodyModifiers[6].GetComponent<SkinnedMeshRenderer>().enabled = true;
-                        runnerBodyModifiers[7].GetComponent<SkinnedMeshRenderer>().enabled = true;
+
+                        runnerBodyModifiers[6].SetActive(true);
+                        runnerBodyModifiers[7].SetActive(true);
                     }
                     break;
 
