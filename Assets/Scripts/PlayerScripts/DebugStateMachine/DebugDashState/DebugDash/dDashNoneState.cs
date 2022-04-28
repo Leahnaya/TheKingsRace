@@ -23,7 +23,7 @@ public class dDashNoneState : dDashBaseState
             } 
             
             //if R key then Dashing
-            else if ((Input.GetKeyDown(KeyCode.R) || Input.GetAxis("Dash") != 0) && !dSM.pStats.IsPaused){
+            else if ((Input.GetKeyDown(KeyCode.R) || Input.GetKeyDown(KeyCode.JoystickButton5) && !dSM.pStats.IsPaused)){
                 dSM.SwitchState(dSM.DashingState);
             }
 

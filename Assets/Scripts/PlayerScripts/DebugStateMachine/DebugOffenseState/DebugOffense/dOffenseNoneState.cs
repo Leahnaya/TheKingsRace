@@ -20,13 +20,13 @@ public class dOffenseNoneState : dOffenseBaseState
         }
 
         //if grounded then grounded kick states
-        else if(oSM.aSM.currentState == oSM.aSM.GroundedState && (Input.GetKeyDown(KeyCode.F) || Input.GetAxis("Kick") != 0) && !oSM.pStats.IsPaused){
+        else if(oSM.aSM.currentState == oSM.aSM.GroundedState && (Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.JoystickButton2)) && !oSM.pStats.IsPaused){
             // kick
             oSM.SwitchState(oSM.KickState);
         }
 
         //if in the air
-        else if((Input.GetKeyDown(KeyCode.F) || Input.GetAxis("Kick") != 0) && !oSM.pStats.IsPaused){
+        else if((Input.GetKeyDown(KeyCode.F) || Input.GetKeyDown(KeyCode.JoystickButton2)) && !oSM.pStats.IsPaused){
             //air kick
             oSM.SwitchState(oSM.AirKickState);
         }
