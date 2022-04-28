@@ -12,10 +12,11 @@ public class dAerialFallingState : dAerialBaseState
         else{
             shouldGlide = false;
         }
+        aSM.GetComponent<Animator>().SetBool("isFalling", true);
     }
 
     public override void ExitState(dAerialStateManager aSM, dAerialBaseState nextState){
-
+        aSM.GetComponent<Animator>().SetBool("isFalling", false);
     }   
 
     public override void UpdateState(dAerialStateManager aSM){

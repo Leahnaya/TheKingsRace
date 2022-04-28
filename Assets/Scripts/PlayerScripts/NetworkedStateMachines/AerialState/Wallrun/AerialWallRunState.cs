@@ -10,11 +10,22 @@ public class AerialWallRunState : AerialBaseState
 
         aSM.pStats.GravVel = 0; // on entering reset grav vel
         spaceHeld = true; // prevent accidental wall jumping
+                          //if left
+        if (aSM.CalculateSide() < 0)
+        {
+            aSM.GetComponent<Animator>().SetBool("isLEFTWallRunning", true);
+        }
+        //if right
+        else if (aSM.CalculateSide() > 0)
+        {
+            aSM.GetComponent<Animator>().SetBool("isRIGHTWallRunning", true);
+        }
 
     }
 
     public override void ExitState(AerialStateManager aSM, AerialBaseState nextState){
-
+        aSM.GetComponent<Animator>().SetBool("isLEFTWallRunning", false);
+        aSM.GetComponent<Animator>().SetBool("isRIGHTWallRunning", false);
     }
 
     public override void UpdateState(AerialStateManager aSM){

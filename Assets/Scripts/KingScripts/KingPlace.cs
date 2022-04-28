@@ -43,7 +43,7 @@ public class KingPlace : NetworkBehaviour
     private KingAbility KABump = new KingAbility(6, 10);
 
 
-    private float[] MountPlats = { 303.41f, 315.5f, 330.5f, 345.5f, 360.5f, 400.5f, 415.5f, 430.5f, 470.5f, 485.5f, 500.5f };
+    private float[] MountPlats = { 302f, 314f, 329f, 344f, 359f, 399f, 414f, 429f, 469f, 484f, 499f, 514f};
     private float[] MountxOffsets = { -50f, -73.4f, -100f, -127f, -134.7f, -130f, -34f, 14.5f, 91.2f, 129f, 129.5f };
     private float[] MountzOffsets = { 130f, 120f, 97f, 56.6f, 32f, -50f, -135.5f, -138.5f, -105f, -52.5f, 50f };
 
@@ -186,8 +186,8 @@ public class KingPlace : NetworkBehaviour
         if (PlaceTemp.transform.position.x < MontStr.x) {//King is trying to place on the mountain
             Platform = null;
             bool found = false;
-            for(int i = 0; i < MountPlats.Length; i++) {
-                if (MountPlats[i] == PlaceTemp.transform.position.y) {//Finds the platform by comparing y values
+            for(int i = 0; i < MountPlats.Length-1; i++) {
+                if (MountPlats[i] <= PlaceTemp.transform.position.y && MountPlats[i+1] >= PlaceTemp.transform.position.y) {//Finds the platform by comparing y values
                     Platform = MountGrid.transform.Find("Platform" + i).gameObject;//Sets the platform and offsets for that platform
                     MountxOffset = MountxOffsets[i];
                     MountzOffset = MountzOffsets[i];
@@ -299,9 +299,8 @@ public class KingPlace : NetworkBehaviour
         {//King is trying to place on the mountain
             Platform = null;
             bool found = false;
-            for (int i = 0; i < MountPlats.Length; i++)
-            {
-                if (MountPlats[i] == PlaceTemp.transform.position.y)
+            for (int i = 0; i < MountPlats.Length-1; i++) {
+                if (MountPlats[i] <= PlaceTemp.transform.position.y && MountPlats[i + 1] >= PlaceTemp.transform.position.y)
                 {//Finds the platform by comparing y values
                     Platform = MountGrid.transform.Find("Platform" + i).gameObject;//Sets the platform and offsets for that platform
                     MountxOffset = MountxOffsets[i];
@@ -397,7 +396,7 @@ public class KingPlace : NetworkBehaviour
 
         Arrow.SetActive(true);
         SlimeBody.transform.LookAt(Arrow.transform);
-        SlimeBody.transform.Rotate(0, -90, 0);
+        SlimeBody.transform.Rotate(0, -90, -5);
         return DirNumber;
     } 
 

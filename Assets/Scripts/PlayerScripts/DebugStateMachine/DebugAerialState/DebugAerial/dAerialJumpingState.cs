@@ -5,12 +5,24 @@ using UnityEngine;
 public class dAerialJumpingState : dAerialBaseState
 {
 
+    private int previousJumpNum;
     public override void EnterState(dAerialStateManager aSM, dAerialBaseState previousState){
-
+        previousJumpNum = aSM.curJumpNum;
+        if (aSM.curJumpNum % 2 == 1)
+        {
+            aSM.GetComponent<Animator>().SetBool("isJumpingLeft", true);
+        }
+        //if even, do right jump
+        else if (aSM.curJumpNum % 2 == 0)
+        {
+            aSM.GetComponent<Animator>().SetBool("isJumpingRight", true);
+        }
     }
 
     public override void ExitState(dAerialStateManager aSM, dAerialBaseState nextState){
-
+ 
+       aSM.GetComponent<Animator>().SetBool("isJumpingLeft", false);
+       aSM.GetComponent<Animator>().SetBool("isJumpingRight", false);
     }
 
     public override void UpdateState(dAerialStateManager aSM){
@@ -45,5 +57,22 @@ public class dAerialJumpingState : dAerialBaseState
         if(aSM.pStats.HasGrapple){
             aSM.GrappleReleaseForce();
         }  
+        
+        if(aSM.curJumpNum != previousJumpNum)
+        {
+            previousJumpNum = aSM.curJumpNum;
+            aSM.GetComponent<Animator>().SetBool("isJumpingLeft", false);
+            aSM.GetComponent<Animator>().SetBool("isJumpingRight", false);
+
+            if (aSM.curJumpNum % 2 == 1)
+            {
+                aSM.GetComponent<Animator>().SetBool("isJumpingLeft", true);
+            }
+            //if even, do right jump
+            else if (aSM.curJumpNum % 2 == 0)
+            {
+                aSM.GetComponent<Animator>().SetBool("isJumpingRight", true);
+            }
+        }
     }
 }

@@ -16,7 +16,7 @@ public class dOffenseKickState : dOffenseBaseState
 
         oSM.animator.SetBool("IsKickingIdle", true);
         //start kicking routine
-        oSM.StartCoroutine(kicking(1f));
+        oSM.StartCoroutine(kicking(.833f));
     }
 
     public override void ExitState(dOffenseStateManager oSM, dOffenseBaseState nextState){
