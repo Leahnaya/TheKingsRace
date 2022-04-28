@@ -32,12 +32,6 @@ public class ControlsMenuScript : MonoBehaviour
                     keyboardKingControlsMenu.SetActive(false);
                     gamePadKingControlsMenu.SetActive(true);
                 }
-                //if off, turn it on
-                if(gamePadKingControlsMenu.activeInHierarchy == false)
-                {
-                    keyboardKingControlsMenu.SetActive(false);
-                    gamePadKingControlsMenu.SetActive(true);
-                }
             }
             else{
                 //if off, turn it on
@@ -46,12 +40,6 @@ public class ControlsMenuScript : MonoBehaviour
                     keyboardRunnerControlsMenu.SetActive(false);
                     gamePadRunnerControlsMenu.SetActive(true);
                 }
-                //if off, turn it on
-                if(gamePadRunnerControlsMenu.activeInHierarchy == false)
-                {
-                    keyboardRunnerControlsMenu.SetActive(false);
-                    gamePadRunnerControlsMenu.SetActive(true);
-                } 
             }
 
         }
@@ -59,14 +47,8 @@ public class ControlsMenuScript : MonoBehaviour
         if (Input.GetAxis("Mouse X") != 0 || Input.GetAxis("Mouse Y") != 0)
         {
             if(isKing){
-                            //if off, turn it on
-                if(gamePadKingControlsMenu.activeInHierarchy == false)
-                {
-                    keyboardKingControlsMenu.SetActive(true);
-                    gamePadKingControlsMenu.SetActive(false);
-                }
                 //if off, turn it on
-                if(gamePadKingControlsMenu.activeInHierarchy == false)
+                if(keyboardKingControlsMenu.activeInHierarchy == false)
                 {
                     keyboardKingControlsMenu.SetActive(true);
                     gamePadKingControlsMenu.SetActive(false);
@@ -74,17 +56,11 @@ public class ControlsMenuScript : MonoBehaviour
             }
             else{
                 //if off, turn it on
-                if(gamePadRunnerControlsMenu.activeInHierarchy == false)
+                if(keyboardRunnerControlsMenu.activeInHierarchy == false)
                 {
                     keyboardRunnerControlsMenu.SetActive(true);
                     gamePadRunnerControlsMenu.SetActive(false);
                 }
-                //if off, turn it on
-                if(gamePadRunnerControlsMenu.activeInHierarchy == false)
-                {
-                    keyboardRunnerControlsMenu.SetActive(true);
-                    gamePadRunnerControlsMenu.SetActive(false);
-                } 
             }
         }
     }
