@@ -23,7 +23,7 @@ public class DashNoneState : DashBaseState
             } 
             
             //if R key then Dashing
-            else if ((Input.GetKeyDown(GameManager.GM.bindableActions["dashKey"]) || Input.GetAxis("Dash") != 0) && !dSM.pStats.IsPaused){
+            else if ((Input.GetKeyDown(GameManager.GM.bindableActions["dashKey"]) || Input.GetKeyDown(KeyCode.JoystickButton5) && !dSM.pStats.IsPaused)){
                 dSM.SwitchState(dSM.DashingState);
             }
 

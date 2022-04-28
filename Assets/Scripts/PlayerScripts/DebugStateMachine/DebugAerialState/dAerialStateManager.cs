@@ -571,7 +571,7 @@ public class dAerialStateManager : NetworkBehaviour
     //Checks if the player can grapple
     public bool CheckGrapple(){
         if(!pStats.IsPaused){
-            if ((Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.JoystickButton2)) && pStats.HasGrapple) //If grapple button is hit
+            if ((Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.JoystickButton10)) && pStats.HasGrapple) //If grapple button is hit
             {
                 //Debug.Log("Checking Hooks");
                 hookPointIndex = FindHookPoint(); //Find the nearest hook point within max distance
