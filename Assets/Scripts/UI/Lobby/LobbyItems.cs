@@ -307,7 +307,7 @@ public class LobbyItems : MonoBehaviour
                         runnerBodyModifiers[8].SetActive(true);
                         runnerBodyModifiers[9].SetActive(true);
 
-                        runnerBodyModifiers[6].SetActive(false);
+                        runnerBodyModifiers[6].SetActive(false);//
                         runnerBodyModifiers[7].SetActive(false);
                     }
                     //remove part

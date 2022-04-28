@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class ControlsUI : MonoBehaviour
@@ -17,6 +18,17 @@ public class ControlsUI : MonoBehaviour
     public GameObject keyboardKingControlsMenu;
     public GameObject gamePadKingControlsMenu;
     private bool isKing = false;
+
+    public GameObject slideKey;
+    public GameObject kickKey;
+    public GameObject grappleKey;
+    public GameObject dashKey;
+    public GameObject gliderKey;
+    public GameObject nitroKey;
+
+    void Start(){
+        UpdateKeyImages();
+    }
 
     // Update is called once per frame
     void Update()
@@ -98,5 +110,74 @@ public class ControlsUI : MonoBehaviour
             runnerControls.SetActive(true);
             kingControls.SetActive(false);
         }
+    }
+
+    private void UpdateKeyImages(){
+        //Slide
+        if (GameManager.GM.bindableActions["slideKey"] == KeyCode.LeftShift)
+        {
+            slideKey.transform.GetComponent<RectTransform>().sizeDelta = new Vector2(100, 60);
+        }
+        //else set to regular size
+        else
+        {
+            slideKey.transform.GetComponent<RectTransform>().sizeDelta = new Vector2(60, 60);
+        }
+        slideKey.transform.GetComponent<Image>().sprite = GameManager.GM.keyToSpriteDict[GameManager.GM.bindableActions["slideKey"]];
+
+        //Kick
+        if (GameManager.GM.bindableActions["kickKey"] == KeyCode.LeftShift)
+        {
+            kickKey.transform.GetComponent<RectTransform>().sizeDelta = new Vector2(100, 60);
+        }
+        //else set to regular size
+        else
+        {
+            kickKey.transform.GetComponent<RectTransform>().sizeDelta = new Vector2(60, 60);
+        }
+        kickKey.transform.GetComponent<Image>().sprite = GameManager.GM.keyToSpriteDict[GameManager.GM.bindableActions["kickKey"]];
+
+        //Nitro
+        if (GameManager.GM.bindableActions["nitroKey"] == KeyCode.LeftShift)
+        {
+            nitroKey.transform.GetComponent<RectTransform>().sizeDelta = new Vector2(90, 50);
+            nitroKey.transform.localPosition = new Vector3(-55, -40, 0);
+        }
+        //else set to regular size
+        else
+        {
+            nitroKey.transform.GetComponent<RectTransform>().sizeDelta = new Vector2(50, 50);
+            nitroKey.transform.localPosition = new Vector3(-20, -35, 0);
+        }
+        nitroKey.transform.GetComponent<Image>().sprite = GameManager.GM.keyToSpriteDict[GameManager.GM.bindableActions["nitroKey"]];
+
+        //Dash
+        if (GameManager.GM.bindableActions["dashKey"] == KeyCode.LeftShift)
+        {
+            dashKey.transform.GetComponent<RectTransform>().sizeDelta = new Vector2(90, 50);
+            dashKey.transform.localPosition = new Vector3(-55, -40, 0);
+        }
+        //else set to regular size
+        else
+        {
+            dashKey.transform.GetComponent<RectTransform>().sizeDelta = new Vector2(50, 50);
+            dashKey.transform.localPosition = new Vector3(-20, -35, 0);
+        }
+        dashKey.transform.GetComponent<Image>().sprite = GameManager.GM.keyToSpriteDict[GameManager.GM.bindableActions["dashKey"]];
+
+        //Grapple
+        if (GameManager.GM.bindableActions["grappleKey"] == KeyCode.LeftShift)
+        {
+            grappleKey.transform.GetComponent<RectTransform>().sizeDelta = new Vector2(90, 50);
+            grappleKey.transform.localPosition = new Vector3(-55, -40, 0);
+        }
+        //else set to regular size
+        else
+        {
+            grappleKey.transform.GetComponent<RectTransform>().sizeDelta = new Vector2(50, 50);
+            grappleKey.transform.localPosition = new Vector3(-20, -35, 0);
+        }
+        grappleKey.transform.GetComponent<Image>().sprite = GameManager.GM.keyToSpriteDict[GameManager.GM.bindableActions["grappleKey"]];
+
     }
 }
