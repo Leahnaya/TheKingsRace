@@ -76,6 +76,7 @@ public class LobbyItems : MonoBehaviour
     private void InitializeItemB(){
         Debug.Log("Initialize Items");
         int index = 0;
+
         if(itemOptPrefab != null){
             foreach(var item in invMan.ItemDict){
                 Debug.Log("Create Button");
@@ -105,7 +106,28 @@ public class LobbyItems : MonoBehaviour
                 tooltipEntry.eventID = EventTriggerType.PointerEnter;
                 tooltipExit.eventID = EventTriggerType.PointerExit;
 
-                tooltipEntry.callback.AddListener((data) => {tooltip.ShowTooltip(item.Value.description);});
+                //Modify description button for Dash, Nitro, & Grapple
+                if(item.Value.id == 1 || item.Value.id == 3 || item.Value.id == 4){
+                    //Dash
+                    if(item.Value.id == 1){
+                        tooltipEntry.callback.AddListener((data) => {tooltip.ShowTooltip("(Active) Press " + GameManager.GM.keyToStringDict[GameManager.GM.bindableActions["dashKey"]] + " " +  item.Value.description);}); 
+                    }
+
+                    //Grapple
+                    else if(item.Value.id == 3){
+                        tooltipEntry.callback.AddListener((data) => {tooltip.ShowTooltip("(Active) Press " + GameManager.GM.keyToStringDict[GameManager.GM.bindableActions["grappleKey"]] + " " +  item.Value.description);}); 
+                    }
+
+                    //Nitro
+                    else{
+                        tooltipEntry.callback.AddListener((data) => {tooltip.ShowTooltip("(Active) Press " + GameManager.GM.keyToStringDict[GameManager.GM.bindableActions["nitroKey"]] + " " + item.Value.description);}); 
+                    }
+                }
+                else{
+                    tooltipEntry.callback.AddListener((data) => {tooltip.ShowTooltip(item.Value.description);});  
+                }
+
+                
                 tooltipEntry.callback.AddListener((data) => {hoverButton.Play(); }); //Button on hover play Sound
                 tooltipExit.callback.AddListener((data) => {tooltip.HideTooltip();});
 

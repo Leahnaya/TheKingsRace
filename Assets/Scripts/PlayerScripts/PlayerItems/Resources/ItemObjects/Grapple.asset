@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 3
   itemName: Grapple
-  description: (Active) Press E to grapple to a nearby grapple point.
+  description: to grapple to a nearby grapple point.
   itemSprite: {fileID: 4914967321489272866, guid: 6752962b9a0f4984fa08cb5a13e7bdfa, type: 3}
   maxVelM: 0
   minVelM: 0

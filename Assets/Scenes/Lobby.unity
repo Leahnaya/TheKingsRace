@@ -589,25 +589,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: NetworkSMPlayerPrefab
       objectReference: {fileID: 0}
-    - target: {fileID: 2990189160485986625, guid: 1e178f956ddfe5143b2b9e77e76db7f0, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3669633515805984294, guid: 1e178f956ddfe5143b2b9e77e76db7f0, type: 3}
       propertyPath: m_RootOrder
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3669633515805984294, guid: 1e178f956ddfe5143b2b9e77e76db7f0, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3669633515805984294, guid: 1e178f956ddfe5143b2b9e77e76db7f0, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 3669633515805984294, guid: 1e178f956ddfe5143b2b9e77e76db7f0, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3669633515805984294, guid: 1e178f956ddfe5143b2b9e77e76db7f0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -647,14 +631,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3669633515805984294, guid: 1e178f956ddfe5143b2b9e77e76db7f0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4098918742861069263, guid: 1e178f956ddfe5143b2b9e77e76db7f0, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4748546854517208321, guid: 1e178f956ddfe5143b2b9e77e76db7f0, type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -707,6 +683,11 @@ GameObject:
 --- !u!1 &1129569245 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4748546854517208321, guid: 1e178f956ddfe5143b2b9e77e76db7f0, type: 3}
+  m_PrefabInstance: {fileID: 1129569235}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1129569246 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6875021042914849118, guid: 1e178f956ddfe5143b2b9e77e76db7f0, type: 3}
   m_PrefabInstance: {fileID: 1129569235}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1226483723
@@ -839,11 +820,6 @@ Transform:
 --- !u!1 &1412069676 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1608428008624389940, guid: 1e178f956ddfe5143b2b9e77e76db7f0, type: 3}
-  m_PrefabInstance: {fileID: 1129569235}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1557924177 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4098918742861069263, guid: 1e178f956ddfe5143b2b9e77e76db7f0, type: 3}
   m_PrefabInstance: {fileID: 1129569235}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1822173499
@@ -1122,7 +1098,7 @@ PrefabInstance:
     - target: {fileID: 3670971460473670880, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
       propertyPath: runnerBodyModifiers.Array.data[1]
       value: 
-      objectReference: {fileID: 1557924177}
+      objectReference: {fileID: 1129569246}
     - target: {fileID: 3670971460473670880, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
       propertyPath: runnerBodyModifiers.Array.data[2]
       value: 

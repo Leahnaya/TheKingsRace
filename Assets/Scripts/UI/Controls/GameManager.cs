@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     public Dictionary<string,KeyCode> bindableActions = new Dictionary<string, KeyCode>();
     public Dictionary<KeyCode, Sprite> keyToSpriteDict = new Dictionary<KeyCode, Sprite>();
+    public Dictionary<KeyCode, string> keyToStringDict = new Dictionary<KeyCode, string>();
     public Sprite[] allSprites;
 
     private void Awake()
@@ -53,6 +54,13 @@ public class GameManager : MonoBehaviour
         keyToSpriteDict.Add(KeyCode.R, allSprites[2]);
         keyToSpriteDict.Add(KeyCode.F, allSprites[3]);
         keyToSpriteDict.Add(KeyCode.LeftShift, allSprites[4]);
+
+        //dictionary with keycode as key and value as string of key
+        keyToStringDict.Add(KeyCode.Q, "Q");
+        keyToStringDict.Add(KeyCode.E, "E");
+        keyToStringDict.Add(KeyCode.R, "R");
+        keyToStringDict.Add(KeyCode.F, "F");
+        keyToStringDict.Add(KeyCode.LeftShift, "Left Shift");
     }
     // Start is called before the first frame update
     void Start()
