@@ -10258,6 +10258,7 @@ MonoBehaviour:
   dashItem: {fileID: 0}
   nitroItem: {fileID: 0}
   kickItem: {fileID: 0}
+  slide: {fileID: 0}
   grapple: {fileID: 0}
   Glide: {fileID: 0}
   boxHighlight: {fileID: 0}
@@ -23593,6 +23594,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 875501760}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &884284910 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2874167961789946757, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
+  m_PrefabInstance: {fileID: 3173415395841196137}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &884767691
 GameObject:
   m_ObjectHideFlags: 0
@@ -33729,6 +33735,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1209583623}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1212541735 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3173415396260468954, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
+  m_PrefabInstance: {fileID: 3173415395841196137}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1213788331
 GameObject:
   m_ObjectHideFlags: 0
@@ -35926,7 +35937,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3173415396260468956, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
   m_PrefabInstance: {fileID: 3173415395841196137}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1212541735}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
@@ -63797,6 +63808,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 800369901022370546, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
+      propertyPath: Text
+      value: 
+      objectReference: {fileID: 1212541735}
+    - target: {fileID: 800369901022370546, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
+      propertyPath: Panel
+      value: 
+      objectReference: {fileID: 884284910}
     - target: {fileID: 3173415395027047143, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
       propertyPath: m_Text
       value: Thunder
@@ -63872,6 +63891,26 @@ PrefabInstance:
     - target: {fileID: 3173415396083440353, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
       propertyPath: near clip plane
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3173415396083440355, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.8849877
+      objectReference: {fileID: 0}
+    - target: {fileID: 3173415396083440355, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.46561444
+      objectReference: {fileID: 0}
+    - target: {fileID: 3173415396083440355, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3173415396083440355, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3173415396083440355, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3173415396104633697, guid: d23bf55f2a40d494487eb188930f895d, type: 3}
       propertyPath: m_Enabled

@@ -32,10 +32,10 @@ RectTransform:
   m_Father: {fileID: 3173415395030910393}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 257.10004, y: 427.50037}
-  m_SizeDelta: {x: 575, y: -854.99927}
+  m_AnchoredPosition: {x: 257.10004, y: -112.49963}
+  m_SizeDelta: {x: 575, y: 225.00073}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6673008730120561264
 CanvasRenderer:
@@ -294,10 +294,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -597,6 +597,7 @@ GameObject:
   - component: {fileID: 3173415396083440355}
   - component: {fileID: 3173415396083440353}
   - component: {fileID: 3173415396083440352}
+  - component: {fileID: 800369901022370546}
   m_Layer: 0
   m_Name: PlayerCam
   m_TagString: PlayerCam
@@ -669,6 +670,20 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3173415396083440366}
   m_Enabled: 0
+--- !u!114 &800369901022370546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3173415396083440366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 513ef02ab3cad964683609b4c344cfd3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Panel: {fileID: 2874167961789946757}
+  Text: {fileID: 3173415396260468954}
 --- !u!1 &3173415396104633710
 GameObject:
   m_ObjectHideFlags: 0
