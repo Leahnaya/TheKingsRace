@@ -12,6 +12,8 @@ public class Arrow : NetworkBehaviour {
 
     [SerializeField] private float bumpPower = 30;
 
+
+
     //finds targed
     public void Seek(UnityEngine.Vector3 _target) {
         //can also do effects, speed on the bullet, damage amount, etc.
