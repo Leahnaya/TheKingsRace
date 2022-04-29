@@ -6,10 +6,10 @@ public class dAerialGlidingState : dAerialBaseState
 {
 
     public override void EnterState(dAerialStateManager aSM, dAerialBaseState previousState){
-
         //Modify base traction
         aSM.pStats.CurTraction = 1.0f;
         aSM.pStats.GravVel = -1;
+        aSM.GetComponent<Animator>().SetBool("isGliding", true);
 
     }
 
@@ -17,7 +17,7 @@ public class dAerialGlidingState : dAerialBaseState
 
         //return traction to normal
         aSM.pStats.CurTraction = aSM.pStats.Traction;
-
+        aSM.GetComponent<Animator>().SetBool("isGliding", false);
     }
 
     public override void UpdateState(dAerialStateManager aSM){
