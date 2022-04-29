@@ -7,12 +7,15 @@ public class GameManager : MonoBehaviour
     public static GameManager GM;
 
     //values for runner
-    //probably shouldn't rebind this
-    //public KeyCode glide;
     [SerializeField]
+
+    //collection that contains all the current actions a runner can perform, and what keycode it is currently bound to
     public Dictionary<string,KeyCode> bindableActions = new Dictionary<string, KeyCode>();
+    //collection that helps convert a keycode to its coresponding sprite
     public Dictionary<KeyCode, Sprite> keyToSpriteDict = new Dictionary<KeyCode, Sprite>();
+    //collection that converts a keycode to it's coresponding string 
     public Dictionary<KeyCode, string> keyToStringDict = new Dictionary<KeyCode, string>();
+    //collection that contains all button sprites  
     public Sprite[] allSprites;
 
     private void Awake()
@@ -26,14 +29,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        //
 
-        //for keyboard
-        /*        walkForward = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("walkForwardKey", "W"));
-                walkBackward = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("walkBackwardKey", "S"));
-                walkLeft = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("walkLeftKey", "A"));
-                walkRight = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("walkRightKey", "D"));*/
-        //KeyCode jump = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("jumpKey", "Space"));
+        //set keycodes equal to player prefs or set defaults
         KeyCode slide = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("slideKey", "Q"));
         KeyCode kick = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("kickKey", "F"));
         KeyCode dash = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("dashKey", "R"));
@@ -41,12 +38,20 @@ public class GameManager : MonoBehaviour
         KeyCode grapple = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("grappleKey", "E"));
 
 
-        //bindableActions.Add("jumpKey", jump);
+        //add keycodes to collection
         bindableActions.Add("slideKey", slide);
         bindableActions.Add("kickKey", kick);
         bindableActions.Add("dashKey", dash);
         bindableActions.Add("nitroKey", nitro);
         bindableActions.Add("grappleKey", grapple);
+
+
+        //for keyboard
+        /*        walkForward = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("walkForwardKey", "W"));
+                walkBackward = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("walkBackwardKey", "S"));
+                walkLeft = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("walkLeftKey", "A"));
+                walkRight = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("walkRightKey", "D"));*/
+        //KeyCode jump = (KeyCode)System.Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("jumpKey", "Space"));
 
         //dictionary with keycode as key and value as sprites
         keyToSpriteDict.Add(KeyCode.Q, allSprites[0]);

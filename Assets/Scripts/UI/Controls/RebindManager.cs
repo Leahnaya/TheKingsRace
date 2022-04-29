@@ -14,7 +14,7 @@ public class RebindManager : MonoBehaviour
 
     //holds ref to all game buttons in scene (should be assigned in editor)
     public List<GameObject> allButtonObjects = new List<GameObject>();
-
+ 
     //currently waiting for input from user
     bool waitingForKey;
     bool hasPressedValidKey = false;
@@ -66,6 +66,8 @@ public class RebindManager : MonoBehaviour
     {
 
     }
+
+    //Is called everytime a GUI event is triggered
     void OnGUI()
     {
         keyEvent = Event.current;
@@ -75,10 +77,12 @@ public class RebindManager : MonoBehaviour
             //if waiting for a key and the key entered is valid
             if (waitingForKey && isValidKey(keyEvent.keyCode))
             {
+                //set newKey equal to current key event
                 newKey = keyEvent.keyCode;
+                //set waiting for key to false
                 waitingForKey = false;
+                //set hasPressedValidKey to true
                 hasPressedValidKey = true;
-                //Debug.Log("right key");
             }
         }
     }
@@ -86,8 +90,11 @@ public class RebindManager : MonoBehaviour
     {
         currentButtonObject = gameObject;
     }
+
+    //called from buttons in the controls menu scene
     public void StartAssignment(string keyName)
     {
+        //if not already waiting for a key input from user
         if (!waitingForKey)
         {
             StartCoroutine(AssignKey(keyName));
@@ -97,13 +104,12 @@ public class RebindManager : MonoBehaviour
     //
     IEnumerator waitForKey()
     {
-        //if it gets past here it has a keycode, but we also want to double check if it is one of the 10 keys we 
-        //TO-DO add controller keys
-        //Debug.Log("waiting");
+        //wait until user has inputed a valid key
         while (hasPressedValidKey == false)
         {
             yield return null;
         }
+        //if they have gotten past this loop, a valid key was given
     }
     public bool isValidKey(KeyCode keycode)
     {
@@ -172,23 +178,26 @@ public class RebindManager : MonoBehaviour
     }
     public IEnumerator AssignKey(string keyName)
     {
+        //set waiting for key true
         waitingForKey = true;
+        //call coroutine that will wait until a valid key is pressed
         yield return waitForKey();
 
-        //could be a bit more dyanmic, but it is sufficeint solution for goal
+        //once a valid key has been pressed, 
         switch (keyName)
         {
-            //player prefs are used to keep key binds after game has closed (won't do anything until then). They are commented out for now for SGX
+            //player prefs are used to keep key binds after game has closed (won't do anything until then). They are commented out for now for SGX.
             case "kick":
                 GameManager.GM.bindableActions["kickKey"] = newKey;
-                //replace image of button
+                //replace sprite of button
                 currentButtonObject.GetComponent<Image>().sprite = GameManager.GM.keyToSpriteDict[newKey];
 
+                //if button is LeftShift, set sprite to a different size
                 if (newKey == KeyCode.LeftShift)
                 {
                     currentButtonObject.GetComponent<RectTransform>().sizeDelta = new Vector2(200, 100);
                 }
-                //else set to regular size
+                //else set sprite to its regular size
                 else
                 {
                     currentButtonObject.GetComponent<RectTransform>().sizeDelta = new Vector2(100, 100);

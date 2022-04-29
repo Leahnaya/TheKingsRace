@@ -63,7 +63,7 @@ public class dAnimationManager : MonoBehaviour
             highestPriority = 3;
         }
         //if current state in aerialManager is not grounded
-        else if (aerialState.currentState.GetType() == typeof(dAerialJumpingState) || aerialState.currentState.GetType() == typeof(dAerialFallingState) || aerialState.currentState.GetType() == typeof(dAerialWallRunState) || aerialState.currentState.GetType() == typeof(dAerialGrappleAirState))
+        else if (aerialState.currentState.GetType() == typeof(dAerialJumpingState) || aerialState.currentState.GetType() == typeof(dAerialFallingState) || aerialState.currentState.GetType() == typeof(dAerialWallRunState) || aerialState.currentState.GetType() == typeof(dAerialGrappleAirState) || aerialState.currentState.GetType() == typeof(dAerialGlidingState))
         {
             highestPriority = 2;
         }
