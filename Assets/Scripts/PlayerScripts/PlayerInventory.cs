@@ -7,16 +7,18 @@ using UnityEngine;
 public class PlayerInventory : NetworkBehaviour
 {
 
-    //List of items
+    //Dictionary of items
     [SerializeField] private Dictionary<string, Item> playerItemDict = new Dictionary<string, Item>();
     public Dictionary<string, Item> PlayerItemDict{
         get{ return playerItemDict; }
     }
 
+    //List for the network
     [SerializeField] private List<string> networkItemList = new List<string>();
     public List<string> NetworkItemList{
         get{ return networkItemList; }
     }
+
     //Scripts
     public PlayerStats pStats;
     
@@ -33,22 +35,30 @@ public class PlayerInventory : NetworkBehaviour
      //Add item to player Inventory
     public void UpdateItemNetwork(string itemName, int add){
 
+        //if Removing items
         if(add == 0) networkItemList.Remove(itemName);
 
+        //if adding items
         else if(add == 1 )networkItemList.Add(itemName);
 
+        //if nothing is being updated
         else Debug.Log("Nothing updated");
     }
 
     //Remove Item player inv
     public void RemoveItem(Item item){
+        //if item removal was successful
         if(playerItemDict.Remove(item.name)){
+
+            //Modify player stats
             item.Unequip(pStats, this.gameObject);
         }
     }
 
     //Updates Inventory to Add item to player list
     public int UpdateInventory(Item item, bool ableToAdd){
+
+        //if player can add the item
         if(!playerItemDict.ContainsKey(item.name) && ableToAdd){
             Debug.Log("Item Added");
             AddItem(item);
