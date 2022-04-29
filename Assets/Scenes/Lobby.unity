@@ -1084,6 +1084,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3670971460473670880, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
+      propertyPath: backButton
+      value: 
+      objectReference: {fileID: 56255626}
+    - target: {fileID: 3670971460473670880, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
       propertyPath: hoverButton
       value: 
       objectReference: {fileID: 343595269}
