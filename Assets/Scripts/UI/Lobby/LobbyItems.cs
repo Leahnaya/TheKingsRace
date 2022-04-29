@@ -43,6 +43,7 @@ public class LobbyItems : MonoBehaviour
     //Sound fx
     public AudioSource hoverButton;
     public AudioSource selectButton;
+    public AudioSource backButton;
 
     // Start is called before the first frame update
     void Awake(){
@@ -67,6 +68,9 @@ public class LobbyItems : MonoBehaviour
 
         player.GetComponent<CapsuleCollider>().enabled = true;
         InitializeItemB();
+
+        
+
         pointsLeft = pStats.PlayerPoints;
         //pointText.text = "Points Left: " + pointsLeft;
     }
@@ -92,10 +96,9 @@ public class LobbyItems : MonoBehaviour
                 iOpt.transform.GetChild(3).gameObject.SetActive(false);
 
                 //Button Adds item if it can
-                iOpt.GetComponent<Button>().onClick.AddListener(delegate { changeBodyParts(item.Value.id, checkAddPart(item.Value.costM, item.Value)); });
-                iOpt.GetComponent<Button>().onClick.AddListener(delegate{lobbyUI.EquipItems(item.Value, UpdateObject(item.Value.costM, item.Value, iOpt));});
+                iOpt.GetComponent<Button>().onClick.AddListener(delegate { changeBodyParts(item.Value.id, checkAddPart(item.Value.costM, item.Value));});
+                iOpt.GetComponent<Button>().onClick.AddListener(delegate{ lobbyUI.EquipItems(item.Value, UpdateObject(item.Value.costM, item.Value, iOpt)); });
 
-                iOpt.GetComponent<Button>().onClick.AddListener(delegate { selectButton.Play(); });//Button play sound on click
       
                 
                 //On Hover display tooltip on exit disable
@@ -160,17 +163,20 @@ public class LobbyItems : MonoBehaviour
             costPointer.transform.localPosition = costPointerPos[pointsLeft];
             costPointerText.GetComponent<TextMeshProUGUI>().text = pointsLeft.ToString();
 
+            
+
             //glue level
             glueGooSlider.value -= itemCost;
 
             //Updates pin in note
             button.transform.GetChild(3).gameObject.SetActive(true);
-
+            selectButton.Play();
             return true;
         }
 
         else{
             //Player cannot add or remove the item
+            backButton.Play();
             return false;
         }
     }
