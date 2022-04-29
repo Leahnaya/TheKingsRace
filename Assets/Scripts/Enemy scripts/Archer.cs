@@ -24,7 +24,10 @@ public class Archer : NetworkBehaviour
     public Transform ArrowPrefab;
     public Transform firePoint;
 
+    public AudioSource fireSound;
+
     private GameObject arrowInScene;
+
 
     // Start is called before the first frame update
     void Start() {
@@ -92,6 +95,7 @@ public class Archer : NetworkBehaviour
         if (target != null && shootingCooldown <= 0f) {
             Vector3 position = target.position;
             ShootArrowServerRPC(position);
+            fireSound.Play();
             shootingCooldown = 1f/ fireRate;
         }
 
