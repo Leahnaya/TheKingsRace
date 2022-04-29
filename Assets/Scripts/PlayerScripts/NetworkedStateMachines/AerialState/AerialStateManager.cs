@@ -603,31 +603,54 @@ public class AerialStateManager : NetworkBehaviour
         return false;
     }
 
+    //Finds the nearest hook to the player with visual Preference
     int FindHookPoint()
     {
-        float least = maxGrabDistance;
-        int index = -1;
-        bool inSightLine;
-        bool hookInSight = false;
+        float sightLineleastDistance = maxGrabDistance; // distance to check for sightline hookpoints
+        float nonSightLineLeastDistance = maxGrabDistance; // distance to check for non sightline hookpoints
+        int index = -1; // Default hook index 
+        bool inSightLine; // Whether a hook is in currently in sight line
+        bool hookInSight = false; //Whether a hook was in sight
+
+        //Iterate through hookpoints
         for(int i = 0; i<hookPoints.Length; i++)
         {
+            //checks player distance to current hook
             distance = Vector3.Distance(gameObject.transform.position, hookPoints[i].transform.position);
 
+            //Checks if the current hook is within the players view point
             Vector3 screenPoint = cam.WorldToViewportPoint(hookPoints[i].transform.position);
             inSightLine = screenPoint.z > 0 && screenPoint.x > 0 && screenPoint.x < 1 && screenPoint.y > 0 && screenPoint.y < 1;
 
-            if (distance <= least)
+            //if the distance is less than the current closest closest sight line hook
+            if (distance <= sightLineleastDistance)
             {
+                //if the hook is in view point
                 if(inSightLine){
+
+                    //Update current grapple target
                     index = i;
-                    least = distance;
+
+                    //update closest sight line hook distance
+                    sightLineleastDistance = distance;
+
+                    //A hook exists in sight line
                     hookInSight = true;
                 }
-                else if(!hookInSight && !inSightLine){
+
+                //if no hookpoints are or has been in sight and the the distance is less than the current closest closest non sight line hook
+                else if((!hookInSight && !inSightLine) && distance <= nonSightLineLeastDistance){
+
+                    //update current grapple target
                     index = i;
+
+                    //Update the closest non sight line hook distance
+                    nonSightLineLeastDistance = distance;
                 }
             }
         }
+
+        //return the index of the closest hook with priority of ones in sightline
         return index;
     }
 
