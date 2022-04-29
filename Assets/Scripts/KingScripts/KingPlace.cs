@@ -116,7 +116,15 @@ public class KingPlace : NetworkBehaviour
 
     private void Update() {
         if (FirstPlacing == true) {
-            Ray Ray = KingCam.ScreenPointToRay(Input.mousePosition);//Raycast to find the point where the mouse cursor is
+            Ray Ray;
+            if (this.transform.Find("kingCursor").gameObject.activeInHierarchy)
+            {
+                Ray = KingCam.ScreenPointToRay(this.transform.Find("kingCursor").gameObject.transform.position);//Raycast to find the point where the mouse cursor is
+            }
+            else
+            {
+                Ray = KingCam.ScreenPointToRay(Input.mousePosition);//Raycast to find the point where the mouse cursor is
+            }
             if (Physics.Raycast(Ray, out RaycastHit RayCastHit, float.MaxValue, LayerMask)) {
                 PlaceTemp.transform.position = RayCastHit.point;
             }
@@ -129,13 +137,21 @@ public class KingPlace : NetworkBehaviour
         }
         if (HailPlacing == true) {
             Ray Ray = KingCam.ScreenPointToRay(Input.mousePosition);//Raycast to find the point where the mouse cursor is
+            if (this.transform.Find("kingCursor").gameObject.activeInHierarchy)
+            {
+                Ray = KingCam.ScreenPointToRay(this.transform.Find("kingCursor").gameObject.transform.position);//Raycast to find the point where the mouse cursor is
+            }
+            else
+            {
+                Ray = KingCam.ScreenPointToRay(Input.mousePosition);//Raycast to find the point where the mouse cursor is
+            }
             if (Physics.Raycast(Ray, out RaycastHit RayCastHit, float.MaxValue, LayerMask)) {
                 HailCorner.transform.position = RayCastHit.point;
                 HailCorner.GetComponent<LineRenderer>().SetPosition(1, new Vector3(HailCorner.transform.position.x, HailCorner.transform.position.y + 35, PlaceTemp.transform.position.z));
                 HailCorner.GetComponent<LineRenderer>().SetPosition(2, new Vector3(HailCorner.transform.position.x, HailCorner.transform.position.y + 35, HailCorner.transform.position.z));
                 HailCorner.GetComponent<LineRenderer>().SetPosition(3, new Vector3(PlaceTemp.transform.position.x, HailCorner.transform.position.y + 35, HailCorner.transform.position.z));
             }
-            if (Input.GetMouseButtonUp(0)) {//Reads the player releasing the left mouse button
+            if (Input.GetMouseButtonUp(0) || Input.GetKeyUp(KeyCode.JoystickButton0)) {//Reads the player releasing the left mouse button
                 CreateHail();
                 MenuOff();
                 KAHail.UseItem();
@@ -143,7 +159,7 @@ public class KingPlace : NetworkBehaviour
         }
         if (SlimePlacing == true) {
             SlimeDir = DrawArrow();
-            if (Input.GetMouseButtonUp(0)) {//Reads the player releasing the left mouse button
+            if (Input.GetMouseButtonUp(0) || Input.GetKeyUp(KeyCode.JoystickButton0)) {//Reads the player releasing the left mouse button
 
                 Vector3 slimeLoc = PlaceTemp.transform.position;//Gets the Slime's position and rotation
                 Quaternion slimeRot = PlaceTemp.transform.rotation;
@@ -358,9 +374,19 @@ public class KingPlace : NetworkBehaviour
         Vector3 MosPos = new Vector3(0, 0, 0);
         GameObject Arrow = null;
         int DirNumber = 2;//Defaults to down, just in case
+
         Ray Ray = KingCam.ScreenPointToRay(Input.mousePosition);//Raycast to find the point where the mouse cursor is
+        if (this.transform.Find("kingCursor").gameObject.activeInHierarchy)
+        {
+            Ray = KingCam.ScreenPointToRay((this.transform.Find("kingCursor").gameObject.transform.position));//Raycast to find the point where the mouse cursor is
+        }
+        else
+        {
+            Ray = KingCam.ScreenPointToRay(Input.mousePosition);//Raycast to find the point where the mouse cursor is
+        }
+
         if (Physics.Raycast(Ray, out RaycastHit RayCastHit, float.MaxValue, LayerMask)) {
-            MosPos = RayCastHit.point;
+        MosPos = RayCastHit.point;
         }
         foreach (Transform child in PlaceTemp.transform) {
             if (child.gameObject.tag == "Arrow") { // Makes sure not to turn off the model
