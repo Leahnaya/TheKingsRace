@@ -654,7 +654,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1129569237 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 2845649168122086393, guid: 1e178f956ddfe5143b2b9e77e76db7f0, type: 3}
+  m_CorrespondingSourceObject: {fileID: 7717549353239938055, guid: 1e178f956ddfe5143b2b9e77e76db7f0, type: 3}
   m_PrefabInstance: {fileID: 1129569235}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1129569238 stripped
@@ -684,7 +684,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1129569243 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 5602340108049884658, guid: 1e178f956ddfe5143b2b9e77e76db7f0, type: 3}
+  m_CorrespondingSourceObject: {fileID: 8493659828129755050, guid: 1e178f956ddfe5143b2b9e77e76db7f0, type: 3}
   m_PrefabInstance: {fileID: 1129569235}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1129569244 stripped
@@ -1170,11 +1170,11 @@ PrefabInstance:
     - target: {fileID: 3670971460473670880, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
       propertyPath: runnerBodyModifiers.Array.data[16]
       value: 
-      objectReference: {fileID: 1129569237}
+      objectReference: {fileID: 1129569243}
     - target: {fileID: 3670971460473670880, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
       propertyPath: runnerBodyModifiers.Array.data[17]
       value: 
-      objectReference: {fileID: 1129569243}
+      objectReference: {fileID: 1129569237}
     - target: {fileID: 4751141152928149347, guid: f04855a6b3fae4f478846139aa5cf621, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
