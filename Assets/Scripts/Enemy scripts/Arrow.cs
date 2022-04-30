@@ -66,7 +66,7 @@ public class Arrow : NetworkBehaviour {
     void OnTriggerEnter(Collider objectHit) {
         if (objectHit != null) { return; }
 
-        if (objectHit.transform.parent.gameObject.tag == "Player") {
+        if (objectHit.gameObject.tag == "ArcherTarget") {
             //Checks if the other object is the player
             MoveStateManager playerMovement = objectHit.GetComponent<MoveStateManager>();
 
