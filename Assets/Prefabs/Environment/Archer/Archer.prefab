@@ -912,6 +912,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Arrow
       objectReference: {fileID: 0}
+    - target: {fileID: 26604539265034266, guid: 0e61ec06fdabb014bb1868596534f8b7, type: 3}
+      propertyPath: speed
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 26604539265034267, guid: 0e61ec06fdabb014bb1868596534f8b7, type: 3}
       propertyPath: m_RootOrder
       value: 9
