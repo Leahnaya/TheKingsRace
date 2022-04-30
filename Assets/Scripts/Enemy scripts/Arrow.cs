@@ -4,13 +4,13 @@ using System.Collections;
 using UnityEngine;
 
 public class Arrow : NetworkBehaviour {
-    private Vector3 target;
-    private bool isLive = false;
-    private Vector3 dir = Vector3.zero;
+    public Vector3 target;
+    public bool isLive = false;
+    public Vector3 dir = Vector3.zero;
 
     public float speed = 90f;
 
-    [SerializeField] private float bumpPower = 30;
+    [SerializeField] public float bumpPower = 30;
 
 
 
@@ -64,7 +64,6 @@ public class Arrow : NetworkBehaviour {
 
     // Is called whenever something collides with the bumper
     void OnTriggerEnter(Collider objectHit) {
-        if (objectHit != null) { return; }
 
         if (objectHit.gameObject.tag == "ArcherTarget") {
             //Checks if the other object is the player
