@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AerialJumpingState : AerialBaseState
 {
+    
 
     private int previousJumpNum;
     public override void EnterState(AerialStateManager aSM, AerialBaseState previousState){

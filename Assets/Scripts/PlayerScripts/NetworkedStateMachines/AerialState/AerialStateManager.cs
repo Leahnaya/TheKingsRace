@@ -116,6 +116,15 @@ public class AerialStateManager : NetworkBehaviour
     public float currentForcePower = 0;
     ////
 
+
+    ///Audio 
+    public AudioSource jumpSound1;
+    public AudioSource jumpSound2;
+    public AudioSource jumpSound3;
+    public AudioSource springJumpSound;
+    public AudioSource landingSound;
+    public AudioSource grappleSound;
+    ////
     void Awake(){
         
         ////Initialize Player Components
@@ -387,12 +396,28 @@ public class AerialStateManager : NetworkBehaviour
                     AddImpact((GetWallJumpDirection()), pStats.JumpPow * 8.5f);
                     pStats.GravVel = pStats.JumpPow;
                     curJumpNum = 0;
+                    jumpSound1.Play();
                 }
                 else{
                     pStats.GravVel = pStats.JumpPow; 
                 }
                 
-                
+                //add check here for spring?
+                if (curJumpNum == 0)
+                {
+                    jumpSound1.Play();
+                }
+                if (curJumpNum == 1)
+                {
+                    jumpSound2.Play();
+                }
+                if (curJumpNum == 2)
+                {
+                    jumpSound3.Play();
+                }
+
+
+
                 curJumpNum++;
                 jumpPressed = true;
                 jumpHeld = true;
