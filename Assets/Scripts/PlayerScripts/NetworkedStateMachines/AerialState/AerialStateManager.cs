@@ -35,6 +35,7 @@ public class AerialStateManager : NetworkBehaviour
     public CharacterController handController;
     public Transform handPosition;
     public GameObject removeableHand;
+    public GameObject glider;
     ////
 
     ////Components Section
