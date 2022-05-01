@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class dAerialGrappleAirState : AerialBaseState
+public class AerialGrappleAirState : AerialBaseState
 {
 
     float distanceBeneathHook = -10f; // Distance Beneath Hook
