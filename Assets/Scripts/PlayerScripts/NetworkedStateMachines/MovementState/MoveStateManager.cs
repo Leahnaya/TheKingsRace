@@ -83,6 +83,13 @@ public class MoveStateManager : NetworkBehaviour
     public float distToGround; // distance to ground
     ////
 
+    //audio set
+    public AudioSource slideAudio;
+    public AudioSource skateAudio;
+    public AudioSource dirtStep1, dirtStep2, dirtStep3, dirtStep4, dirtStep5, dirtStep6;
+    public AudioSource rainStep1, rainStep2, rainStep3, rainStep4, rainStep5, rainStep6;
+    public AudioSource snowStep1, snowStep2, snowStep3, snowStep4, snowStep5, snowStep6;
+    bool hasPlayed;
 
     void Awake(){
 
@@ -336,8 +343,22 @@ public class MoveStateManager : NetworkBehaviour
         Vector3 moveXZ = new Vector3(vel.x, 0, vel.z);
         driftVel = Vector3.Lerp(driftVel, moveXZ, pStats.CurTraction * Time.deltaTime);
         
+
+        //True false set here to stop the audio from playing each time = to FPS
+        if (hasPlayed == false)
+        {
+             hasPlayed = true;
+             slideAudio.Play();
+        }
+
+        else
+        {
+         hasPlayed = false;
+        }
+
         //Actually move he player
         moveController.Move(driftVel);
+        
     }
 
     //Camera and player rotation

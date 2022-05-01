@@ -622,6 +622,7 @@ public class AerialStateManager : NetworkBehaviour
                     {
                         //Debug.Log("Found Hook");
                         hookPoint = hookPoints[hookPointIndex]; //The point we are grappling from
+                        grappleSound.Play();
                         return true;
                     }
             }

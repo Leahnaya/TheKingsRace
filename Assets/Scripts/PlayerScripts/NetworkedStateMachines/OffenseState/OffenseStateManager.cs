@@ -43,6 +43,9 @@ public class OffenseStateManager : NetworkBehaviour
     private AnimationManager animationManager;
     ////
 
+    /// audio
+    public AudioSource kickSound;
+
     //// Variables Section
     private GameObject[] players;
 
@@ -111,6 +114,9 @@ public class OffenseStateManager : NetworkBehaviour
         currentState = state;
         animationManager.updateCurrentPriority();
         currentState.EnterState(this, previousState);
+
+        
+
     }
 
     //Collision checker for the leg

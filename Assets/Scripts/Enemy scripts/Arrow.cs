@@ -8,7 +8,7 @@ public class Arrow : NetworkBehaviour {
     public bool isLive = false;
     public Vector3 dir = Vector3.zero;
 
-    public float speed = 90f;
+    public float speed;
 
     [SerializeField] public float bumpPower = 30;
 

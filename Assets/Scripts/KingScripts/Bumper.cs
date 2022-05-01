@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bumper : MonoBehaviour {
 
     public float bumpPower = 30;
-
+    public AudioSource bumpNoise;
     // Is called whenever something collides with the bumper
     void OnTriggerEnter(Collider objectHit) {
         if (objectHit.gameObject.tag == "ArcherTarget") {//Checks if the other object is the player
@@ -19,7 +19,7 @@ public class Bumper : MonoBehaviour {
             if(dirBump.x == 0 && dirBump.z == 0){
                 dirBump = new Vector3(1,.1f,1);
             }
-
+            bumpNoise.Play();
             playerMovement.GetHit(dirBump.normalized, bumpPower);
             //
         }
