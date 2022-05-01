@@ -32,6 +32,7 @@ public class dAerialStateManager : NetworkBehaviour
     public LineRenderer lr;
     public CharacterController handController;
     public Transform handPosition;
+    public GameObject glider;
     ////
 
     ////Components Section

@@ -79,7 +79,7 @@ public class PauseMenu : NetworkBehaviour {
     void Update() {
         // Listen for Pause button and not already paused
         // TODO: UPDATE TO ALSO LISTEN FOR CONTROLLER PAUSE BUTTON PRESSED
-        if (isUsable && Input.GetKeyDown(KeyCode.Escape) && PauseMenuPanel.activeInHierarchy != true) {
+        if (isUsable && (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.JoystickButton0)) && PauseMenuPanel.activeInHierarchy != true) {
             GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
             foreach(GameObject player in players){
