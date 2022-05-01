@@ -152,19 +152,31 @@ public class WeatherWheel : NetworkBehaviour {
         // Turn on the weather particle systems
         switch (weather) {
             case PlayerStats.Weather.Rain:
-                GameObject.FindGameObjectWithTag("RainSystem").GetComponent<ParticleSystem>().Play();
+                GameObject[] Rains = GameObject.FindGameObjectsWithTag("RainSystem");
+                foreach(GameObject go in Rains) { 
+                    go.GetComponent<ParticleSystem>().Play();
+                }
                 break;
             case PlayerStats.Weather.Snow:
-                GameObject.FindGameObjectWithTag("SnowSystem").GetComponent<ParticleSystem>().Play();
+                GameObject[] Snows = GameObject.FindGameObjectsWithTag("SnowSystem");
+                foreach (GameObject go in Snows) {
+                    go.GetComponent<ParticleSystem>().Play();
+                }
                 break;
             case PlayerStats.Weather.Wind:
-                GameObject.FindGameObjectWithTag("WindSystem").GetComponent<ParticleSystem>().Play();
+                GameObject[] Winds = GameObject.FindGameObjectsWithTag("WindSystem");
+                foreach (GameObject go in Winds) {
+                    go.GetComponent<ParticleSystem>().Play();
 
-                // Also store the wind direction
-                GameObject.FindGameObjectWithTag("WindSystem").GetComponent<WindDirection>().windDireciton = windDir;
+                    // Also store the wind direction
+                    go.GetComponent<WindDirection>().windDireciton = windDir;
+                }
                 break;
             case PlayerStats.Weather.Fog:
-                GameObject.FindGameObjectWithTag("FogSystem").GetComponent<ParticleSystem>().Play();
+                GameObject[] Fogs = GameObject.FindGameObjectsWithTag("FogSystem");
+                foreach (GameObject go in Fogs) {
+                    go.GetComponent<ParticleSystem>().Play();
+                }
                 break;
         }
 
@@ -190,10 +202,33 @@ public class WeatherWheel : NetworkBehaviour {
         }
 
         // Turn off the weather particle systems
-        GameObject.FindGameObjectWithTag("RainSystem").GetComponent<ParticleSystem>().Stop();
-        GameObject.FindGameObjectWithTag("SnowSystem").GetComponent<ParticleSystem>().Stop();
-        GameObject.FindGameObjectWithTag("WindSystem").GetComponent<ParticleSystem>().Stop();
-        GameObject.FindGameObjectWithTag("FogSystem").GetComponent<ParticleSystem>().Stop();
+        GameObject[] Rains = GameObject.FindGameObjectsWithTag("RainSystem");
+        GameObject[] Snows = GameObject.FindGameObjectsWithTag("SnowSystem");
+        GameObject[] Winds = GameObject.FindGameObjectsWithTag("WindSystem");
+        GameObject[] Fogs = GameObject.FindGameObjectsWithTag("FogSystem");
+
+        // Stop Rain
+        foreach (GameObject go in Rains) {
+            go.GetComponent<ParticleSystem>().Stop();
+        }
+
+        // Stop Snow
+        foreach (GameObject go in Snows)
+        {
+            go.GetComponent<ParticleSystem>().Stop();
+        }
+
+        // Stop Wind
+        foreach (GameObject go in Winds)
+        {
+            go.GetComponent<ParticleSystem>().Stop();
+        }
+
+        // Stop Fog
+        foreach (GameObject go in Fogs)
+        {
+            go.GetComponent<ParticleSystem>().Stop();
+        }
     }
 
     public void SpinWheel() {
