@@ -172,10 +172,10 @@ public class dAerialGrappleAirState : dAerialBaseState
         Vector3 throwDir = (aSM.hookPoint.transform.position -  aSM.stickyHandParent.transform.position).normalized;
 
         //move the hand
-        aSM.stickyHandParent.GetComponent<CharacterController>().Move(throwDir * 120 * Time.deltaTime);
+        aSM.stickyHandParent.GetComponent<CharacterController>().Move(throwDir * 140 * Time.deltaTime);
 
         //if the hand approximately reaches the correct point
-        if(Vector3.Distance(aSM.hookPoint.transform.position, aSM.stickyHandParent.transform.position) <= 3f){
+        if(Vector3.Distance(aSM.hookPoint.transform.position, aSM.stickyHandParent.transform.position) <= 4f){
 
             //Calculate the desired position using current position when hook reaches
             Vector3 updatedXHookPointDirection = (new Vector3(aSM.transform.position.x, 0, aSM.transform.position.z) - new Vector3(aSM.hookPoint.transform.position.x, 0, aSM.hookPoint.transform.position.z)).normalized;
