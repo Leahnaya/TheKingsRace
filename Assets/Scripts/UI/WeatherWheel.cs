@@ -17,6 +17,12 @@ public class WeatherWheel : NetworkBehaviour {
     private float weatherDuration = 20f;
     private float postWeatherCooldown = 10f;
 
+    public AudioSource snowJingle;
+    public AudioSource fogJingle;
+    public AudioSource RainAmbi;
+    public AudioSource windAmbi;
+
+
     void Start() {
         gameObject.GetComponent<Image>().enabled = false;
         pointer.SetActive(false);
@@ -84,7 +90,7 @@ public class WeatherWheel : NetworkBehaviour {
             {
                 // Snow
                 SpawnWeatherServerRPC(PlayerStats.Weather.Snow);
-
+                snowJingle.Play();
                 // Set angle back to centered
                 transform.localRotation = Quaternion.Euler(0, 0, 90);
             }
@@ -100,7 +106,7 @@ public class WeatherWheel : NetworkBehaviour {
             {
                 // Fog
                 SpawnWeatherServerRPC(PlayerStats.Weather.Fog);
-
+                fogJingle.Play();
                 // Set angle back to centered
                 transform.localRotation = Quaternion.Euler(0, 0, 270);
             }
@@ -118,7 +124,8 @@ public class WeatherWheel : NetworkBehaviour {
 
         // Stop weather after duration
         StopWeatherServerRPC();
-
+        RainAmbi.Stop();
+        windAmbi.Stop();
         // Post weather cool down
         for (int i = 0; i < postWeatherCooldown; i++) {
             yield return new WaitForSecondsRealtime(1f);
@@ -156,6 +163,7 @@ public class WeatherWheel : NetworkBehaviour {
                 foreach(GameObject go in Rains) { 
                     go.GetComponent<ParticleSystem>().Play();
                 }
+                RainAmbi.Play();
                 break;
             case PlayerStats.Weather.Snow:
                 GameObject[] Snows = GameObject.FindGameObjectsWithTag("SnowSystem");
@@ -171,6 +179,7 @@ public class WeatherWheel : NetworkBehaviour {
                     // Also store the wind direction
                     go.GetComponent<WindDirection>().windDireciton = windDir;
                 }
+                windAmbi.Play();
                 break;
             case PlayerStats.Weather.Fog:
                 GameObject[] Fogs = GameObject.FindGameObjectsWithTag("FogSystem");
