@@ -100,7 +100,7 @@ MonoBehaviour:
   target: {x: 0, y: 0, z: 0}
   isLive: 0
   dir: {x: 0, y: 0, z: 0}
-  speed: 135
+  speed: 150
   bumpPower: 25
 --- !u!114 &2287528990630677962
 MonoBehaviour:
