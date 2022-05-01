@@ -169,7 +169,7 @@ public class WeatherWheel : NetworkBehaviour {
                     go.GetComponent<ParticleSystem>().Play();
 
                     // Also store the wind direction
-                    go.GetComponent<WindDirection>().windDireciton = windDir;
+                    go.GetComponent<PlayerStats>().windDireciton = windDir;
                 }
                 break;
             case PlayerStats.Weather.Fog:

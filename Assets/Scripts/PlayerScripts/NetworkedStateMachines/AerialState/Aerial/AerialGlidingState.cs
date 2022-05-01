@@ -73,7 +73,7 @@ public class AerialGlidingState : AerialBaseState
 
         if(aSM.glider.transform.localEulerAngles.x >= 0 && aSM.glider.transform.localEulerAngles.x <= 90){
             if(aSM.glider.transform.localPosition != gliderEndPos){
-                aSM.glider.transform.localPosition = Vector3.Lerp(aSM.glider.transform.localPosition, gliderEndPos, 20*Time.deltaTime);
+                aSM.glider.transform.localPosition = Vector3.Lerp(aSM.glider.transform.localPosition, gliderEndPos, 50*Time.deltaTime);
             }
             if(aSM.glider.transform.localEulerAngles != gliderEndRot){
                 aSM.glider.transform.localEulerAngles = new Vector3(aSM.glider.transform.localEulerAngles.x - 30,aSM.glider.transform.localEulerAngles.y,aSM.glider.transform.localEulerAngles.z);
