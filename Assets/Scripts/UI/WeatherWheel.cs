@@ -17,9 +17,6 @@ public class WeatherWheel : NetworkBehaviour {
     private float weatherDuration = 20f;
     private float postWeatherCooldown = 10f;
 
-    public AudioSource fogJingle;
-    public AudioSource snowJingle;
-
     void Start() {
         gameObject.GetComponent<Image>().enabled = false;
         pointer.SetActive(false);
@@ -79,7 +76,6 @@ public class WeatherWheel : NetworkBehaviour {
                 Vector3 windDirection = new Vector3(Random.Range(-1f, 1f), 0f, Random.Range(-1f, 1f));
 
                 SpawnWeatherServerRPC(PlayerStats.Weather.Wind, windDirection);
-                //wind sound
 
                 // Set angle back to centered
                 transform.localRotation = Quaternion.Euler(0, 0, 0);
@@ -88,9 +84,6 @@ public class WeatherWheel : NetworkBehaviour {
             {
                 // Snow
                 SpawnWeatherServerRPC(PlayerStats.Weather.Snow);
-
-                //snow jingle
-                snowJingle.Play();
 
                 // Set angle back to centered
                 transform.localRotation = Quaternion.Euler(0, 0, 90);
@@ -107,9 +100,6 @@ public class WeatherWheel : NetworkBehaviour {
             {
                 // Fog
                 SpawnWeatherServerRPC(PlayerStats.Weather.Fog);
-
-                //fog jingle
-                fogJingle.Play();
 
                 // Set angle back to centered
                 transform.localRotation = Quaternion.Euler(0, 0, 270);
@@ -179,7 +169,7 @@ public class WeatherWheel : NetworkBehaviour {
                     go.GetComponent<ParticleSystem>().Play();
 
                     // Also store the wind direction
-                    go.GetComponent<PlayerStats>().windDireciton = windDir;
+                    go.GetComponent<WindDirection>().windDireciton = windDir;
                 }
                 break;
             case PlayerStats.Weather.Fog:

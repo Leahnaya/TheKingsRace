@@ -279,8 +279,8 @@ public class PlayerStats : MonoBehaviour
 
         weatherOn = false;
 
-        acc *= (1/tractionModification);
-        traction *= (1/accModification);
+        acc *= (1/accModification);
+        traction *= (1/tractionModification);
 
 
         curTraction *= (1/tractionModification);
