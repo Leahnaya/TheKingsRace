@@ -52,6 +52,8 @@ public class KingPlace : NetworkBehaviour
 
     private GameObject placedObj;
 
+    public AudioSource placeSound;
+
     void Start()
     {
         KABlock.KingButton(Panel.transform.GetChild(0).gameObject);//Grabs each button from the 
@@ -170,6 +172,8 @@ public class KingPlace : NetworkBehaviour
 
                 // PLACE NETWORKED VERSION
                 SpawnSlimeServerRPC(slimeLoc, slimeRot, slimeBodyRot, SlimeDir);
+                //sound here?
+                placeSound.Play();
 
                 SlimePlacing = false;
                 MenuOff();
@@ -270,6 +274,9 @@ public class KingPlace : NetworkBehaviour
                 // Have the server spawn the box
                 SpawnBoxServerRPC(spawnLoc, spawnRot);
 
+                //sound here?
+                placeSound.Play();
+
                 // Remove the reference to PlaceTemp
                 Destroy(PlaceTemp);
                 MenuOff();
@@ -280,6 +287,9 @@ public class KingPlace : NetworkBehaviour
             {
                 //Server spawn Bumper
                 SpawnBumperServerRPC(spawnLoc, spawnRot);
+
+                //sound here?
+                placeSound.Play();
 
                 //Remove PlaceTemp
                 Destroy(PlaceTemp);
@@ -395,6 +405,9 @@ public class KingPlace : NetworkBehaviour
         {
             Vector4 spawnLoc = new Vector4(PlaceTemp.transform.position.x, HailCorner.transform.position.x, PlaceTemp.transform.position.z, HailCorner.transform.position.z);
             SpawnHailServerRPC(spawnLoc);
+
+            //Sound here?
+            placeSound.Play();
 
             Destroy(PlaceTemp);
             Destroy(HailCorner);
