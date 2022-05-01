@@ -226,7 +226,7 @@ public class PlayerStats : MonoBehaviour
             case Weather.Rain:{
                 Debug.Log("Rain");
 
-                tractionModification = .1f;
+                tractionModification = .28f;
                 traction *= tractionModification;
                 curTraction *= tractionModification;
                  
