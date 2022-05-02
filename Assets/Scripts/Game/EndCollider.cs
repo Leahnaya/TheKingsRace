@@ -61,7 +61,7 @@ public class EndCollider : NetworkBehaviour {
                     // Then grab their GUID
                     if (ServerGameNetPortal.Instance.clientIdToGuid.TryGetValue(character.GetComponent<NetworkObject>().OwnerClientId, out string clientGuid)) {
                         // To verify they aren't the king
-                        if (ServerGameNetPortal.Instance.clientData[clientGuid].IsKing != true) {
+                        if (ServerGameNetPortal.Instance.clientData[clientGuid].IsKing == true) {
                             // Then call a client rpc to the finished player to enable the camera locally
                             ClientRpcParams clientRpcParams = new ClientRpcParams {
                                 Send = new ClientRpcSendParams {
@@ -83,12 +83,12 @@ public class EndCollider : NetworkBehaviour {
 
         foreach (GameObject character in playableCharacters) {
             if (character.GetComponent<NetworkObject>().OwnerClientId == otherRunnerClientID) {
-                GameObject UICamera = GameHandler.FindGameObjectInChildWithTag(character, "UICam");
+                //GameObject UICamera = GameHandler.FindGameObjectInChildWithTag(character, "UICam");
 
-                //GameHandler.FindGameObjectInChildWithTag(character, "UICam").GetComponent<Camera>().enabled = true;
-                GameHandler.FindGameObjectInChildWithTag(UICamera, "PlayerCam").GetComponent<Camera>().enabled = true;
-                GameHandler.FindGameObjectInChildWithTag(UICamera, "PlayerCam").GetComponent<PlayerCam>().enabled = false;
-                GameHandler.FindGameObjectInChildWithTag(UICamera, "PlayerCam").GetComponent<AudioListener>().enabled = true;
+                GameHandler.FindGameObjectInChildWithTag(character, "PlayerCam").GetComponent<Camera>().enabled = true;
+                //GameHandler.FindGameObjectInChildWithTag(UICamera, "PlayerCam").GetComponent<Camera>().enabled = true;
+                //GameHandler.FindGameObjectInChildWithTag(UICamera, "PlayerCam").GetComponent<PlayerCam>().enabled = false;
+                GameHandler.FindGameObjectInChildWithTag(character, "PlayerCam").GetComponent<AudioListener>().enabled = true;
             }
         }
 
