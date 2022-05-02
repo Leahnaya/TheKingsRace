@@ -6,8 +6,8 @@ public class AerialGlidingState : AerialBaseState
 {
     bool rotateGlider = false;
 
-    Vector3 gliderInitialPos = new Vector3(0,.0058f,-.0014f);
-    Vector3 gliderInitialRot = new Vector3(80,-180,0);
+    Vector3 gliderInitialPos = new Vector3(0,0.0059f,-0.0023f);
+    Vector3 gliderInitialRot = new Vector3(85,-180,0);
 
     Vector3 gliderEndPos = new Vector3(0,.0355f,.0037f);
     Vector3 gliderEndRot = new Vector3(0,-180f,0);
