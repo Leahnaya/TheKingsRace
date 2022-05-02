@@ -15,6 +15,9 @@ public class PostGameUI : NetworkBehaviour {
     [SerializeField] private GameObject player1;
     [SerializeField] private GameObject player2;
 
+    public AudioSource kingWin;
+    public AudioSource runnerWin;
+
     void Start() {
         ReturnToLobbyText.text = "Returning to the lobby in " + ReturnToLobbyTimer + " seconds...";
         StartCoroutine(BeginCountdown());
@@ -46,11 +49,13 @@ public class PostGameUI : NetworkBehaviour {
             // Runners win
             switch (winnerCount) {
                 case 1:
+                    runnerWin.Play();
                     winText = "And the winner is the Runner " + playerFinishedNames[0] + "!";
                     active[1] = true;
                     player1.SetActive(active[1]);
                     break;
                 case 2:
+                    runnerWin.Play();
                     winText = "And the winners are the Runners " + playerFinishedNames[0] + " and " + playerFinishedNames[1] + "!";
                     active[1] = true;
                     active[2] = true;
@@ -60,6 +65,7 @@ public class PostGameUI : NetworkBehaviour {
             }
         } else {
             // King wins
+            kingWin.Play();
             winText = "And the winner is King " + kingName + "!";
             active[0] = true;
             king.SetActive(active[0]);
