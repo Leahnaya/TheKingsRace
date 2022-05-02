@@ -8332,7 +8332,8 @@ MonoBehaviour:
   nitroItem: {fileID: 11400000, guid: a1c26807795a7ac4f83567455ce978ce, type: 2}
   nitroVelBoost: 40
   nitroAccBoost: 0.4
-  boostSound: {fileID: 0}
+  boostSound: {fileID: 5916013765019698878}
+  isNitroing: 0
 --- !u!114 &7688428083034862391
 MonoBehaviour:
   m_ObjectHideFlags: 0

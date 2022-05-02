@@ -44,6 +44,7 @@ public class NitroStateManager : NetworkBehaviour
     public float nitroAccBoost = .4f;
 
     public AudioSource boostSound;
+    public bool isNitroing = false;
 
     void Awake(){
         
@@ -104,5 +105,6 @@ public class NitroStateManager : NetworkBehaviour
         currentState = state;
         animationManager.updateCurrentPriority();
         currentState.EnterState(this, previousState);
+        boostSound.Play();
     }
 }
