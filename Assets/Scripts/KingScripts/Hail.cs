@@ -43,6 +43,10 @@ public class Hail : NetworkBehaviour
 
     [ServerRpc(RequireOwnership = false)]
     private void ScaleShadowServerRPC() {
+        if(ShadTemp == null || hail == null)
+        {
+            return;
+        }
         float y = -m * (hail.transform.position.y - ShadTemp.transform.position.y) + hail.transform.localScale.x;//Find the proper current size
         ScaleShadowClientRPC(shadowID, y);
     }

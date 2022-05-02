@@ -32,6 +32,7 @@ public class KingZoom : MonoBehaviour
         {
             if (Zoomed == false)
             {
+                BaseRot = transform.rotation;
                 cam.fieldOfView = 15;//Zooms in
                 Panel.transform.localPosition = new Vector3(Panel.transform.localPosition.x, Panel.transform.localPosition.y, 4150f);//Moves the UI Text in with the zoom
                 Text.transform.localPosition = new Vector3(Text.transform.localPosition.x, Text.transform.localPosition.y, 4150f);
