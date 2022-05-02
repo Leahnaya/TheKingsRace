@@ -55,18 +55,18 @@ public class footsteps : MonoBehaviour
         if (GameObject.FindGameObjectWithTag("RainSystem").GetComponent<ParticleSystem>().isPlaying)
         {
             AudioClip clip = getRandomClipRain();
-            audioSource.PlayOneShot(clip);
+            //audioSource.PlayOneShot(clip, .25f);
         }
 
         else if (GameObject.FindGameObjectWithTag("SnowSystem").GetComponent<ParticleSystem>().isPlaying)
         {
             AudioClip clip = getRandomClipSnow();
-            audioSource.PlayOneShot(clip);
+            //audioSource.PlayOneShot(clip, .25f);
         }
         else
         {
             AudioClip clip = getRandomClipDirt();
-            audioSource.PlayOneShot(clip);
+            //audioSource.PlayOneShot(clip, .25f);
         }
         
     }
@@ -74,13 +74,13 @@ public class footsteps : MonoBehaviour
     private void Skate()
     {
         AudioClip clip = getSkate();
-        audioSource.PlayOneShot(clip);
+        //audioSource.PlayOneShot(clip, .25f);
     }
 
     private void Land()
     {
         AudioClip clip = getLanding();
-        audioSource.PlayOneShot(clip);
+        //audioSource.PlayOneShot(clip,.25f);
     }
 
 }

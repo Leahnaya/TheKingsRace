@@ -32,7 +32,7 @@ public class HailArea : NetworkBehaviour
         if (timer == timeMax) {
             timer = 0;
             //Random diameter 4->8
-            float diameter = Random.Range(4, 8);
+            float diameter = Random.Range(6, 10);
             float radius = diameter / 2.0f;
             //Random pos X Xmax-radius -> Xmin+radius
             //Random pos Z Zmax-radius -> Zmin+radius
@@ -83,16 +83,16 @@ public class HailArea : NetworkBehaviour
             distance *= -1;
         }
         if(distance <= 60) {
-            timeMax = 25;
-        }
-        else if(distance > 60  && distance <= 250) {
             timeMax = 20;
         }
-        else if (distance > 250 && distance <= 500) {
+        else if(distance > 60  && distance <= 250) {
             timeMax = 15;
         }
-        else if (distance > 500) {
+        else if (distance > 250 && distance <= 500) {
             timeMax = 10;
+        }
+        else if (distance > 500) {
+            timeMax = 5;
         }
     }
 
