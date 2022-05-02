@@ -401,21 +401,29 @@ public class AerialStateManager : NetworkBehaviour
                 else{
                     pStats.GravVel = pStats.JumpPow; 
                 }
-                
-                //add check here for spring?
-                if (curJumpNum == 0)
+
+
+                if (pStats.JumpPow == 60)
                 {
-                    jumpSound1.Play();
-                }
-                if (curJumpNum == 1)
-                {
-                    jumpSound2.Play();
-                }
-                if (curJumpNum == 2)
-                {
-                    jumpSound3.Play();
+                    //add check here for spring?
+                    if (curJumpNum == 0)
+                    {
+                        jumpSound1.Play();
+                    }
+                    if (curJumpNum == 1)
+                    {
+                        jumpSound2.Play();
+                    }
+                    if (curJumpNum == 2)
+                    {
+                        jumpSound3.Play();
+                    }
                 }
 
+                if(pStats.JumpPow > 60)
+                {
+                    springJumpSound.Play();
+                }
 
 
                 curJumpNum++;

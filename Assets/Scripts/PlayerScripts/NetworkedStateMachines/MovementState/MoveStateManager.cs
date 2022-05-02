@@ -344,21 +344,10 @@ public class MoveStateManager : NetworkBehaviour
         driftVel = Vector3.Lerp(driftVel, moveXZ, pStats.CurTraction * Time.deltaTime);
         
 
-        //True false set here to stop the audio from playing each time = to FPS
-        if (hasPlayed == false)
-        {
-             hasPlayed = true;
-             slideAudio.Play();
-        }
-
-        else
-        {
-         hasPlayed = false;
-        }
 
         //Actually move he player
         moveController.Move(driftVel);
-        
+        slideAudio.Play();
     }
 
     //Camera and player rotation

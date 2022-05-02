@@ -43,6 +43,8 @@ public class NitroStateManager : NetworkBehaviour
     public float nitroVelBoost = 40;
     public float nitroAccBoost = .4f;
 
+    public AudioSource boostSound;
+
     void Awake(){
         
         ////Initialize Player Components
