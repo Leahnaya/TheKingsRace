@@ -83,16 +83,16 @@ public class HailArea : NetworkBehaviour
             distance *= -1;
         }
         if(distance <= 60) {
-            timeMax = 20;
+            timeMax = 60;
         }
         else if(distance > 60  && distance <= 250) {
-            timeMax = 15;
+            timeMax = 70;
         }
         else if (distance > 250 && distance <= 500) {
-            timeMax = 10;
+            timeMax = 80;
         }
         else if (distance > 500) {
-            timeMax = 5;
+            timeMax = 160;
         }
     }
 
