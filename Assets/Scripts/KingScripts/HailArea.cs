@@ -48,7 +48,7 @@ public class HailArea : NetworkBehaviour
         timer++;
 
         Lifetime++;
-        if (Lifetime == 3000) {
+        if (Lifetime == 1000) {
             DespawnMyselfServerRPC();
         }
     }

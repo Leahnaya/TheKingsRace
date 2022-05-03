@@ -39,7 +39,7 @@ public class KingPlace : NetworkBehaviour
 
     private KingAbility KABlock = new KingAbility(2, 5);
     private KingAbility KASlime = new KingAbility(3, 15);
-    private KingAbility KAHail = new KingAbility(4, 15);
+    private KingAbility KAHail = new KingAbility(10, 15);
     private KingAbility KABump = new KingAbility(6, 10);
 
 
