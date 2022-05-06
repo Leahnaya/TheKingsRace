@@ -53,6 +53,10 @@ public class Hail : NetworkBehaviour
 
     [ClientRpc]
     private void ScaleShadowClientRPC(ulong sID, float size) {
+        if (ShadTemp == null || hail == null)
+        {
+            return;
+        }
         GameObject[] shadows = GameObject.FindGameObjectsWithTag("Shadows");
 
         foreach (GameObject shad in shadows) {
@@ -79,6 +83,10 @@ public class Hail : NetworkBehaviour
 
     [ServerRpc(RequireOwnership = false)]
     private void DespawnMyselfServerRPC(ulong sID) {
+        if (ShadTemp == null || hail == null)
+        {
+            return;
+        }
         GameObject[] shadows = GameObject.FindGameObjectsWithTag("Shadows");
 
         foreach (GameObject shad in shadows) {
