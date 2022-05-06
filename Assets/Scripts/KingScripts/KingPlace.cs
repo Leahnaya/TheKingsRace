@@ -173,7 +173,7 @@ public class KingPlace : NetworkBehaviour
                 // PLACE NETWORKED VERSION
                 SpawnSlimeServerRPC(slimeLoc, slimeRot, slimeBodyRot, SlimeDir);
                 //sound here?
-                placeSound.Play();
+                if(placeSound != null) placeSound.Play();
 
                 SlimePlacing = false;
                 MenuOff();
@@ -275,7 +275,7 @@ public class KingPlace : NetworkBehaviour
                 SpawnBoxServerRPC(spawnLoc, spawnRot);
 
                 //sound here?
-                placeSound.Play();
+                if(placeSound != null) placeSound.Play();
 
                 // Remove the reference to PlaceTemp
                 Destroy(PlaceTemp);
@@ -289,7 +289,7 @@ public class KingPlace : NetworkBehaviour
                 SpawnBumperServerRPC(spawnLoc, spawnRot);
 
                 //sound here?
-                placeSound.Play();
+                if(placeSound != null) placeSound.Play();
 
                 //Remove PlaceTemp
                 Destroy(PlaceTemp);
@@ -407,7 +407,7 @@ public class KingPlace : NetworkBehaviour
             SpawnHailServerRPC(spawnLoc);
 
             //Sound here?
-            placeSound.Play();
+            if(placeSound != null) placeSound.Play();
 
             Destroy(PlaceTemp);
             Destroy(HailCorner);

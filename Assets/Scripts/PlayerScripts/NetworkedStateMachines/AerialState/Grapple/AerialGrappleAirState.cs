@@ -36,6 +36,9 @@ public class AerialGrappleAirState : AerialBaseState
         //Calculate the update y position for the hook
         updatedYHookPoint = new Vector3(aSM.hookPoint.transform.position.x, aSM.hookPoint.transform.position.y - distanceBeneathHook, aSM.hookPoint.transform.position.z);
 
+        //Set Gravity to 0
+        aSM.pStats.GravVel = -1;
+
     }
 
     public override void ExitState(AerialStateManager aSM, AerialBaseState nextState)

@@ -95,7 +95,7 @@ public class Archer : NetworkBehaviour
         if (target != null && shootingCooldown <= 0f) {
             Vector3 position = target.position;
             ShootArrowServerRPC(position);
-            fireSound.Play();
+            if(fireSound != null) fireSound.Play();
             shootingCooldown = 1f/ fireRate;
         }
 

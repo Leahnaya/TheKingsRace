@@ -347,7 +347,7 @@ public class MoveStateManager : NetworkBehaviour
 
         //Actually move he player
         moveController.Move(driftVel);
-        slideAudio.Play();
+        //slideAudio.Play();
     }
 
     //Camera and player rotation

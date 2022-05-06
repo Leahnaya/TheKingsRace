@@ -90,7 +90,7 @@ public class WeatherWheel : NetworkBehaviour {
             {
                 // Snow
                 SpawnWeatherServerRPC(PlayerStats.Weather.Snow);
-                snowJingle.Play();
+                if(snowJingle != null) snowJingle.Play();
                 // Set angle back to centered
                 transform.localRotation = Quaternion.Euler(0, 0, 90);
             }
@@ -106,7 +106,7 @@ public class WeatherWheel : NetworkBehaviour {
             {
                 // Fog
                 SpawnWeatherServerRPC(PlayerStats.Weather.Fog);
-                fogJingle.Play();
+                if(fogJingle != null) fogJingle.Play();
                 // Set angle back to centered
                 transform.localRotation = Quaternion.Euler(0, 0, 270);
             }
@@ -163,7 +163,7 @@ public class WeatherWheel : NetworkBehaviour {
                 foreach(GameObject go in Rains) { 
                     go.GetComponent<ParticleSystem>().Play();
                 }
-                RainAmbi.Play();
+                if(RainAmbi != null) RainAmbi.Play();
                 break;
             case PlayerStats.Weather.Snow:
                 GameObject[] Snows = GameObject.FindGameObjectsWithTag("SnowSystem");
@@ -179,7 +179,7 @@ public class WeatherWheel : NetworkBehaviour {
                     // Also store the wind direction
                     go.GetComponent<WindDirection>().windDireciton = windDir;
                 }
-                windAmbi.Play();
+                if(windAmbi != null) windAmbi.Play();
                 break;
             case PlayerStats.Weather.Fog:
                 GameObject[] Fogs = GameObject.FindGameObjectsWithTag("FogSystem");

@@ -396,7 +396,7 @@ public class AerialStateManager : NetworkBehaviour
                     AddImpact((GetWallJumpDirection()), pStats.JumpPow * 8.5f);
                     pStats.GravVel = pStats.JumpPow;
                     curJumpNum = 0;
-                    jumpSound1.Play();
+                    if(jumpSound1 != null) jumpSound1.Play();
                 }
                 else{
                     pStats.GravVel = pStats.JumpPow; 
@@ -408,21 +408,21 @@ public class AerialStateManager : NetworkBehaviour
                     //add check here for spring?
                     if (curJumpNum == 0)
                     {
-                        jumpSound1.Play();
+                       if(jumpSound1 != null) jumpSound1.Play();
                     }
                     if (curJumpNum == 1)
                     {
-                        jumpSound2.Play();
+                        if(jumpSound2 != null) jumpSound2.Play();
                     }
                     if (curJumpNum == 2)
                     {
-                        jumpSound3.Play();
+                        if(jumpSound3 != null) jumpSound3.Play();
                     }
                 }
 
                 if(pStats.JumpPow > 60)
                 {
-                    springJumpSound.Play();
+                    if(springJumpSound != null) springJumpSound.Play();
                 }
 
 
@@ -630,7 +630,7 @@ public class AerialStateManager : NetworkBehaviour
                     {
                         //Debug.Log("Found Hook");
                         hookPoint = hookPoints[hookPointIndex]; //The point we are grappling from
-                        grappleSound.Play();
+                        if(grappleSound != null)  grappleSound.Play();
                         return true;
                     }
             }

@@ -105,6 +105,6 @@ public class NitroStateManager : NetworkBehaviour
         currentState = state;
         animationManager.updateCurrentPriority();
         currentState.EnterState(this, previousState);
-        boostSound.Play();
+        //if(boostSound != null) boostSound.Play();
     }
 }

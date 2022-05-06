@@ -49,13 +49,13 @@ public class PostGameUI : NetworkBehaviour {
             // Runners win
             switch (winnerCount) {
                 case 1:
-                    runnerWin.Play();
+                    if(runnerWin != null) runnerWin.Play();
                     winText = "And the winner is the Runner " + playerFinishedNames[0] + "!";
                     active[1] = true;
                     player1.SetActive(active[1]);
                     break;
                 case 2:
-                    runnerWin.Play();
+                    if(runnerWin != null) runnerWin.Play();
                     winText = "And the winners are the Runners " + playerFinishedNames[0] + " and " + playerFinishedNames[1] + "!";
                     active[1] = true;
                     active[2] = true;
@@ -65,7 +65,7 @@ public class PostGameUI : NetworkBehaviour {
             }
         } else {
             // King wins
-            kingWin.Play();
+            if(kingWin != null) kingWin.Play();
             winText = "And the winner is King " + kingName + "!";
             active[0] = true;
             king.SetActive(active[0]);

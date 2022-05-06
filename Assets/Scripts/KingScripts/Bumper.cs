@@ -19,7 +19,8 @@ public class Bumper : MonoBehaviour {
             if(dirBump.x == 0 && dirBump.z == 0){
                 dirBump = new Vector3(1,.1f,1);
             }
-            bumpNoise.Play();
+            
+            if(bumpNoise != null) bumpNoise.Play();
             playerMovement.GetHit(dirBump.normalized, bumpPower);
             //
         }

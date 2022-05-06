@@ -28,12 +28,12 @@ public class AudioHandler : MonoBehaviour
 
     public void Play()
     {
-        mainTheme.Play();
+        if(mainTheme != null) mainTheme.Play();
     }
 
     void Stop()
     {
-        mainTheme.Stop();
+        if(mainTheme != null) mainTheme.Stop();
     }
 
     // Start is called before the first frame update

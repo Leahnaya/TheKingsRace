@@ -34,7 +34,7 @@ public class Thunderstorm : MonoBehaviour
         {
             inAir = true;
         }
-        clouds.Play();
+        if(clouds != null) clouds.Play();
     }
 
     private void FixedUpdate()
@@ -63,9 +63,9 @@ public class Thunderstorm : MonoBehaviour
             if (hit.collider == null)
             {
                 inAir = true;
-                bolt.Play();
-                sparks.Play();
-                pow.Play();
+                if(bolt != null) bolt.Play();
+                if(sparks != null) sparks.Play();
+                if(pow != null) pow.Play();
             }
         }
 
